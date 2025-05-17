@@ -46,8 +46,10 @@ int credstore_add(CredStore *cs, const char *label, const char *username,
 
     CredEntry *e = &cs->entries[cs->count];
     memset(e, 0, sizeof(*e));
-    snprintf(e->label, CRED_MAX_LABEL, "%s", label);
-    snprintf(e->username, CRED_MAX_USER, "%s", username);
+    snprintf(e->label, CRED_MAX_LABEL - 1, "%s", label);
+    e->label[CRED_MAX_LABEL - 1] = '\0';
+    snprintf(e->username, CRED_MAX_USER - 1, "%s", username);
+    e->username[CRED_MAX_USER - 1] = '\0';
 
     /* TODO: encrypt password with AES-256-GCM using key derived from
      * master_password via PBKDF2.  For now store placeholder. */
