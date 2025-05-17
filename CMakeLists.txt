@@ -93,7 +93,15 @@ add_library(puttyalt STATIC
   puttyalt_cmdhistory.c
   puttyalt_statusbar.c
   puttyalt_pinning.c
-  puttyalt_jumphost.c)
+  puttyalt_jumphost.c
+  puttyalt_splitview.c
+  puttyalt_macro.c
+  puttyalt_loggingv2.c
+  puttyalt_sesslock.c
+  puttyalt_bandwidth.c
+  puttyalt_zmodem.c
+  puttyalt_autocomplete.c
+  puttyalt_gesture.c)
 
 
 add_library(all-backends OBJECT
