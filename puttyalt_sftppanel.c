@@ -67,6 +67,9 @@ static int cmp_date(const void *a, const void *b)
 
 void sftp_panel_sort(SftpPanel *sp)
 {
+    if (sp->count <= 1)
+        return; /* nothing to sort, avoid qsort on empty array */
+
     int (*cmp)(const void *, const void *) = cmp_name;
     if (sp->sort_by == 1) cmp = cmp_size;
     else if (sp->sort_by == 2) cmp = cmp_date;
