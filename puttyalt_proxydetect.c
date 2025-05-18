@@ -156,3 +156,14 @@ int proxy_detect_system(ProxyConfig *pc)
     return -1;
 }
 #endif
+
+/* PAC (Proxy Auto-Config) file detection stub */
+int proxy_detect_pac(const char *pac_url, char *proxy_out, int outlen)
+{
+    if (!pac_url || !proxy_out) return -1;
+    if (strstr(pac_url, ".pac") || strstr(pac_url, "wpad.dat")) {
+        snprintf(proxy_out, outlen, "PAC:%s", pac_url);
+        return 1;
+    }
+    return 0;
+}
