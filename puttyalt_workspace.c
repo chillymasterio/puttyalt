@@ -77,7 +77,7 @@ int ws_save(const WorkspaceManager *wm, const char *path)
         for (int j = 0; j < w->num_sessions; j++)
             fprintf(fp, "host=%s\nport=%d\nuser=%s\n",
                     w->sessions[j].host, w->sessions[j].port,
-                    w->sessions[j].username);
+                    w->sessions[j].username[0] ? w->sessions[j].username : "");
     }
     fclose(fp);
     return 0;
