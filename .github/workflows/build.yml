@@ -1,5 +1,4 @@
 name: Build
-
 on:
   push:
     branches: [main]
@@ -8,74 +7,46 @@ on:
     branches: [main]
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  build:
     strategy:
       matrix:
-        arch: [x64, x86, arm64]
+        include:
+          - { os: windows-latest, arch: x64, args: "-A x64" }
+          - { os: windows-latest, arch: x86, args: "-A Win32" }
+          - { os: windows-latest, arch: ARM64, args: "-A ARM64" }
+          - { os: ubuntu-latest, arch: x64, args: "" }
+          - { os: macos-latest, arch: x64, args: "" }
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }} (${{ matrix.arch }})
     steps:
       - uses: actions/checkout@v4
-
-      - name: Configure CMake
-        run: cmake -B build -A ${{ matrix.arch == 'x64' && 'x64' || matrix.arch == 'x86' && 'Win32' || 'ARM64' }}
-
-      - name: Build
-        run: cmake --build build --config Release
-
-      - name: Collect binaries
-        shell: bash
-        run: |
-          mkdir -p dist
-          for exe in build/Release/*.exe build/*.exe; do
-            [ -f "$exe" ] && cp "$exe" dist/ || true
-          done
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - run: cmake -B build -DCMAKE_BUILD_TYPE=Release ${{ matrix.args }}
+      - run: cmake --build build --config Release
+      - uses: actions/upload-artifact@v4
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: puttyalt-${{ matrix.arch }}
-          path: dist/*.exe
-
-  release:
-    needs: build-windows
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: Package archives
-        run: |
-          for dir in artifacts/puttyalt-*; do
-            arch=$(basename "$dir" | sed 's/puttyalt-//')
-            (cd "$dir" && zip -r "../../puttyalt-${arch}.zip" .)
-          done
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: puttyalt-*.zip
-          generate_release_notes: true
-          draft: false
+          name: puttyalt-${{ matrix.os }}-${{ matrix.arch }}
+          path: build/
 
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Check include guards
-        run: |
-          for f in puttyalt_*.h; do
-            guard=$(echo "$f" | tr '[:lower:].' '[:upper:]_' | sed 's/_H$/_H/')
-            if ! grep -q "#ifndef" "$f"; then
-              echo "FAIL: $f missing include guard"
-              exit 1
-            fi
-          done
-          echo "All headers have include guards"
-      - name: Version consistency
+        run: for f in puttyalt_*.h; do grep -q "#ifndef" "$f" || exit 1; done
+      - name: Version match
         run: |
           VER=$(grep PUTTYALT_VERSION_STR puttyalt.h | grep -o '"[^"]*"' | tr -d '"')
-          grep -q "\[$VER\]" CHANGELOG.md || { echo "CHANGELOG missing $VER"; exit 1; }
+          grep -q "\[$VER\]" CHANGELOG.md
+      - name: Module count
+        run: echo "$(ls puttyalt_*.c | wc -l) modules"
+
+  release:
+    needs: [build, lint]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+      - uses: softprops/action-gh-release@v1
+        with: { generate_release_notes: true }
