@@ -4,6 +4,7 @@
 
 #include "puttyalt_reconnect.h"
 #include <string.h>
+#include <stdlib.h>
 
 void reconnect_init(ReconnectCtx *ctx)
 {

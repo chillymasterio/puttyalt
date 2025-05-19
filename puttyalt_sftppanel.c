@@ -4,6 +4,7 @@
 
 #include "puttyalt_sftppanel.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 void sftp_panel_init(SftpPanel *sp)

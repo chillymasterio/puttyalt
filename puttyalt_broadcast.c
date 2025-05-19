@@ -8,6 +8,7 @@
 
 #include "puttyalt_broadcast.h"
 #include <string.h>
+#include <stdio.h>
 
 void broadcast_init(BroadcastGroup *bg)
 {

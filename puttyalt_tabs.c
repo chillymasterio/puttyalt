@@ -4,6 +4,8 @@
 
 #include "puttyalt_tabs.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 void tabs_init(TabManager *tm)

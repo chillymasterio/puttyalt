@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include "puttyalt_urlhandler.h"

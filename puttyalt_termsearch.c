@@ -4,6 +4,7 @@
 
 #include "puttyalt_termsearch.h"
 #include <string.h>
+#include <stdio.h>
 #include <ctype.h>
 
 void termsearch_init(TermSearch *ts)
