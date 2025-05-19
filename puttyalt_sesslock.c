@@ -53,7 +53,11 @@ int sesslock_verify(SessionLock *lock, const char *password, unsigned long now)
     unsigned char test[SESSLOCK_HASH_LEN];
     compute_hash(password, lock->salt, test);
 
-    if (memcmp(test, lock->password_hash, SESSLOCK_HASH_LEN) != 0) {
+    /* Constant-time comparison to prevent timing attacks */
+    int diff = 0;
+    for (int i = 0; i < SESSLOCK_HASH_LEN; i++)
+        diff |= test[i] ^ lock->password_hash[i];
+    if (diff != 0) {
         lock->failed_attempts++;
         if (lock->failed_attempts >= SESSLOCK_MAX_ATTEMPTS)
             lock->lockout_until = now + SESSLOCK_LOCKOUT_SEC;
