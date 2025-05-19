@@ -25,7 +25,8 @@ typedef struct ConnectionPool {
     PooledConnection conns[POOL_MAX_CONN];
     int count;
     int max_idle_sec;      /* max idle time before eviction */
-    int max_per_host;      /* max connections per host */
+    int max_per_host;
+    int stats_enabled;      /* max connections per host */
 } ConnectionPool;
 
 void connpool_init(ConnectionPool *pool, int max_idle, int max_per_host);
