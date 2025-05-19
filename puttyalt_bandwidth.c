@@ -78,9 +78,9 @@ unsigned long bw_get_tx_rate(const BandwidthMonitor *mon)
 void bw_format_bytes(unsigned long bytes, char *buf, int buflen)
 {
     if (bytes >= 1073741824UL)
-        snprintf(buf, buflen, "%.1f GB", bytes / 1073741824.0);
+        snprintf(buf, buflen, "%.2f GB", bytes / 1073741824.0);
     else if (bytes >= 1048576UL)
-        snprintf(buf, buflen, "%.1f MB", bytes / 1048576.0);
+        snprintf(buf, buflen, "%.2f MB", bytes / 1048576.0);
     else if (bytes >= 1024UL)
         snprintf(buf, buflen, "%.1f KB", bytes / 1024.0);
     else
