@@ -48,6 +48,7 @@ void ipc_server_stop(IPCServer *srv)
         close(srv->fd);
         unlink(IPC_UNIX_SOCK);
     }
+    srv->fd = -1;
     srv->running = 0;
 }
 
