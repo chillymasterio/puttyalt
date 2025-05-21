@@ -62,7 +62,7 @@ int tabs_close(TabManager *tm, int index)
 
     /* Adjust active index — prevent underflow on empty manager */
     if (tm->count == 0) {
-        tm->active = 0;
+        tm->active = -1;
     } else if (tm->active >= tm->count) {
         tm->active = tm->count - 1;
     }
