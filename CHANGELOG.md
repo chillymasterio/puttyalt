@@ -1,48 +1,59 @@
 # Changelog
 
-## [0.4.0] — 2026-05-19
+## [1.0.0] — 2026-05-21
 
-### Added
-- Workspaces, SSH tunnel manager, serial port backend
-- Find & replace, session tags, scrollback export (HTML/JSON)
-- Connection pooling, URL handler, SCP integration
-- Network diagnostics, session templates, color picker
-- Font manager, startup commands, layout presets
-- Session migration (PuTTY/KiTTY/MobaXterm/SSH config)
-- Plugin system, event bus, IPC, auto-update checker
-- Bookmarks, shared clipboard, keep-alive manager
-- Enhanced bell, agent forwarding v2, X11 forwarding
-- Command scheduler, Telnet negotiation, performance profiler
-- Memory pool, string builder, INI parser, trigger engine v2
-- Key generator, host verification DB, image protocol detection
-- Session statistics, proxy chain, 256-color palette
-- Scrollback RLE compression, base64, escape parser
-- Input validation, notification sounds
-- .editorconfig, .gitattributes, SECURITY.md, CONTRIBUTING.md
+### Major Release — GUI Redesign & Full Feature Set
 
-### Fixed
-- SFTP panel crash on empty sort, theme diagnostics
-- Snippet empty name rejection, split view div-by-zero
-- Macro bounds check, session lock timing side-channel
-- Bandwidth precision, URL handler option injection
-- IPC socket race, workspace null username, JSON newline escape
-- Serial port is_open check, credential store stack zeroing
+#### New Features
+- **GUI Redesign**: Warm blue minimalist theme with sidebar panel, zoom controls
+- **Terminal Multiplexer**: Split panes, focus cycling, equalize layout
+- **Script Manager**: Run shell/Python/Lua/Expect scripts on session triggers
+- **Connection Profiler**: Real-time latency tracking, jitter analysis, CSV export
+- **Session Monitor**: Metric-based alerts with configurable rules and actions
+- **SSH Agent Manager**: Key lifecycle management, auto-add, lifetime control
+- **Clipboard Manager v2**: Ring buffer with search, deduplication, pinned entries
+- **Log Engine v3**: Multi-format output (raw/text/HTML/CSV/JSON) with rotation
+- **Session Groups**: Organize sessions into colored collapsible folders
+- **Terminal Renderer**: Cell-based grid rendering with dirty region tracking
+- **SSH Config Parser**: Full ~/.ssh/config read/write support
+- **Code Signing**: SmartScreen trust, Zone.Identifier removal, Authenticode support
 
-## [0.3.0] — 2026-05-17
-### Added
-- Split-pane view, keyboard macros, structured logging v2
-- Session lock, bandwidth monitor, ZMODEM, auto-complete, gestures
-### Fixed
-- Tab close NULL deref, credstore overflow, reconnect timer, include guard
+#### Improvements
+- Windows manifest: OS compatibility declarations, long path support, segment heap
+- Resource file: proper version info for SmartScreen trust
+- Default font changed to Cascadia Code
+- Sidebar: session list, bookmarks, snippets panels
+- Zoom: Ctrl++/Ctrl+-/Ctrl+0
+- Scrollback increased to 20000 lines default
+- Menu reorganization with keyboard shortcuts throughout
 
-## [0.2.0] — 2026-05-16
-### Added
-- Tabs, SFTP panel, credential store, themes, import, shortcuts
-- Notifications, proxy detect, transfer progress, latency, command history
-- Status bar, timeouts, aliases, host key pinning, jump hosts
+#### Bug Fixes
+- tabs: set active to -1 when all tabs closed
+- snippets: null check on category parameter
+- macro: tighter slot bounds checking
+- IPC: reset fd to -1 after server stop
+- workspace: null-guard save parameters
+- validate: reject hostnames starting with dash
+- credstore: zero sensitive buffers after use
+- hostverify: use snprintf for null termination
+- escparse: return 0 for incomplete sequences
+- serial: validate baud rate range (50-4M)
+- connpool: add forward declaration for eviction
+- telnet: prevent option negotiation overflow
 
-## [0.1.0] — 2026-05-15
-### Added
-- Portable mode, auto-reconnect, geometry, session manager, snippets
-- Health monitor, log rotation, clipboard history, triggers, broadcast
-- Key manager, scrollback search, environment indicator, quick connect
+## [0.4.0] — 2026-05-20
+
+### Workspaces, Tunnels, Plugins & 40+ New Modules
+(see previous changelog entries)
+
+## [0.3.0] — 2026-05-18
+
+### Split View, Macros & Autocomplete
+
+## [0.2.0] — 2026-05-17
+
+### Tabs, SFTP & Themes
+
+## [0.1.0] — 2026-05-16
+
+### Initial Release — Portable mode, reconnect, snippets
