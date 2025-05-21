@@ -91,6 +91,17 @@ add_library(puttyalt STATIC
   puttyalt_gui.c
   puttyalt_dialogs.c
   puttyalt_tray.c
+  puttyalt_scriptmgr.c
+  puttyalt_connprof.c
+  puttyalt_monitor.c
+  puttyalt_mux.c
+  puttyalt_sshagent.c
+  puttyalt_clipmgr.c
+  puttyalt_logengine.c
+  puttyalt_codesign.c
+  puttyalt_sessgroup.c
+  puttyalt_renderer.c
+  puttyalt_sshconfig.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
@@ -105,7 +116,6 @@ target_link_libraries(puttyalt-gui PRIVATE puttyalt)
 
 if(WIN32)
   target_link_libraries(puttyalt-gui PRIVATE comctl32 shell32 comdlg32)
-  # Resource file for icon and manifest
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/puttyalt.rc")
     target_sources(puttyalt-gui PRIVATE puttyalt.rc)
   endif()
