@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [x64, x86, arm64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: cmake -B build -A ${{ matrix.arch == 'x64' && 'x64' || matrix.arch == 'x86' && 'Win32' || 'ARM64' }}
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Collect binaries
+        shell: bash
+        run: |
+          mkdir -p dist
+          for exe in build/Release/*.exe build/*.exe; do
+            [ -f "$exe" ] && cp "$exe" dist/ || true
+          done
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: puttyalt-${{ matrix.arch }}
+          path: dist/*.exe
+
+  release:
+    needs: build-windows
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Package archives
+        run: |
+          for dir in artifacts/puttyalt-*; do
+            arch=$(basename "$dir" | sed 's/puttyalt-//')
+            (cd "$dir" && zip -r "../../puttyalt-${arch}.zip" .)
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: puttyalt-*.zip
+          generate_release_notes: true
+          draft: false
