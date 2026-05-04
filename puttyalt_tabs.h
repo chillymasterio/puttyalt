@@ -53,3 +53,4 @@ int  tabs_find_by_hostname(const TabManager *tm, const char *hostname);
 void tabs_pin(TabManager *tm, int index, int pinned);
 
 #endif /* PUTTYALT_TABS_H */
+/* end of puttyalt_tabs.h */
