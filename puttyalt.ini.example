@@ -1,0 +1,30 @@
+# PuttyAlt portable configuration example
+# Place as "puttyalt.ini" next to the executable for portable mode.
+
+[general]
+theme = Dracula
+statusbar = 1
+tab_bar_position = top
+confirm_close = 1
+
+[timeout]
+connect_timeout = 30
+idle_timeout = 0
+keepalive = 60
+
+[shortcuts]
+# Override default shortcuts (modifier keycode action)
+# 1=Ctrl, 2=Shift, 4=Alt
+# Example: Ctrl+Shift+T = duplicate tab
+# 3 84 24
+
+[aliases]
+prod1 = admin@10.0.5.42:2222
+staging = deploy@staging.example.com
+db = root@db-master.internal:3306
+
+[environment]
+# Rules: pattern,match_type,label,r,g,b,blink
+prod,0,PRODUCTION,220,40,40,1
+staging,0,STAGING,230,180,30,0
+dev,0,DEV,40,180,60,0
