@@ -68,6 +68,13 @@ Multi-Input            — type once, send to 10 servers
 Triggers               — "if output contains ERROR → alert me"
 Terminal Search        — Ctrl+Shift+F to search scrollback
 Key Manager            — auto-discover and select SSH keys
+Tabs                   — 64 sessions, one window, Ctrl+T
+SFTP Panel             — split-pane file browser, drag and drop
+Themes                 — Solarized, Dracula, Nord, Monokai, Gruvbox
+Credential Store       — AES-256, master password
+Session Import         — from PuTTY registry and SSH config
+Latency Graph          — sparkline in status bar
+Audit Log              — compliance-ready connection logging
 Env Indicator          — colour stripes for prod/staging/dev
 Quick Connect          — Ctrl+K URI bar: ssh://user@host:port
 ```
