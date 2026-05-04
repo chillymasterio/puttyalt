@@ -1,4 +1,7 @@
 <p align="center">
+
+[![Build](https://github.com/chillymasterio/puttyalt/actions/workflows/build.yml/badge.svg)](https://github.com/chillymasterio/puttyalt/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENCE)
   <img src="docs/assets/img/logo.svg" alt="PuttyAlt" width="96">
 </p>
 
