@@ -31,3 +31,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - PuTTY 0.83 (2025-02-08) by Simon Tatham
 - Includes ML-KEM post-quantum key exchange support
 - All upstream security patches applied
+
+## [0.2.0] - 2026-05-16
+
+### Added - Core Features
+- **Tabbed interface** — multiple sessions in one window (Ctrl+T/Ctrl+W)
+- **SFTP panel** — split-pane file browser with sorting and navigation
+- **Credential store** — AES-256-GCM encrypted password storage
+- **Theme engine** — 5 built-in schemes (Solarized, Dracula, Nord, Monokai, Gruvbox)
+- **Session import** — import from PuTTY registry and SSH config
+- **Keyboard shortcuts** — fully customisable bindings with browser-like defaults
+
+### Added - Quality of Life
+- **Desktop notifications** — toast alerts for connection events and triggers
+- **Proxy auto-detect** — reads system proxy from registry/environment
+- **Transfer progress** — speed, ETA, and progress bar for SFTP transfers
+- **Latency tracker** — sparkline graph and quality rating in status bar
+- **Command history** — cross-session history with prefix search
+- **Status bar** — connection info, latency, and transfer status
+- **Idle timeout** — per-session connect/idle timeout with warnings
+- **Hostname aliases** — short names for frequently-used servers
