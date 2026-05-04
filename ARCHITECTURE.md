@@ -55,6 +55,9 @@ rebasing when new PuTTY versions are released.
 | `puttyalt_snippets` | Command snippet library |
 | `puttyalt_keymanager` | SSH key auto-discovery |
 | `puttyalt_transfer` | File transfer progress |
+| `puttyalt_agentfwd` | SSH agent forwarding control |
+| `puttyalt_export` | Session export to SSH config/JSON |
+| `puttyalt_auditlog` | Security audit logging |
 
 ## Build System
 
