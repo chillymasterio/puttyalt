@@ -91,7 +91,9 @@ add_library(puttyalt STATIC
   puttyalt_transfer.c
   puttyalt_latency.c
   puttyalt_cmdhistory.c
-  puttyalt_statusbar.c)
+  puttyalt_statusbar.c
+  puttyalt_pinning.c
+  puttyalt_jumphost.c)
 
 
 add_library(all-backends OBJECT
