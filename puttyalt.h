@@ -9,17 +9,17 @@
 #define PUTTYALT_H
 
 #define PUTTYALT_VERSION_MAJOR  0
-#define PUTTYALT_VERSION_MINOR  2
+#define PUTTYALT_VERSION_MINOR  3
 #define PUTTYALT_VERSION_PATCH  0
 
-#define PUTTYALT_VERSION_STR    "0.2.0"
+#define PUTTYALT_VERSION_STR    "0.3.0"
 #define PUTTYALT_NAME           "PuttyAlt"
 #define PUTTYALT_APPNAME        "PuttyAlt"
 
 /* Upstream base */
 #define PUTTYALT_UPSTREAM       "PuTTY 0.83"
 
-/* Feature flags — enable/disable PuttyAlt enhancements */
+/* v0.1.0 feature flags */
 #define PUTTYALT_PORTABLE_MODE  1   /* Registry-free portable config */
 #define PUTTYALT_AUTO_RECONNECT 1   /* Auto-reconnect on connection drop */
 #define PUTTYALT_REMEMBER_SIZE  1   /* Remember window position/size */
@@ -34,8 +34,6 @@
 #define PUTTYALT_TERM_SEARCH    1   /* Scrollback search */
 #define PUTTYALT_ENV_INDICATOR  1   /* Environment colour stripes */
 #define PUTTYALT_QUICK_CONNECT  1   /* URI-based quick connect */
-
-#endif /* PUTTYALT_H */
 
 /* v0.2.0 feature flags */
 #define PUTTYALT_TABS            1   /* Multi-session tabs */
@@ -52,3 +50,17 @@
 #define PUTTYALT_STATUSBAR       1   /* Information status bar */
 #define PUTTYALT_TIMEOUT         1   /* Per-session timeouts */
 #define PUTTYALT_ALIASES         1   /* Hostname aliases */
+#define PUTTYALT_PINNING         1   /* Host key pinning */
+#define PUTTYALT_JUMPHOST        1   /* ProxyJump chaining */
+
+/* v0.3.0 feature flags */
+#define PUTTYALT_SPLIT_VIEW      1   /* Horizontal/vertical terminal split */
+#define PUTTYALT_MACRO           1   /* Recordable keyboard macros */
+#define PUTTYALT_LOGGING_V2      1   /* Enhanced structured logging */
+#define PUTTYALT_MOUSE_GESTURES  1   /* Mouse gesture actions */
+#define PUTTYALT_ZMODEM          1   /* ZMODEM file transfer */
+#define PUTTYALT_AUTO_COMPLETE   1   /* Tab completion for known commands */
+#define PUTTYALT_SESSION_LOCK    1   /* Lock session with password */
+#define PUTTYALT_BANDWIDTH       1   /* Bandwidth usage monitor */
+
+#endif /* PUTTYALT_H */
