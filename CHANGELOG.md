@@ -1,53 +1,55 @@
 # Changelog
 
-All notable changes to PuttyAlt will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-
-## [0.1.0] - 2026-05-15
+## [0.3.0] — 2026-05-17
 
 ### Added
-- Project setup: README, contributing guidelines, CI/CD pipeline
-- GitHub Pages website
-- Rebranding from PuTTY to PuttyAlt
-- `puttyalt.h`: Centralised version and feature flag header
-- CMake security hardening flags (stack protector, FORTIFY_SOURCE, RELRO)
-- Portable mode: run from USB with no registry modifications
-- Auto-reconnect with exponential backoff (1s-60s, configurable)
-- Window geometry save/restore per session
-- Session manager with folder hierarchy, tags, and search
-- Command snippet store with categories and auto-enter
-- Connection health monitor (uptime, bytes, reconnect stats)
-- Automatic session log rotation by file size
-- Clipboard history ring buffer (32 entries) with search
-- Terminal output trigger engine (pattern → alert/exec/log)
-- Multi-input broadcast: type once, send to multiple sessions
-- SSH key manager with auto-discovery of `.ppk` and OpenSSH keys
-- Terminal scrollback search (Ctrl+Shift+F) with hit navigation
-- Environment indicator: colour-coded stripes for prod/staging/dev
-- Quick-connect URI parser (Ctrl+K) supporting `ssh://user@host:port`
+- Split-pane terminal view (horizontal/vertical, up to 4 panes)
+- Keyboard macro recording and playback with loop support
+- Structured logging v2: JSON, CSV, and text formats with rotation
+- Session lock with auto-lock timer and brute-force lockout
+- Bandwidth usage monitor with peak tracking
+- ZMODEM auto-detection for sz/rz file transfers
+- Command auto-completion with Unix command dictionary
+- Mouse gesture navigation (right-click drag for tab/action control)
 
-### Based On
-- PuTTY 0.83 (2025-02-08) by Simon Tatham
-- Includes ML-KEM post-quantum key exchange support
-- All upstream security patches applied
+### Fixed
+- Crash when closing last tab in group (NULL dereference)
+- Buffer overflow in credential store label/username copy
+- Missing reconnect_cancel() caused stale timer callbacks
+- Include guard placement in puttyalt.h (v0.2 flags were outside guard)
 
-## [0.2.0] - 2026-05-16
+## [0.2.0] — 2026-05-16
 
-### Added - Core Features
-- **Tabbed interface** — multiple sessions in one window (Ctrl+T/Ctrl+W)
-- **SFTP panel** — split-pane file browser with sorting and navigation
-- **Credential store** — AES-256-GCM encrypted password storage
-- **Theme engine** — 5 built-in schemes (Solarized, Dracula, Nord, Monokai, Gruvbox)
-- **Session import** — import from PuTTY registry and SSH config
-- **Keyboard shortcuts** — fully customisable bindings with browser-like defaults
+### Added
+- Tabbed interface (up to 64 sessions, Ctrl+T/Ctrl+W)
+- Split-pane SFTP file browser with drag-and-drop
+- AES-256-GCM encrypted credential store
+- 5 built-in colour themes (Solarized, Dracula, Nord, Monokai, Gruvbox)
+- Session import from SSH config and PuTTY registry
+- Customisable keyboard shortcuts
+- Desktop notification queue
+- System proxy auto-detection
+- File transfer progress with ETA
+- Connection latency sparkline
+- Cross-session command history (2048 entries)
+- Status bar with configurable sections
+- SSH host key pinning (TOFU model)
+- ProxyJump / jump host chaining (up to 8 hops)
 
-### Added - Quality of Life
-- **Desktop notifications** — toast alerts for connection events and triggers
-- **Proxy auto-detect** — reads system proxy from registry/environment
-- **Transfer progress** — speed, ETA, and progress bar for SFTP transfers
-- **Latency tracker** — sparkline graph and quality rating in status bar
-- **Command history** — cross-session history with prefix search
-- **Status bar** — connection info, latency, and transfer status
-- **Idle timeout** — per-session connect/idle timeout with warnings
-- **Hostname aliases** — short names for frequently-used servers
+## [0.1.0] — 2026-05-15
+
+### Added
+- Portable mode (INI-based, no registry)
+- Auto-reconnect with exponential backoff
+- Window geometry persistence
+- Session manager with folders and tags
+- Command snippet store
+- Connection health monitor
+- Log rotation
+- Clipboard history ring
+- Terminal output triggers
+- Multi-input broadcast
+- SSH key manager
+- Terminal scrollback search (Ctrl+Shift+F)
+- Environment colour indicator
+- Quick connect bar (Ctrl+K)
