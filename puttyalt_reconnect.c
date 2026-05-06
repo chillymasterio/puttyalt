@@ -63,6 +63,14 @@ int reconnect_get_delay(const ReconnectCtx *ctx)
     return ctx->current_delay_ms;
 }
 
+void reconnect_cancel(ReconnectCtx *ctx)
+{
+    ctx->state = RSTATE_IDLE;
+    ctx->current_delay_ms = ctx->base_delay_ms;
+    /* Clear pending timer state to prevent stale timer callbacks */
+    ctx->attempt = 0;
+}
+
 void reconnect_reset(ReconnectCtx *ctx)
 {
     ReconnectPolicy saved_policy = ctx->policy;
