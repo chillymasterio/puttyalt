@@ -73,3 +73,41 @@ control which modules are active at compile time.
 3. **No external dependencies** — only Win32 API and POSIX
 4. **Portable** — every module compiles on Windows (MSVC/MinGW) and Linux
 5. **Secure** — use `smemclr()` for secrets, validate all inputs
+
+## v0.3.0 Modules
+
+### puttyalt_splitview (Split-Pane Terminal)
+- Horizontal and vertical splits, up to 4 panes
+- Each pane can host an independent session
+- Resize redistributes space evenly
+
+### puttyalt_macro (Keyboard Macros)
+- Record keystroke sequences with timing
+- Playback with configurable repeat count or infinite loop
+- Up to 16 named macro slots
+
+### puttyalt_loggingv2 (Structured Logging)
+- JSON, CSV, and plain text output formats
+- Severity levels (TRACE through FATAL)
+- Automatic rotation by size with retention policy
+
+### puttyalt_sesslock (Session Lock)
+- Password-protect active sessions
+- Auto-lock after idle time
+- Brute-force lockout (5 attempts / 60s)
+
+### puttyalt_bandwidth (Bandwidth Monitor)
+- Real-time RX/TX rate calculation
+- 60-second rolling history with peak tracking
+
+### puttyalt_zmodem (ZMODEM Transfer)
+- Auto-detects ZMODEM initiation in terminal output
+- Delegates to rz/sz for protocol handling
+
+### puttyalt_autocomplete (Command Completion)
+- Built-in dictionary of 60+ Unix commands
+- Prefix matching, learns from history
+
+### puttyalt_gesture (Mouse Gestures)
+- Right-button drag recognition (8 gesture types)
+- Configurable action bindings
