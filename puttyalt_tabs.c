@@ -55,13 +55,15 @@ int tabs_close(TabManager *tm, int index)
     /* Shift tabs down */
     for (int i = index; i < tm->count - 1; i++)
         tm->tabs[i] = tm->tabs[i + 1];
+    memset(&tm->tabs[tm->count - 1], 0, sizeof(TabEntry));
     tm->count--;
 
-    /* Adjust active index */
-    if (tm->active >= tm->count)
-        tm->active = tm->count - 1;
-    if (tm->active < 0)
+    /* Adjust active index — prevent underflow on empty manager */
+    if (tm->count == 0) {
         tm->active = 0;
+    } else if (tm->active >= tm->count) {
+        tm->active = tm->count - 1;
+    }
 
     return 0;
 }
