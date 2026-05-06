@@ -60,3 +60,22 @@ jobs:
           files: puttyalt-*.zip
           generate_release_notes: true
           draft: false
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check include guards
+        run: |
+          for f in puttyalt_*.h; do
+            guard=$(echo "$f" | tr '[:lower:].' '[:upper:]_' | sed 's/_H$/_H/')
+            if ! grep -q "#ifndef" "$f"; then
+              echo "FAIL: $f missing include guard"
+              exit 1
+            fi
+          done
+          echo "All headers have include guards"
+      - name: Version consistency
+        run: |
+          VER=$(grep PUTTYALT_VERSION_STR puttyalt.h | grep -o '"[^"]*"' | tr -d '"')
+          grep -q "\[$VER\]" CHANGELOG.md || { echo "CHANGELOG missing $VER"; exit 1; }
