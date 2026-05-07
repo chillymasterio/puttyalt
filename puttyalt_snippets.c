@@ -73,6 +73,8 @@ int snippets_add(SnippetStore *store, const Snippet *snip)
 {
     if (store->count >= MAX_SNIPPETS)
         return -1;
+    if (snip->name[0] == '\0' || snip->command[0] == '\0')
+        return -1; /* reject empty name or body */
     memcpy(&store->snippets[store->count++], snip, sizeof(Snippet));
     return 0;
 }
