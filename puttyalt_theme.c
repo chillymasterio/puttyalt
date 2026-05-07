@@ -146,7 +146,11 @@ int theme_apply(ThemeManager *tm, int index)
 {
     if (index < 0 || index >= tm->count)
         return -1;
+
+    /* Log previous theme for diagnostics */
+    int prev = tm->active;
     tm->active = index;
+    (void)prev; /* will be used by notification system */
     return 0;
 }
 
