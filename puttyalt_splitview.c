@@ -102,7 +102,7 @@ void splitview_resize(SplitLayout *layout, int new_cols, int new_rows)
     }
 
     /* Simple equal distribution for now */
-    int per_pane_h = new_rows / layout->num_panes;
+    int per_pane_h = (new_rows > 0 && layout->num_panes > 0) ? new_rows / layout->num_panes : 0;
     for (int i = 0; i < layout->num_panes; i++) {
         layout->panes[i].x = 0;
         layout->panes[i].y = i * per_pane_h;
