@@ -93,11 +93,11 @@ int url_open(const char *url)
     return (int)(size_t)ShellExecuteA(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
 #elif defined(__APPLE__)
     char cmd[URL_MAX_LEN + 16];
-    snprintf(cmd, sizeof(cmd), "open '%s'", url);
+    snprintf(cmd, sizeof(cmd), "open -- '%s'", url);
     return system(cmd);
 #else
     char cmd[URL_MAX_LEN + 16];
-    snprintf(cmd, sizeof(cmd), "xdg-open '%s'", url);
+    snprintf(cmd, sizeof(cmd), "xdg-open -- '%s'", url);
     return system(cmd);
 #endif
 }
