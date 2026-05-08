@@ -52,7 +52,7 @@ int macro_record_event(MacroRecorder *rec, const unsigned char *data,
     Macro *m = &rec->slots[rec->recording];
     if (m->num_events >= MACRO_MAX_EVENTS)
         return -1;
-    if (len <= 0 || len > 8)
+    if (len <= 0 || len > (int)sizeof(ev->data))
         return -1;
 
     MacroEvent *ev = &m->events[m->num_events];
