@@ -19,7 +19,7 @@ int serial_open(SerialPort *port, const SerialConfig *cfg)
 
 #ifndef _WIN32
     port->fd = open(cfg->device, O_RDWR | O_NOCTTY | O_NONBLOCK);
-    if (port->fd < 0) return -1;
+    if (port->fd < 0 || !port->is_open) return -1;
 
     struct termios tty;
     memset(&tty, 0, sizeof(tty));
