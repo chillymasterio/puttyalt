@@ -1,66 +1,107 @@
 /*
  * puttyalt.h: PuttyAlt version and branding definitions.
- *
- * This header centralises all PuttyAlt-specific constants so that
- * the upstream PuTTY code can remain largely unmodified.
  */
 
 #ifndef PUTTYALT_H
 #define PUTTYALT_H
 
 #define PUTTYALT_VERSION_MAJOR  0
-#define PUTTYALT_VERSION_MINOR  3
+#define PUTTYALT_VERSION_MINOR  4
 #define PUTTYALT_VERSION_PATCH  0
 
-#define PUTTYALT_VERSION_STR    "0.3.0"
+#define PUTTYALT_VERSION_STR    "0.4.0"
 #define PUTTYALT_NAME           "PuttyAlt"
 #define PUTTYALT_APPNAME        "PuttyAlt"
-
-/* Upstream base */
 #define PUTTYALT_UPSTREAM       "PuTTY 0.83"
 
-/* v0.1.0 feature flags */
-#define PUTTYALT_PORTABLE_MODE  1   /* Registry-free portable config */
-#define PUTTYALT_AUTO_RECONNECT 1   /* Auto-reconnect on connection drop */
-#define PUTTYALT_REMEMBER_SIZE  1   /* Remember window position/size */
-#define PUTTYALT_SESSION_MGR    1   /* Session manager with folders */
-#define PUTTYALT_SNIPPETS       1   /* Command snippet store */
-#define PUTTYALT_HEALTH_MON     1   /* Connection health monitor */
-#define PUTTYALT_LOG_ROTATE     1   /* Automatic log rotation */
-#define PUTTYALT_CLIP_HISTORY   1   /* Clipboard history ring */
-#define PUTTYALT_TRIGGERS       1   /* Terminal output triggers */
-#define PUTTYALT_BROADCAST      1   /* Multi-input broadcast */
-#define PUTTYALT_KEY_MANAGER    1   /* SSH key inventory */
-#define PUTTYALT_TERM_SEARCH    1   /* Scrollback search */
-#define PUTTYALT_ENV_INDICATOR  1   /* Environment colour stripes */
-#define PUTTYALT_QUICK_CONNECT  1   /* URI-based quick connect */
+/* v0.1.0 */ 
+#define PUTTYALT_PORTABLE_MODE  1
+#define PUTTYALT_AUTO_RECONNECT 1
+#define PUTTYALT_REMEMBER_SIZE  1
+#define PUTTYALT_SESSION_MGR    1
+#define PUTTYALT_SNIPPETS       1
+#define PUTTYALT_HEALTH_MON     1
+#define PUTTYALT_LOG_ROTATE     1
+#define PUTTYALT_CLIP_HISTORY   1
+#define PUTTYALT_TRIGGERS       1
+#define PUTTYALT_BROADCAST      1
+#define PUTTYALT_KEY_MANAGER    1
+#define PUTTYALT_TERM_SEARCH    1
+#define PUTTYALT_ENV_INDICATOR  1
+#define PUTTYALT_QUICK_CONNECT  1
 
-/* v0.2.0 feature flags */
-#define PUTTYALT_TABS            1   /* Multi-session tabs */
-#define PUTTYALT_SFTP_PANEL      1   /* Split-pane SFTP browser */
-#define PUTTYALT_CRED_STORE      1   /* Encrypted credential store */
-#define PUTTYALT_THEMES          1   /* Colour theme engine */
-#define PUTTYALT_IMPORT          1   /* Session import */
-#define PUTTYALT_SHORTCUTS       1   /* Custom keyboard shortcuts */
-#define PUTTYALT_NOTIFY          1   /* Desktop notifications */
-#define PUTTYALT_PROXY_DETECT    1   /* Auto proxy detection */
-#define PUTTYALT_TRANSFER        1   /* File transfer progress */
-#define PUTTYALT_LATENCY         1   /* Connection latency tracker */
-#define PUTTYALT_CMD_HISTORY     1   /* Cross-session command history */
-#define PUTTYALT_STATUSBAR       1   /* Information status bar */
-#define PUTTYALT_TIMEOUT         1   /* Per-session timeouts */
-#define PUTTYALT_ALIASES         1   /* Hostname aliases */
-#define PUTTYALT_PINNING         1   /* Host key pinning */
-#define PUTTYALT_JUMPHOST        1   /* ProxyJump chaining */
+/* v0.2.0 */
+#define PUTTYALT_TABS            1
+#define PUTTYALT_SFTP_PANEL      1
+#define PUTTYALT_CRED_STORE      1
+#define PUTTYALT_THEMES          1
+#define PUTTYALT_IMPORT          1
+#define PUTTYALT_SHORTCUTS       1
+#define PUTTYALT_NOTIFY          1
+#define PUTTYALT_PROXY_DETECT    1
+#define PUTTYALT_TRANSFER        1
+#define PUTTYALT_LATENCY         1
+#define PUTTYALT_CMD_HISTORY     1
+#define PUTTYALT_STATUSBAR       1
+#define PUTTYALT_TIMEOUT         1
+#define PUTTYALT_ALIASES         1
+#define PUTTYALT_PINNING         1
+#define PUTTYALT_JUMPHOST        1
 
-/* v0.3.0 feature flags */
-#define PUTTYALT_SPLIT_VIEW      1   /* Horizontal/vertical terminal split */
-#define PUTTYALT_MACRO           1   /* Recordable keyboard macros */
-#define PUTTYALT_LOGGING_V2      1   /* Enhanced structured logging */
-#define PUTTYALT_MOUSE_GESTURES  1   /* Mouse gesture actions */
-#define PUTTYALT_ZMODEM          1   /* ZMODEM file transfer */
-#define PUTTYALT_AUTO_COMPLETE   1   /* Tab completion for known commands */
-#define PUTTYALT_SESSION_LOCK    1   /* Lock session with password */
-#define PUTTYALT_BANDWIDTH       1   /* Bandwidth usage monitor */
+/* v0.3.0 */
+#define PUTTYALT_SPLIT_VIEW      1
+#define PUTTYALT_MACRO           1
+#define PUTTYALT_LOGGING_V2      1
+#define PUTTYALT_MOUSE_GESTURES  1
+#define PUTTYALT_ZMODEM          1
+#define PUTTYALT_AUTO_COMPLETE   1
+#define PUTTYALT_SESSION_LOCK    1
+#define PUTTYALT_BANDWIDTH       1
+
+/* v0.4.0 */
+#define PUTTYALT_WORKSPACE       1
+#define PUTTYALT_TUNNEL_MGR      1
+#define PUTTYALT_SERIAL          1
+#define PUTTYALT_FIND_REPLACE    1
+#define PUTTYALT_SESSION_TAGS    1
+#define PUTTYALT_EXPORT_V2       1
+#define PUTTYALT_CONN_POOL       1
+#define PUTTYALT_URL_HANDLER     1
+#define PUTTYALT_SCP             1
+#define PUTTYALT_NET_DIAG        1
+#define PUTTYALT_TEMPLATES       1
+#define PUTTYALT_COLOR_PICKER    1
+#define PUTTYALT_FONT_MGR        1
+#define PUTTYALT_STARTUP_CMD     1
+#define PUTTYALT_LAYOUTS         1
+#define PUTTYALT_MIGRATION       1
+#define PUTTYALT_PLUGIN          1
+#define PUTTYALT_EVENT_BUS       1
+#define PUTTYALT_IPC             1
+#define PUTTYALT_AUTO_UPDATE     1
+#define PUTTYALT_BOOKMARKS       1
+#define PUTTYALT_SHARED_CLIP     1
+#define PUTTYALT_KEEP_ALIVE      1
+#define PUTTYALT_BELL_V2         1
+#define PUTTYALT_AGENT_FWD       1
+#define PUTTYALT_X11_FWD         1
+#define PUTTYALT_SCHEDULER       1
+#define PUTTYALT_TELNET_V2       1
+#define PUTTYALT_PERF_TIMER      1
+#define PUTTYALT_MEM_POOL        1
+#define PUTTYALT_STR_BUF         1
+#define PUTTYALT_INI_PARSER      1
+#define PUTTYALT_TRIGGERS_V2     1
+#define PUTTYALT_KEYGEN          1
+#define PUTTYALT_HOST_VERIFY     1
+#define PUTTYALT_IMG_PROTO       1
+#define PUTTYALT_STATISTICS      1
+#define PUTTYALT_PROXY_CHAIN     1
+#define PUTTYALT_PALETTE         1
+#define PUTTYALT_SCROLL_COMP     1
+#define PUTTYALT_BASE64          1
+#define PUTTYALT_ESC_PARSE       1
+#define PUTTYALT_VALIDATION      1
+#define PUTTYALT_SOUND           1
 
 #endif /* PUTTYALT_H */
