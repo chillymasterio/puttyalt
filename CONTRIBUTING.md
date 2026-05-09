@@ -1,69 +1,42 @@
 # Contributing to PuttyAlt
 
-Thank you for your interest in contributing to PuttyAlt! This document provides guidelines for contributing.
+Thanks for your interest in contributing!
 
-## How to Contribute
+## Development Setup
 
-### Reporting Bugs
-
-- Use the [Bug Report](https://github.com/chillymasterio/puttyalt/issues/new?template=bug_report.yml) template
-- Include your OS version, PuttyAlt version, and steps to reproduce
-- Attach logs if applicable (Help > Event Log)
-
-### Suggesting Features
-
-- Use the [Feature Request](https://github.com/chillymasterio/puttyalt/issues/new?template=feature_request.yml) template
-- Check existing issues and the [Roadmap](README.md#roadmap) first
-
-### Submitting Code
-
-1. **Fork** the repository
-2. **Create a branch** from `main`:
-   ```bash
-   git checkout -b feature/short-description
-   ```
-3. **Write your code** following the style guidelines below
-4. **Test** your changes — at minimum, ensure PuttyAlt builds and connects via SSH
-5. **Commit** with clear messages:
-   ```
-   Add tabbed interface with Ctrl+T shortcut
-   
-   Implements tab control in the main window using Win32 Tab Common Control.
-   Each tab runs an independent terminal session.
-   ```
-6. **Push** and open a **Pull Request**
+```bash
+git clone https://github.com/chillymasterio/puttyalt.git
+cd puttyalt
+cmake -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+```
 
 ## Code Style
 
-PuttyAlt v0.2.0 follows PuTTY's existing coding style:
+- C99 with POSIX extensions
+- 4-space indentation, no tabs
+- Braces on same line for control flow, next line for functions
+- All public API prefixed with module name (e.g., `tabs_close()`)
+- Include guards: `PUTTYALT_MODULENAME_H`
 
-- **Language:** C99
-- **Indentation:** 4 spaces (no tabs)
-- **Braces:** Opening brace on the same line
-- **Naming:** `snake_case` for functions and variables
-- **Comments:** C-style `/* */` preferred for multi-line
-- **Line length:** Keep reasonable, ~80 chars preferred
+## Commit Messages
 
-### Platform Abstraction
+- Imperative mood ("Add feature" not "Added feature")
+- First line: 50-72 characters
+- Reference issues where applicable
 
-- Platform-independent code goes in the root or `utils/`
-- Windows-specific code goes in `windows/`
-- Unix-specific code goes in `unix/`
-- Use the abstractions in `putty.h`, `storage.h`, `network.h`
+## Pull Requests
 
-## Building
+1. Fork and create a feature branch
+2. Write clean, tested code
+3. Update CHANGELOG.md if adding features or fixing bugs
+4. Ensure CI passes
+5. Submit PR with clear description
 
-```bash
-cmake -B build
-cmake --build build --config Release
-```
+## Module Structure
 
-## Security
-
-- Never commit credentials or private keys
-- Follow secure coding practices — avoid buffer overflows, use `smemclr()` for sensitive data
-- Security-critical changes require extra review
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the MIT License.
+Each feature is a self-contained module:
+- `puttyalt_foo.h` — public header with types and API
+- `puttyalt_foo.c` — implementation
+- Register in `CMakeLists.txt`
+- Add feature flag in `puttyalt.h`
