@@ -51,9 +51,9 @@ int sched_tick(Scheduler *s, unsigned long now)
         if (j->repeat == SCHED_ONCE) {
             j->enabled = 0;
         } else if (j->interval_sec > 0) {
-            j->next_run = now + j->interval_sec;
+            j->next_run += j->interval_sec;
         } else if (j->repeat == SCHED_INTERVAL && j->interval_sec > 0) {
-            j->next_run = now + j->interval_sec;
+            j->next_run += j->interval_sec;
         }
     }
     return fired;
