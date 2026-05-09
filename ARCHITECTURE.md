@@ -111,3 +111,14 @@ control which modules are active at compile time.
 ### puttyalt_gesture (Mouse Gestures)
 - Right-button drag recognition (8 gesture types)
 - Configurable action bindings
+
+## v0.4.0 Module Summary
+
+v0.4.0 adds 40+ modules across infrastructure (INI, strbuf, mempool, base64,
+escape parser, validation, perf timer), networking (tunnels, connpool, diag,
+proxy chain, keepalive, telnet, serial), sessions (workspaces, templates,
+bookmarks, tags, migration, scheduler, startup), security (host verify, keygen,
+agent fwd, x11 fwd), UI (palette, colorpicker, fontmgr, layouts, bell,
+imgproto, url handler, find/replace, sound), data (scp, export, scrollcomp,
+shared clipboard, stats), and extensibility (plugin, eventbus, ipc, triggers v2,
+autoupdate). Total: 80+ source files.
