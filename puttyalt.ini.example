@@ -1,30 +1,44 @@
-# PuttyAlt portable configuration example
-# Place as "puttyalt.ini" next to the executable for portable mode.
+; PuttyAlt v0.4.0 Portable Configuration
+; Place this file as puttyalt.ini next to the executable
 
-[general]
-theme = Dracula
-statusbar = 1
-tab_bar_position = top
-confirm_close = 1
+[General]
+version=0.4.0
+theme=dracula
+font=Consolas
+font_size=11
+auto_update_check=1
+check_interval_hours=24
 
-[timeout]
-connect_timeout = 30
-idle_timeout = 0
-keepalive = 60
+[Session:default]
+host=
+port=22
+username=
+protocol=ssh
+keepalive=60
+auto_reconnect=1
 
-[shortcuts]
-# Override default shortcuts (modifier keycode action)
-# 1=Ctrl, 2=Shift, 4=Alt
-# Example: Ctrl+Shift+T = duplicate tab
-# 3 84 24
+[Workspace:default]
+name=Default
+sessions=
 
-[aliases]
-prod1 = admin@10.0.5.42:2222
-staging = deploy@staging.example.com
-db = root@db-master.internal:3306
+[Logging]
+enabled=0
+format=text
+level=info
+max_size=10485760
+max_files=5
 
-[environment]
-# Rules: pattern,match_type,label,r,g,b,blink
-prod,0,PRODUCTION,220,40,40,1
-staging,0,STAGING,230,180,30,0
-dev,0,DEV,40,180,60,0
+[Appearance]
+opacity=100
+inactive_opacity=90
+bell_mode=system
+url_underline=1
+tab_position=top
+
+[Keyboard]
+new_tab=Ctrl+T
+close_tab=Ctrl+W
+next_tab=Ctrl+Tab
+prev_tab=Ctrl+Shift+Tab
+find=Ctrl+Shift+F
+quick_connect=Ctrl+K
