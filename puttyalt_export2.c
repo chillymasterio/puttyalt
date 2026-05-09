@@ -59,6 +59,7 @@ int export_scrollback(const char *scrollback, int num_lines,
                 for (const char *c = start; c < p; c++) {
                     if (*c == '"') fprintf(fp, "\\\"");
                     else if (*c == '\\') fprintf(fp, "\\\\");
+                    else if (*c == '\n') fprintf(fp, "\\n");
                     else fputc(*c, fp);
                 }
                 fprintf(fp, "\"");
