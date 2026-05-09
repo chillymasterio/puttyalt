@@ -3,25 +3,38 @@
 ## Supported Versions
 
 | Version | Supported          |
-|---------|--------------------|
-| 0.1.x   | :white_check_mark: |
+| ------- | ------------------ |
+| 0.4.x   | :white_check_mark: |
+| 0.3.x   | :white_check_mark: |
+| 0.2.x   | Security fixes only |
+| < 0.2   | :x:                |
 
 ## Reporting a Vulnerability
 
-**Do not open a public issue for security vulnerabilities.**
+If you discover a security vulnerability in PuttyAlt, please report it
+responsibly:
 
-Please report security issues via [GitHub Security Advisories](https://github.com/chillymasterio/puttyalt/security/advisories/new).
+1. **Do not** open a public issue
+2. Email: security@puttyalt.dev (or open a private advisory on GitHub)
+3. Include: steps to reproduce, impact assessment, affected versions
+4. We aim to acknowledge within 48 hours and patch within 7 days
 
-You can expect:
-- Acknowledgement within 48 hours
-- A fix timeline within 7 days for critical issues
-- Credit in the changelog (unless you prefer anonymity)
+## Scope
 
-## Security Practices
+PuttyAlt handles SSH connections, credentials, and key material.
+We take all of the following seriously:
 
-- PuttyAlt is built on PuTTY 0.83, which includes ML-KEM post-quantum key exchange
-- All upstream security patches are merged within 48 hours of release
-- Builds use `-fstack-protector-strong`, `FORTIFY_SOURCE=2`, full RELRO
-- Stored credentials use AES-256-GCM encryption with a master password
-- No telemetry, no analytics, no outbound network calls beyond your SSH connection
-- Sensitive memory is zeroed with `smemclr()` before freeing
+- Memory safety issues (buffer overflows, use-after-free)
+- Credential exposure (plaintext passwords in logs, memory dumps)
+- Authentication bypasses
+- Key material handling
+- Injection vulnerabilities (command injection via hostnames, etc.)
+- Timing side-channels in authentication
+
+## Hardening
+
+PuttyAlt builds with:
+- `-fstack-protector-strong`
+- `-D_FORTIFY_SOURCE=2`
+- Full RELRO (`-Wl,-z,relro,-z,now`)
+- Position-independent executables (PIE)
