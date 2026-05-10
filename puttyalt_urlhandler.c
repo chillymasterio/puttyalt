@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include "puttyalt_urlhandler.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#include <shellapi.h>
+#endif
+
 static const char *url_prefixes[] = {
     "https://", "http://", "ftp://", "ssh://", "file://", NULL
 };

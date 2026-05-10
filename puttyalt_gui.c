@@ -624,7 +624,7 @@ int gui_connect(GUIState *gui, const char *host, int port, const char *user)
     gui_set_title(gui, title);
     gui_set_status(gui, "Connected");
     gui->connected = 1;
-    gui->state_flags |= GUI_STATE_CONNECTED;
+    gui->config.state_flags |= GUI_STATE_CONNECTED;
     gui_update_menu_state(gui);
 
     return 0;
@@ -635,7 +635,7 @@ void gui_disconnect(GUIState *gui)
     if (!gui->connected) return;
 
     gui->connected = 0;
-    gui->state_flags &= ~GUI_STATE_CONNECTED;
+    gui->config.state_flags &= ~GUI_STATE_CONNECTED;
     gui_set_status(gui, "Disconnected");
 
     char title[128];
