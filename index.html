@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PuttyAlt — Enhanced SSH Terminal</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#12121a;
+  --bg3:#1a1a26;
+  --surface:#1e1e2e;
+  --border:#2a2a3e;
+  --text:#e0e0e8;
+  --text2:#9898b0;
+  --accent:#6c5ce7;
+  --accent2:#a29bfe;
+  --accent3:#00cec9;
+  --green:#00b894;
+  --orange:#fdcb6e;
+  --red:#e17055;
+  --glow:rgba(108,92,231,.15);
+  --radius:12px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;
+}
+
+/* === CANVAS BACKGROUND === */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* === FLOATING BLOBS === */
+.blob{
+  position:fixed;border-radius:50%;filter:blur(80px);opacity:.08;
+  pointer-events:none;z-index:0;
+}
+.blob-1{width:500px;height:500px;background:var(--accent);top:-100px;left:-100px;animation:float1 20s ease-in-out infinite}
+.blob-2{width:400px;height:400px;background:var(--accent3);bottom:-80px;right:-80px;animation:float2 25s ease-in-out infinite}
+.blob-3{width:300px;height:300px;background:#fd79a8;top:50%;left:50%;animation:float3 18s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-80px)}}
+@keyframes float3{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-30%,-30%)}}
+
+/* === NAV === */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 2rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,10,15,.75);backdrop-filter:blur(20px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s,background .3s;
+}
+nav.scrolled{border-bottom-color:var(--border);background:rgba(10,10,15,.92)}
+.nav-logo{font-size:1.25rem;font-weight:700;color:#fff;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.nav-logo span{
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.9rem;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{
+  padding:.5rem 1.2rem;border-radius:8px;font-size:.85rem;font-weight:600;
+  background:var(--accent);color:#fff;text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(108,92,231,.4)}
+
+/* === SECTIONS === */
+section{position:relative;z-index:1;padding:6rem 2rem}
+.container{max-width:1200px;margin:0 auto}
+
+/* === HERO === */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:64px}
+.hero-inner{text-align:center;width:100%}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border-radius:50px;
+  background:rgba(108,92,231,.12);border:1px solid rgba(108,92,231,.25);
+  color:var(--accent2);font-size:.8rem;margin-bottom:1.5rem;
+}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;
+  line-height:1.1;margin-bottom:1.2rem;
+  background:linear-gradient(135deg,#fff 0%,var(--accent2) 50%,var(--accent3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{color:var(--text2);font-size:clamp(1rem,2vw,1.25rem);max-width:640px;margin:0 auto 2.5rem}
+.hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{
+  padding:.75rem 2rem;border-radius:10px;font-size:.95rem;font-weight:600;
+  text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),#8b5cf6);color:#fff;
+  box-shadow:0 4px 24px rgba(108,92,231,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(108,92,231,.45)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent);background:var(--bg3)}
+
+/* === TERMINAL PREVIEW === */
+.terminal-preview{
+  max-width:700px;margin:3rem auto 0;
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.terminal-bar{
+  display:flex;align-items:center;gap:8px;padding:12px 16px;
+  background:var(--bg3);border-bottom:1px solid var(--border);
+}
+.terminal-dot{width:12px;height:12px;border-radius:50%}
+.terminal-dot.r{background:#ff5f57}.terminal-dot.y{background:#febc2e}.terminal-dot.g{background:#28c840}
+.terminal-bar span{flex:1;text-align:center;color:var(--text2);font-size:.8rem}
+.terminal-body{padding:1.2rem;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.85rem;line-height:1.8;min-height:200px}
+.terminal-body .prompt{color:var(--green)}
+.terminal-body .cmd{color:#fff}
+.terminal-body .out{color:var(--text2)}
+.terminal-body .accent{color:var(--accent2)}
+.terminal-body .cursor{
+  display:inline-block;width:8px;height:16px;background:var(--accent2);
+  vertical-align:text-bottom;animation:blink 1s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* === STATS === */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;
+  margin-top:4rem;max-width:800px;margin-left:auto;margin-right:auto;
+}
+.stat{text-align:center;padding:1.5rem}
+.stat-num{font-size:2.5rem;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.stat-label{color:var(--text2);font-size:.85rem;margin-top:.25rem}
+
+/* === FEATURES === */
+.section-header{text-align:center;margin-bottom:4rem}
+.section-header h2{
+  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:1rem;
+  background:linear-gradient(135deg,#fff,var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.section-header p{color:var(--text2);max-width:600px;margin:0 auto;font-size:1.05rem}
+
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+.feature-card{
+  padding:2rem;border-radius:var(--radius);
+  background:var(--surface);border:1px solid var(--border);
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.feature-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent3));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.feature-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.feature-card:hover::before{transform:scaleX(1)}
+.feature-icon{
+  width:48px;height:48px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1rem;
+  background:linear-gradient(135deg,rgba(108,92,231,.15),rgba(0,206,201,.1));
+}
+.feature-card h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem;color:#fff}
+.feature-card p{color:var(--text2);font-size:.9rem;line-height:1.5}
+
+/* === COMPARISON === */
+.comparison-section{background:var(--bg2)}
+.comparison-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.comparison-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  border-radius:var(--radius);overflow:hidden;min-width:700px;
+}
+.comparison-table thead th{
+  padding:1rem 1.5rem;text-align:center;font-weight:600;font-size:.9rem;
+  background:var(--bg3);border-bottom:2px solid var(--border);color:var(--text2);
+}
+.comparison-table thead th:first-child{text-align:left}
+.comparison-table thead th.highlight{
+  color:#fff;
+  background:linear-gradient(180deg,rgba(108,92,231,.2),rgba(108,92,231,.08));
+  border-bottom-color:var(--accent);
+  position:relative;
+}
+.comparison-table thead th.highlight::after{
+  content:'BEST';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  padding:2px 10px;border-radius:4px;font-size:.65rem;letter-spacing:1px;
+  background:var(--accent);color:#fff;
+}
+.comparison-table tbody td{
+  padding:.85rem 1.5rem;text-align:center;border-bottom:1px solid var(--border);
+  font-size:.9rem;
+}
+.comparison-table tbody td:first-child{text-align:left;font-weight:500;color:#fff}
+.comparison-table tbody td.highlight{background:rgba(108,92,231,.04)}
+.comparison-table tbody tr:last-child td{border-bottom:none}
+.comparison-table tbody tr:hover td{background:rgba(255,255,255,.02)}
+.comparison-table tbody tr:hover td.highlight{background:rgba(108,92,231,.08)}
+.check{color:var(--green);font-weight:700;font-size:1.1rem}
+.cross{color:var(--red);font-size:1.1rem}
+.partial{color:var(--orange);font-size:.85rem}
+
+/* === DOWNLOAD === */
+.download-section{text-align:center}
+.download-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem;max-width:900px;margin-left:auto;margin-right:auto}
+.download-card{
+  padding:2.5rem 2rem;border-radius:var(--radius);
+  background:var(--surface);border:1px solid var(--border);
+  transition:all .3s;
+}
+.download-card.featured{
+  border-color:var(--accent);
+  background:linear-gradient(180deg,rgba(108,92,231,.08),var(--surface));
+  box-shadow:0 0 40px rgba(108,92,231,.1);
+}
+.download-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.download-card h3{font-size:1.2rem;margin-bottom:.5rem;color:#fff}
+.download-card .platform{color:var(--text2);font-size:.85rem;margin-bottom:1.5rem}
+.download-card .btn{width:100%;justify-content:center}
+
+/* === FOOTER === */
+footer{
+  position:relative;z-index:1;
+  padding:3rem 2rem;text-align:center;
+  border-top:1px solid var(--border);color:var(--text2);font-size:.85rem;
+}
+footer a{color:var(--accent2);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* === SCROLL REVEAL === */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* === RESPONSIVE === */
+@media(max-width:768px){
+  nav{padding:0 1rem}
+  .nav-links{display:none}
+  section{padding:4rem 1rem}
+  .stats{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .features-grid{grid-template-columns:1fr}
+  .hero h1{font-size:2.2rem}
+  .stat-num{font-size:2rem}
+  .download-cards{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero-buttons{flex-direction:column;align-items:center}
+  .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo"><span>PuttyAlt</span></a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#comparison">Compare</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+  <a href="https://github.com/chillymasterio/puttyalt/releases/download/v0.4.0/puttyalt.exe" class="nav-cta">Download Free</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="dot"></span> v0.4.0 — 80+ modules</div>
+    <h1>The SSH Terminal<br>You Deserve</h1>
+    <p>PuttyAlt is a modern, feature-rich SSH client built on PuTTY 0.83. Tabs, macros, SFTP, split-view, themes, and 80+ power features — in a single portable EXE.</p>
+    <div class="hero-buttons">
+      <a href="https://github.com/chillymasterio/puttyalt/releases/download/v0.4.0/puttyalt.exe" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Free
+      </a>
+      <a href="https://github.com/chillymasterio/puttyalt" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        Source Code
+      </a>
+    </div>
+
+    <!-- Terminal Preview -->
+    <div class="terminal-preview reveal">
+      <div class="terminal-bar">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <span>puttyalt — admin@prod-server-01</span>
+      </div>
+      <div class="terminal-body" id="terminal">
+        <div><span class="prompt">admin@prod ~$</span> <span class="cmd" id="typed"></span><span class="cursor" id="cursor"></span></div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats reveal">
+      <div class="stat">
+        <div class="stat-num" data-target="82">0</div>
+        <div class="stat-label">Modules</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="15000">0</div>
+        <div class="stat-label">Lines of C</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="4">0</div>
+        <div class="stat-label">Platforms</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-target="210">0</div>
+        <div class="stat-label">Commits</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Everything You Need, Nothing You Don't</h2>
+      <p>Built for sysadmins who live in the terminal. Every feature designed to save you time.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🗂</div>
+        <h3>Tabbed Sessions</h3>
+        <p>Multiple connections in one window. Pin, reorder, duplicate tabs. Quick-switch with Ctrl+Tab.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📂</div>
+        <h3>Built-in SFTP Panel</h3>
+        <p>Drag-and-drop file transfers alongside your terminal. Browse, upload, download without leaving the session.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">⌨️</div>
+        <h3>Keyboard Macros</h3>
+        <p>Record and replay keystroke sequences. 10 named macro slots with loop and repeat support.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📡</div>
+        <h3>Session Broadcasting</h3>
+        <p>Type once, send to all connected sessions. Perfect for multi-server configuration and deployments.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔑</div>
+        <h3>Credential Store</h3>
+        <p>Encrypted local vault for passwords and keys. Auto-fill on connect, master password protection.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎨</div>
+        <h3>Themes & Palettes</h3>
+        <p>Full 256-color palette editor. Custom themes, font management, transparency control, and dark mode presets.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔁</div>
+        <h3>Auto-Reconnect</h3>
+        <p>Automatic reconnection on disconnect with configurable retry intervals. Never lose your session again.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📜</div>
+        <h3>Command Snippets</h3>
+        <p>Save frequently used commands with categories. One-click send with optional Enter key. Export and share.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔌</div>
+        <h3>Port Tunneling</h3>
+        <p>Local, remote, and dynamic SOCKS5 tunnels. Multi-hop proxy chains. Visual tunnel manager.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3>Session Statistics</h3>
+        <p>Real-time bandwidth monitoring, command counters, uptime tracking, latency measurement per session.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🧩</div>
+        <h3>Plugin System</h3>
+        <p>Extend PuttyAlt with native C plugins. Hook into connect, disconnect, and data events. Hot-reload support.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📦</div>
+        <h3>Portable Mode</h3>
+        <p>Run from USB with all settings stored locally. Zero installation, zero registry entries. Take it everywhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison" class="comparison-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>How PuttyAlt Compares</h2>
+      <p>See why PuttyAlt is the best choice for professional sysadmins.</p>
+    </div>
+    <div class="comparison-wrapper reveal">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="highlight">PuttyAlt</th>
+            <th>PuTTY</th>
+            <th>KiTTY</th>
+            <th>MobaXterm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Tabbed Interface</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Built-in SFTP</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Keyboard Macros</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Session Broadcasting</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Credential Store</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">Partial</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Split View</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Custom Themes</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="partial">Limited</span></td></tr>
+          <tr><td>Auto-Reconnect</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Command Snippets</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Port Tunneling Manager</td><td class="highlight"><span class="check">✓</span></td><td><span class="partial">Manual</span></td><td><span class="partial">Manual</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Plugin System</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="partial">Paid</span></td></tr>
+          <tr><td>Session Import/Export</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Network Diagnostics</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="partial">Basic</span></td></tr>
+          <tr><td>Portable (no install)</td><td class="highlight"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">Paid</span></td></tr>
+          <tr><td>100% Free & Open Source</td><td class="highlight"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Event Bus / Triggers</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Workspace Manager</td><td class="highlight"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="partial">Limited</span></td></tr>
+          <tr><td>Serial Port Support</td><td class="highlight"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;color:var(--text2);margin-top:1.5rem;font-size:.85rem">
+      PuttyAlt: <span style="color:var(--green);font-weight:700">18/18</span> &nbsp;·&nbsp;
+      PuTTY: <span style="color:var(--red)">3/18</span> &nbsp;·&nbsp;
+      KiTTY: <span style="color:var(--orange)">6/18</span> &nbsp;·&nbsp;
+      MobaXterm: <span style="color:var(--orange)">9/18</span>
+    </p>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="download-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Get PuttyAlt</h2>
+      <p>Free, open-source, and ready to deploy. Choose your platform.</p>
+    </div>
+    <div class="download-cards">
+      <div class="download-card reveal">
+        <h3>🐧 Linux</h3>
+        <div class="platform">x86_64 / ARM64 — ELF binary</div>
+        <a href="https://github.com/chillymasterio/puttyalt/releases/download/v0.4.0/puttyalt-0.4.0-linux-x86_64.tar.gz" class="btn btn-secondary">Download .tar.gz</a>
+      </div>
+      <div class="download-card featured reveal">
+        <h3>🪟 Windows</h3>
+        <div class="platform">x64 / x86 / ARM64 — Portable EXE</div>
+        <a href="https://github.com/chillymasterio/puttyalt/releases/download/v0.4.0/puttyalt.exe" class="btn btn-primary">Download Free .exe</a>
+      </div>
+      <div class="download-card reveal">
+        <h3>🍎 macOS</h3>
+        <div class="platform">Universal — Intel & Apple Silicon</div>
+        <a href="https://github.com/chillymasterio/puttyalt/releases" class="btn btn-secondary">Download .dmg</a>
+      </div>
+    </div>
+    <p style="margin-top:2rem;color:var(--text2);font-size:.85rem">
+      Or build from source: <code style="background:var(--bg3);padding:.2rem .6rem;border-radius:4px;font-size:.8rem">git clone && mkdir build && cd build && cmake .. && make</code>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>PuttyAlt &copy; 2026 — MIT License &nbsp;·&nbsp; <a href="https://github.com/chillymasterio/puttyalt">GitHub</a> &nbsp;·&nbsp; Based on <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY 0.83</a></p>
+</footer>
+
+<script>
+/* Particle canvas */
+(function(){
+  const c=document.getElementById('particles'),ctx=c.getContext('2d');
+  let w,h,particles=[];
+  function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
+  resize();addEventListener('resize',resize);
+  class P{
+    constructor(){this.reset()}
+    reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+.5;this.a=Math.random()*.3+.1}
+    update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w)this.vx*=-1;if(this.y<0||this.y>h)this.vy*=-1}
+    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(108,92,231,${this.a})`;ctx.fill()}
+  }
+  for(let i=0;i<60;i++)particles.push(new P);
+  function frame(){
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<particles.length;i++){
+      particles[i].update();particles[i].draw();
+      for(let j=i+1;j<particles.length;j++){
+        const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(108,92,231,${.06*(1-d/120)})`;ctx.stroke()}
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* Nav scroll */
+const nav=document.getElementById('navbar');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>50));
+
+/* Scroll reveal */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+/* Counter animation */
+const numObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,target=+el.dataset.target;
+    let current=0;const step=Math.ceil(target/50),interval=setInterval(()=>{
+      current+=step;if(current>=target){current=target;clearInterval(interval)}
+      el.textContent=current.toLocaleString();
+    },30);
+    numObserver.unobserve(el);
+  })
+},{threshold:.5});
+document.querySelectorAll('.stat-num').forEach(el=>numObserver.observe(el));
+
+/* Terminal typing */
+(function(){
+  const lines=[
+    'puttyalt --connect admin@prod-server-01',
+    'sftp upload ./deploy.tar.gz /opt/app/',
+    'macro play deploy-sequence',
+    'broadcast "systemctl restart app"',
+    'tunnel add -L 3306:db.internal:3306',
+    'snippet run check-disk-space',
+  ];
+  const el=document.getElementById('typed');
+  let li=0,ci=0,deleting=false;
+  function type(){
+    if(!deleting){
+      if(ci<=lines[li].length){el.textContent=lines[li].substring(0,ci++);setTimeout(type,40+Math.random()*30)}
+      else setTimeout(()=>{deleting=true;type()},2000)
+    }else{
+      if(ci>0){el.textContent=lines[li].substring(0,--ci);setTimeout(type,20)}
+      else{deleting=false;li=(li+1)%lines.length;setTimeout(type,500)}
+    }
+  }
+  setTimeout(type,1500);
+})();
+</script>
+</body>
+</html>
