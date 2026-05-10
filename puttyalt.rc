@@ -1,11 +1,10 @@
-/* PuttyAlt Windows resource file */
+/* PuttyAlt Windows resource file — v1.0.0 */
 
 #include <windows.h>
 
-/* Version information */
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION     0,4,0,0
-PRODUCTVERSION  0,4,0,0
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
 FILEFLAGSMASK   VS_FFI_FILEFLAGSMASK
 FILEFLAGS       0
 FILEOS          VOS_NT_WINDOWS32
@@ -18,12 +17,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName",      "PuttyAlt Project"
             VALUE "FileDescription",  "PuttyAlt - Enhanced SSH Terminal"
-            VALUE "FileVersion",      "0.4.0"
+            VALUE "FileVersion",      "1.0.0"
             VALUE "InternalName",     "puttyalt"
             VALUE "LegalCopyright",   "MIT License"
             VALUE "OriginalFilename", "puttyalt.exe"
             VALUE "ProductName",      "PuttyAlt"
-            VALUE "ProductVersion",   "0.4.0"
+            VALUE "ProductVersion",   "1.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -32,8 +31,5 @@ BEGIN
     END
 END
 
-/* Application icon */
 100 ICON "res/puttyalt.ico"
-
-/* Application manifest for visual styles */
 1 RT_MANIFEST "res/puttyalt.manifest"
