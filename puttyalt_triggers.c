@@ -5,6 +5,7 @@
 #include "puttyalt_triggers.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 
 void triggers_init(TriggerEngine *eng)

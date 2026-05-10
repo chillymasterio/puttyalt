@@ -5,6 +5,7 @@
 #include "puttyalt_snippets.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int snippets_load(SnippetStore *store, const char *path)
 {

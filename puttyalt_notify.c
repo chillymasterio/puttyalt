@@ -4,6 +4,8 @@
 
 #include "puttyalt_notify.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 void notify_init(NotifyManager *nm)

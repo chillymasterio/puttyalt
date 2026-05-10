@@ -46,17 +46,7 @@ void ipc_server_stop(IPCServer *srv)
 {
     if (srv->fd >= 0) {
         close(srv->fd);
-        /* Check for stale socket: try connecting first */
-    int test_fd = socket(AF_UNIX, SOCK_STREAM, 0);
-    if (test_fd >= 0) {
-        if (connect(test_fd, (struct sockaddr *)&addr, sizeof(addr)) == 0) {
-            close(test_fd);
-            close(srv->fd);
-            return -2; /* another instance running */
-        }
-        close(test_fd);
-    }
-    unlink(IPC_UNIX_SOCK);
+        unlink(IPC_UNIX_SOCK);
     }
     srv->running = 0;
 }

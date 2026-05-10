@@ -3,6 +3,7 @@
  */
 
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include "puttyalt_autocomplete.h"
 

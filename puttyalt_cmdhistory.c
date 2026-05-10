@@ -5,6 +5,7 @@
 #include "puttyalt_cmdhistory.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <time.h>
 
 void cmdhistory_init(CmdHistory *ch)
