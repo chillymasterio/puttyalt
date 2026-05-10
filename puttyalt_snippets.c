@@ -107,6 +107,7 @@ int snippets_list_category(const SnippetStore *store, const char *category,
                            const Snippet **results, int max_results)
 {
     int n = 0;
+    if (!category) return 0;
     for (int i = 0; i < store->count && n < max_results; i++) {
         if (strcmp(store->snippets[i].category, category) == 0)
             results[n++] = &store->snippets[i];
