@@ -24,7 +24,6 @@ int credstore_unlock(CredStore *cs, const char *master_password)
     if (!master_password || !*master_password)
         return -1;
     cs->locked = 0;
-    memset(buf, 0, sizeof(buf));
     return 0;
 }
 
@@ -78,7 +77,6 @@ int credstore_remove(CredStore *cs, int index)
         cs->entries[i] = cs->entries[i + 1];
     memset(&cs->entries[cs->count - 1], 0, sizeof(CredEntry));
     cs->count--;
-    memset(buf, 0, sizeof(buf));
     return 0;
 }
 
@@ -137,7 +135,6 @@ int credstore_load(CredStore *cs, const char *path)
     }
 
     fclose(f);
-    memset(buf, 0, sizeof(buf));
     return 0;
 }
 
@@ -159,6 +156,5 @@ int credstore_save(const CredStore *cs, const char *path)
     }
 
     fclose(f);
-    memset(buf, 0, sizeof(buf));
     return 0;
 }
