@@ -16,3 +16,14 @@ cmake_install.cmake
 Thumbs.db
 puttyalt.ini
 *.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+Thumbs.db
