@@ -5,16 +5,16 @@
 #ifndef PUTTYALT_H
 #define PUTTYALT_H
 
-#define PUTTYALT_VERSION_MAJOR  0
-#define PUTTYALT_VERSION_MINOR  4
+#define PUTTYALT_VERSION_MAJOR  1
+#define PUTTYALT_VERSION_MINOR  0
 #define PUTTYALT_VERSION_PATCH  0
 
-#define PUTTYALT_VERSION_STR    "0.4.0"
+#define PUTTYALT_VERSION_STR    "1.0.0"
 #define PUTTYALT_NAME           "PuttyAlt"
 #define PUTTYALT_APPNAME        "PuttyAlt"
 #define PUTTYALT_UPSTREAM       "PuTTY 0.83"
 
-/* v0.1.0 */ 
+/* v0.1.0 — Core enhancements */
 #define PUTTYALT_PORTABLE_MODE  1
 #define PUTTYALT_AUTO_RECONNECT 1
 #define PUTTYALT_REMEMBER_SIZE  1
@@ -30,7 +30,7 @@
 #define PUTTYALT_ENV_INDICATOR  1
 #define PUTTYALT_QUICK_CONNECT  1
 
-/* v0.2.0 */
+/* v0.2.0 — Session & UI */
 #define PUTTYALT_TABS            1
 #define PUTTYALT_SFTP_PANEL      1
 #define PUTTYALT_CRED_STORE      1
@@ -48,7 +48,7 @@
 #define PUTTYALT_PINNING         1
 #define PUTTYALT_JUMPHOST        1
 
-/* v0.3.0 */
+/* v0.3.0 — Power features */
 #define PUTTYALT_SPLIT_VIEW      1
 #define PUTTYALT_MACRO           1
 #define PUTTYALT_LOGGING_V2      1
@@ -58,7 +58,7 @@
 #define PUTTYALT_SESSION_LOCK    1
 #define PUTTYALT_BANDWIDTH       1
 
-/* v0.4.0 */
+/* v0.4.0 — Infrastructure & networking */
 #define PUTTYALT_WORKSPACE       1
 #define PUTTYALT_TUNNEL_MGR      1
 #define PUTTYALT_SERIAL          1
@@ -103,5 +103,21 @@
 #define PUTTYALT_ESC_PARSE       1
 #define PUTTYALT_VALIDATION      1
 #define PUTTYALT_SOUND           1
+
+/* v1.0.0 — GUI, multiplexer, monitoring */
+#define PUTTYALT_GUI             1
+#define PUTTYALT_DIALOGS         1
+#define PUTTYALT_TRAY            1
+#define PUTTYALT_SCRIPT_MGR      1
+#define PUTTYALT_CONN_PROF       1
+#define PUTTYALT_MONITOR         1
+#define PUTTYALT_MUX             1
+#define PUTTYALT_SSH_AGENT       1
+#define PUTTYALT_CLIP_MGR        1
+#define PUTTYALT_LOG_ENGINE      1
+#define PUTTYALT_CODE_SIGN       1
+#define PUTTYALT_SESS_GROUP      1
+#define PUTTYALT_RENDERER        1
+#define PUTTYALT_SSH_CONFIG      1
 
 #endif /* PUTTYALT_H */
