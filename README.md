@@ -1,63 +1,61 @@
 # PuttyAlt
 
-[![Build](https://github.com/chillymasterio/puttyalt/actions/workflows/build.yml/badge.svg)](https://github.com/chillymasterio/puttyalt/actions/workflows/build.yml)
-[![Release](https://img.shields.io/github/v/release/chillymasterio/puttyalt)](https://github.com/chillymasterio/puttyalt/releases)
-[![License](https://img.shields.io/github/license/chillymasterio/puttyalt)](LICENSE)
+**Enhanced SSH terminal based on PuTTY 0.83** — tabs, macros, SFTP, themes, plugins, and 100+ features in a portable EXE.
 
-**A modern, feature-rich fork of PuTTY** — the classic SSH and telnet client — with tabbed sessions, split-pane terminals, session management, macros, ZMODEM transfers, and 50+ quality-of-life enhancements for sysadmins and DevOps engineers.
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey)
 
-## Key Features
+## Features
 
 | Category | Features |
 |----------|----------|
-| **Sessions** | Tabbed interface, workspaces, session templates, bookmarks, tags |
-| **Terminal** | Split-pane view, scrollback search, keyboard macros, auto-complete |
-| **Transfers** | SFTP panel, SCP integration, ZMODEM auto-detection |
-| **Security** | Encrypted credential store, host key pinning, session lock, agent forwarding control |
-| **Networking** | SSH tunnel manager, proxy chain, jump host support, keep-alive |
-| **UI** | 5 built-in themes, color picker, font manager, mouse gestures |
-| **Protocol** | Telnet negotiation, serial port, X11 forwarding |
-| **Developer** | Plugin API, event bus, IPC, structured logging, performance profiler |
+| **Sessions** | Tabs, groups, bookmarks, workspaces, templates, import/export |
+| **Terminal** | Split view, multiplexer, 256-color palette, themes, zoom, renderer |
+| **Transfer** | Built-in SFTP panel, SCP, Zmodem |
+| **Security** | Credential store, SSH agent, host verification, code signing |
+| **Automation** | Macros, snippets, triggers, scripts (shell/python/lua), scheduler |
+| **Networking** | Tunnel manager, proxy chains, keep-alive, serial port, Telnet |
+| **Monitoring** | Connection profiler, session monitor, bandwidth stats, latency |
+| **UI** | Warm blue theme, sidebar, toolbar, system tray, fullscreen |
 
 ## Quick Start
 
 ```bash
+# Download
+wget https://github.com/chillymasterio/puttyalt/releases/download/v1.0.0/puttyalt.exe
+
+# Or build from source
 git clone https://github.com/chillymasterio/puttyalt.git
-cd puttyalt
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --config Release
+cd puttyalt && mkdir build && cd build
+cmake .. && make -j$(nproc)
 ```
 
-### Portable Mode
+## Command Line
 
-Copy `puttyalt.ini.example` to `puttyalt.ini` next to the executable.
-All settings stored in the INI file — no registry access needed.
+```
+puttyalt [options] [user@]host[:port]
 
-## Module Architecture
+  -P port       Port number (default: 22)
+  -l user       Login username
+  -i keyfile    Private key file
+  -load name    Load saved session
+  -telnet       Telnet protocol
+  -serial       Serial connection
+  -portable     Force portable mode
+  -config file  Alternate config file
+```
 
-PuttyAlt is built as a modular library (`libputtyalt`) on top of PuTTY 0.83.
-Each feature is a self-contained `puttyalt_*.c`/`.h` pair with a feature flag
-in `puttyalt.h`.
-
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the full module reference.
-
-## Versioning
+## Version History
 
 | Version | Highlights |
 |---------|-----------|
-| **0.4.0** | Workspaces, SSH tunnels, serial port, plugin system, INI parser, 256-color palette |
-| **0.3.0** | Split view, macros, ZMODEM, auto-complete, mouse gestures |
-| **0.2.0** | Tabs, SFTP panel, credential store, themes, key pinning |
-| **0.1.0** | Portable mode, auto-reconnect, session manager, snippets |
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and code style.
-
-## Security
-
-See [SECURITY.md](SECURITY.md) for our vulnerability disclosure policy.
+| **1.0.0** | GUI redesign (warm blue), multiplexer, script manager, session monitor, SSH agent, SSH config parser, code signing, 100+ modules |
+| 0.4.0 | Workspaces, tunnels, plugins, serial, 40+ new modules |
+| 0.3.0 | Split view, macros, logging v2, autocomplete |
+| 0.2.0 | Tabs, SFTP, themes, credential store |
+| 0.1.0 | Portable mode, reconnect, snippets, broadcast |
 
 ## License
 
-PuttyAlt is released under the MIT License. Based on [PuTTY 0.83](https://www.chiark.greenend.org.uk/~sgtatham/putty/) by Simon Tatham.
+MIT License — see [LICENSE](LICENSE) for details.
