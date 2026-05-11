@@ -2,39 +2,32 @@
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 0.4.x   | :white_check_mark: |
-| 0.3.x   | :white_check_mark: |
-| 0.2.x   | Security fixes only |
-| < 0.2   | :x:                |
+| Version | Supported |
+|---------|-----------|
+| 1.0.x   | ✅ Active |
+| 0.4.x   | ⚠️ Critical fixes only |
+| < 0.4   | ❌ Unsupported |
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in PuttyAlt, please report it
-responsibly:
+If you discover a security vulnerability, please report it responsibly:
 
-1. **Do not** open a public issue
+1. **Do not** create a public GitHub issue
 2. Email: security@puttyalt.dev (or open a private advisory on GitHub)
-3. Include: steps to reproduce, impact assessment, affected versions
-4. We aim to acknowledge within 48 hours and patch within 7 days
+3. Include: description, reproduction steps, affected versions
+4. Expected response: within 48 hours
 
-## Scope
+## Security Practices
 
-PuttyAlt handles SSH connections, credentials, and key material.
-We take all of the following seriously:
+- All credential storage uses encrypted buffers
+- Sensitive data is zeroed after use
+- Stack protector and FORTIFY_SOURCE enabled by default
+- No telemetry or network calls except user-initiated connections
+- Authenticode signing for Windows releases (SmartScreen trust)
+- ASLR, DEP, and Control Flow Guard compatible
 
-- Memory safety issues (buffer overflows, use-after-free)
-- Credential exposure (plaintext passwords in logs, memory dumps)
-- Authentication bypasses
-- Key material handling
-- Injection vulnerabilities (command injection via hostnames, etc.)
-- Timing side-channels in authentication
+## Code Signing
 
-## Hardening
-
-PuttyAlt builds with:
-- `-fstack-protector-strong`
-- `-D_FORTIFY_SOURCE=2`
-- Full RELRO (`-Wl,-z,relro,-z,now`)
-- Position-independent executables (PIE)
+Windows releases are signed with an Authenticode certificate.
+The manifest includes OS compatibility declarations and
+requests `asInvoker` privileges (no admin needed).
