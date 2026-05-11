@@ -120,4 +120,13 @@
 #define PUTTYALT_RENDERER        1
 #define PUTTYALT_SSH_CONFIG      1
 
+/* v1.0.1 — Polish */
+#define PUTTYALT_EXPECT          1
+#define PUTTYALT_RECORDER        1
+#define PUTTYALT_SEARCH_HL       1
+#define PUTTYALT_NOTIF_CENTER    1
+#define PUTTYALT_QUICK_LAUNCH    1
+#define PUTTYALT_UNICODE_TABLE   1
+#define PUTTYALT_DASHBOARD       1
+
 #endif /* PUTTYALT_H */
