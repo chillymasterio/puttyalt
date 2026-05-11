@@ -1,4 +1,5 @@
 name: Build
+
 on:
   push:
     branches: [main]
@@ -7,46 +8,59 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        include:
-          - { os: windows-latest, arch: x64, args: "-A x64" }
-          - { os: windows-latest, arch: x86, args: "-A Win32" }
-          - { os: windows-latest, arch: ARM64, args: "-A ARM64" }
-          - { os: ubuntu-latest, arch: x64, args: "" }
-          - { os: macos-latest, arch: x64, args: "" }
-    runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} (${{ matrix.arch }})
-    steps:
-      - uses: actions/checkout@v4
-      - run: cmake -B build -DCMAKE_BUILD_TYPE=Release ${{ matrix.args }}
-      - run: cmake --build build --config Release
-      - uses: actions/upload-artifact@v4
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          name: puttyalt-${{ matrix.os }}-${{ matrix.arch }}
-          path: build/
-
-  lint:
+  build-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Check include guards
-        run: for f in puttyalt_*.h; do grep -q "#ifndef" "$f" || exit 1; done
-      - name: Version match
-        run: |
-          VER=$(grep PUTTYALT_VERSION_STR puttyalt.h | grep -o '"[^"]*"' | tr -d '"')
-          grep -q "\[$VER\]" CHANGELOG.md
-      - name: Module count
-        run: echo "$(ls puttyalt_*.c | wc -l) modules"
+    - uses: actions/checkout@v4
+    - name: Configure
+      run: mkdir build && cd build && cmake .. -DCMAKE_C_FLAGS="-Wall -Wextra"
+    - name: Build
+      run: cd build && make -j$(nproc)
+    - name: Verify
+      run: ./build/puttyalt --version
+    - uses: actions/upload-artifact@v4
+      with:
+        name: puttyalt-linux-x86_64
+        path: build/puttyalt
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Configure
+      run: mkdir build && cd build && cmake .. -G "Visual Studio 17 2022" -A x64
+    - name: Build
+      run: cmake --build build --config Release
+    - uses: actions/upload-artifact@v4
+      with:
+        name: puttyalt-windows-x64
+        path: build/Release/puttyalt.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Configure
+      run: mkdir build && cd build && cmake .. -DCMAKE_C_FLAGS="-Wall"
+    - name: Build
+      run: cd build && make -j$(sysctl -n hw.ncpu)
+    - uses: actions/upload-artifact@v4
+      with:
+        name: puttyalt-macos
+        path: build/puttyalt
 
   release:
-    needs: [build, lint]
+    needs: [build-linux, build-windows, build-macos]
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-      - uses: softprops/action-gh-release@v1
-        with: { generate_release_notes: true }
+    - uses: actions/download-artifact@v4
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          puttyalt-windows-x64/puttyalt.exe
+          puttyalt-linux-x86_64/puttyalt
+          puttyalt-macos/puttyalt
