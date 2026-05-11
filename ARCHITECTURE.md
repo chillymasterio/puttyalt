@@ -122,3 +122,35 @@ agent fwd, x11 fwd), UI (palette, colorpicker, fontmgr, layouts, bell,
 imgproto, url handler, find/replace, sound), data (scp, export, scrollcomp,
 shared clipboard, stats), and extensibility (plugin, eventbus, ipc, triggers v2,
 autoupdate). Total: 80+ source files.
+
+## v1.0.0 — GUI, Multiplexer & Monitoring
+
+### GUI Layer
+- `puttyalt_gui.h/.c` — Win32 native GUI framework, warm blue theme
+- `puttyalt_dialogs.h/.c` — Connection, settings, and tool dialogs
+- `puttyalt_tray.h/.c` — System tray icon with notifications
+- `puttyalt_renderer.h/.c` — Cell-based terminal renderer
+
+### Session Management
+- `puttyalt_sessgroup.h/.c` — Session groups with color coding
+- `puttyalt_sshconfig.h/.c` — SSH config file parser/writer
+
+### Monitoring & Profiling
+- `puttyalt_connprof.h/.c` — Connection profiler with jitter analysis
+- `puttyalt_monitor.h/.c` — Alert-based session monitor
+- `puttyalt_logengine.h/.c` — Multi-format structured logging
+
+### Automation & Tools
+- `puttyalt_scriptmgr.h/.c` — Multi-language script runner
+- `puttyalt_mux.h/.c` — Terminal multiplexer (split panes)
+- `puttyalt_sshagent.h/.c` — SSH agent key manager
+- `puttyalt_clipmgr.h/.c` — Advanced clipboard manager
+
+### Security
+- `puttyalt_codesign.h/.c` — Code signing and SmartScreen trust
+
+### Build
+- `main.c` — GUI entry point (WinMain / main)
+- `puttyalt.rc` — Windows resources (icon, manifest, version)
+- `res/puttyalt.manifest` — DPI, compatibility, trust manifest
+- `res/puttyalt.ico` — Application icon
