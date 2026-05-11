@@ -111,7 +111,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         if (portable) {
             snprintf(config_path, sizeof(config_path), "puttyalt.conf");
         } else {
-            char *appdata = getenv("APPDATA");
+            const char *appdata = getenv("APPDATA");
             if (appdata)
                 snprintf(config_path, sizeof(config_path),
                          "%s\\PuttyAlt\\puttyalt.conf", appdata);
@@ -169,7 +169,7 @@ int main(int argc, char **argv)
     }
 
     if (config_path[0] == '\0') {
-        char *home = getenv("HOME");
+        const char *home = getenv("HOME");
         if (home)
             snprintf(config_path, sizeof(config_path),
                      "%s/.config/puttyalt/puttyalt.conf", home);
