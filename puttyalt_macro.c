@@ -73,7 +73,7 @@ int macro_play(MacroRecorder *rec, int slot)
 {
     if (rec->playing >= 0)
         return -1; /* already playing */
-    if (slot < 0 || slot >= rec->num_macros)
+    if (slot < 0 || slot >= MACRO_MAX_SLOTS || slot >= rec->num_macros)
         return -1;
     if (rec->slots[slot].num_events == 0)
         return -1;
@@ -115,7 +115,7 @@ const MacroEvent *macro_next_event(MacroRecorder *rec)
 
 int macro_delete(MacroRecorder *rec, int slot)
 {
-    if (slot < 0 || slot >= rec->num_macros)
+    if (slot < 0 || slot >= MACRO_MAX_SLOTS || slot >= rec->num_macros)
         return -1;
     memset(&rec->slots[slot], 0, sizeof(Macro));
     return 0;
@@ -123,7 +123,7 @@ int macro_delete(MacroRecorder *rec, int slot)
 
 int macro_rename(MacroRecorder *rec, int slot, const char *new_name)
 {
-    if (slot < 0 || slot >= rec->num_macros)
+    if (slot < 0 || slot >= MACRO_MAX_SLOTS || slot >= rec->num_macros)
         return -1;
     if (!new_name)
         return -1;
