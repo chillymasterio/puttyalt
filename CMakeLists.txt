@@ -102,6 +102,13 @@ add_library(puttyalt STATIC
   puttyalt_sessgroup.c
   puttyalt_renderer.c
   puttyalt_sshconfig.c
+  puttyalt_expect.c
+  puttyalt_recorder.c
+  puttyalt_searchhl.c
+  puttyalt_notifcenter.c
+  puttyalt_quicklaunch.c
+  puttyalt_unicode.c
+  puttyalt_dashboard.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
