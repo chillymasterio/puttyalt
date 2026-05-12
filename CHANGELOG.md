@@ -57,3 +57,19 @@
 ## [0.1.0] — 2026-05-16
 
 ### Initial Release — Portable mode, reconnect, snippets
+
+## [1.0.2] - 2025-05-22
+
+### Added
+- Hex viewer for binary data inspection with hex/ASCII toggle
+- SSH host fingerprint manager with trust levels and known_hosts export
+- Port forwarding manager supporting local, remote, and dynamic SOCKS tunnels
+- Tab completion engine with frequency-ranked suggestions and wordlists
+- Accessibility module: screen reader, high contrast themes, visual bell
+- Token bucket rate limiter for connection throttling
+- Chat-style session log with HTML export, filtering, and markers
+
+### Fixed
+- Missing stdio.h include in search highlight module
+- Missing stdlib.h include in fingerprint module
+- Missing stdio.h include in rate limiter module
