@@ -59,3 +59,14 @@ puttyalt [options] [user@]host[:port]
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.
+
+### v1.0.2 Modules
+| Module | Description |
+|--------|-------------|
+| Hex Viewer | Binary data inspection with search and edit |
+| Fingerprint Manager | SSH host key verification and trust store |
+| Port Forwarding | Local, remote, and dynamic SOCKS tunnels |
+| Tab Completion | Frequency-ranked command/path suggestions |
+| Accessibility | Screen reader support, high contrast themes |
+| Rate Limiter | Token bucket connection throttling |
+| Chat Log | Chat-style session log with HTML export |
