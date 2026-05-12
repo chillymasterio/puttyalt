@@ -1,5 +1,6 @@
 #include "puttyalt_searchhl.h"
 #include <string.h>
+#include <stdio.h>
 
 void searchhl_init(SearchHighlight *sh)
 {
