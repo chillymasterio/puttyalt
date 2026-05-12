@@ -109,6 +109,13 @@ add_library(puttyalt STATIC
   puttyalt_quicklaunch.c
   puttyalt_unicode.c
   puttyalt_dashboard.c
+  puttyalt_hexview.c
+  puttyalt_fingerprint.c
+  puttyalt_portfwd.c
+  puttyalt_completion.c
+  puttyalt_accessibility.c
+  puttyalt_ratelimit.c
+  puttyalt_chatlog.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

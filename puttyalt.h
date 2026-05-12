@@ -129,4 +129,13 @@
 #define PUTTYALT_UNICODE_TABLE   1
 #define PUTTYALT_DASHBOARD       1
 
+/* v1.0.2 features */
+#define PUTTYALT_HEXVIEW         1
+#define PUTTYALT_FINGERPRINT     1
+#define PUTTYALT_PORTFWD         1
+#define PUTTYALT_COMPLETION      1
+#define PUTTYALT_ACCESSIBILITY   1
+#define PUTTYALT_RATE_LIMIT      1
+#define PUTTYALT_CHATLOG         1
+
 #endif /* PUTTYALT_H */
