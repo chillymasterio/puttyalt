@@ -1,35 +1,40 @@
-/*
- * puttyalt_bandwidth.h: Network bandwidth usage monitor.
- */
-
 #ifndef PUTTYALT_BANDWIDTH_H
 #define PUTTYALT_BANDWIDTH_H
 
-#define BW_HISTORY_SIZE  60   /* seconds of history */
+#define BW_MAX_SAMPLES   300
+#define BW_MAX_SESSIONS  32
 
-typedef struct BandwidthSample {
-    unsigned long bytes_rx;
-    unsigned long bytes_tx;
-    unsigned long timestamp;
-} BandwidthSample;
+typedef struct {
+    long   tx_bytes[BW_MAX_SAMPLES];
+    long   rx_bytes[BW_MAX_SAMPLES];
+    int    sample_count;
+    int    write_pos;
+    long   total_tx;
+    long   total_rx;
+    long   peak_tx_rate;
+    long   peak_rx_rate;
+    long   last_sample_time;
+    int    session_id;
+    int    limit_tx;     /* bytes/sec, 0 = unlimited */
+    int    limit_rx;
+} BWSession;
 
-typedef struct BandwidthMonitor {
-    BandwidthSample history[BW_HISTORY_SIZE];
-    int head;
-    int count;
-    unsigned long total_rx;
-    unsigned long total_tx;
-    unsigned long session_start;
-    unsigned long peak_rx_rate;
-    unsigned long peak_tx_rate;
-} BandwidthMonitor;
+typedef struct {
+    BWSession sessions[BW_MAX_SESSIONS];
+    int       count;
+    int       interval_ms;
+    int       enabled;
+} BWMonitor;
 
-void bw_init(BandwidthMonitor *mon, unsigned long start_time);
-void bw_record(BandwidthMonitor *mon, unsigned long rx, unsigned long tx,
-               unsigned long timestamp);
-unsigned long bw_get_rx_rate(const BandwidthMonitor *mon);
-unsigned long bw_get_tx_rate(const BandwidthMonitor *mon);
-void bw_format_bytes(unsigned long bytes, char *buf, int buflen);
-void bw_format_rate(unsigned long bytes_per_sec, char *buf, int buflen);
+void bw_init(BWMonitor *bw);
+int  bw_add_session(BWMonitor *bw, int session_id);
+int  bw_remove_session(BWMonitor *bw, int session_id);
+void bw_record(BWMonitor *bw, int session_id, long tx, long rx);
+long bw_get_tx_rate(const BWMonitor *bw, int session_id);
+long bw_get_rx_rate(const BWMonitor *bw, int session_id);
+long bw_get_avg_tx(const BWMonitor *bw, int session_id, int samples);
+long bw_get_avg_rx(const BWMonitor *bw, int session_id, int samples);
+int  bw_set_limit(BWMonitor *bw, int session_id, int tx_limit, int rx_limit);
+int  bw_check_limit(const BWMonitor *bw, int session_id, int is_tx);
 
-#endif /* PUTTYALT_BANDWIDTH_H */
+#endif

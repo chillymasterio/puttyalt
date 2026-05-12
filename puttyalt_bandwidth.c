@@ -1,95 +1,131 @@
-/*
- * puttyalt_bandwidth.c: Network bandwidth usage monitor.
- */
-
-#include <string.h>
-#include <stdio.h>
 #include "puttyalt_bandwidth.h"
+#include <string.h>
+#include <time.h>
 
-void bw_init(BandwidthMonitor *mon, unsigned long start_time)
+void bw_init(BWMonitor *bw)
 {
-    memset(mon, 0, sizeof(*mon));
-    mon->session_start = start_time;
+    memset(bw, 0, sizeof(*bw));
+    bw->interval_ms = 1000;
+    bw->enabled = 1;
 }
 
-void bw_record(BandwidthMonitor *mon, unsigned long rx, unsigned long tx,
-               unsigned long timestamp)
+static BWSession *bw_find_session(BWMonitor *bw, int session_id)
 {
-    BandwidthSample *s = &mon->history[mon->head];
-    s->bytes_rx = rx;
-    s->bytes_tx = tx;
-    s->timestamp = timestamp;
-
-    mon->total_rx += rx;
-    mon->total_tx += tx;
-
-    if (rx > mon->peak_rx_rate)
-        mon->peak_rx_rate = rx;
-    if (tx > mon->peak_tx_rate)
-        mon->peak_tx_rate = tx;
-
-    mon->head = (mon->head + 1) % BW_HISTORY_SIZE;
-    if (mon->count < BW_HISTORY_SIZE)
-        mon->count++;
+    for (int i = 0; i < bw->count; i++)
+        if (bw->sessions[i].session_id == session_id)
+            return &bw->sessions[i];
+    return NULL;
 }
 
-unsigned long bw_get_rx_rate(const BandwidthMonitor *mon)
+static const BWSession *bw_find_session_const(const BWMonitor *bw, int session_id)
 {
-    if (mon->count < 2)
-        return 0;
+    for (int i = 0; i < bw->count; i++)
+        if (bw->sessions[i].session_id == session_id)
+            return &bw->sessions[i];
+    return NULL;
+}
 
-    int newest = (mon->head - 1 + BW_HISTORY_SIZE) % BW_HISTORY_SIZE;
-    int oldest = (mon->head - mon->count + BW_HISTORY_SIZE) % BW_HISTORY_SIZE;
+int bw_add_session(BWMonitor *bw, int session_id)
+{
+    if (bw->count >= BW_MAX_SESSIONS) return -1;
+    if (bw_find_session(bw, session_id)) return 0;
+    BWSession *s = &bw->sessions[bw->count++];
+    memset(s, 0, sizeof(*s));
+    s->session_id = session_id;
+    s->last_sample_time = (long)time(NULL);
+    return 0;
+}
 
-    unsigned long dt = mon->history[newest].timestamp -
-                       mon->history[oldest].timestamp;
-    if (dt == 0)
-        return 0;
-
-    unsigned long total = 0;
-    for (int i = 0; i < mon->count; i++) {
-        int idx = (oldest + i) % BW_HISTORY_SIZE;
-        total += mon->history[idx].bytes_rx;
+int bw_remove_session(BWMonitor *bw, int session_id)
+{
+    for (int i = 0; i < bw->count; i++) {
+        if (bw->sessions[i].session_id == session_id) {
+            for (int j = i; j < bw->count - 1; j++)
+                bw->sessions[j] = bw->sessions[j + 1];
+            bw->count--;
+            return 0;
+        }
     }
-    return total / dt;
+    return -1;
 }
 
-unsigned long bw_get_tx_rate(const BandwidthMonitor *mon)
+void bw_record(BWMonitor *bw, int session_id, long tx, long rx)
 {
-    if (mon->count < 2)
-        return 0;
+    if (!bw->enabled) return;
+    BWSession *s = bw_find_session(bw, session_id);
+    if (!s) return;
 
-    int newest = (mon->head - 1 + BW_HISTORY_SIZE) % BW_HISTORY_SIZE;
-    int oldest = (mon->head - mon->count + BW_HISTORY_SIZE) % BW_HISTORY_SIZE;
+    s->tx_bytes[s->write_pos] = tx;
+    s->rx_bytes[s->write_pos] = rx;
+    s->write_pos = (s->write_pos + 1) % BW_MAX_SAMPLES;
+    if (s->sample_count < BW_MAX_SAMPLES) s->sample_count++;
 
-    unsigned long dt = mon->history[newest].timestamp -
-                       mon->history[oldest].timestamp;
-    if (dt == 0)
-        return 0;
+    s->total_tx += tx;
+    s->total_rx += rx;
+    if (tx > s->peak_tx_rate) s->peak_tx_rate = tx;
+    if (rx > s->peak_rx_rate) s->peak_rx_rate = rx;
+    s->last_sample_time = (long)time(NULL);
+}
 
-    unsigned long total = 0;
-    for (int i = 0; i < mon->count; i++) {
-        int idx = (oldest + i) % BW_HISTORY_SIZE;
-        total += mon->history[idx].bytes_tx;
+long bw_get_tx_rate(const BWMonitor *bw, int session_id)
+{
+    const BWSession *s = bw_find_session_const(bw, session_id);
+    if (!s || s->sample_count == 0) return 0;
+    int idx = (s->write_pos - 1 + BW_MAX_SAMPLES) % BW_MAX_SAMPLES;
+    return s->tx_bytes[idx];
+}
+
+long bw_get_rx_rate(const BWMonitor *bw, int session_id)
+{
+    const BWSession *s = bw_find_session_const(bw, session_id);
+    if (!s || s->sample_count == 0) return 0;
+    int idx = (s->write_pos - 1 + BW_MAX_SAMPLES) % BW_MAX_SAMPLES;
+    return s->rx_bytes[idx];
+}
+
+long bw_get_avg_tx(const BWMonitor *bw, int session_id, int samples)
+{
+    const BWSession *s = bw_find_session_const(bw, session_id);
+    if (!s || s->sample_count == 0) return 0;
+    if (samples > s->sample_count) samples = s->sample_count;
+    long sum = 0;
+    int pos = (s->write_pos - 1 + BW_MAX_SAMPLES) % BW_MAX_SAMPLES;
+    for (int i = 0; i < samples; i++) {
+        sum += s->tx_bytes[pos];
+        pos = (pos - 1 + BW_MAX_SAMPLES) % BW_MAX_SAMPLES;
     }
-    return total / dt;
+    return sum / samples;
 }
 
-void bw_format_bytes(unsigned long bytes, char *buf, int buflen)
+long bw_get_avg_rx(const BWMonitor *bw, int session_id, int samples)
 {
-    if (bytes >= 1073741824UL)
-        snprintf(buf, buflen, "%.2f GB", bytes / 1073741824.0);
-    else if (bytes >= 1048576UL)
-        snprintf(buf, buflen, "%.2f MB", bytes / 1048576.0);
-    else if (bytes >= 1024UL)
-        snprintf(buf, buflen, "%.1f KB", bytes / 1024.0);
-    else
-        snprintf(buf, buflen, "%lu B", bytes);
+    const BWSession *s = bw_find_session_const(bw, session_id);
+    if (!s || s->sample_count == 0) return 0;
+    if (samples > s->sample_count) samples = s->sample_count;
+    long sum = 0;
+    int pos = (s->write_pos - 1 + BW_MAX_SAMPLES) % BW_MAX_SAMPLES;
+    for (int i = 0; i < samples; i++) {
+        sum += s->rx_bytes[pos];
+        pos = (pos - 1 + BW_MAX_SAMPLES) % BW_MAX_SAMPLES;
+    }
+    return sum / samples;
 }
 
-void bw_format_rate(unsigned long bytes_per_sec, char *buf, int buflen)
+int bw_set_limit(BWMonitor *bw, int session_id, int tx_limit, int rx_limit)
 {
-    char tmp[32];
-    bw_format_bytes(bytes_per_sec, tmp, sizeof(tmp));
-    snprintf(buf, buflen, "%s/s", tmp);
+    BWSession *s = bw_find_session(bw, session_id);
+    if (!s) return -1;
+    s->limit_tx = tx_limit;
+    s->limit_rx = rx_limit;
+    return 0;
+}
+
+int bw_check_limit(const BWMonitor *bw, int session_id, int is_tx)
+{
+    const BWSession *s = bw_find_session_const(bw, session_id);
+    if (!s) return 1;
+    int limit = is_tx ? s->limit_tx : s->limit_rx;
+    if (limit <= 0) return 1; /* unlimited */
+    long rate = is_tx ? bw_get_tx_rate(bw, session_id) : bw_get_rx_rate(bw, session_id);
+    return rate < limit;
 }
