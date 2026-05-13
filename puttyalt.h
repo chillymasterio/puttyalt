@@ -137,5 +137,11 @@
 #define PUTTYALT_ACCESSIBILITY   1
 #define PUTTYALT_RATE_LIMIT      1
 #define PUTTYALT_CHATLOG         1
+#define PUTTYALT_ENVMGR          1
+#define PUTTYALT_SESSREPLAY      1
+#define PUTTYALT_FILEBROWSER     1
+#define PUTTYALT_INPUTFILTER     1
+#define PUTTYALT_DEBUGCON        1
+#define PUTTYALT_CLIPSYNC        1
 
 #endif /* PUTTYALT_H */

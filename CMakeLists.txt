@@ -116,6 +116,12 @@ add_library(puttyalt STATIC
   puttyalt_accessibility.c
   puttyalt_ratelimit.c
   puttyalt_chatlog.c
+  puttyalt_envmgr.c
+  puttyalt_sessreplay.c
+  puttyalt_filebrowser.c
+  puttyalt_inputfilter.c
+  puttyalt_debugcon.c
+  puttyalt_clipsync.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
