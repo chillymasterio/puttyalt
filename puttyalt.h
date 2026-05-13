@@ -151,4 +151,11 @@
 #define PUTTYALT_BANDWIDTH       1
 #define PUTTYALT_PROXY_CHAIN     1
 
+/* v1.0.4 features */
+#define PUTTYALT_SESSNOTES       1
+#define PUTTYALT_PROTOANALYZE    1
+#define PUTTYALT_HOTKEYMGR       1
+#define PUTTYALT_COLORSCHEME     1
+#define PUTTYALT_AUTOBACKUP      1
+
 #endif /* PUTTYALT_H */

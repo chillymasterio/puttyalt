@@ -127,6 +127,11 @@ add_library(puttyalt STATIC
   puttyalt_sftpmgr.c
   puttyalt_bandwidth.c
   puttyalt_proxy.c
+  puttyalt_sessnotes.c
+  puttyalt_protoanalyze.c
+  puttyalt_hotkeymgr.c
+  puttyalt_colorscheme.c
+  puttyalt_autobackup.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
