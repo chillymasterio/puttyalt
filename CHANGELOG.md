@@ -73,3 +73,21 @@
 - Missing stdio.h include in search highlight module
 - Missing stdlib.h include in fingerprint module
 - Missing stdio.h include in rate limiter module
+
+## [1.0.4] - 2025-05-22
+
+### Added
+- Environment variable manager with profiles and shell export
+- Session replay engine with speed control, seeking, and looping
+- Remote file browser with sorting, filtering, multi-select
+- Input/output filter pipeline with pattern matching and transforms
+- Debug console with log levels, variable watches, and export
+- Clipboard sync across sessions with history ring
+- Session notes with tags, search, and pinning
+- Protocol analyzer with packet capture and pcap export
+- Customizable hotkey manager with conflict detection
+- Color scheme manager with 4 built-in themes (Warm Blue, Midnight, Solarized, Nord)
+- Auto backup manager with rotation, pruning, and restore
+
+### Fixed
+- Missing stdlib.h in sessnotes and colorscheme modules
