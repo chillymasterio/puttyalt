@@ -1,133 +1,163 @@
-/*
- * puttyalt_macro.c: Keyboard macro recording and playback.
- */
-
-#include <string.h>
 #include "puttyalt_macro.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-void macro_init(MacroRecorder *rec)
+void macro_init(MacroEngine *me)
 {
-    memset(rec, 0, sizeof(*rec));
-    rec->recording = -1;
-    rec->playing = -1;
-    rec->play_pos = 0;
+    memset(me, 0, sizeof(*me));
+    me->current_macro = -1;
 }
 
-int macro_start_recording(MacroRecorder *rec, int slot, const char *name)
+int macro_create(MacroEngine *me, const char *name)
 {
-    if (rec->recording >= 0)
-        return -1; /* already recording */
-    if (slot < 0 || slot >= MACRO_MAX_SLOTS)
-        return -1;
-
-    Macro *m = &rec->slots[slot];
+    if (me->count >= MACRO_MAX_MACROS) return -1;
+    Macro *m = &me->macros[me->count];
     memset(m, 0, sizeof(*m));
-    if (name)
-        strncpy(m->name, name, MACRO_NAME_LEN - 1);
-    m->repeat_count = 0;
+    snprintf(m->name, MACRO_MAX_NAME, "%s", name);
+    return me->count++;
+}
 
-    rec->recording = slot;
-    rec->last_event_time = 0;
-
-    if (slot >= rec->num_macros)
-        rec->num_macros = slot + 1;
-
+int macro_delete(MacroEngine *me, int index)
+{
+    if (index < 0 || index >= me->count) return -1;
+    for (int i = index; i < me->count - 1; i++)
+        me->macros[i] = me->macros[i + 1];
+    me->count--;
     return 0;
 }
 
-int macro_stop_recording(MacroRecorder *rec)
+void macro_start_record(MacroEngine *me, int index)
 {
-    if (rec->recording < 0)
-        return -1;
-    rec->recording = -1;
+    if (index < 0 || index >= me->count) return;
+    me->recording = 1;
+    me->current_macro = index;
+    me->macros[index].step_count = 0;
+}
+
+void macro_stop_record(MacroEngine *me)
+{
+    me->recording = 0;
+}
+
+int macro_add_step(MacroEngine *me, MacroStepType type,
+                   const char *data, int delay_ms)
+{
+    if (!me->recording || me->current_macro < 0) return -1;
+    Macro *m = &me->macros[me->current_macro];
+    if (m->step_count >= MACRO_MAX_STEPS) return -1;
+    MacroStep *s = &m->steps[m->step_count++];
+    s->type = type;
+    if (data) snprintf(s->data, MACRO_MAX_DATA, "%s", data);
+    s->delay_ms = delay_ms;
     return 0;
 }
 
-int macro_record_event(MacroRecorder *rec, const unsigned char *data,
-                       int len, unsigned long time_ms)
+int macro_play(MacroEngine *me, int index)
 {
-    if (rec->recording < 0)
-        return -1;
-
-    Macro *m = &rec->slots[rec->recording];
-    if (m->num_events >= MACRO_MAX_EVENTS)
-        return -1;
-    if (len <= 0 || len > (int)sizeof(m->events[0].data))
-        return -1;
-
-    MacroEvent *ev = &m->events[m->num_events];
-    memcpy(ev->data, data, len);
-    ev->len = len;
-
-    if (rec->last_event_time > 0 && time_ms > rec->last_event_time)
-        ev->delay_ms = (unsigned int)(time_ms - rec->last_event_time);
-    else
-        ev->delay_ms = 0;
-
-    rec->last_event_time = time_ms;
-    m->num_events++;
+    if (index < 0 || index >= me->count) return -1;
+    me->playing = 1;
+    me->current_macro = index;
+    me->current_step = 0;
+    me->play_loop = 0;
     return 0;
 }
 
-int macro_play(MacroRecorder *rec, int slot)
+void macro_stop_play(MacroEngine *me)
 {
-    if (rec->playing >= 0)
-        return -1; /* already playing */
-    if (slot < 0 || slot >= MACRO_MAX_SLOTS || slot >= rec->num_macros)
-        return -1;
-    if (rec->slots[slot].num_events == 0)
-        return -1;
-
-    rec->playing = slot;
-    rec->play_pos = 0;
-    return 0;
+    me->playing = 0;
+    me->current_step = 0;
 }
 
-int macro_stop_playback(MacroRecorder *rec)
+int macro_step(MacroEngine *me, char *out_data, int outsz,
+               MacroStepType *out_type)
 {
-    if (rec->playing < 0)
-        return -1;
-    rec->playing = -1;
-    rec->play_pos = 0;
-    return 0;
-}
+    if (!me->playing || me->current_macro < 0) return -1;
+    Macro *m = &me->macros[me->current_macro];
 
-const MacroEvent *macro_next_event(MacroRecorder *rec)
-{
-    if (rec->playing < 0)
-        return NULL;
-
-    Macro *m = &rec->slots[rec->playing];
-    if (rec->play_pos >= m->num_events) {
-        if (m->repeat_count == -1) {
-            rec->play_pos = 0; /* loop */
-        } else if (m->repeat_count > 0) {
-            m->repeat_count--;
-            rec->play_pos = 0;
+    if (me->current_step >= m->step_count) {
+        if (m->loop_count == -1 || me->play_loop < m->loop_count - 1) {
+            me->current_step = 0;
+            me->play_loop++;
         } else {
-            macro_stop_playback(rec);
-            return NULL;
+            macro_stop_play(me);
+            return -1;
         }
     }
 
-    return &m->events[rec->play_pos++];
+    MacroStep *s = &m->steps[me->current_step++];
+    *out_type = s->type;
+    if (out_data) snprintf(out_data, outsz, "%s", s->data);
+    return s->delay_ms;
 }
 
-int macro_delete(MacroRecorder *rec, int slot)
+int macro_find(const MacroEngine *me, const char *name)
 {
-    if (slot < 0 || slot >= MACRO_MAX_SLOTS || slot >= rec->num_macros)
-        return -1;
-    memset(&rec->slots[slot], 0, sizeof(Macro));
+    for (int i = 0; i < me->count; i++)
+        if (strcmp(me->macros[i].name, name) == 0) return i;
+    return -1;
+}
+
+int macro_load(MacroEngine *me, const char *path)
+{
+    FILE *f = fopen(path, "r");
+    char line[1024];
+    Macro *cur = NULL;
+    if (!f) return -1;
+    me->count = 0;
+    while (fgets(line, sizeof(line), f)) {
+        size_t len = strlen(line);
+        while (len > 0 && (line[len-1] == '\n' || line[len-1] == '\r'))
+            line[--len] = '\0';
+        if (strcmp(line, "[macro]") == 0) {
+            int idx = macro_create(me, "");
+            if (idx < 0) break;
+            cur = &me->macros[idx];
+            continue;
+        }
+        if (!cur) continue;
+        if (strncmp(line, "name=", 5) == 0)
+            snprintf(cur->name, MACRO_MAX_NAME, "%s", line + 5);
+        else if (strncmp(line, "loop=", 5) == 0)
+            cur->loop_count = atoi(line + 5);
+        else if (strncmp(line, "step=", 5) == 0 && cur->step_count < MACRO_MAX_STEPS) {
+            MacroStep *s = &cur->steps[cur->step_count++];
+            char *comma = strchr(line + 5, ',');
+            if (comma) {
+                s->type = atoi(line + 5);
+                char *comma2 = strchr(comma + 1, ',');
+                if (comma2) {
+                    s->delay_ms = atoi(comma + 1);
+                    snprintf(s->data, MACRO_MAX_DATA, "%s", comma2 + 1);
+                }
+            }
+        }
+    }
+    fclose(f);
     return 0;
 }
 
-int macro_rename(MacroRecorder *rec, int slot, const char *new_name)
+int macro_save(const MacroEngine *me, const char *path)
 {
-    if (slot < 0 || slot >= MACRO_MAX_SLOTS || slot >= rec->num_macros)
-        return -1;
-    if (!new_name)
-        return -1;
-    strncpy(rec->slots[slot].name, new_name, MACRO_NAME_LEN - 1);
-    rec->slots[slot].name[MACRO_NAME_LEN - 1] = '\0';
+    FILE *f = fopen(path, "w");
+    if (!f) return -1;
+    for (int i = 0; i < me->count; i++) {
+        const Macro *m = &me->macros[i];
+        fprintf(f, "[macro]\nname=%s\nloop=%d\n", m->name, m->loop_count);
+        for (int j = 0; j < m->step_count; j++) {
+            const MacroStep *s = &m->steps[j];
+            fprintf(f, "step=%d,%d,%s\n", s->type, s->delay_ms, s->data);
+        }
+        fprintf(f, "\n");
+    }
+    fclose(f);
+    return 0;
+}
+
+int macro_set_hotkey(MacroEngine *me, int index, int key, int mod)
+{
+    if (index < 0 || index >= me->count) return -1;
+    me->macros[index].hotkey = key;
+    me->macros[index].hotkey_mod = mod;
     return 0;
 }

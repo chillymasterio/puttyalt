@@ -1,45 +1,59 @@
-/*
- * puttyalt_macro.h: Keyboard macro recording and playback.
- */
-
 #ifndef PUTTYALT_MACRO_H
 #define PUTTYALT_MACRO_H
 
-#define MACRO_MAX_EVENTS   4096
-#define MACRO_MAX_SLOTS    16
-#define MACRO_NAME_LEN     64
+#define MACRO_MAX_NAME    64
+#define MACRO_MAX_STEPS   256
+#define MACRO_MAX_MACROS  64
+#define MACRO_MAX_DATA    512
 
-typedef struct MacroEvent {
-    unsigned char data[8];   /* key data */
-    int len;                 /* bytes in data */
-    unsigned int delay_ms;   /* delay since previous event */
-} MacroEvent;
+typedef enum {
+    MACRO_SEND_TEXT = 0,
+    MACRO_SEND_KEY,
+    MACRO_WAIT_MS,
+    MACRO_WAIT_PATTERN,
+    MACRO_SEND_FILE,
+    MACRO_SCREENSHOT
+} MacroStepType;
 
-typedef struct Macro {
-    char name[MACRO_NAME_LEN];
-    MacroEvent events[MACRO_MAX_EVENTS];
-    int num_events;
-    int repeat_count;        /* 0 = once, -1 = infinite */
+typedef struct {
+    MacroStepType type;
+    char          data[MACRO_MAX_DATA];
+    int           delay_ms;
+} MacroStep;
+
+typedef struct {
+    char      name[MACRO_MAX_NAME];
+    MacroStep steps[MACRO_MAX_STEPS];
+    int       step_count;
+    int       loop_count;      /* 0 = no loop, -1 = infinite */
+    int       hotkey;
+    int       hotkey_mod;
 } Macro;
 
-typedef struct MacroRecorder {
-    Macro slots[MACRO_MAX_SLOTS];
-    int num_macros;
-    int recording;           /* -1 = not recording, else slot index */
-    int playing;             /* -1 = not playing, else slot index */
-    int play_pos;            /* current event index during playback */
-    unsigned long last_event_time;
-} MacroRecorder;
+typedef struct {
+    Macro  macros[MACRO_MAX_MACROS];
+    int    count;
+    int    recording;
+    int    playing;
+    int    current_macro;
+    int    current_step;
+    int    play_loop;
+} MacroEngine;
 
-void macro_init(MacroRecorder *rec);
-int  macro_start_recording(MacroRecorder *rec, int slot, const char *name);
-int  macro_stop_recording(MacroRecorder *rec);
-int  macro_record_event(MacroRecorder *rec, const unsigned char *data,
-                        int len, unsigned long time_ms);
-int  macro_play(MacroRecorder *rec, int slot);
-int  macro_stop_playback(MacroRecorder *rec);
-const MacroEvent *macro_next_event(MacroRecorder *rec);
-int  macro_delete(MacroRecorder *rec, int slot);
-int  macro_rename(MacroRecorder *rec, int slot, const char *new_name);
+void macro_init(MacroEngine *me);
+int  macro_create(MacroEngine *me, const char *name);
+int  macro_delete(MacroEngine *me, int index);
+void macro_start_record(MacroEngine *me, int index);
+void macro_stop_record(MacroEngine *me);
+int  macro_add_step(MacroEngine *me, MacroStepType type,
+                    const char *data, int delay_ms);
+int  macro_play(MacroEngine *me, int index);
+void macro_stop_play(MacroEngine *me);
+int  macro_step(MacroEngine *me, char *out_data, int outsz,
+                MacroStepType *out_type);
+int  macro_find(const MacroEngine *me, const char *name);
+int  macro_load(MacroEngine *me, const char *path);
+int  macro_save(const MacroEngine *me, const char *path);
+int  macro_set_hotkey(MacroEngine *me, int index, int key, int mod);
 
-#endif /* PUTTYALT_MACRO_H */
+#endif
