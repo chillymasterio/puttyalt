@@ -157,5 +157,9 @@
 #define PUTTYALT_HOTKEYMGR       1
 #define PUTTYALT_COLORSCHEME     1
 #define PUTTYALT_AUTOBACKUP      1
+#define PUTTYALT_NETSCAN         1
+#define PUTTYALT_TERMFX          1
+#define PUTTYALT_LOCALE          1
+#define PUTTYALT_TUNNELMON       1
 
 #endif /* PUTTYALT_H */
