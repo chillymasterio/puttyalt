@@ -1,6 +1,7 @@
 #include "puttyalt_colorscheme.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 void csmgr_init(ColorSchemeMgr *cm)
 {

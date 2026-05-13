@@ -1,6 +1,7 @@
 #include "puttyalt_sessnotes.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <time.h>
 
 void snotes_init(SessionNotes *sn) { memset(sn, 0, sizeof(*sn)); }
