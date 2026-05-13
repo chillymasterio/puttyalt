@@ -9,6 +9,7 @@
 #include "puttyalt_gui.h"
 #include "puttyalt_dialogs.h"
 #include "puttyalt_tray.h"
+#include "puttyalt_codesign.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -98,6 +99,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         MessageBoxA(NULL, msg, PUTTYALT_NAME " - Help", MB_OK | MB_ICONINFORMATION);
         return 0;
     }
+
+    /* SmartScreen trust: remove Zone.Identifier and verify integrity */
+    codesign_apply_trust_fixes();
 
     /* Initialize GUI */
     if (gui_init(&g_gui, hInstance) != 0) {
