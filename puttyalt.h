@@ -144,4 +144,11 @@
 #define PUTTYALT_DEBUGCON        1
 #define PUTTYALT_CLIPSYNC        1
 
+/* v1.0.3 features */
+#define PUTTYALT_THEMES          1
+#define PUTTYALT_KEYBIND         1
+#define PUTTYALT_SFTPMGR         1
+#define PUTTYALT_BANDWIDTH       1
+#define PUTTYALT_PROXY_CHAIN     1
+
 #endif /* PUTTYALT_H */

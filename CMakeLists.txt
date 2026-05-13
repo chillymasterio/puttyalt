@@ -122,6 +122,11 @@ add_library(puttyalt STATIC
   puttyalt_inputfilter.c
   puttyalt_debugcon.c
   puttyalt_clipsync.c
+  puttyalt_themes.c
+  puttyalt_keybind.c
+  puttyalt_sftpmgr.c
+  puttyalt_bandwidth.c
+  puttyalt_proxy.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
@@ -135,7 +140,7 @@ add_executable(puttyalt-gui WIN32 main.c)
 target_link_libraries(puttyalt-gui PRIVATE puttyalt)
 
 if(WIN32)
-  target_link_libraries(puttyalt-gui PRIVATE comctl32 shell32 comdlg32)
+  target_link_libraries(puttyalt-gui PRIVATE comctl32 shell32 comdlg32 wintrust crypt32)
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/puttyalt.rc")
     target_sources(puttyalt-gui PRIVATE puttyalt.rc)
   endif()
