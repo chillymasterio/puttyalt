@@ -164,4 +164,11 @@
 #define PUTTYALT_CMDPALETTE      1
 #define PUTTYALT_PERFMON         1
 
+/* v1.0.6 features */
+#define PUTTYALT_LAYOUT          1
+#define PUTTYALT_MACRO           1
+#define PUTTYALT_TERMINAL_CONF   1
+#define PUTTYALT_UPDATER         1
+#define PUTTYALT_STATUSBAR       1
+
 #endif /* PUTTYALT_H */
