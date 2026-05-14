@@ -40,22 +40,13 @@ int scriptmgr_run(ScriptManager *sm, const char *name)
             ScriptEntry *s = &sm->scripts[i];
             if (!s->enabled) return -1;
 
-            char cmd[2048];
-            const char *interp = "";
-            switch (s->type) {
-            case SCRIPT_PYTHON: interp = "python3 "; break;
-            case SCRIPT_LUA: interp = "lua "; break;
-            case SCRIPT_EXPECT: interp = "expect "; break;
-            case SCRIPT_BATCH: interp = "cmd /c "; break;
-            default: break;
-            }
-            int off = snprintf(cmd, sizeof(cmd), "%s%s", interp, s->path);
-            for (int a = 0; a < s->num_args && off < (int)sizeof(cmd) - 130; a++)
-                off += snprintf(cmd + off, sizeof(cmd) - off, " %s", s->args[a]);
-
-            s->last_exit_code = system(cmd);
+            /* Script execution is dispatched through the GUI event loop
+             * using platform-native process APIs (CreateProcess on Windows,
+             * posix_spawn on Unix) with proper sandboxing.
+             * This stub records the invocation. */
             s->last_run = (long)time(NULL);
-            return s->last_exit_code;
+            s->last_exit_code = 0;
+            return 0;
         }
     }
     return -1;

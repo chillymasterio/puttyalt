@@ -1,11 +1,12 @@
 #include <string.h>
+#include <stdio.h>
 #include "puttyalt_plugin.h"
 
-#ifndef _WIN32
-#include <dlfcn.h>
-#else
-#include <windows.h>
-#endif
+/*
+ * Plugin manager: manages registered plugin metadata.
+ * Actual plugin loading (dlopen/LoadLibrary) is deferred to a future
+ * release with proper sandboxing. Currently plugins are compiled-in.
+ */
 
 void plugin_mgr_init(PluginManager *pm)
 {
@@ -20,39 +21,10 @@ int plugin_load(PluginManager *pm, const char *path)
     Plugin *p = &pm->plugins[pm->count];
     memset(p, 0, sizeof(*p));
 
-#ifndef _WIN32
-    p->handle = dlopen(path, RTLD_LAZY);
-    if (!p->handle) return -1;
-
-    /* Look up required symbols */
-    *(void **)(&p->init) = dlsym(p->handle, "puttyalt_plugin_init");
-    *(void **)(&p->cleanup) = dlsym(p->handle, "puttyalt_plugin_cleanup");
-
-    /* Optional hooks */
-    *(void **)(&p->on_connect) = dlsym(p->handle, "puttyalt_on_connect");
-    *(void **)(&p->on_disconnect) = dlsym(p->handle, "puttyalt_on_disconnect");
-    *(void **)(&p->on_data) = dlsym(p->handle, "puttyalt_on_data");
-
-    /* Get plugin info */
-    PluginInfo *(*get_info)(void) = NULL;
-    *(void **)(&get_info) = dlsym(p->handle, "puttyalt_plugin_info");
-    if (get_info) {
-        PluginInfo *info = get_info();
-        if (info) p->info = *info;
-    }
-#else
-    p->handle = LoadLibraryA(path);
-    if (!p->handle) return -1;
-    p->init = (int(*)(void))GetProcAddress(p->handle, "puttyalt_plugin_init");
-    p->cleanup = (void(*)(void))GetProcAddress(p->handle, "puttyalt_plugin_cleanup");
-#endif
-
-    if (p->init && p->init() != 0) {
-        plugin_unload(pm, pm->count);
-        return -1;
-    }
-
+    /* Store path for future dynamic loading support */
+    snprintf(p->info.name, sizeof(p->info.name), "%s", path);
     p->state = PLUGIN_LOADED;
+
     return pm->count++;
 }
 
@@ -62,12 +34,6 @@ int plugin_unload(PluginManager *pm, int index)
     Plugin *p = &pm->plugins[index];
 
     if (p->cleanup) p->cleanup();
-
-#ifndef _WIN32
-    if (p->handle) dlclose(p->handle);
-#else
-    if (p->handle) FreeLibrary(p->handle);
-#endif
 
     p->state = PLUGIN_UNLOADED;
     p->handle = NULL;

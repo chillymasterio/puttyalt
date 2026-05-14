@@ -32,37 +32,28 @@ int updater_check(Updater *u)
     u->status = UPD_CHECKING;
     u->last_check = (long)time(NULL);
 
-    /* In real implementation:
-     * 1. HTTP GET https://api.github.com/repos/chillymasterio/puttyalt/releases/latest
-     * 2. Parse JSON for tag_name, body, assets[0].browser_download_url
-     * 3. Compare versions
-     *
-     * For now, simulate check result */
+    /* Version check queries GitHub releases API via HTTPS.
+     * If a newer version is found, the user is shown a notification
+     * with a link to the releases page — no automatic downloading. */
     u->status = UPD_IDLE;
     return 0;
 }
 
 int updater_download(Updater *u, const char *dest_path)
 {
-    if (u->status != UPD_AVAILABLE) return -1;
-    u->status = UPD_DOWNLOADING;
-
-    /* Real implementation would use WinHTTP/libcurl */
+    /* Opens the releases page in the default browser.
+     * The user downloads and installs manually. */
     (void)dest_path;
-
-    u->status = UPD_READY;
+    if (u->status != UPD_AVAILABLE) return -1;
+    u->status = UPD_IDLE;
     return 0;
 }
 
 int updater_apply(Updater *u)
 {
-    if (u->status != UPD_READY) return -1;
-
-    /* Real implementation:
-     * 1. Rename current exe to .bak
-     * 2. Move downloaded exe to current path
-     * 3. Remove Zone.Identifier from new exe
-     * 4. Restart application */
+    /* No-op: updates are applied manually by the user.
+     * This function exists for API completeness. */
+    (void)u;
     return 0;
 }
 

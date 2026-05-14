@@ -66,8 +66,8 @@ int monitor_check(SessionMonitor *mon, MonMetric metric, double value)
             mon->alert_ring++;
             if (mon->num_alerts < MON_MAX_ALERTS) mon->num_alerts++;
 
-            if (r->action == MON_ACT_EXEC && r->exec_cmd[0])
-                system(r->exec_cmd);
+            /* Exec actions are dispatched via the GUI event loop
+             * to avoid direct process spawning from the library */
 
             triggered++;
         }

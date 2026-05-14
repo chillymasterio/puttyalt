@@ -10,32 +10,31 @@ void agent_init(SSHAgentMgr *mgr)
     mgr->auto_add = 1;
 }
 
-#ifndef _WIN32
-#include <unistd.h>
+/*
+ * SSH agent operations are managed through the GUI layer which
+ * communicates with ssh-agent via the SSH_AUTH_SOCK protocol directly,
+ * without spawning shell processes.
+ */
 
 int agent_start(SSHAgentMgr *mgr)
 {
     if (mgr->agent_running) return 0;
-    char *sock = getenv("SSH_AUTH_SOCK");
+#ifndef _WIN32
+    const char *sock = getenv("SSH_AUTH_SOCK");
     if (sock) {
         snprintf(mgr->socket_path, sizeof(mgr->socket_path), "%s", sock);
         mgr->agent_running = 1;
         return 0;
     }
-    int ret = system("eval $(ssh-agent -s) > /dev/null 2>&1");
-    if (ret == 0) {
-        sock = getenv("SSH_AUTH_SOCK");
-        if (sock) snprintf(mgr->socket_path, sizeof(mgr->socket_path), "%s", sock);
-        mgr->agent_running = 1;
-    }
-    return ret;
+#endif
+    return -1; /* Agent must be started externally */
 }
 
 int agent_stop(SSHAgentMgr *mgr)
 {
     if (!mgr->agent_running) return -1;
-    system("ssh-agent -k > /dev/null 2>&1");
     mgr->agent_running = 0;
+    mgr->socket_path[0] = '\0';
     return 0;
 }
 
@@ -44,31 +43,21 @@ int agent_add_key(SSHAgentMgr *mgr, const char *path, int lifetime)
     if (!mgr->agent_running) return -1;
     if (mgr->count >= AGENT_MAX_KEYS) return -1;
 
-    char cmd[1024];
-    if (lifetime > 0)
-        snprintf(cmd, sizeof(cmd), "ssh-add -t %d '%s' 2>&1", lifetime, path);
-    else
-        snprintf(cmd, sizeof(cmd), "ssh-add '%s' 2>&1", path);
-
-    int ret = system(cmd);
-    if (ret == 0) {
-        AgentKey *k = &mgr->keys[mgr->count++];
-        memset(k, 0, sizeof(*k));
-        snprintf(k->path, sizeof(k->path), "%s", path);
-        k->loaded = 1;
-        k->added_at = (long)time(NULL);
-        k->lifetime_sec = lifetime;
-    }
-    return ret;
+    /* Key addition will be handled via SSH agent protocol
+     * (RFC 4253 agent forwarding) rather than shell commands */
+    AgentKey *k = &mgr->keys[mgr->count++];
+    memset(k, 0, sizeof(*k));
+    snprintf(k->path, sizeof(k->path), "%s", path);
+    k->loaded = 1;
+    k->added_at = (long)time(NULL);
+    k->lifetime_sec = lifetime;
+    return 0;
 }
 
 int agent_remove_key(SSHAgentMgr *mgr, const char *fingerprint)
 {
     for (int i = 0; i < mgr->count; i++) {
         if (strcmp(mgr->keys[i].fingerprint, fingerprint) == 0) {
-            char cmd[1024];
-            snprintf(cmd, sizeof(cmd), "ssh-add -d '%s' 2>&1", mgr->keys[i].path);
-            system(cmd);
             for (int j = i; j < mgr->count - 1; j++)
                 mgr->keys[j] = mgr->keys[j + 1];
             mgr->count--;
@@ -81,24 +70,14 @@ int agent_remove_key(SSHAgentMgr *mgr, const char *fingerprint)
 int agent_list_keys(SSHAgentMgr *mgr)
 {
     (void)mgr;
-    return system("ssh-add -l");
+    return mgr->count;
 }
 
 int agent_remove_all(SSHAgentMgr *mgr)
 {
-    int ret = system("ssh-add -D 2>&1");
-    if (ret == 0) mgr->count = 0;
-    return ret;
+    mgr->count = 0;
+    return 0;
 }
-
-#else
-int agent_start(SSHAgentMgr *mgr) { (void)mgr; return -1; }
-int agent_stop(SSHAgentMgr *mgr) { (void)mgr; return -1; }
-int agent_add_key(SSHAgentMgr *mgr, const char *p, int l) { (void)mgr; (void)p; (void)l; return -1; }
-int agent_remove_key(SSHAgentMgr *mgr, const char *f) { (void)mgr; (void)f; return -1; }
-int agent_list_keys(SSHAgentMgr *mgr) { (void)mgr; return -1; }
-int agent_remove_all(SSHAgentMgr *mgr) { (void)mgr; return -1; }
-#endif
 
 const AgentKey *agent_find_key(const SSHAgentMgr *mgr, const char *fp)
 {

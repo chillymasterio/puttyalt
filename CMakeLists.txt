@@ -156,7 +156,7 @@ add_executable(puttyalt-gui WIN32 main.c)
 target_link_libraries(puttyalt-gui PRIVATE puttyalt)
 
 if(WIN32)
-  target_link_libraries(puttyalt-gui PRIVATE comctl32 shell32 comdlg32 wintrust crypt32)
+  target_link_libraries(puttyalt-gui PRIVATE comctl32 shell32 comdlg32)
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/puttyalt.rc")
     target_sources(puttyalt-gui PRIVATE puttyalt.rc)
   endif()
