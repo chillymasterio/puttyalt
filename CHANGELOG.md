@@ -107,3 +107,34 @@
 ### Improved
 - Build system now supports 155+ source modules
 - Feature flags organized by version milestones
+
+## v1.0.6 (2025-05-22)
+
+### New Features
+- **Layout Manager**: Save/restore window layouts with named presets
+- **Macro Engine**: Record, play, loop macros with hotkey triggers
+- **Terminal Profiles**: Multiple terminal configurations (Default, Compact, Widescreen, Presentation)
+- **Auto-Updater**: Check for updates from GitHub releases
+- **Enhanced Status Bar**: Customizable sections with progress indicators
+- **Theme Engine**: 4 built-in themes with full color customization
+- **Keybinding Manager**: Configurable keyboard shortcuts
+- **SFTP Manager**: Integrated file browser with transfer queue
+- **Bandwidth Monitor**: Per-session throughput tracking and limits
+- **Proxy Chain**: SOCKS4/5 and HTTP CONNECT proxy support
+- **Hex Viewer**: Binary data inspection with search
+- **Fingerprint Manager**: SSH host key trust management
+- **Port Forwarding**: Local, remote, and dynamic tunnel management
+- **Tab Completion**: Frequency-ranked command completion
+- **Accessibility**: Screen reader support, high contrast themes
+- **Rate Limiter**: Token bucket connection throttling
+- **Chat Log**: Chat-style session log with HTML/text export
+
+### Improvements
+- Enhanced SmartScreen bypass with WinVerifyTrust API integration
+- Auto Zone.Identifier cleanup on first run
+- Code signing scripts (PowerShell and batch)
+- Better manifest with full Windows version compatibility
+
+### Bug Fixes
+- Fixed missing stdio.h include in searchhl module
+- Fixed missing stdlib.h include in fingerprint and ratelimit modules
