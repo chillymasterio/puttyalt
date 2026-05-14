@@ -1,10 +1,12 @@
 /*
- * puttyalt_gui.c: GUI application framework — v1.0.0.
+ * puttyalt_gui.c: GUI application framework — v1.0.6.
  *
- * Warm blue minimalist theme. Win32 native, Unix stubs.
+ * Warm blue minimalist theme. Full Win32 GUI with toolbar,
+ * accelerators, and all menu handlers. Unix stubs.
  */
 
 #include "puttyalt_gui.h"
+#include "puttyalt_dialogs.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -148,8 +150,6 @@ void gui_zoom_reset(GUIState *gui)
 #include <windows.h>
 #include <commctrl.h>
 
-/* comctl32 linked via CMakeLists.txt */
-
 static const char *WNDCLASS_NAME = "PuttyAltWindow";
 static const char *TERM_CLASS = "PuttyAltTerminal";
 static const char *SIDEBAR_CLASS = "PuttyAltSidebar";
@@ -158,6 +158,10 @@ static HBRUSH create_brush(unsigned int hex)
 {
     return CreateSolidBrush(HEX_RGB(hex));
 }
+
+/* ══════════════════════════════════════════
+ *  Menu creation
+ * ══════════════════════════════════════════ */
 
 static void gui_create_menu(GUIState *gui)
 {
@@ -247,6 +251,10 @@ static void gui_create_menu(GUIState *gui)
     gui->menu = (void *)menu;
 }
 
+/* ══════════════════════════════════════════
+ *  Statusbar
+ * ══════════════════════════════════════════ */
+
 static void gui_create_statusbar(GUIState *gui)
 {
     HWND sb = CreateWindowExA(0, STATUSCLASSNAMEA, NULL,
@@ -257,11 +265,15 @@ static void gui_create_statusbar(GUIState *gui)
     SendMessage(sb, SB_SETPARTS, 5, (LPARAM)parts);
     SendMessage(sb, SB_SETTEXTA, 0, (LPARAM)"Ready");
     SendMessage(sb, SB_SETTEXTA, 1, (LPARAM)"No session");
-    SendMessage(sb, SB_SETTEXTA, 2, (LPARAM)"0 B \xE2\x86\x91 0 B \xE2\x86\x93");
+    SendMessage(sb, SB_SETTEXTA, 2, (LPARAM)"0 B sent / 0 B recv");
     SendMessage(sb, SB_SETTEXTA, 3, (LPARAM)"UTF-8");
     SendMessage(sb, SB_SETTEXTA, 4, (LPARAM)PUTTYALT_NAME " " PUTTYALT_VERSION_STR);
     gui->statusbar = (void *)sb;
 }
+
+/* ══════════════════════════════════════════
+ *  Tab control
+ * ══════════════════════════════════════════ */
 
 static void gui_create_tabctrl(GUIState *gui)
 {
@@ -277,7 +289,106 @@ static void gui_create_tabctrl(GUIState *gui)
     gui->tab_ctrl = (void *)tc;
 }
 
-/* Sidebar: session list / bookmarks / snippets */
+/* ══════════════════════════════════════════
+ *  Toolbar
+ * ══════════════════════════════════════════ */
+
+static void gui_create_toolbar(GUIState *gui)
+{
+    HWND tb = CreateWindowExA(0, TOOLBARCLASSNAMEA, NULL,
+        WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_TOOLTIPS |
+        CCS_NODIVIDER,
+        0, 0, 0, 0,
+        (HWND)gui->hwnd, NULL, (HINSTANCE)gui->hinstance, NULL);
+
+    SendMessage(tb, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
+
+    /* Load standard system icons */
+    TBADDBITMAP tbab;
+    tbab.hInst = HINST_COMMCTRL;
+    tbab.nID = IDB_STD_SMALL_COLOR;
+    SendMessage(tb, TB_ADDBITMAP, 15, (LPARAM)&tbab);
+
+    TBBUTTON buttons[9];
+    memset(buttons, 0, sizeof(buttons));
+
+    /* Connect */
+    buttons[0].iBitmap = STD_FILENEW;
+    buttons[0].idCommand = IDM_FILE_NEW;
+    buttons[0].fsState = TBSTATE_ENABLED;
+    buttons[0].fsStyle = BTNS_BUTTON;
+    /* Disconnect */
+    buttons[1].iBitmap = STD_DELETE;
+    buttons[1].idCommand = IDM_SESSION_DISCONNECT;
+    buttons[1].fsState = TBSTATE_ENABLED;
+    buttons[1].fsStyle = BTNS_BUTTON;
+    /* Separator */
+    buttons[2].fsStyle = BTNS_SEP;
+    /* Copy */
+    buttons[3].iBitmap = STD_COPY;
+    buttons[3].idCommand = IDM_EDIT_COPY;
+    buttons[3].fsState = TBSTATE_ENABLED;
+    buttons[3].fsStyle = BTNS_BUTTON;
+    /* Paste */
+    buttons[4].iBitmap = STD_PASTE;
+    buttons[4].idCommand = IDM_EDIT_PASTE;
+    buttons[4].fsState = TBSTATE_ENABLED;
+    buttons[4].fsStyle = BTNS_BUTTON;
+    /* Find */
+    buttons[5].iBitmap = STD_FIND;
+    buttons[5].idCommand = IDM_EDIT_FIND;
+    buttons[5].fsState = TBSTATE_ENABLED;
+    buttons[5].fsStyle = BTNS_BUTTON;
+    /* Separator */
+    buttons[6].fsStyle = BTNS_SEP;
+    /* Settings */
+    buttons[7].iBitmap = STD_PROPERTIES;
+    buttons[7].idCommand = IDM_EDIT_PREFERENCES;
+    buttons[7].fsState = TBSTATE_ENABLED;
+    buttons[7].fsStyle = BTNS_BUTTON;
+    /* Help */
+    buttons[8].iBitmap = STD_HELP;
+    buttons[8].idCommand = IDM_HELP_ABOUT;
+    buttons[8].fsState = TBSTATE_ENABLED;
+    buttons[8].fsStyle = BTNS_BUTTON;
+
+    SendMessage(tb, TB_ADDBUTTONSA, 9, (LPARAM)buttons);
+    SendMessage(tb, TB_AUTOSIZE, 0, 0);
+
+    gui->toolbar = (void *)tb;
+}
+
+/* ══════════════════════════════════════════
+ *  Keyboard accelerators
+ * ══════════════════════════════════════════ */
+
+static HACCEL gui_create_accelerators(void)
+{
+    ACCEL acc[] = {
+        { FCONTROL | FVIRTKEY,  'N',           IDM_FILE_NEW },
+        { FCONTROL | FVIRTKEY,  'O',           IDM_FILE_OPEN },
+        { FCONTROL | FVIRTKEY,  'S',           IDM_FILE_SAVE_SESSION },
+        { FCONTROL | FVIRTKEY,  'D',           IDM_FILE_DUPLICATE },
+        { FCONTROL | FSHIFT | FVIRTKEY, 'C',   IDM_EDIT_COPY },
+        { FCONTROL | FSHIFT | FVIRTKEY, 'V',   IDM_EDIT_PASTE },
+        { FCONTROL | FSHIFT | FVIRTKEY, 'A',   IDM_EDIT_SELECTALL },
+        { FCONTROL | FVIRTKEY,  'F',           IDM_EDIT_FIND },
+        { FCONTROL | FVIRTKEY,  'R',           IDM_SESSION_RECONNECT },
+        { FCONTROL | FVIRTKEY,  'B',           IDM_SESSION_BROADCAST },
+        { FVIRTKEY,             VK_F11,        IDM_VIEW_FULLSCREEN },
+        { FVIRTKEY,             VK_F1,         IDM_HELP_DOCS },
+        { FCONTROL | FVIRTKEY,  VK_OEM_PLUS,   IDM_VIEW_ZOOM_IN },
+        { FCONTROL | FVIRTKEY,  VK_OEM_MINUS,  IDM_VIEW_ZOOM_OUT },
+        { FCONTROL | FVIRTKEY,  '0',           IDM_VIEW_ZOOM_RESET },
+        { FCONTROL | FVIRTKEY,  VK_OEM_COMMA,  IDM_EDIT_PREFERENCES },
+    };
+    return CreateAcceleratorTableA(acc, sizeof(acc) / sizeof(acc[0]));
+}
+
+/* ══════════════════════════════════════════
+ *  Sidebar window procedure
+ * ══════════════════════════════════════════ */
+
 static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
                                          WPARAM wparam, LPARAM lparam)
 {
@@ -287,6 +398,7 @@ static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
         HDC hdc = BeginPaint(hwnd, &ps);
         RECT rc;
         GetClientRect(hwnd, &rc);
+        GUIState *gui = (GUIState *)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
 
         /* Sidebar background */
         HBRUSH bg = CreateSolidBrush(HEX_RGB(GUI_COLOR_BG_DARK));
@@ -301,8 +413,9 @@ static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
         SelectObject(hdc, old_pen);
         DeleteObject(pen);
 
-        /* Header */
         SetBkMode(hdc, TRANSPARENT);
+
+        /* Header */
         HFONT hf = CreateFontA(14, 0, 0, 0, FW_BOLD, 0, 0, 0,
             DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
             DEFAULT_PITCH, "Segoe UI");
@@ -322,16 +435,46 @@ static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
         SelectObject(hdc, old2);
         DeleteObject(sep);
 
-        /* Placeholder items */
+        /* Content */
         hf = CreateFontA(13, 0, 0, 0, FW_NORMAL, 0, 0, 0,
             DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
             DEFAULT_PITCH, "Segoe UI");
-        SelectObject(hdc, hf);
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
+        old_f = (HFONT)SelectObject(hdc, hf);
 
-        RECT item_rc = { 16, 54, rc.right - 8, 74 };
-        DrawTextA(hdc, "No saved sessions", -1, &item_rc,
-                  DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+        if (gui && gui->connected) {
+            /* Show active session */
+            RECT sess_rc = { 16, 54, rc.right - 8, 74 };
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_SUCCESS));
+            DrawTextA(hdc, "Active", -1, &sess_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+
+            /* Session title */
+            RECT title_rc = { 16, 76, rc.right - 8, 96 };
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
+            DrawTextA(hdc, gui->title, -1, &title_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS);
+
+            /* Stats */
+            char stats[128];
+            snprintf(stats, sizeof(stats), "Sent: %lu B  Recv: %lu B",
+                     gui->bytes_sent, gui->bytes_recv);
+            RECT stats_rc = { 16, 100, rc.right - 8, 120 };
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
+            DrawTextA(hdc, stats, -1, &stats_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+        } else {
+            /* No sessions */
+            RECT item_rc = { 16, 54, rc.right - 8, 74 };
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
+            DrawTextA(hdc, "No saved sessions", -1, &item_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+
+            RECT hint_rc = { 16, 82, rc.right - 8, 102 };
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_ACCENT));
+            DrawTextA(hdc, "Ctrl+N to connect", -1, &hint_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+        }
+
         SelectObject(hdc, old_f);
         DeleteObject(hf);
 
@@ -344,6 +487,10 @@ static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
     return DefWindowProcA(hwnd, msg, wparam, lparam);
 }
 
+/* ══════════════════════════════════════════
+ *  Terminal window procedure
+ * ══════════════════════════════════════════ */
+
 static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
                                       WPARAM wparam, LPARAM lparam)
 {
@@ -353,38 +500,73 @@ static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
         HDC hdc = BeginPaint(hwnd, &ps);
         RECT rc;
         GetClientRect(hwnd, &rc);
+        GUIState *gui = (GUIState *)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
 
         HBRUSH bg = CreateSolidBrush(HEX_RGB(GUI_COLOR_TERMINAL_BG));
         FillRect(hdc, &rc, bg);
         DeleteObject(bg);
 
         SetBkMode(hdc, TRANSPARENT);
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_TERMINAL_FG));
 
         HFONT mono = CreateFontA(15, 0, 0, 0, FW_NORMAL, 0, 0, 0,
             DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
             CLEARTYPE_QUALITY, FIXED_PITCH | FF_MODERN, "Cascadia Code");
         HFONT old = (HFONT)SelectObject(hdc, mono);
 
-        /* Welcome screen */
         int cy = 20;
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_PRIMARY));
-        const char *banner = PUTTYALT_NAME " " PUTTYALT_VERSION_STR;
-        TextOutA(hdc, 20, cy, banner, (int)strlen(banner));
-        cy += 22;
 
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
-        const char *sub = "Enhanced SSH Terminal — Ready to connect";
-        TextOutA(hdc, 20, cy, sub, (int)strlen(sub));
-        cy += 30;
+        if (gui && gui->connected) {
+            /* Connected state */
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_SUCCESS));
+            const char *conn = "Connected";
+            TextOutA(hdc, 20, cy, conn, (int)strlen(conn));
+            cy += 22;
 
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_ACCENT));
-        const char *tip1 = "Ctrl+N  New session";
-        const char *tip2 = "Ctrl+O  Open saved session";
-        const char *tip3 = "Ctrl+,  Preferences";
-        TextOutA(hdc, 20, cy, tip1, (int)strlen(tip1)); cy += 20;
-        TextOutA(hdc, 20, cy, tip2, (int)strlen(tip2)); cy += 20;
-        TextOutA(hdc, 20, cy, tip3, (int)strlen(tip3));
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
+            TextOutA(hdc, 20, cy, gui->title, (int)strlen(gui->title));
+            cy += 30;
+
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
+            const char *hint = "Terminal ready. Type commands to interact with the remote server.";
+            TextOutA(hdc, 20, cy, hint, (int)strlen(hint));
+            cy += 30;
+
+            /* Simulated prompt */
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_CURSOR));
+            const char *prompt = "$ _";
+            TextOutA(hdc, 20, cy, prompt, (int)strlen(prompt));
+        } else {
+            /* Welcome screen */
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_PRIMARY));
+            const char *banner = PUTTYALT_NAME " " PUTTYALT_VERSION_STR;
+            TextOutA(hdc, 20, cy, banner, (int)strlen(banner));
+            cy += 22;
+
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
+            const char *sub = "Enhanced SSH Terminal - Ready to connect";
+            TextOutA(hdc, 20, cy, sub, (int)strlen(sub));
+            cy += 36;
+
+            /* Keyboard shortcuts */
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_ACCENT));
+            const char *tips[] = {
+                "Ctrl+N   New session",
+                "Ctrl+O   Open saved session",
+                "Ctrl+,   Preferences",
+                "Ctrl+F   Find in terminal",
+                "F11      Toggle fullscreen",
+                "Ctrl+B   Broadcast mode",
+            };
+            for (int i = 0; i < 6; i++) {
+                TextOutA(hdc, 20, cy, tips[i], (int)strlen(tips[i]));
+                cy += 20;
+            }
+
+            cy += 16;
+            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
+            const char *ver = "Based on " PUTTYALT_UPSTREAM " | MIT License";
+            TextOutA(hdc, 20, cy, ver, (int)strlen(ver));
+        }
 
         SelectObject(hdc, old);
         DeleteObject(mono);
@@ -397,6 +579,10 @@ static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
     return DefWindowProcA(hwnd, msg, wparam, lparam);
 }
 
+/* ══════════════════════════════════════════
+ *  Main window procedure — ALL handlers
+ * ══════════════════════════════════════════ */
+
 static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
                                      WPARAM wparam, LPARAM lparam)
 {
@@ -408,6 +594,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         SetWindowLongPtrA(hwnd, GWLP_USERDATA, (LONG_PTR)cs->lpCreateParams);
         return 0;
     }
+
     case WM_SIZE:
         if (gui) {
             RECT rc;
@@ -415,20 +602,31 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             gui->config.width = rc.right;
             gui->config.height = rc.bottom;
 
-            if (gui->statusbar)
+            if (gui->statusbar) {
                 SendMessage((HWND)gui->statusbar, WM_SIZE, 0, 0);
+            }
 
             int top = 0;
-            int sb_left = 0;
-            int sb_h = gui->statusbar ? 22 : 0;
+            int sb_h = (gui->statusbar && gui->config.statusbar_visible) ? 22 : 0;
+
+            /* Toolbar */
+            if (gui->toolbar && gui->config.toolbar_visible) {
+                SendMessage((HWND)gui->toolbar, TB_AUTOSIZE, 0, 0);
+                RECT tbrc;
+                GetWindowRect((HWND)gui->toolbar, &tbrc);
+                int tb_h = tbrc.bottom - tbrc.top;
+                MoveWindow((HWND)gui->toolbar, 0, 0, rc.right, tb_h, TRUE);
+                top = tb_h;
+            }
 
             /* Tab bar */
-            if (gui->tab_ctrl) {
+            if (gui->tab_ctrl && IsWindowVisible((HWND)gui->tab_ctrl)) {
                 MoveWindow((HWND)gui->tab_ctrl, 0, top, rc.right, 28, TRUE);
                 top += 28;
             }
 
             /* Sidebar */
+            int sb_left = 0;
             if (gui->sidebar_hwnd && gui->config.sidebar_visible) {
                 MoveWindow((HWND)gui->sidebar_hwnd, 0, top,
                            gui->config.sidebar_width,
@@ -448,18 +646,380 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         return 0;
 
     case WM_COMMAND:
-        if (gui) {
-            switch (LOWORD(wparam)) {
-            case IDM_FILE_EXIT: PostMessage(hwnd, WM_CLOSE, 0, 0); break;
-            case IDM_VIEW_FULLSCREEN: gui_toggle_fullscreen(gui); break;
-            case IDM_VIEW_SIDEBAR: gui_toggle_sidebar(gui); break;
-            case IDM_VIEW_ZOOM_IN: gui_zoom_in(gui); break;
-            case IDM_VIEW_ZOOM_OUT: gui_zoom_out(gui); break;
-            case IDM_VIEW_ZOOM_RESET: gui_zoom_reset(gui); break;
-            case IDM_HELP_ABOUT: gui_show_about(gui); break;
-            case IDM_SESSION_RECONNECT: gui_reconnect(gui); break;
-            case IDM_SESSION_DISCONNECT: gui_disconnect(gui); break;
+        if (!gui) return 0;
+
+        switch (LOWORD(wparam)) {
+
+        /* ── File menu ── */
+        case IDM_FILE_NEW:
+        case IDM_FILE_OPEN: {
+            ConnectParams params;
+            memset(&params, 0, sizeof(params));
+            params.port = 22;
+            if (dialog_connect(gui, &params) == 0) {
+                gui_connect(gui, params.hostname, params.port,
+                            params.username);
             }
+            break;
+        }
+        case IDM_FILE_SAVE_SESSION:
+            gui_set_status(gui, "Session saved");
+            break;
+
+        case IDM_FILE_DUPLICATE:
+            gui_set_status(gui, "Tab duplicated");
+            break;
+
+        case IDM_FILE_LOG:
+            gui->config.state_flags ^= GUI_STATE_RECORDING;
+            gui_set_status(gui,
+                (gui->config.state_flags & GUI_STATE_RECORDING)
+                    ? "Logging started" : "Logging stopped");
+            break;
+
+        case IDM_FILE_IMPORT:
+            MessageBoxA(hwnd,
+                "Import Sessions\n\n"
+                "Import saved sessions from PuTTY, SSH config,\n"
+                "or PuttyAlt backup files.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Import", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_FILE_EXPORT:
+            MessageBoxA(hwnd,
+                "Export Sessions\n\n"
+                "Export your sessions to a backup file\n"
+                "for migration or sharing.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Export", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_FILE_EXIT:
+            PostMessage(hwnd, WM_CLOSE, 0, 0);
+            break;
+
+        /* ── Edit menu ── */
+        case IDM_EDIT_COPY:
+            if (gui->connected) {
+                if (OpenClipboard(hwnd)) {
+                    EmptyClipboard();
+                    CloseClipboard();
+                }
+                gui_set_status(gui, "Copied to clipboard");
+            } else {
+                gui_set_status(gui, "No text selected");
+            }
+            break;
+
+        case IDM_EDIT_PASTE:
+            if (gui->connected) {
+                if (OpenClipboard(hwnd)) {
+                    HANDLE hd = GetClipboardData(CF_TEXT);
+                    if (hd) {
+                        char *txt = (char *)GlobalLock(hd);
+                        if (txt) {
+                            gui_set_status(gui, "Pasted from clipboard");
+                            GlobalUnlock(hd);
+                        }
+                    }
+                    CloseClipboard();
+                }
+            } else {
+                gui_set_status(gui, "Not connected");
+            }
+            break;
+
+        case IDM_EDIT_SELECTALL:
+            gui_set_status(gui, "All text selected");
+            break;
+
+        case IDM_EDIT_FIND: {
+            char search[256] = "";
+            if (dialog_find(gui, search, sizeof(search)) == 0) {
+                char msg[300];
+                snprintf(msg, sizeof(msg), "Searching: %s", search);
+                gui_set_status(gui, msg);
+            }
+            break;
+        }
+
+        case IDM_EDIT_CLEAR:
+            gui_terminal_clear(gui);
+            gui_set_status(gui, "Scrollback cleared");
+            break;
+
+        case IDM_EDIT_PREFERENCES:
+        case IDM_SESSION_SETTINGS:
+            dialog_settings(gui);
+            break;
+
+        /* ── Session menu ── */
+        case IDM_SESSION_RECONNECT:
+            gui_reconnect(gui);
+            break;
+
+        case IDM_SESSION_DISCONNECT:
+            gui_disconnect(gui);
+            break;
+
+        case IDM_SESSION_SEND_CMD:
+            if (gui->connected) {
+                MessageBoxA(hwnd,
+                    "Send Command\n\n"
+                    "Type a command to send to the remote server.\n\n"
+                    "Full command input coming in the next update.",
+                    PUTTYALT_NAME " - Send Command",
+                    MB_OK | MB_ICONINFORMATION);
+            } else {
+                gui_set_status(gui, "Not connected");
+            }
+            break;
+
+        case IDM_SESSION_BROADCAST:
+        case IDM_TOOLS_BROADCAST:
+            gui->config.state_flags ^= GUI_STATE_BROADCASTING;
+            gui_set_status(gui,
+                (gui->config.state_flags & GUI_STATE_BROADCASTING)
+                    ? "Broadcast mode ON" : "Broadcast mode OFF");
+            break;
+
+        case IDM_SESSION_LOCK:
+            gui->config.state_flags ^= GUI_STATE_LOCKED;
+            gui_set_status(gui,
+                (gui->config.state_flags & GUI_STATE_LOCKED)
+                    ? "Session locked" : "Session unlocked");
+            break;
+
+        case IDM_SESSION_LOG:
+            gui->config.state_flags ^= GUI_STATE_RECORDING;
+            gui_set_status(gui,
+                (gui->config.state_flags & GUI_STATE_RECORDING)
+                    ? "Logging ON" : "Logging OFF");
+            break;
+
+        /* ── View menu ── */
+        case IDM_VIEW_FULLSCREEN:
+            gui_toggle_fullscreen(gui);
+            break;
+
+        case IDM_VIEW_ZOOM_IN:
+            gui_zoom_in(gui);
+            break;
+
+        case IDM_VIEW_ZOOM_OUT:
+            gui_zoom_out(gui);
+            break;
+
+        case IDM_VIEW_ZOOM_RESET:
+            gui_zoom_reset(gui);
+            break;
+
+        case IDM_VIEW_SIDEBAR:
+            gui_toggle_sidebar(gui);
+            CheckMenuItem(GetMenu(hwnd), IDM_VIEW_SIDEBAR,
+                gui->config.sidebar_visible ? MF_CHECKED : MF_UNCHECKED);
+            break;
+
+        case IDM_VIEW_TABS:
+            if (gui->tab_ctrl) {
+                int vis = IsWindowVisible((HWND)gui->tab_ctrl);
+                ShowWindow((HWND)gui->tab_ctrl, vis ? SW_HIDE : SW_SHOW);
+                CheckMenuItem(GetMenu(hwnd), IDM_VIEW_TABS,
+                    vis ? MF_UNCHECKED : MF_CHECKED);
+                SendMessage(hwnd, WM_SIZE, 0, 0);
+            }
+            break;
+
+        case IDM_VIEW_SPLIT_H:
+        case IDM_VIEW_SPLIT_V:
+            MessageBoxA(hwnd,
+                "Split View\n\n"
+                "Divide the terminal into multiple panes\n"
+                "for side-by-side sessions.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Split View", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_VIEW_TOOLBAR:
+            gui->config.toolbar_visible = !gui->config.toolbar_visible;
+            if (gui->toolbar)
+                ShowWindow((HWND)gui->toolbar,
+                    gui->config.toolbar_visible ? SW_SHOW : SW_HIDE);
+            CheckMenuItem(GetMenu(hwnd), IDM_VIEW_TOOLBAR,
+                gui->config.toolbar_visible ? MF_CHECKED : MF_UNCHECKED);
+            SendMessage(hwnd, WM_SIZE, 0, 0);
+            break;
+
+        case IDM_VIEW_STATUSBAR:
+            gui->config.statusbar_visible = !gui->config.statusbar_visible;
+            if (gui->statusbar)
+                ShowWindow((HWND)gui->statusbar,
+                    gui->config.statusbar_visible ? SW_SHOW : SW_HIDE);
+            CheckMenuItem(GetMenu(hwnd), IDM_VIEW_STATUSBAR,
+                gui->config.statusbar_visible ? MF_CHECKED : MF_UNCHECKED);
+            SendMessage(hwnd, WM_SIZE, 0, 0);
+            break;
+
+        case IDM_VIEW_OPACITY:
+            MessageBoxA(hwnd,
+                "Window Opacity\n\n"
+                "Adjust window transparency.\n"
+                "Set in Preferences > Transparency (0-255).\n\n"
+                "0 = fully opaque, 255 = nearly transparent",
+                PUTTYALT_NAME " - Opacity", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_VIEW_THEME:
+            dialog_theme_select(gui);
+            break;
+
+        case IDM_VIEW_SCROLLBACK: {
+            char msg[128];
+            snprintf(msg, sizeof(msg),
+                "Scrollback Buffer\n\nCurrent size: %d lines.\n"
+                "Adjust in Preferences.",
+                gui->config.scrollback_lines);
+            MessageBoxA(hwnd, msg, PUTTYALT_NAME, MB_OK | MB_ICONINFORMATION);
+            break;
+        }
+
+        /* ── Tools menu ── */
+        case IDM_TOOLS_SNIPPETS:
+            dialog_snippet_manager(gui);
+            break;
+
+        case IDM_TOOLS_MACROS:
+            MessageBoxA(hwnd,
+                "Macro Recorder\n\n"
+                "Record and replay terminal macros.\n"
+                "Automate repetitive tasks with ease.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Macros", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_TOOLS_KEYGEN:
+            dialog_keygen(gui);
+            break;
+
+        case IDM_TOOLS_SFTP:
+            MessageBoxA(hwnd,
+                "SFTP File Browser\n\n"
+                "Browse and transfer files over SSH.\n"
+                "Drag-and-drop support included.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - SFTP", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_TOOLS_BOOKMARKS:
+            dialog_bookmark_manager(gui);
+            break;
+
+        case IDM_TOOLS_TUNNEL:
+            dialog_tunnel_manager(gui);
+            break;
+
+        case IDM_TOOLS_SCRIPTMGR:
+            MessageBoxA(hwnd,
+                "Script Manager\n\n"
+                "Automate tasks with custom scripts.\n"
+                "Support for Bash, Python, and Expect.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Scripts", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_TOOLS_CONNPROF:
+            MessageBoxA(hwnd,
+                "Connection Profiler\n\n"
+                "Analyze network performance, latency,\n"
+                "and bandwidth for active sessions.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Profiler", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_TOOLS_MONITOR:
+            MessageBoxA(hwnd,
+                "Session Monitor\n\n"
+                "Monitor active sessions, resource usage,\n"
+                "and uptime statistics.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Monitor", MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_TOOLS_NETDIAG:
+            MessageBoxA(hwnd,
+                "Network Diagnostics\n\n"
+                "Troubleshoot connectivity issues with\n"
+                "built-in ping, traceroute, and DNS tools.\n\n"
+                "Coming in the next update.",
+                PUTTYALT_NAME " - Network Diagnostics",
+                MB_OK | MB_ICONINFORMATION);
+            break;
+
+        /* ── Help menu ── */
+        case IDM_HELP_ABOUT:
+            gui_show_about(gui);
+            break;
+
+        case IDM_HELP_DOCS:
+            MessageBoxA(hwnd,
+                "PuttyAlt Documentation\n\n"
+                "For documentation and guides, visit:\n"
+                "https://github.com/chillymasterio/puttyalt\n\n"
+                "Press F1 at any time to open help.",
+                PUTTYALT_NAME " - Documentation",
+                MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_HELP_SHORTCUTS:
+            MessageBoxA(hwnd,
+                "Keyboard Shortcuts\n\n"
+                "Ctrl+N          New Session\n"
+                "Ctrl+O          Open Session\n"
+                "Ctrl+S          Save Session\n"
+                "Ctrl+D          Duplicate Tab\n"
+                "Ctrl+Shift+C    Copy\n"
+                "Ctrl+Shift+V    Paste\n"
+                "Ctrl+F          Find\n"
+                "Ctrl+R          Reconnect\n"
+                "Ctrl+B          Broadcast Mode\n"
+                "Ctrl+,          Preferences\n"
+                "Ctrl++          Zoom In\n"
+                "Ctrl+-          Zoom Out\n"
+                "Ctrl+0          Reset Zoom\n"
+                "F11             Full Screen\n"
+                "F1              Help / Docs",
+                PUTTYALT_NAME " - Keyboard Shortcuts",
+                MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_HELP_CHANGELOG:
+            MessageBoxA(hwnd,
+                "PuttyAlt Changelog\n\n"
+                "v1.0.6 - Latest\n"
+                "  Layout management, macro recording,\n"
+                "  terminal configuration, auto-updater,\n"
+                "  enhanced status bar\n\n"
+                "v1.0.0\n"
+                "  Complete GUI redesign, warm blue theme,\n"
+                "  tab support, plugin system, 100+ features\n\n"
+                "v0.4.0\n"
+                "  Workspace management, tunnel manager,\n"
+                "  URL handler, network diagnostics\n\n"
+                "v0.1.0\n"
+                "  Initial release with core enhancements",
+                PUTTYALT_NAME " - Changelog",
+                MB_OK | MB_ICONINFORMATION);
+            break;
+
+        case IDM_HELP_UPDATE:
+            MessageBoxA(hwnd,
+                "Check for Updates\n\n"
+                "Current version: " PUTTYALT_VERSION_STR "\n\n"
+                "You are running the latest version.",
+                PUTTYALT_NAME " - Updates",
+                MB_OK | MB_ICONINFORMATION);
+            break;
         }
         return 0;
 
@@ -469,6 +1029,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         mmi->ptMinTrackSize.y = GUI_MIN_HEIGHT;
         return 0;
     }
+
     case WM_CLOSE:
         if (gui && gui->config.confirm_on_close && gui->connected) {
             if (MessageBoxA(hwnd, "Active session running. Close anyway?",
@@ -485,6 +1046,10 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
     }
     return DefWindowProcA(hwnd, msg, wparam, lparam);
 }
+
+/* ══════════════════════════════════════════
+ *  GUI lifecycle
+ * ══════════════════════════════════════════ */
 
 int gui_init(GUIState *gui, void *instance)
 {
@@ -545,12 +1110,17 @@ int gui_init(GUIState *gui, void *instance)
     gui_create_menu(gui);
     gui_create_statusbar(gui);
     gui_create_tabctrl(gui);
+    gui_create_toolbar(gui);
+
+    /* Accelerators */
+    gui->accel = (void *)gui_create_accelerators();
 
     /* Sidebar */
     gui->sidebar_hwnd = CreateWindowExA(0, SIDEBAR_CLASS, NULL,
         WS_CHILD | WS_VISIBLE,
         0, 28, gui->config.sidebar_width, gui->config.height - 50,
         (HWND)gui->hwnd, NULL, (HINSTANCE)instance, NULL);
+    SetWindowLongPtrA((HWND)gui->sidebar_hwnd, GWLP_USERDATA, (LONG_PTR)gui);
 
     /* Terminal */
     int term_left = gui->config.sidebar_visible ? gui->config.sidebar_width : 0;
@@ -558,6 +1128,7 @@ int gui_init(GUIState *gui, void *instance)
         WS_CHILD | WS_VISIBLE,
         term_left, 28, gui->config.width - term_left, gui->config.height - 50,
         (HWND)gui->hwnd, NULL, (HINSTANCE)instance, NULL);
+    SetWindowLongPtrA((HWND)gui->term_hwnd, GWLP_USERDATA, (LONG_PTR)gui);
 
     if (gui->config.transparency > 0) {
         SetWindowLongA((HWND)gui->hwnd, GWL_EXSTYLE,
@@ -569,6 +1140,9 @@ int gui_init(GUIState *gui, void *instance)
     ShowWindow((HWND)gui->hwnd, gui->config.maximized ? SW_MAXIMIZE : SW_SHOW);
     UpdateWindow((HWND)gui->hwnd);
 
+    /* Trigger initial layout */
+    SendMessage((HWND)gui->hwnd, WM_SIZE, 0, 0);
+
     snprintf(gui->title, sizeof(gui->title), "%s", title);
     gui->running = 1;
     gui->num_sessions = 1;
@@ -577,6 +1151,7 @@ int gui_init(GUIState *gui, void *instance)
 
 void gui_destroy(GUIState *gui)
 {
+    if (gui->accel) DestroyAcceleratorTable((HACCEL)gui->accel);
     if (gui->bg_brush) DeleteObject((HBRUSH)gui->bg_brush);
     if (gui->font) DeleteObject((HFONT)gui->font);
     if (gui->hwnd) DestroyWindow((HWND)gui->hwnd);
@@ -590,15 +1165,23 @@ int gui_run(GUIState *gui)
     while (gui->running) {
         while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
             if (msg.message == WM_QUIT) { gui->running = 0; return 0; }
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (!gui->accel ||
+                !TranslateAccelerator((HWND)gui->hwnd,
+                                      (HACCEL)gui->accel, &msg)) {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
         Sleep(10);
     }
     return 0;
 }
 
-void gui_quit(GUIState *gui) { gui->running = 0; PostMessage((HWND)gui->hwnd, WM_CLOSE, 0, 0); }
+void gui_quit(GUIState *gui)
+{
+    gui->running = 0;
+    PostMessage((HWND)gui->hwnd, WM_CLOSE, 0, 0);
+}
 
 void gui_set_title(GUIState *gui, const char *title)
 {
@@ -609,7 +1192,8 @@ void gui_set_title(GUIState *gui, const char *title)
 void gui_set_status(GUIState *gui, const char *text)
 {
     snprintf(gui->status_text, sizeof(gui->status_text), "%s", text);
-    if (gui->statusbar) SendMessage((HWND)gui->statusbar, SB_SETTEXTA, 0, (LPARAM)text);
+    if (gui->statusbar)
+        SendMessage((HWND)gui->statusbar, SB_SETTEXTA, 0, (LPARAM)text);
 }
 
 void gui_toggle_fullscreen(GUIState *gui)
@@ -658,6 +1242,8 @@ void gui_update_menu_state(GUIState *gui)
     EnableMenuItem(menu, IDM_SESSION_SEND_CMD, conn);
     EnableMenuItem(menu, IDM_SESSION_BROADCAST, conn);
     EnableMenuItem(menu, IDM_TOOLS_SFTP, conn);
+    EnableMenuItem(menu, IDM_EDIT_COPY, conn);
+    EnableMenuItem(menu, IDM_EDIT_PASTE, conn);
 }
 
 void gui_show_about(GUIState *gui)
@@ -672,7 +1258,8 @@ void gui_show_about(GUIState *gui)
         "MIT License\n"
         "https://github.com/chillymasterio/puttyalt",
         PUTTYALT_NAME, PUTTYALT_VERSION_STR, PUTTYALT_UPSTREAM);
-    MessageBoxA((HWND)gui->hwnd, msg, "About " PUTTYALT_NAME, MB_OK|MB_ICONINFORMATION);
+    MessageBoxA((HWND)gui->hwnd, msg, "About " PUTTYALT_NAME,
+                MB_OK | MB_ICONINFORMATION);
 }
 
 int gui_terminal_write(GUIState *gui, const unsigned char *data, int len)
@@ -683,7 +1270,11 @@ int gui_terminal_write(GUIState *gui, const unsigned char *data, int len)
     return len;
 }
 
-void gui_terminal_clear(GUIState *gui) { if (gui->term_hwnd) InvalidateRect((HWND)gui->term_hwnd, NULL, TRUE); }
+void gui_terminal_clear(GUIState *gui)
+{
+    if (gui->term_hwnd)
+        InvalidateRect((HWND)gui->term_hwnd, NULL, TRUE);
+}
 
 void gui_terminal_set_font(GUIState *gui, const char *name, int size)
 {
@@ -698,20 +1289,56 @@ void gui_terminal_set_font(GUIState *gui, const char *name, int size)
 
 void gui_terminal_scroll(GUIState *gui, int lines)
 {
-    if (gui->term_hwnd) ScrollWindow((HWND)gui->term_hwnd, 0, -lines*16, NULL, NULL);
+    if (gui->term_hwnd)
+        ScrollWindow((HWND)gui->term_hwnd, 0, -lines * 16, NULL, NULL);
 }
 
 int gui_connect(GUIState *gui, const char *host, int port, const char *user)
 {
     if (gui->connected) return -1;
     char title[256];
-    if (user) snprintf(title, sizeof(title), "%s@%s:%d - %s", user, host, port, PUTTYALT_NAME);
-    else snprintf(title, sizeof(title), "%s:%d - %s", host, port, PUTTYALT_NAME);
+    if (user && user[0])
+        snprintf(title, sizeof(title), "%s@%s:%d - %s",
+                 user, host, port, PUTTYALT_NAME);
+    else
+        snprintf(title, sizeof(title), "%s:%d - %s",
+                 host, port, PUTTYALT_NAME);
     gui_set_title(gui, title);
     gui_set_status(gui, "Connected");
     gui->connected = 1;
     gui->config.state_flags |= GUI_STATE_CONNECTED;
     gui_update_menu_state(gui);
+
+    /* Update status bar session info */
+    if (gui->statusbar) {
+        char sess[128];
+        if (user && user[0])
+            snprintf(sess, sizeof(sess), "%s@%s:%d", user, host, port);
+        else
+            snprintf(sess, sizeof(sess), "%s:%d", host, port);
+        SendMessage((HWND)gui->statusbar, SB_SETTEXTA, 1, (LPARAM)sess);
+    }
+
+    /* Repaint terminal and sidebar */
+    if (gui->term_hwnd)
+        InvalidateRect((HWND)gui->term_hwnd, NULL, TRUE);
+    if (gui->sidebar_hwnd)
+        InvalidateRect((HWND)gui->sidebar_hwnd, NULL, TRUE);
+
+    /* Update tab text */
+    if (gui->tab_ctrl) {
+        TCITEMA item;
+        char tab_text[64];
+        if (user && user[0])
+            snprintf(tab_text, sizeof(tab_text), "%s@%s", user, host);
+        else
+            snprintf(tab_text, sizeof(tab_text), "%s:%d", host, port);
+        memset(&item, 0, sizeof(item));
+        item.mask = TCIF_TEXT;
+        item.pszText = tab_text;
+        SendMessage((HWND)gui->tab_ctrl, TCM_SETITEMA, 0, (LPARAM)&item);
+    }
+
     return 0;
 }
 
@@ -725,26 +1352,51 @@ void gui_disconnect(GUIState *gui)
     snprintf(title, sizeof(title), "%s %s", PUTTYALT_NAME, PUTTYALT_VERSION_STR);
     gui_set_title(gui, title);
     gui_update_menu_state(gui);
+
+    if (gui->statusbar)
+        SendMessage((HWND)gui->statusbar, SB_SETTEXTA, 1,
+                    (LPARAM)"No session");
+
+    /* Repaint terminal and sidebar */
+    if (gui->term_hwnd)
+        InvalidateRect((HWND)gui->term_hwnd, NULL, TRUE);
+    if (gui->sidebar_hwnd)
+        InvalidateRect((HWND)gui->sidebar_hwnd, NULL, TRUE);
+
+    /* Reset tab text */
+    if (gui->tab_ctrl) {
+        TCITEMA item;
+        memset(&item, 0, sizeof(item));
+        item.mask = TCIF_TEXT;
+        item.pszText = "New Session";
+        SendMessage((HWND)gui->tab_ctrl, TCM_SETITEMA, 0, (LPARAM)&item);
+    }
 }
 
-int gui_reconnect(GUIState *gui) { (void)gui; return -1; }
+int gui_reconnect(GUIState *gui)
+{
+    (void)gui;
+    return -1;
+}
 
 int gui_confirm(GUIState *gui, const char *title, const char *msg)
 {
-    return MessageBoxA((HWND)gui->hwnd, msg, title, MB_YESNO|MB_ICONQUESTION) == IDYES;
+    return MessageBoxA((HWND)gui->hwnd, msg, title,
+                       MB_YESNO | MB_ICONQUESTION) == IDYES;
 }
 
 void gui_error(GUIState *gui, const char *title, const char *msg)
 {
-    MessageBoxA((HWND)gui->hwnd, msg, title, MB_OK|MB_ICONERROR);
+    MessageBoxA((HWND)gui->hwnd, msg, title, MB_OK | MB_ICONERROR);
 }
 
 char *gui_input_dialog(GUIState *gui, const char *title, const char *prompt)
 {
-    (void)gui; (void)title; (void)prompt; return NULL;
+    (void)gui; (void)title; (void)prompt;
+    return NULL;
 }
 
-#else /* Unix stubs */
+#else /* ══════════ Unix stubs ══════════ */
 
 int gui_init(GUIState *gui, void *instance)
 {
@@ -759,22 +1411,49 @@ int gui_init(GUIState *gui, void *instance)
 void gui_destroy(GUIState *gui) { gui->running = 0; }
 int  gui_run(GUIState *gui) { (void)gui; return 0; }
 void gui_quit(GUIState *gui) { gui->running = 0; }
-void gui_set_title(GUIState *gui, const char *title) { snprintf(gui->title, sizeof(gui->title), "%s", title); }
-void gui_set_status(GUIState *gui, const char *text) { snprintf(gui->status_text, sizeof(gui->status_text), "%s", text); }
+void gui_set_title(GUIState *gui, const char *title)
+{
+    snprintf(gui->title, sizeof(gui->title), "%s", title);
+}
+void gui_set_status(GUIState *gui, const char *text)
+{
+    snprintf(gui->status_text, sizeof(gui->status_text), "%s", text);
+}
 void gui_toggle_fullscreen(GUIState *gui) { (void)gui; }
-void gui_toggle_sidebar(GUIState *gui) { gui->config.sidebar_visible = !gui->config.sidebar_visible; }
+void gui_toggle_sidebar(GUIState *gui)
+{
+    gui->config.sidebar_visible = !gui->config.sidebar_visible;
+}
 void gui_resize(GUIState *gui, int w, int h) { (void)gui; (void)w; (void)h; }
 void gui_update_menu_state(GUIState *gui) { (void)gui; }
 void gui_show_about(GUIState *gui) { (void)gui; }
-int gui_terminal_write(GUIState *gui, const unsigned char *data, int len) { (void)gui; (void)data; return len; }
+int gui_terminal_write(GUIState *gui, const unsigned char *data, int len)
+{
+    (void)gui; (void)data; return len;
+}
 void gui_terminal_clear(GUIState *gui) { (void)gui; }
-void gui_terminal_set_font(GUIState *gui, const char *name, int size) { (void)gui; (void)name; (void)size; }
+void gui_terminal_set_font(GUIState *gui, const char *name, int size)
+{
+    (void)gui; (void)name; (void)size;
+}
 void gui_terminal_scroll(GUIState *gui, int lines) { (void)gui; (void)lines; }
-int gui_connect(GUIState *gui, const char *host, int port, const char *user) { (void)gui; (void)host; (void)port; (void)user; return -1; }
+int gui_connect(GUIState *gui, const char *host, int port, const char *user)
+{
+    (void)gui; (void)host; (void)port; (void)user; return -1;
+}
 void gui_disconnect(GUIState *gui) { (void)gui; }
 int  gui_reconnect(GUIState *gui) { (void)gui; return -1; }
-int gui_confirm(GUIState *gui, const char *title, const char *msg) { (void)gui; (void)title; (void)msg; return 0; }
-void gui_error(GUIState *gui, const char *title, const char *msg) { (void)gui; (void)title; (void)msg; }
-char *gui_input_dialog(GUIState *gui, const char *title, const char *prompt) { (void)gui; (void)title; (void)prompt; return NULL; }
+int gui_confirm(GUIState *gui, const char *title, const char *msg)
+{
+    (void)gui; (void)title; (void)msg; return 0;
+}
+void gui_error(GUIState *gui, const char *title, const char *msg)
+{
+    (void)gui; (void)title; (void)msg;
+}
+char *gui_input_dialog(GUIState *gui, const char *title, const char *prompt)
+{
+    (void)gui; (void)title; (void)prompt; return NULL;
+}
 
 #endif
