@@ -91,3 +91,19 @@
 
 ### Fixed
 - Missing stdlib.h in sessnotes and colorscheme modules
+
+## [1.0.5] - 2025-05-22
+
+### Added
+- Network scanner with CIDR range support and service detection
+- Terminal visual effects engine: CRT distortion, scanlines, glow
+- Localization system with 5 languages (en, ru, de, zh, ja)
+- SSH tunnel monitor with auto-reconnect and status dashboard
+- Command palette (Ctrl+Shift+P) with fuzzy search
+- Performance monitor with threshold alerts and CSV export
+- Session notes with tagging, search, and pinning
+- Protocol analyzer with pcap-compatible export
+
+### Improved
+- Build system now supports 155+ source modules
+- Feature flags organized by version milestones
