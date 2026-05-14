@@ -160,6 +160,22 @@ if(WIN32)
   if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/puttyalt.rc")
     target_sources(puttyalt-gui PRIVATE puttyalt.rc)
   endif()
+
+  # Release build: optimize, strip debug info, enable security features
+  # These flags significantly reduce AV false positives from MinGW builds
+  target_compile_options(puttyalt-gui PRIVATE -O2 -DNDEBUG)
+  target_compile_options(puttyalt PRIVATE -O2 -DNDEBUG)
+
+  # Strip all symbols and debug sections from the final executable
+  target_link_options(puttyalt-gui PRIVATE -s -Wl,--gc-sections)
+
+  # Enable ASLR (high-entropy) and DEP
+  target_link_options(puttyalt-gui PRIVATE
+    -Wl,--dynamicbase
+    -Wl,--high-entropy-va
+    -Wl,--nxcompat
+  )
+
   set_target_properties(puttyalt-gui PROPERTIES
     OUTPUT_NAME "puttyalt"
     WIN32_EXECUTABLE TRUE

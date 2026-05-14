@@ -10,3 +10,7 @@ set(CMAKE_AR          x86_64-w64-mingw32-ar)
 set(CMAKE_RANLIB      x86_64-w64-mingw32-ranlib)
 
 add_compile_definitions(__USE_MINGW_ANSI_STDIO)
+
+# Reduce AV false positives: strip debug info, enable section GC
+add_compile_options(-ffunction-sections -fdata-sections -fno-ident)
+add_link_options(-Wl,--gc-sections -Wl,--strip-all)
