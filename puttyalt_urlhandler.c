@@ -92,9 +92,7 @@ void url_clear(URLHandler *uh)
 
 int url_open(const char *url)
 {
-    /* URL opening is handled by the GUI layer which calls
-     * the platform-appropriate API (ShellExecute on Windows,
-     * xdg-open on Linux, open on macOS).
+    /* URL opening is handled by the GUI layer.
      * This stub validates the URL and returns success. */
     if (!url || !*url) return -1;
     if (strncmp(url, "http://", 7) != 0 &&

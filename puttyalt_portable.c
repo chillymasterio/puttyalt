@@ -1,13 +1,10 @@
 /*
  * puttyalt_portable.c: Portable mode configuration path support.
  *
- * When a file named "puttyalt.ini" exists in the same directory as
- * the executable, PuttyAlt runs in portable mode: all configuration
+ * When a file named "puttyalt.ini" exists in the current working
+ * directory, PuttyAlt runs in portable mode: all configuration
  * is stored in files alongside the binary rather than in the system
- * registry or ~/.putty.
- *
- * This allows running PuttyAlt from a USB drive with no host
- * system modifications.
+ * config directories.
  */
 
 #include <stdio.h>
@@ -21,17 +18,15 @@
 #include <libgen.h>
 #endif
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-static int portable_mode_detected = -1;  /* -1 = not checked yet */
+static int portable_mode_detected = -1;
 static char portable_dir[4096];
 
-/*
- * Detect whether we're in portable mode by checking for
- * "puttyalt.ini" next to the executable.
- */
+#ifdef _WIN32
+#define PATH_SEP '\\'
+#else
+#define PATH_SEP '/'
+#endif
+
 int puttyalt_is_portable(void)
 {
     if (portable_mode_detected >= 0)
@@ -39,55 +34,39 @@ int puttyalt_is_portable(void)
 
     portable_dir[0] = '\0';
 
-#ifdef _WIN32
-    {
-        char exepath[MAX_PATH];
-        DWORD len = GetModuleFileNameA(NULL, exepath, sizeof(exepath));
-        if (len > 0 && len < sizeof(exepath)) {
-            /* Strip filename to get directory */
-            char *slash = strrchr(exepath, '\\');
-            if (slash) *slash = '\0';
-            snprintf(portable_dir, sizeof(portable_dir), "%s", exepath);
-        }
+    /* Check current working directory for portability marker */
+    FILE *f = fopen("puttyalt.ini", "r");
+    if (f) {
+        fclose(f);
+        snprintf(portable_dir, sizeof(portable_dir), ".");
+        portable_mode_detected = 1;
+        return 1;
     }
-#else
-    {
-        char linkpath[4096];
-        ssize_t len = readlink("/proc/self/exe", linkpath, sizeof(linkpath) - 1);
-        if (len > 0) {
-            linkpath[len] = '\0';
-            char *dir = dirname(linkpath);
-            snprintf(portable_dir, sizeof(portable_dir), "%s", dir);
-        }
-    }
-#endif
 
-    if (portable_dir[0] != '\0') {
+#ifndef _WIN32
+    /* On Unix, also check directory of the executable */
+    char linkpath[4096];
+    ssize_t len = readlink("/proc/self/exe", linkpath, sizeof(linkpath) - 1);
+    if (len > 0) {
+        linkpath[len] = '\0';
+        char *dir = dirname(linkpath);
+        snprintf(portable_dir, sizeof(portable_dir), "%s", dir);
+
         char ini_path[4096];
-        snprintf(ini_path, sizeof(ini_path), "%s%cputtyalt.ini",
-                 portable_dir,
-#ifdef _WIN32
-                 '\\'
-#else
-                 '/'
-#endif
-                 );
-        FILE *f = fopen(ini_path, "r");
+        snprintf(ini_path, sizeof(ini_path), "%s/puttyalt.ini", dir);
+        f = fopen(ini_path, "r");
         if (f) {
             fclose(f);
             portable_mode_detected = 1;
             return 1;
         }
     }
+#endif
 
     portable_mode_detected = 0;
     return 0;
 }
 
-/*
- * Return the portable configuration directory, or NULL if not
- * in portable mode.
- */
 const char *puttyalt_portable_dir(void)
 {
     if (!puttyalt_is_portable())
@@ -95,22 +74,12 @@ const char *puttyalt_portable_dir(void)
     return portable_dir;
 }
 
-/*
- * Build a path to a file within the portable configuration
- * directory.  Returns a pointer to a static buffer.
- */
 const char *puttyalt_portable_path(const char *filename)
 {
     static char path[4096];
     const char *dir = puttyalt_portable_dir();
     if (!dir)
         return NULL;
-    snprintf(path, sizeof(path), "%s%c%s", dir,
-#ifdef _WIN32
-             '\\'
-#else
-             '/'
-#endif
-             , filename);
+    snprintf(path, sizeof(path), "%s%c%s", dir, PATH_SEP, filename);
     return path;
 }

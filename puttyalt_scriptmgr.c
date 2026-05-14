@@ -40,9 +40,7 @@ int scriptmgr_run(ScriptManager *sm, const char *name)
             ScriptEntry *s = &sm->scripts[i];
             if (!s->enabled) return -1;
 
-            /* Script execution is dispatched through the GUI event loop
-             * using platform-native process APIs (CreateProcess on Windows,
-             * posix_spawn on Unix) with proper sandboxing.
+            /* Script execution is dispatched through the GUI event loop.
              * This stub records the invocation. */
             s->last_run = (long)time(NULL);
             s->last_exit_code = 0;

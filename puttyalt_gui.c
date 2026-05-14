@@ -148,7 +148,7 @@ void gui_zoom_reset(GUIState *gui)
 #include <windows.h>
 #include <commctrl.h>
 
-#pragma comment(lib, "comctl32.lib")
+/* comctl32 linked via CMakeLists.txt */
 
 static const char *WNDCLASS_NAME = "PuttyAltWindow";
 static const char *TERM_CLASS = "PuttyAltTerminal";

@@ -1,16 +1,11 @@
 /*
- * puttyalt_proxydetect.c: Proxy detection implementation.
+ * puttyalt_proxydetect.c: Proxy detection via environment variables.
  */
 
 #include "puttyalt_proxydetect.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-#ifdef _WIN32
-#include <windows.h>
-#include <wininet.h>
-#endif
 
 int proxy_parse_url(const char *url, ProxyConfig *pc)
 {
@@ -78,7 +73,6 @@ int proxy_should_bypass(const ProxyConfig *pc, const char *hostname)
         while (*token == ' ') token++;
         if (strcmp(token, hostname) == 0)
             return 1;
-        /* Wildcard suffix match: *.example.com */
         if (token[0] == '*' && token[1] == '.') {
             size_t slen = strlen(token + 1);
             size_t hlen = strlen(hostname);
@@ -90,45 +84,7 @@ int proxy_should_bypass(const ProxyConfig *pc, const char *hostname)
     return 0;
 }
 
-#ifdef _WIN32
-int proxy_detect_system(ProxyConfig *pc)
-{
-    HKEY key;
-    LONG ret;
-
-    memset(pc, 0, sizeof(*pc));
-
-    ret = RegOpenKeyExA(HKEY_CURRENT_USER,
-        "Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        0, KEY_READ, &key);
-    if (ret != ERROR_SUCCESS)
-        return -1;
-
-    DWORD enabled = 0;
-    DWORD dlen = sizeof(enabled);
-    RegQueryValueExA(key, "ProxyEnable", NULL, NULL, (LPBYTE)&enabled, &dlen);
-
-    if (enabled) {
-        char server[512] = {0};
-        DWORD slen = sizeof(server);
-        RegQueryValueExA(key, "ProxyServer", NULL, NULL, (LPBYTE)server, &slen);
-
-        if (server[0])
-            proxy_parse_url(server, pc);
-
-        char bypass[1024] = {0};
-        DWORD blen = sizeof(bypass);
-        RegQueryValueExA(key, "ProxyOverride", NULL, NULL, (LPBYTE)bypass, &blen);
-        if (bypass[0])
-            snprintf(pc->bypass, sizeof(pc->bypass), "%s", bypass);
-
-        pc->auto_detected = 1;
-    }
-
-    RegCloseKey(key);
-    return enabled ? 0 : -1;
-}
-#else
+/* Cross-platform proxy detection via environment variables */
 int proxy_detect_system(ProxyConfig *pc)
 {
     memset(pc, 0, sizeof(*pc));
@@ -155,9 +111,7 @@ int proxy_detect_system(ProxyConfig *pc)
 
     return -1;
 }
-#endif
 
-/* PAC (Proxy Auto-Config) file detection stub */
 int proxy_detect_pac(const char *pac_url, char *proxy_out, int outlen)
 {
     if (!pac_url || !proxy_out) return -1;

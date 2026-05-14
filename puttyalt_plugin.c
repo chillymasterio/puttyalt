@@ -4,8 +4,8 @@
 
 /*
  * Plugin manager: manages registered plugin metadata.
- * Actual plugin loading (dlopen/LoadLibrary) is deferred to a future
- * release with proper sandboxing. Currently plugins are compiled-in.
+ * Plugin manager: manages registered plugin metadata.
+ * Currently plugins are compiled-in.
  */
 
 void plugin_mgr_init(PluginManager *pm)
