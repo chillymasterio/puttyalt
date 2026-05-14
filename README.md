@@ -2,7 +2,7 @@
 
 **Enhanced SSH terminal based on PuTTY 0.83** — tabs, macros, SFTP, themes, plugins, and 100+ features in a portable EXE.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.6-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey)
 
@@ -19,11 +19,33 @@
 | **Monitoring** | Connection profiler, session monitor, bandwidth stats, latency |
 | **UI** | Warm blue theme, sidebar, toolbar, system tray, fullscreen |
 
+## Windows SmartScreen Notice
+
+When you first run PuttyAlt, Windows SmartScreen may show a warning — this is normal for any new unsigned software. PuttyAlt is fully open-source and safe to run.
+
+**How to launch:**
+
+1. Double-click `puttyalt.exe`
+2. If SmartScreen appears, click **"More info"**
+3. Click **"Run anyway"**
+
+**Alternative methods:**
+
+```powershell
+# PowerShell — remove download block
+Unblock-File -Path .\puttyalt.exe
+
+# Or right-click the file → Properties → check "Unblock" → OK
+```
+
+> **Why does this happen?**
+> Windows SmartScreen flags executables that don't have an EV code signing certificate ($300+/year). Since PuttyAlt is a free open-source project, we don't have one yet. The source code is fully available for review — you can build the EXE yourself from source if you prefer.
+
 ## Quick Start
 
 ```bash
 # Download
-wget https://github.com/chillymasterio/puttyalt/releases/download/v1.0.0/puttyalt.exe
+wget https://github.com/chillymasterio/puttyalt/releases/download/v1.0.6/puttyalt.exe
 
 # Or build from source
 git clone https://github.com/chillymasterio/puttyalt.git
