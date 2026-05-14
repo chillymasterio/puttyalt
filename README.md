@@ -82,3 +82,24 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Performance Monitor | Real-time metrics with threshold alerts |
 
 **Total: 155+ source modules across 300+ commits**
+
+### v1.0.6 (Latest)
+- Layout manager with named presets and pane persistence
+- Macro recorder/player with looping and hotkey triggers
+- Terminal profile manager (Default, Compact, Widescreen, Presentation)
+- Auto-updater with GitHub releases integration
+- Enhanced status bar with sections and live updates
+- SmartScreen bypass improvements: WinVerifyTrust, auto Zone.Identifier cleanup
+- Code signing scripts for Windows (PowerShell + batch)
+- Theme engine with 4 built-in color schemes (Warm Blue, Ocean Dark, Midnight Green, Classic)
+- Customizable keybinding manager
+- SFTP file manager with transfer queue
+- Bandwidth monitor with per-session tracking
+- Proxy chain manager (SOCKS4/5, HTTP CONNECT)
+- Hex viewer for binary data inspection
+- SSH host fingerprint trust manager
+- Port forwarding manager (local/remote/dynamic)
+- Tab completion engine with frequency ranking
+- Accessibility: screen reader, high contrast themes, visual bell
+- Token bucket rate limiter
+- Chat-style session log with HTML export
