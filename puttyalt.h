@@ -161,5 +161,7 @@
 #define PUTTYALT_TERMFX          1
 #define PUTTYALT_LOCALE          1
 #define PUTTYALT_TUNNELMON       1
+#define PUTTYALT_CMDPALETTE      1
+#define PUTTYALT_PERFMON         1
 
 #endif /* PUTTYALT_H */

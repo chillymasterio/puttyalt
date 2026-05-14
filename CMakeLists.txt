@@ -136,6 +136,13 @@ add_library(puttyalt STATIC
   puttyalt_termfx.c
   puttyalt_locale.c
   puttyalt_tunnelmon.c
+  puttyalt_cmdpalette.c
+  puttyalt_perfmon.c
+  puttyalt_layout.c
+  puttyalt_macro.c
+  puttyalt_terminal_conf.c
+  puttyalt_updater.c
+  puttyalt_statusbar.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
