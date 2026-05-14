@@ -70,3 +70,15 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Accessibility | Screen reader support, high contrast themes |
 | Rate Limiter | Token bucket connection throttling |
 | Chat Log | Chat-style session log with HTML export |
+
+### v1.0.5 Modules
+| Module | Description |
+|--------|-------------|
+| Network Scanner | CIDR range scanning with service detection |
+| Terminal Effects | CRT distortion, scanlines, phosphor glow |
+| Localization | i18n support for en, ru, de, zh, ja |
+| Tunnel Monitor | SSH tunnel status with auto-reconnect |
+| Command Palette | Fuzzy search command launcher (Ctrl+Shift+P) |
+| Performance Monitor | Real-time metrics with threshold alerts |
+
+**Total: 155+ source modules across 300+ commits**
