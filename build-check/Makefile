@@ -60,7 +60,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/user/Desktop/work/newera/second/putty-fork
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/user/Desktop/work/newera/second/putty-fork/build-win
+CMAKE_BINARY_DIR = /home/user/Desktop/work/newera/second/putty-fork/build-check
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/work/newera/second/putty-fork/build-win/CMakeFiles /home/user/Desktop/work/newera/second/putty-fork/build-win//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/work/newera/second/putty-fork/build-check/CMakeFiles /home/user/Desktop/work/newera/second/putty-fork/build-check//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/work/newera/second/putty-fork/build-win/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/work/newera/second/putty-fork/build-check/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -181,13 +181,13 @@ puttyalt-gui/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt-gui.dir/build.make CMakeFiles/puttyalt-gui.dir/build
 .PHONY : puttyalt-gui/fast
 
-main.obj: main.c.obj
-.PHONY : main.obj
+main.o: main.c.o
+.PHONY : main.o
 
 # target to build an object file
-main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt-gui.dir/build.make CMakeFiles/puttyalt-gui.dir/main.c.obj
-.PHONY : main.c.obj
+main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt-gui.dir/build.make CMakeFiles/puttyalt-gui.dir/main.c.o
+.PHONY : main.c.o
 
 main.i: main.c.i
 .PHONY : main.i
@@ -205,21 +205,13 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt-gui.dir/build.make CMakeFiles/puttyalt-gui.dir/main.c.s
 .PHONY : main.c.s
 
-puttyalt.res: puttyalt.rc.res
-.PHONY : puttyalt.res
+puttyalt_accessibility.o: puttyalt_accessibility.c.o
+.PHONY : puttyalt_accessibility.o
 
 # target to build an object file
-puttyalt.rc.res:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt-gui.dir/build.make CMakeFiles/puttyalt-gui.dir/puttyalt.rc.res
-.PHONY : puttyalt.rc.res
-
-puttyalt_accessibility.obj: puttyalt_accessibility.c.obj
-.PHONY : puttyalt_accessibility.obj
-
-# target to build an object file
-puttyalt_accessibility.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_accessibility.c.obj
-.PHONY : puttyalt_accessibility.c.obj
+puttyalt_accessibility.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_accessibility.c.o
+.PHONY : puttyalt_accessibility.c.o
 
 puttyalt_accessibility.i: puttyalt_accessibility.c.i
 .PHONY : puttyalt_accessibility.i
@@ -237,13 +229,13 @@ puttyalt_accessibility.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_accessibility.c.s
 .PHONY : puttyalt_accessibility.c.s
 
-puttyalt_agentfwd2.obj: puttyalt_agentfwd2.c.obj
-.PHONY : puttyalt_agentfwd2.obj
+puttyalt_agentfwd2.o: puttyalt_agentfwd2.c.o
+.PHONY : puttyalt_agentfwd2.o
 
 # target to build an object file
-puttyalt_agentfwd2.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_agentfwd2.c.obj
-.PHONY : puttyalt_agentfwd2.c.obj
+puttyalt_agentfwd2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_agentfwd2.c.o
+.PHONY : puttyalt_agentfwd2.c.o
 
 puttyalt_agentfwd2.i: puttyalt_agentfwd2.c.i
 .PHONY : puttyalt_agentfwd2.i
@@ -261,13 +253,13 @@ puttyalt_agentfwd2.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_agentfwd2.c.s
 .PHONY : puttyalt_agentfwd2.c.s
 
-puttyalt_aliases.obj: puttyalt_aliases.c.obj
-.PHONY : puttyalt_aliases.obj
+puttyalt_aliases.o: puttyalt_aliases.c.o
+.PHONY : puttyalt_aliases.o
 
 # target to build an object file
-puttyalt_aliases.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_aliases.c.obj
-.PHONY : puttyalt_aliases.c.obj
+puttyalt_aliases.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_aliases.c.o
+.PHONY : puttyalt_aliases.c.o
 
 puttyalt_aliases.i: puttyalt_aliases.c.i
 .PHONY : puttyalt_aliases.i
@@ -285,13 +277,13 @@ puttyalt_aliases.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_aliases.c.s
 .PHONY : puttyalt_aliases.c.s
 
-puttyalt_autobackup.obj: puttyalt_autobackup.c.obj
-.PHONY : puttyalt_autobackup.obj
+puttyalt_autobackup.o: puttyalt_autobackup.c.o
+.PHONY : puttyalt_autobackup.o
 
 # target to build an object file
-puttyalt_autobackup.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autobackup.c.obj
-.PHONY : puttyalt_autobackup.c.obj
+puttyalt_autobackup.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autobackup.c.o
+.PHONY : puttyalt_autobackup.c.o
 
 puttyalt_autobackup.i: puttyalt_autobackup.c.i
 .PHONY : puttyalt_autobackup.i
@@ -309,13 +301,13 @@ puttyalt_autobackup.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autobackup.c.s
 .PHONY : puttyalt_autobackup.c.s
 
-puttyalt_autocomplete.obj: puttyalt_autocomplete.c.obj
-.PHONY : puttyalt_autocomplete.obj
+puttyalt_autocomplete.o: puttyalt_autocomplete.c.o
+.PHONY : puttyalt_autocomplete.o
 
 # target to build an object file
-puttyalt_autocomplete.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autocomplete.c.obj
-.PHONY : puttyalt_autocomplete.c.obj
+puttyalt_autocomplete.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autocomplete.c.o
+.PHONY : puttyalt_autocomplete.c.o
 
 puttyalt_autocomplete.i: puttyalt_autocomplete.c.i
 .PHONY : puttyalt_autocomplete.i
@@ -333,13 +325,13 @@ puttyalt_autocomplete.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autocomplete.c.s
 .PHONY : puttyalt_autocomplete.c.s
 
-puttyalt_autoupdate.obj: puttyalt_autoupdate.c.obj
-.PHONY : puttyalt_autoupdate.obj
+puttyalt_autoupdate.o: puttyalt_autoupdate.c.o
+.PHONY : puttyalt_autoupdate.o
 
 # target to build an object file
-puttyalt_autoupdate.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autoupdate.c.obj
-.PHONY : puttyalt_autoupdate.c.obj
+puttyalt_autoupdate.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autoupdate.c.o
+.PHONY : puttyalt_autoupdate.c.o
 
 puttyalt_autoupdate.i: puttyalt_autoupdate.c.i
 .PHONY : puttyalt_autoupdate.i
@@ -357,13 +349,13 @@ puttyalt_autoupdate.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_autoupdate.c.s
 .PHONY : puttyalt_autoupdate.c.s
 
-puttyalt_bandwidth.obj: puttyalt_bandwidth.c.obj
-.PHONY : puttyalt_bandwidth.obj
+puttyalt_bandwidth.o: puttyalt_bandwidth.c.o
+.PHONY : puttyalt_bandwidth.o
 
 # target to build an object file
-puttyalt_bandwidth.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bandwidth.c.obj
-.PHONY : puttyalt_bandwidth.c.obj
+puttyalt_bandwidth.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bandwidth.c.o
+.PHONY : puttyalt_bandwidth.c.o
 
 puttyalt_bandwidth.i: puttyalt_bandwidth.c.i
 .PHONY : puttyalt_bandwidth.i
@@ -381,13 +373,13 @@ puttyalt_bandwidth.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bandwidth.c.s
 .PHONY : puttyalt_bandwidth.c.s
 
-puttyalt_base64.obj: puttyalt_base64.c.obj
-.PHONY : puttyalt_base64.obj
+puttyalt_base64.o: puttyalt_base64.c.o
+.PHONY : puttyalt_base64.o
 
 # target to build an object file
-puttyalt_base64.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_base64.c.obj
-.PHONY : puttyalt_base64.c.obj
+puttyalt_base64.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_base64.c.o
+.PHONY : puttyalt_base64.c.o
 
 puttyalt_base64.i: puttyalt_base64.c.i
 .PHONY : puttyalt_base64.i
@@ -405,13 +397,13 @@ puttyalt_base64.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_base64.c.s
 .PHONY : puttyalt_base64.c.s
 
-puttyalt_bellv2.obj: puttyalt_bellv2.c.obj
-.PHONY : puttyalt_bellv2.obj
+puttyalt_bellv2.o: puttyalt_bellv2.c.o
+.PHONY : puttyalt_bellv2.o
 
 # target to build an object file
-puttyalt_bellv2.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bellv2.c.obj
-.PHONY : puttyalt_bellv2.c.obj
+puttyalt_bellv2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bellv2.c.o
+.PHONY : puttyalt_bellv2.c.o
 
 puttyalt_bellv2.i: puttyalt_bellv2.c.i
 .PHONY : puttyalt_bellv2.i
@@ -429,13 +421,13 @@ puttyalt_bellv2.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bellv2.c.s
 .PHONY : puttyalt_bellv2.c.s
 
-puttyalt_bookmarks.obj: puttyalt_bookmarks.c.obj
-.PHONY : puttyalt_bookmarks.obj
+puttyalt_bookmarks.o: puttyalt_bookmarks.c.o
+.PHONY : puttyalt_bookmarks.o
 
 # target to build an object file
-puttyalt_bookmarks.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bookmarks.c.obj
-.PHONY : puttyalt_bookmarks.c.obj
+puttyalt_bookmarks.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bookmarks.c.o
+.PHONY : puttyalt_bookmarks.c.o
 
 puttyalt_bookmarks.i: puttyalt_bookmarks.c.i
 .PHONY : puttyalt_bookmarks.i
@@ -453,13 +445,13 @@ puttyalt_bookmarks.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_bookmarks.c.s
 .PHONY : puttyalt_bookmarks.c.s
 
-puttyalt_broadcast.obj: puttyalt_broadcast.c.obj
-.PHONY : puttyalt_broadcast.obj
+puttyalt_broadcast.o: puttyalt_broadcast.c.o
+.PHONY : puttyalt_broadcast.o
 
 # target to build an object file
-puttyalt_broadcast.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_broadcast.c.obj
-.PHONY : puttyalt_broadcast.c.obj
+puttyalt_broadcast.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_broadcast.c.o
+.PHONY : puttyalt_broadcast.c.o
 
 puttyalt_broadcast.i: puttyalt_broadcast.c.i
 .PHONY : puttyalt_broadcast.i
@@ -477,13 +469,13 @@ puttyalt_broadcast.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_broadcast.c.s
 .PHONY : puttyalt_broadcast.c.s
 
-puttyalt_chatlog.obj: puttyalt_chatlog.c.obj
-.PHONY : puttyalt_chatlog.obj
+puttyalt_chatlog.o: puttyalt_chatlog.c.o
+.PHONY : puttyalt_chatlog.o
 
 # target to build an object file
-puttyalt_chatlog.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_chatlog.c.obj
-.PHONY : puttyalt_chatlog.c.obj
+puttyalt_chatlog.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_chatlog.c.o
+.PHONY : puttyalt_chatlog.c.o
 
 puttyalt_chatlog.i: puttyalt_chatlog.c.i
 .PHONY : puttyalt_chatlog.i
@@ -501,13 +493,13 @@ puttyalt_chatlog.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_chatlog.c.s
 .PHONY : puttyalt_chatlog.c.s
 
-puttyalt_cliphistory.obj: puttyalt_cliphistory.c.obj
-.PHONY : puttyalt_cliphistory.obj
+puttyalt_cliphistory.o: puttyalt_cliphistory.c.o
+.PHONY : puttyalt_cliphistory.o
 
 # target to build an object file
-puttyalt_cliphistory.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cliphistory.c.obj
-.PHONY : puttyalt_cliphistory.c.obj
+puttyalt_cliphistory.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cliphistory.c.o
+.PHONY : puttyalt_cliphistory.c.o
 
 puttyalt_cliphistory.i: puttyalt_cliphistory.c.i
 .PHONY : puttyalt_cliphistory.i
@@ -525,13 +517,13 @@ puttyalt_cliphistory.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cliphistory.c.s
 .PHONY : puttyalt_cliphistory.c.s
 
-puttyalt_clipmgr.obj: puttyalt_clipmgr.c.obj
-.PHONY : puttyalt_clipmgr.obj
+puttyalt_clipmgr.o: puttyalt_clipmgr.c.o
+.PHONY : puttyalt_clipmgr.o
 
 # target to build an object file
-puttyalt_clipmgr.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_clipmgr.c.obj
-.PHONY : puttyalt_clipmgr.c.obj
+puttyalt_clipmgr.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_clipmgr.c.o
+.PHONY : puttyalt_clipmgr.c.o
 
 puttyalt_clipmgr.i: puttyalt_clipmgr.c.i
 .PHONY : puttyalt_clipmgr.i
@@ -549,13 +541,13 @@ puttyalt_clipmgr.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_clipmgr.c.s
 .PHONY : puttyalt_clipmgr.c.s
 
-puttyalt_clipsync.obj: puttyalt_clipsync.c.obj
-.PHONY : puttyalt_clipsync.obj
+puttyalt_clipsync.o: puttyalt_clipsync.c.o
+.PHONY : puttyalt_clipsync.o
 
 # target to build an object file
-puttyalt_clipsync.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_clipsync.c.obj
-.PHONY : puttyalt_clipsync.c.obj
+puttyalt_clipsync.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_clipsync.c.o
+.PHONY : puttyalt_clipsync.c.o
 
 puttyalt_clipsync.i: puttyalt_clipsync.c.i
 .PHONY : puttyalt_clipsync.i
@@ -573,13 +565,13 @@ puttyalt_clipsync.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_clipsync.c.s
 .PHONY : puttyalt_clipsync.c.s
 
-puttyalt_cmdhistory.obj: puttyalt_cmdhistory.c.obj
-.PHONY : puttyalt_cmdhistory.obj
+puttyalt_cmdhistory.o: puttyalt_cmdhistory.c.o
+.PHONY : puttyalt_cmdhistory.o
 
 # target to build an object file
-puttyalt_cmdhistory.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cmdhistory.c.obj
-.PHONY : puttyalt_cmdhistory.c.obj
+puttyalt_cmdhistory.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cmdhistory.c.o
+.PHONY : puttyalt_cmdhistory.c.o
 
 puttyalt_cmdhistory.i: puttyalt_cmdhistory.c.i
 .PHONY : puttyalt_cmdhistory.i
@@ -597,13 +589,13 @@ puttyalt_cmdhistory.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cmdhistory.c.s
 .PHONY : puttyalt_cmdhistory.c.s
 
-puttyalt_cmdpalette.obj: puttyalt_cmdpalette.c.obj
-.PHONY : puttyalt_cmdpalette.obj
+puttyalt_cmdpalette.o: puttyalt_cmdpalette.c.o
+.PHONY : puttyalt_cmdpalette.o
 
 # target to build an object file
-puttyalt_cmdpalette.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cmdpalette.c.obj
-.PHONY : puttyalt_cmdpalette.c.obj
+puttyalt_cmdpalette.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cmdpalette.c.o
+.PHONY : puttyalt_cmdpalette.c.o
 
 puttyalt_cmdpalette.i: puttyalt_cmdpalette.c.i
 .PHONY : puttyalt_cmdpalette.i
@@ -621,13 +613,13 @@ puttyalt_cmdpalette.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_cmdpalette.c.s
 .PHONY : puttyalt_cmdpalette.c.s
 
-puttyalt_codesign.obj: puttyalt_codesign.c.obj
-.PHONY : puttyalt_codesign.obj
+puttyalt_codesign.o: puttyalt_codesign.c.o
+.PHONY : puttyalt_codesign.o
 
 # target to build an object file
-puttyalt_codesign.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_codesign.c.obj
-.PHONY : puttyalt_codesign.c.obj
+puttyalt_codesign.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_codesign.c.o
+.PHONY : puttyalt_codesign.c.o
 
 puttyalt_codesign.i: puttyalt_codesign.c.i
 .PHONY : puttyalt_codesign.i
@@ -645,13 +637,13 @@ puttyalt_codesign.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_codesign.c.s
 .PHONY : puttyalt_codesign.c.s
 
-puttyalt_colorpicker.obj: puttyalt_colorpicker.c.obj
-.PHONY : puttyalt_colorpicker.obj
+puttyalt_colorpicker.o: puttyalt_colorpicker.c.o
+.PHONY : puttyalt_colorpicker.o
 
 # target to build an object file
-puttyalt_colorpicker.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_colorpicker.c.obj
-.PHONY : puttyalt_colorpicker.c.obj
+puttyalt_colorpicker.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_colorpicker.c.o
+.PHONY : puttyalt_colorpicker.c.o
 
 puttyalt_colorpicker.i: puttyalt_colorpicker.c.i
 .PHONY : puttyalt_colorpicker.i
@@ -669,13 +661,13 @@ puttyalt_colorpicker.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_colorpicker.c.s
 .PHONY : puttyalt_colorpicker.c.s
 
-puttyalt_colorscheme.obj: puttyalt_colorscheme.c.obj
-.PHONY : puttyalt_colorscheme.obj
+puttyalt_colorscheme.o: puttyalt_colorscheme.c.o
+.PHONY : puttyalt_colorscheme.o
 
 # target to build an object file
-puttyalt_colorscheme.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_colorscheme.c.obj
-.PHONY : puttyalt_colorscheme.c.obj
+puttyalt_colorscheme.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_colorscheme.c.o
+.PHONY : puttyalt_colorscheme.c.o
 
 puttyalt_colorscheme.i: puttyalt_colorscheme.c.i
 .PHONY : puttyalt_colorscheme.i
@@ -693,13 +685,13 @@ puttyalt_colorscheme.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_colorscheme.c.s
 .PHONY : puttyalt_colorscheme.c.s
 
-puttyalt_completion.obj: puttyalt_completion.c.obj
-.PHONY : puttyalt_completion.obj
+puttyalt_completion.o: puttyalt_completion.c.o
+.PHONY : puttyalt_completion.o
 
 # target to build an object file
-puttyalt_completion.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_completion.c.obj
-.PHONY : puttyalt_completion.c.obj
+puttyalt_completion.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_completion.c.o
+.PHONY : puttyalt_completion.c.o
 
 puttyalt_completion.i: puttyalt_completion.c.i
 .PHONY : puttyalt_completion.i
@@ -717,13 +709,13 @@ puttyalt_completion.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_completion.c.s
 .PHONY : puttyalt_completion.c.s
 
-puttyalt_connpool.obj: puttyalt_connpool.c.obj
-.PHONY : puttyalt_connpool.obj
+puttyalt_connpool.o: puttyalt_connpool.c.o
+.PHONY : puttyalt_connpool.o
 
 # target to build an object file
-puttyalt_connpool.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_connpool.c.obj
-.PHONY : puttyalt_connpool.c.obj
+puttyalt_connpool.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_connpool.c.o
+.PHONY : puttyalt_connpool.c.o
 
 puttyalt_connpool.i: puttyalt_connpool.c.i
 .PHONY : puttyalt_connpool.i
@@ -741,13 +733,13 @@ puttyalt_connpool.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_connpool.c.s
 .PHONY : puttyalt_connpool.c.s
 
-puttyalt_connprof.obj: puttyalt_connprof.c.obj
-.PHONY : puttyalt_connprof.obj
+puttyalt_connprof.o: puttyalt_connprof.c.o
+.PHONY : puttyalt_connprof.o
 
 # target to build an object file
-puttyalt_connprof.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_connprof.c.obj
-.PHONY : puttyalt_connprof.c.obj
+puttyalt_connprof.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_connprof.c.o
+.PHONY : puttyalt_connprof.c.o
 
 puttyalt_connprof.i: puttyalt_connprof.c.i
 .PHONY : puttyalt_connprof.i
@@ -765,13 +757,13 @@ puttyalt_connprof.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_connprof.c.s
 .PHONY : puttyalt_connprof.c.s
 
-puttyalt_credstore.obj: puttyalt_credstore.c.obj
-.PHONY : puttyalt_credstore.obj
+puttyalt_credstore.o: puttyalt_credstore.c.o
+.PHONY : puttyalt_credstore.o
 
 # target to build an object file
-puttyalt_credstore.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_credstore.c.obj
-.PHONY : puttyalt_credstore.c.obj
+puttyalt_credstore.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_credstore.c.o
+.PHONY : puttyalt_credstore.c.o
 
 puttyalt_credstore.i: puttyalt_credstore.c.i
 .PHONY : puttyalt_credstore.i
@@ -789,13 +781,13 @@ puttyalt_credstore.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_credstore.c.s
 .PHONY : puttyalt_credstore.c.s
 
-puttyalt_dashboard.obj: puttyalt_dashboard.c.obj
-.PHONY : puttyalt_dashboard.obj
+puttyalt_dashboard.o: puttyalt_dashboard.c.o
+.PHONY : puttyalt_dashboard.o
 
 # target to build an object file
-puttyalt_dashboard.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_dashboard.c.obj
-.PHONY : puttyalt_dashboard.c.obj
+puttyalt_dashboard.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_dashboard.c.o
+.PHONY : puttyalt_dashboard.c.o
 
 puttyalt_dashboard.i: puttyalt_dashboard.c.i
 .PHONY : puttyalt_dashboard.i
@@ -813,13 +805,13 @@ puttyalt_dashboard.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_dashboard.c.s
 .PHONY : puttyalt_dashboard.c.s
 
-puttyalt_debugcon.obj: puttyalt_debugcon.c.obj
-.PHONY : puttyalt_debugcon.obj
+puttyalt_debugcon.o: puttyalt_debugcon.c.o
+.PHONY : puttyalt_debugcon.o
 
 # target to build an object file
-puttyalt_debugcon.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_debugcon.c.obj
-.PHONY : puttyalt_debugcon.c.obj
+puttyalt_debugcon.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_debugcon.c.o
+.PHONY : puttyalt_debugcon.c.o
 
 puttyalt_debugcon.i: puttyalt_debugcon.c.i
 .PHONY : puttyalt_debugcon.i
@@ -837,13 +829,13 @@ puttyalt_debugcon.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_debugcon.c.s
 .PHONY : puttyalt_debugcon.c.s
 
-puttyalt_dialogs.obj: puttyalt_dialogs.c.obj
-.PHONY : puttyalt_dialogs.obj
+puttyalt_dialogs.o: puttyalt_dialogs.c.o
+.PHONY : puttyalt_dialogs.o
 
 # target to build an object file
-puttyalt_dialogs.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_dialogs.c.obj
-.PHONY : puttyalt_dialogs.c.obj
+puttyalt_dialogs.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_dialogs.c.o
+.PHONY : puttyalt_dialogs.c.o
 
 puttyalt_dialogs.i: puttyalt_dialogs.c.i
 .PHONY : puttyalt_dialogs.i
@@ -861,13 +853,13 @@ puttyalt_dialogs.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_dialogs.c.s
 .PHONY : puttyalt_dialogs.c.s
 
-puttyalt_envindicator.obj: puttyalt_envindicator.c.obj
-.PHONY : puttyalt_envindicator.obj
+puttyalt_envindicator.o: puttyalt_envindicator.c.o
+.PHONY : puttyalt_envindicator.o
 
 # target to build an object file
-puttyalt_envindicator.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_envindicator.c.obj
-.PHONY : puttyalt_envindicator.c.obj
+puttyalt_envindicator.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_envindicator.c.o
+.PHONY : puttyalt_envindicator.c.o
 
 puttyalt_envindicator.i: puttyalt_envindicator.c.i
 .PHONY : puttyalt_envindicator.i
@@ -885,13 +877,13 @@ puttyalt_envindicator.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_envindicator.c.s
 .PHONY : puttyalt_envindicator.c.s
 
-puttyalt_envmgr.obj: puttyalt_envmgr.c.obj
-.PHONY : puttyalt_envmgr.obj
+puttyalt_envmgr.o: puttyalt_envmgr.c.o
+.PHONY : puttyalt_envmgr.o
 
 # target to build an object file
-puttyalt_envmgr.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_envmgr.c.obj
-.PHONY : puttyalt_envmgr.c.obj
+puttyalt_envmgr.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_envmgr.c.o
+.PHONY : puttyalt_envmgr.c.o
 
 puttyalt_envmgr.i: puttyalt_envmgr.c.i
 .PHONY : puttyalt_envmgr.i
@@ -909,13 +901,13 @@ puttyalt_envmgr.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_envmgr.c.s
 .PHONY : puttyalt_envmgr.c.s
 
-puttyalt_escparse.obj: puttyalt_escparse.c.obj
-.PHONY : puttyalt_escparse.obj
+puttyalt_escparse.o: puttyalt_escparse.c.o
+.PHONY : puttyalt_escparse.o
 
 # target to build an object file
-puttyalt_escparse.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_escparse.c.obj
-.PHONY : puttyalt_escparse.c.obj
+puttyalt_escparse.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_escparse.c.o
+.PHONY : puttyalt_escparse.c.o
 
 puttyalt_escparse.i: puttyalt_escparse.c.i
 .PHONY : puttyalt_escparse.i
@@ -933,13 +925,13 @@ puttyalt_escparse.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_escparse.c.s
 .PHONY : puttyalt_escparse.c.s
 
-puttyalt_eventbus.obj: puttyalt_eventbus.c.obj
-.PHONY : puttyalt_eventbus.obj
+puttyalt_eventbus.o: puttyalt_eventbus.c.o
+.PHONY : puttyalt_eventbus.o
 
 # target to build an object file
-puttyalt_eventbus.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_eventbus.c.obj
-.PHONY : puttyalt_eventbus.c.obj
+puttyalt_eventbus.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_eventbus.c.o
+.PHONY : puttyalt_eventbus.c.o
 
 puttyalt_eventbus.i: puttyalt_eventbus.c.i
 .PHONY : puttyalt_eventbus.i
@@ -957,13 +949,13 @@ puttyalt_eventbus.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_eventbus.c.s
 .PHONY : puttyalt_eventbus.c.s
 
-puttyalt_expect.obj: puttyalt_expect.c.obj
-.PHONY : puttyalt_expect.obj
+puttyalt_expect.o: puttyalt_expect.c.o
+.PHONY : puttyalt_expect.o
 
 # target to build an object file
-puttyalt_expect.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_expect.c.obj
-.PHONY : puttyalt_expect.c.obj
+puttyalt_expect.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_expect.c.o
+.PHONY : puttyalt_expect.c.o
 
 puttyalt_expect.i: puttyalt_expect.c.i
 .PHONY : puttyalt_expect.i
@@ -981,13 +973,13 @@ puttyalt_expect.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_expect.c.s
 .PHONY : puttyalt_expect.c.s
 
-puttyalt_export2.obj: puttyalt_export2.c.obj
-.PHONY : puttyalt_export2.obj
+puttyalt_export2.o: puttyalt_export2.c.o
+.PHONY : puttyalt_export2.o
 
 # target to build an object file
-puttyalt_export2.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_export2.c.obj
-.PHONY : puttyalt_export2.c.obj
+puttyalt_export2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_export2.c.o
+.PHONY : puttyalt_export2.c.o
 
 puttyalt_export2.i: puttyalt_export2.c.i
 .PHONY : puttyalt_export2.i
@@ -1005,13 +997,13 @@ puttyalt_export2.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_export2.c.s
 .PHONY : puttyalt_export2.c.s
 
-puttyalt_filebrowser.obj: puttyalt_filebrowser.c.obj
-.PHONY : puttyalt_filebrowser.obj
+puttyalt_filebrowser.o: puttyalt_filebrowser.c.o
+.PHONY : puttyalt_filebrowser.o
 
 # target to build an object file
-puttyalt_filebrowser.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_filebrowser.c.obj
-.PHONY : puttyalt_filebrowser.c.obj
+puttyalt_filebrowser.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_filebrowser.c.o
+.PHONY : puttyalt_filebrowser.c.o
 
 puttyalt_filebrowser.i: puttyalt_filebrowser.c.i
 .PHONY : puttyalt_filebrowser.i
@@ -1029,13 +1021,13 @@ puttyalt_filebrowser.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_filebrowser.c.s
 .PHONY : puttyalt_filebrowser.c.s
 
-puttyalt_findreplace.obj: puttyalt_findreplace.c.obj
-.PHONY : puttyalt_findreplace.obj
+puttyalt_findreplace.o: puttyalt_findreplace.c.o
+.PHONY : puttyalt_findreplace.o
 
 # target to build an object file
-puttyalt_findreplace.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_findreplace.c.obj
-.PHONY : puttyalt_findreplace.c.obj
+puttyalt_findreplace.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_findreplace.c.o
+.PHONY : puttyalt_findreplace.c.o
 
 puttyalt_findreplace.i: puttyalt_findreplace.c.i
 .PHONY : puttyalt_findreplace.i
@@ -1053,13 +1045,13 @@ puttyalt_findreplace.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_findreplace.c.s
 .PHONY : puttyalt_findreplace.c.s
 
-puttyalt_fingerprint.obj: puttyalt_fingerprint.c.obj
-.PHONY : puttyalt_fingerprint.obj
+puttyalt_fingerprint.o: puttyalt_fingerprint.c.o
+.PHONY : puttyalt_fingerprint.o
 
 # target to build an object file
-puttyalt_fingerprint.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_fingerprint.c.obj
-.PHONY : puttyalt_fingerprint.c.obj
+puttyalt_fingerprint.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_fingerprint.c.o
+.PHONY : puttyalt_fingerprint.c.o
 
 puttyalt_fingerprint.i: puttyalt_fingerprint.c.i
 .PHONY : puttyalt_fingerprint.i
@@ -1077,13 +1069,13 @@ puttyalt_fingerprint.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_fingerprint.c.s
 .PHONY : puttyalt_fingerprint.c.s
 
-puttyalt_fontmgr.obj: puttyalt_fontmgr.c.obj
-.PHONY : puttyalt_fontmgr.obj
+puttyalt_fontmgr.o: puttyalt_fontmgr.c.o
+.PHONY : puttyalt_fontmgr.o
 
 # target to build an object file
-puttyalt_fontmgr.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_fontmgr.c.obj
-.PHONY : puttyalt_fontmgr.c.obj
+puttyalt_fontmgr.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_fontmgr.c.o
+.PHONY : puttyalt_fontmgr.c.o
 
 puttyalt_fontmgr.i: puttyalt_fontmgr.c.i
 .PHONY : puttyalt_fontmgr.i
@@ -1101,13 +1093,13 @@ puttyalt_fontmgr.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_fontmgr.c.s
 .PHONY : puttyalt_fontmgr.c.s
 
-puttyalt_geometry.obj: puttyalt_geometry.c.obj
-.PHONY : puttyalt_geometry.obj
+puttyalt_geometry.o: puttyalt_geometry.c.o
+.PHONY : puttyalt_geometry.o
 
 # target to build an object file
-puttyalt_geometry.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_geometry.c.obj
-.PHONY : puttyalt_geometry.c.obj
+puttyalt_geometry.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_geometry.c.o
+.PHONY : puttyalt_geometry.c.o
 
 puttyalt_geometry.i: puttyalt_geometry.c.i
 .PHONY : puttyalt_geometry.i
@@ -1125,13 +1117,13 @@ puttyalt_geometry.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_geometry.c.s
 .PHONY : puttyalt_geometry.c.s
 
-puttyalt_gesture.obj: puttyalt_gesture.c.obj
-.PHONY : puttyalt_gesture.obj
+puttyalt_gesture.o: puttyalt_gesture.c.o
+.PHONY : puttyalt_gesture.o
 
 # target to build an object file
-puttyalt_gesture.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_gesture.c.obj
-.PHONY : puttyalt_gesture.c.obj
+puttyalt_gesture.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_gesture.c.o
+.PHONY : puttyalt_gesture.c.o
 
 puttyalt_gesture.i: puttyalt_gesture.c.i
 .PHONY : puttyalt_gesture.i
@@ -1149,13 +1141,13 @@ puttyalt_gesture.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_gesture.c.s
 .PHONY : puttyalt_gesture.c.s
 
-puttyalt_gui.obj: puttyalt_gui.c.obj
-.PHONY : puttyalt_gui.obj
+puttyalt_gui.o: puttyalt_gui.c.o
+.PHONY : puttyalt_gui.o
 
 # target to build an object file
-puttyalt_gui.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_gui.c.obj
-.PHONY : puttyalt_gui.c.obj
+puttyalt_gui.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_gui.c.o
+.PHONY : puttyalt_gui.c.o
 
 puttyalt_gui.i: puttyalt_gui.c.i
 .PHONY : puttyalt_gui.i
@@ -1173,13 +1165,13 @@ puttyalt_gui.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_gui.c.s
 .PHONY : puttyalt_gui.c.s
 
-puttyalt_health.obj: puttyalt_health.c.obj
-.PHONY : puttyalt_health.obj
+puttyalt_health.o: puttyalt_health.c.o
+.PHONY : puttyalt_health.o
 
 # target to build an object file
-puttyalt_health.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_health.c.obj
-.PHONY : puttyalt_health.c.obj
+puttyalt_health.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_health.c.o
+.PHONY : puttyalt_health.c.o
 
 puttyalt_health.i: puttyalt_health.c.i
 .PHONY : puttyalt_health.i
@@ -1197,13 +1189,13 @@ puttyalt_health.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_health.c.s
 .PHONY : puttyalt_health.c.s
 
-puttyalt_hexview.obj: puttyalt_hexview.c.obj
-.PHONY : puttyalt_hexview.obj
+puttyalt_hexview.o: puttyalt_hexview.c.o
+.PHONY : puttyalt_hexview.o
 
 # target to build an object file
-puttyalt_hexview.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hexview.c.obj
-.PHONY : puttyalt_hexview.c.obj
+puttyalt_hexview.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hexview.c.o
+.PHONY : puttyalt_hexview.c.o
 
 puttyalt_hexview.i: puttyalt_hexview.c.i
 .PHONY : puttyalt_hexview.i
@@ -1221,13 +1213,13 @@ puttyalt_hexview.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hexview.c.s
 .PHONY : puttyalt_hexview.c.s
 
-puttyalt_hostverify.obj: puttyalt_hostverify.c.obj
-.PHONY : puttyalt_hostverify.obj
+puttyalt_hostverify.o: puttyalt_hostverify.c.o
+.PHONY : puttyalt_hostverify.o
 
 # target to build an object file
-puttyalt_hostverify.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hostverify.c.obj
-.PHONY : puttyalt_hostverify.c.obj
+puttyalt_hostverify.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hostverify.c.o
+.PHONY : puttyalt_hostverify.c.o
 
 puttyalt_hostverify.i: puttyalt_hostverify.c.i
 .PHONY : puttyalt_hostverify.i
@@ -1245,13 +1237,13 @@ puttyalt_hostverify.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hostverify.c.s
 .PHONY : puttyalt_hostverify.c.s
 
-puttyalt_hotkeymgr.obj: puttyalt_hotkeymgr.c.obj
-.PHONY : puttyalt_hotkeymgr.obj
+puttyalt_hotkeymgr.o: puttyalt_hotkeymgr.c.o
+.PHONY : puttyalt_hotkeymgr.o
 
 # target to build an object file
-puttyalt_hotkeymgr.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hotkeymgr.c.obj
-.PHONY : puttyalt_hotkeymgr.c.obj
+puttyalt_hotkeymgr.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hotkeymgr.c.o
+.PHONY : puttyalt_hotkeymgr.c.o
 
 puttyalt_hotkeymgr.i: puttyalt_hotkeymgr.c.i
 .PHONY : puttyalt_hotkeymgr.i
@@ -1269,13 +1261,13 @@ puttyalt_hotkeymgr.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_hotkeymgr.c.s
 .PHONY : puttyalt_hotkeymgr.c.s
 
-puttyalt_imgproto.obj: puttyalt_imgproto.c.obj
-.PHONY : puttyalt_imgproto.obj
+puttyalt_imgproto.o: puttyalt_imgproto.c.o
+.PHONY : puttyalt_imgproto.o
 
 # target to build an object file
-puttyalt_imgproto.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_imgproto.c.obj
-.PHONY : puttyalt_imgproto.c.obj
+puttyalt_imgproto.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_imgproto.c.o
+.PHONY : puttyalt_imgproto.c.o
 
 puttyalt_imgproto.i: puttyalt_imgproto.c.i
 .PHONY : puttyalt_imgproto.i
@@ -1293,13 +1285,13 @@ puttyalt_imgproto.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_imgproto.c.s
 .PHONY : puttyalt_imgproto.c.s
 
-puttyalt_import.obj: puttyalt_import.c.obj
-.PHONY : puttyalt_import.obj
+puttyalt_import.o: puttyalt_import.c.o
+.PHONY : puttyalt_import.o
 
 # target to build an object file
-puttyalt_import.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_import.c.obj
-.PHONY : puttyalt_import.c.obj
+puttyalt_import.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_import.c.o
+.PHONY : puttyalt_import.c.o
 
 puttyalt_import.i: puttyalt_import.c.i
 .PHONY : puttyalt_import.i
@@ -1317,13 +1309,13 @@ puttyalt_import.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_import.c.s
 .PHONY : puttyalt_import.c.s
 
-puttyalt_ini.obj: puttyalt_ini.c.obj
-.PHONY : puttyalt_ini.obj
+puttyalt_ini.o: puttyalt_ini.c.o
+.PHONY : puttyalt_ini.o
 
 # target to build an object file
-puttyalt_ini.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ini.c.obj
-.PHONY : puttyalt_ini.c.obj
+puttyalt_ini.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ini.c.o
+.PHONY : puttyalt_ini.c.o
 
 puttyalt_ini.i: puttyalt_ini.c.i
 .PHONY : puttyalt_ini.i
@@ -1341,13 +1333,13 @@ puttyalt_ini.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ini.c.s
 .PHONY : puttyalt_ini.c.s
 
-puttyalt_inputfilter.obj: puttyalt_inputfilter.c.obj
-.PHONY : puttyalt_inputfilter.obj
+puttyalt_inputfilter.o: puttyalt_inputfilter.c.o
+.PHONY : puttyalt_inputfilter.o
 
 # target to build an object file
-puttyalt_inputfilter.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_inputfilter.c.obj
-.PHONY : puttyalt_inputfilter.c.obj
+puttyalt_inputfilter.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_inputfilter.c.o
+.PHONY : puttyalt_inputfilter.c.o
 
 puttyalt_inputfilter.i: puttyalt_inputfilter.c.i
 .PHONY : puttyalt_inputfilter.i
@@ -1365,13 +1357,13 @@ puttyalt_inputfilter.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_inputfilter.c.s
 .PHONY : puttyalt_inputfilter.c.s
 
-puttyalt_ipc.obj: puttyalt_ipc.c.obj
-.PHONY : puttyalt_ipc.obj
+puttyalt_ipc.o: puttyalt_ipc.c.o
+.PHONY : puttyalt_ipc.o
 
 # target to build an object file
-puttyalt_ipc.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ipc.c.obj
-.PHONY : puttyalt_ipc.c.obj
+puttyalt_ipc.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ipc.c.o
+.PHONY : puttyalt_ipc.c.o
 
 puttyalt_ipc.i: puttyalt_ipc.c.i
 .PHONY : puttyalt_ipc.i
@@ -1389,13 +1381,13 @@ puttyalt_ipc.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ipc.c.s
 .PHONY : puttyalt_ipc.c.s
 
-puttyalt_jumphost.obj: puttyalt_jumphost.c.obj
-.PHONY : puttyalt_jumphost.obj
+puttyalt_jumphost.o: puttyalt_jumphost.c.o
+.PHONY : puttyalt_jumphost.o
 
 # target to build an object file
-puttyalt_jumphost.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_jumphost.c.obj
-.PHONY : puttyalt_jumphost.c.obj
+puttyalt_jumphost.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_jumphost.c.o
+.PHONY : puttyalt_jumphost.c.o
 
 puttyalt_jumphost.i: puttyalt_jumphost.c.i
 .PHONY : puttyalt_jumphost.i
@@ -1413,13 +1405,13 @@ puttyalt_jumphost.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_jumphost.c.s
 .PHONY : puttyalt_jumphost.c.s
 
-puttyalt_keepalive.obj: puttyalt_keepalive.c.obj
-.PHONY : puttyalt_keepalive.obj
+puttyalt_keepalive.o: puttyalt_keepalive.c.o
+.PHONY : puttyalt_keepalive.o
 
 # target to build an object file
-puttyalt_keepalive.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keepalive.c.obj
-.PHONY : puttyalt_keepalive.c.obj
+puttyalt_keepalive.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keepalive.c.o
+.PHONY : puttyalt_keepalive.c.o
 
 puttyalt_keepalive.i: puttyalt_keepalive.c.i
 .PHONY : puttyalt_keepalive.i
@@ -1437,13 +1429,13 @@ puttyalt_keepalive.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keepalive.c.s
 .PHONY : puttyalt_keepalive.c.s
 
-puttyalt_keybind.obj: puttyalt_keybind.c.obj
-.PHONY : puttyalt_keybind.obj
+puttyalt_keybind.o: puttyalt_keybind.c.o
+.PHONY : puttyalt_keybind.o
 
 # target to build an object file
-puttyalt_keybind.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keybind.c.obj
-.PHONY : puttyalt_keybind.c.obj
+puttyalt_keybind.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keybind.c.o
+.PHONY : puttyalt_keybind.c.o
 
 puttyalt_keybind.i: puttyalt_keybind.c.i
 .PHONY : puttyalt_keybind.i
@@ -1461,13 +1453,13 @@ puttyalt_keybind.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keybind.c.s
 .PHONY : puttyalt_keybind.c.s
 
-puttyalt_keygen.obj: puttyalt_keygen.c.obj
-.PHONY : puttyalt_keygen.obj
+puttyalt_keygen.o: puttyalt_keygen.c.o
+.PHONY : puttyalt_keygen.o
 
 # target to build an object file
-puttyalt_keygen.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keygen.c.obj
-.PHONY : puttyalt_keygen.c.obj
+puttyalt_keygen.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keygen.c.o
+.PHONY : puttyalt_keygen.c.o
 
 puttyalt_keygen.i: puttyalt_keygen.c.i
 .PHONY : puttyalt_keygen.i
@@ -1485,13 +1477,13 @@ puttyalt_keygen.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keygen.c.s
 .PHONY : puttyalt_keygen.c.s
 
-puttyalt_keymanager.obj: puttyalt_keymanager.c.obj
-.PHONY : puttyalt_keymanager.obj
+puttyalt_keymanager.o: puttyalt_keymanager.c.o
+.PHONY : puttyalt_keymanager.o
 
 # target to build an object file
-puttyalt_keymanager.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keymanager.c.obj
-.PHONY : puttyalt_keymanager.c.obj
+puttyalt_keymanager.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keymanager.c.o
+.PHONY : puttyalt_keymanager.c.o
 
 puttyalt_keymanager.i: puttyalt_keymanager.c.i
 .PHONY : puttyalt_keymanager.i
@@ -1509,13 +1501,13 @@ puttyalt_keymanager.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_keymanager.c.s
 .PHONY : puttyalt_keymanager.c.s
 
-puttyalt_latency.obj: puttyalt_latency.c.obj
-.PHONY : puttyalt_latency.obj
+puttyalt_latency.o: puttyalt_latency.c.o
+.PHONY : puttyalt_latency.o
 
 # target to build an object file
-puttyalt_latency.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_latency.c.obj
-.PHONY : puttyalt_latency.c.obj
+puttyalt_latency.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_latency.c.o
+.PHONY : puttyalt_latency.c.o
 
 puttyalt_latency.i: puttyalt_latency.c.i
 .PHONY : puttyalt_latency.i
@@ -1533,13 +1525,13 @@ puttyalt_latency.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_latency.c.s
 .PHONY : puttyalt_latency.c.s
 
-puttyalt_layout.obj: puttyalt_layout.c.obj
-.PHONY : puttyalt_layout.obj
+puttyalt_layout.o: puttyalt_layout.c.o
+.PHONY : puttyalt_layout.o
 
 # target to build an object file
-puttyalt_layout.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_layout.c.obj
-.PHONY : puttyalt_layout.c.obj
+puttyalt_layout.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_layout.c.o
+.PHONY : puttyalt_layout.c.o
 
 puttyalt_layout.i: puttyalt_layout.c.i
 .PHONY : puttyalt_layout.i
@@ -1557,13 +1549,13 @@ puttyalt_layout.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_layout.c.s
 .PHONY : puttyalt_layout.c.s
 
-puttyalt_locale.obj: puttyalt_locale.c.obj
-.PHONY : puttyalt_locale.obj
+puttyalt_locale.o: puttyalt_locale.c.o
+.PHONY : puttyalt_locale.o
 
 # target to build an object file
-puttyalt_locale.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_locale.c.obj
-.PHONY : puttyalt_locale.c.obj
+puttyalt_locale.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_locale.c.o
+.PHONY : puttyalt_locale.c.o
 
 puttyalt_locale.i: puttyalt_locale.c.i
 .PHONY : puttyalt_locale.i
@@ -1581,13 +1573,13 @@ puttyalt_locale.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_locale.c.s
 .PHONY : puttyalt_locale.c.s
 
-puttyalt_logengine.obj: puttyalt_logengine.c.obj
-.PHONY : puttyalt_logengine.obj
+puttyalt_logengine.o: puttyalt_logengine.c.o
+.PHONY : puttyalt_logengine.o
 
 # target to build an object file
-puttyalt_logengine.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_logengine.c.obj
-.PHONY : puttyalt_logengine.c.obj
+puttyalt_logengine.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_logengine.c.o
+.PHONY : puttyalt_logengine.c.o
 
 puttyalt_logengine.i: puttyalt_logengine.c.i
 .PHONY : puttyalt_logengine.i
@@ -1605,13 +1597,13 @@ puttyalt_logengine.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_logengine.c.s
 .PHONY : puttyalt_logengine.c.s
 
-puttyalt_loggingv2.obj: puttyalt_loggingv2.c.obj
-.PHONY : puttyalt_loggingv2.obj
+puttyalt_loggingv2.o: puttyalt_loggingv2.c.o
+.PHONY : puttyalt_loggingv2.o
 
 # target to build an object file
-puttyalt_loggingv2.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_loggingv2.c.obj
-.PHONY : puttyalt_loggingv2.c.obj
+puttyalt_loggingv2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_loggingv2.c.o
+.PHONY : puttyalt_loggingv2.c.o
 
 puttyalt_loggingv2.i: puttyalt_loggingv2.c.i
 .PHONY : puttyalt_loggingv2.i
@@ -1629,13 +1621,13 @@ puttyalt_loggingv2.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_loggingv2.c.s
 .PHONY : puttyalt_loggingv2.c.s
 
-puttyalt_logrotate.obj: puttyalt_logrotate.c.obj
-.PHONY : puttyalt_logrotate.obj
+puttyalt_logrotate.o: puttyalt_logrotate.c.o
+.PHONY : puttyalt_logrotate.o
 
 # target to build an object file
-puttyalt_logrotate.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_logrotate.c.obj
-.PHONY : puttyalt_logrotate.c.obj
+puttyalt_logrotate.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_logrotate.c.o
+.PHONY : puttyalt_logrotate.c.o
 
 puttyalt_logrotate.i: puttyalt_logrotate.c.i
 .PHONY : puttyalt_logrotate.i
@@ -1653,13 +1645,13 @@ puttyalt_logrotate.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_logrotate.c.s
 .PHONY : puttyalt_logrotate.c.s
 
-puttyalt_macro.obj: puttyalt_macro.c.obj
-.PHONY : puttyalt_macro.obj
+puttyalt_macro.o: puttyalt_macro.c.o
+.PHONY : puttyalt_macro.o
 
 # target to build an object file
-puttyalt_macro.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_macro.c.obj
-.PHONY : puttyalt_macro.c.obj
+puttyalt_macro.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_macro.c.o
+.PHONY : puttyalt_macro.c.o
 
 puttyalt_macro.i: puttyalt_macro.c.i
 .PHONY : puttyalt_macro.i
@@ -1677,13 +1669,13 @@ puttyalt_macro.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_macro.c.s
 .PHONY : puttyalt_macro.c.s
 
-puttyalt_mempool.obj: puttyalt_mempool.c.obj
-.PHONY : puttyalt_mempool.obj
+puttyalt_mempool.o: puttyalt_mempool.c.o
+.PHONY : puttyalt_mempool.o
 
 # target to build an object file
-puttyalt_mempool.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_mempool.c.obj
-.PHONY : puttyalt_mempool.c.obj
+puttyalt_mempool.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_mempool.c.o
+.PHONY : puttyalt_mempool.c.o
 
 puttyalt_mempool.i: puttyalt_mempool.c.i
 .PHONY : puttyalt_mempool.i
@@ -1701,13 +1693,13 @@ puttyalt_mempool.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_mempool.c.s
 .PHONY : puttyalt_mempool.c.s
 
-puttyalt_migrate.obj: puttyalt_migrate.c.obj
-.PHONY : puttyalt_migrate.obj
+puttyalt_migrate.o: puttyalt_migrate.c.o
+.PHONY : puttyalt_migrate.o
 
 # target to build an object file
-puttyalt_migrate.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_migrate.c.obj
-.PHONY : puttyalt_migrate.c.obj
+puttyalt_migrate.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_migrate.c.o
+.PHONY : puttyalt_migrate.c.o
 
 puttyalt_migrate.i: puttyalt_migrate.c.i
 .PHONY : puttyalt_migrate.i
@@ -1725,13 +1717,13 @@ puttyalt_migrate.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_migrate.c.s
 .PHONY : puttyalt_migrate.c.s
 
-puttyalt_monitor.obj: puttyalt_monitor.c.obj
-.PHONY : puttyalt_monitor.obj
+puttyalt_monitor.o: puttyalt_monitor.c.o
+.PHONY : puttyalt_monitor.o
 
 # target to build an object file
-puttyalt_monitor.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_monitor.c.obj
-.PHONY : puttyalt_monitor.c.obj
+puttyalt_monitor.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_monitor.c.o
+.PHONY : puttyalt_monitor.c.o
 
 puttyalt_monitor.i: puttyalt_monitor.c.i
 .PHONY : puttyalt_monitor.i
@@ -1749,13 +1741,13 @@ puttyalt_monitor.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_monitor.c.s
 .PHONY : puttyalt_monitor.c.s
 
-puttyalt_mux.obj: puttyalt_mux.c.obj
-.PHONY : puttyalt_mux.obj
+puttyalt_mux.o: puttyalt_mux.c.o
+.PHONY : puttyalt_mux.o
 
 # target to build an object file
-puttyalt_mux.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_mux.c.obj
-.PHONY : puttyalt_mux.c.obj
+puttyalt_mux.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_mux.c.o
+.PHONY : puttyalt_mux.c.o
 
 puttyalt_mux.i: puttyalt_mux.c.i
 .PHONY : puttyalt_mux.i
@@ -1773,13 +1765,13 @@ puttyalt_mux.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_mux.c.s
 .PHONY : puttyalt_mux.c.s
 
-puttyalt_netdiag.obj: puttyalt_netdiag.c.obj
-.PHONY : puttyalt_netdiag.obj
+puttyalt_netdiag.o: puttyalt_netdiag.c.o
+.PHONY : puttyalt_netdiag.o
 
 # target to build an object file
-puttyalt_netdiag.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_netdiag.c.obj
-.PHONY : puttyalt_netdiag.c.obj
+puttyalt_netdiag.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_netdiag.c.o
+.PHONY : puttyalt_netdiag.c.o
 
 puttyalt_netdiag.i: puttyalt_netdiag.c.i
 .PHONY : puttyalt_netdiag.i
@@ -1797,13 +1789,13 @@ puttyalt_netdiag.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_netdiag.c.s
 .PHONY : puttyalt_netdiag.c.s
 
-puttyalt_netscan.obj: puttyalt_netscan.c.obj
-.PHONY : puttyalt_netscan.obj
+puttyalt_netscan.o: puttyalt_netscan.c.o
+.PHONY : puttyalt_netscan.o
 
 # target to build an object file
-puttyalt_netscan.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_netscan.c.obj
-.PHONY : puttyalt_netscan.c.obj
+puttyalt_netscan.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_netscan.c.o
+.PHONY : puttyalt_netscan.c.o
 
 puttyalt_netscan.i: puttyalt_netscan.c.i
 .PHONY : puttyalt_netscan.i
@@ -1821,13 +1813,13 @@ puttyalt_netscan.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_netscan.c.s
 .PHONY : puttyalt_netscan.c.s
 
-puttyalt_notifcenter.obj: puttyalt_notifcenter.c.obj
-.PHONY : puttyalt_notifcenter.obj
+puttyalt_notifcenter.o: puttyalt_notifcenter.c.o
+.PHONY : puttyalt_notifcenter.o
 
 # target to build an object file
-puttyalt_notifcenter.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_notifcenter.c.obj
-.PHONY : puttyalt_notifcenter.c.obj
+puttyalt_notifcenter.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_notifcenter.c.o
+.PHONY : puttyalt_notifcenter.c.o
 
 puttyalt_notifcenter.i: puttyalt_notifcenter.c.i
 .PHONY : puttyalt_notifcenter.i
@@ -1845,13 +1837,13 @@ puttyalt_notifcenter.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_notifcenter.c.s
 .PHONY : puttyalt_notifcenter.c.s
 
-puttyalt_notify.obj: puttyalt_notify.c.obj
-.PHONY : puttyalt_notify.obj
+puttyalt_notify.o: puttyalt_notify.c.o
+.PHONY : puttyalt_notify.o
 
 # target to build an object file
-puttyalt_notify.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_notify.c.obj
-.PHONY : puttyalt_notify.c.obj
+puttyalt_notify.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_notify.c.o
+.PHONY : puttyalt_notify.c.o
 
 puttyalt_notify.i: puttyalt_notify.c.i
 .PHONY : puttyalt_notify.i
@@ -1869,13 +1861,13 @@ puttyalt_notify.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_notify.c.s
 .PHONY : puttyalt_notify.c.s
 
-puttyalt_palette.obj: puttyalt_palette.c.obj
-.PHONY : puttyalt_palette.obj
+puttyalt_palette.o: puttyalt_palette.c.o
+.PHONY : puttyalt_palette.o
 
 # target to build an object file
-puttyalt_palette.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_palette.c.obj
-.PHONY : puttyalt_palette.c.obj
+puttyalt_palette.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_palette.c.o
+.PHONY : puttyalt_palette.c.o
 
 puttyalt_palette.i: puttyalt_palette.c.i
 .PHONY : puttyalt_palette.i
@@ -1893,13 +1885,13 @@ puttyalt_palette.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_palette.c.s
 .PHONY : puttyalt_palette.c.s
 
-puttyalt_perfmon.obj: puttyalt_perfmon.c.obj
-.PHONY : puttyalt_perfmon.obj
+puttyalt_perfmon.o: puttyalt_perfmon.c.o
+.PHONY : puttyalt_perfmon.o
 
 # target to build an object file
-puttyalt_perfmon.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_perfmon.c.obj
-.PHONY : puttyalt_perfmon.c.obj
+puttyalt_perfmon.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_perfmon.c.o
+.PHONY : puttyalt_perfmon.c.o
 
 puttyalt_perfmon.i: puttyalt_perfmon.c.i
 .PHONY : puttyalt_perfmon.i
@@ -1917,13 +1909,13 @@ puttyalt_perfmon.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_perfmon.c.s
 .PHONY : puttyalt_perfmon.c.s
 
-puttyalt_perftimer.obj: puttyalt_perftimer.c.obj
-.PHONY : puttyalt_perftimer.obj
+puttyalt_perftimer.o: puttyalt_perftimer.c.o
+.PHONY : puttyalt_perftimer.o
 
 # target to build an object file
-puttyalt_perftimer.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_perftimer.c.obj
-.PHONY : puttyalt_perftimer.c.obj
+puttyalt_perftimer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_perftimer.c.o
+.PHONY : puttyalt_perftimer.c.o
 
 puttyalt_perftimer.i: puttyalt_perftimer.c.i
 .PHONY : puttyalt_perftimer.i
@@ -1941,13 +1933,13 @@ puttyalt_perftimer.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_perftimer.c.s
 .PHONY : puttyalt_perftimer.c.s
 
-puttyalt_pinning.obj: puttyalt_pinning.c.obj
-.PHONY : puttyalt_pinning.obj
+puttyalt_pinning.o: puttyalt_pinning.c.o
+.PHONY : puttyalt_pinning.o
 
 # target to build an object file
-puttyalt_pinning.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_pinning.c.obj
-.PHONY : puttyalt_pinning.c.obj
+puttyalt_pinning.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_pinning.c.o
+.PHONY : puttyalt_pinning.c.o
 
 puttyalt_pinning.i: puttyalt_pinning.c.i
 .PHONY : puttyalt_pinning.i
@@ -1965,13 +1957,13 @@ puttyalt_pinning.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_pinning.c.s
 .PHONY : puttyalt_pinning.c.s
 
-puttyalt_plugin.obj: puttyalt_plugin.c.obj
-.PHONY : puttyalt_plugin.obj
+puttyalt_plugin.o: puttyalt_plugin.c.o
+.PHONY : puttyalt_plugin.o
 
 # target to build an object file
-puttyalt_plugin.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_plugin.c.obj
-.PHONY : puttyalt_plugin.c.obj
+puttyalt_plugin.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_plugin.c.o
+.PHONY : puttyalt_plugin.c.o
 
 puttyalt_plugin.i: puttyalt_plugin.c.i
 .PHONY : puttyalt_plugin.i
@@ -1989,13 +1981,13 @@ puttyalt_plugin.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_plugin.c.s
 .PHONY : puttyalt_plugin.c.s
 
-puttyalt_portable.obj: puttyalt_portable.c.obj
-.PHONY : puttyalt_portable.obj
+puttyalt_portable.o: puttyalt_portable.c.o
+.PHONY : puttyalt_portable.o
 
 # target to build an object file
-puttyalt_portable.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_portable.c.obj
-.PHONY : puttyalt_portable.c.obj
+puttyalt_portable.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_portable.c.o
+.PHONY : puttyalt_portable.c.o
 
 puttyalt_portable.i: puttyalt_portable.c.i
 .PHONY : puttyalt_portable.i
@@ -2013,13 +2005,13 @@ puttyalt_portable.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_portable.c.s
 .PHONY : puttyalt_portable.c.s
 
-puttyalt_portfwd.obj: puttyalt_portfwd.c.obj
-.PHONY : puttyalt_portfwd.obj
+puttyalt_portfwd.o: puttyalt_portfwd.c.o
+.PHONY : puttyalt_portfwd.o
 
 # target to build an object file
-puttyalt_portfwd.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_portfwd.c.obj
-.PHONY : puttyalt_portfwd.c.obj
+puttyalt_portfwd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_portfwd.c.o
+.PHONY : puttyalt_portfwd.c.o
 
 puttyalt_portfwd.i: puttyalt_portfwd.c.i
 .PHONY : puttyalt_portfwd.i
@@ -2037,13 +2029,13 @@ puttyalt_portfwd.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_portfwd.c.s
 .PHONY : puttyalt_portfwd.c.s
 
-puttyalt_protoanalyze.obj: puttyalt_protoanalyze.c.obj
-.PHONY : puttyalt_protoanalyze.obj
+puttyalt_protoanalyze.o: puttyalt_protoanalyze.c.o
+.PHONY : puttyalt_protoanalyze.o
 
 # target to build an object file
-puttyalt_protoanalyze.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_protoanalyze.c.obj
-.PHONY : puttyalt_protoanalyze.c.obj
+puttyalt_protoanalyze.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_protoanalyze.c.o
+.PHONY : puttyalt_protoanalyze.c.o
 
 puttyalt_protoanalyze.i: puttyalt_protoanalyze.c.i
 .PHONY : puttyalt_protoanalyze.i
@@ -2061,13 +2053,13 @@ puttyalt_protoanalyze.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_protoanalyze.c.s
 .PHONY : puttyalt_protoanalyze.c.s
 
-puttyalt_proxy.obj: puttyalt_proxy.c.obj
-.PHONY : puttyalt_proxy.obj
+puttyalt_proxy.o: puttyalt_proxy.c.o
+.PHONY : puttyalt_proxy.o
 
 # target to build an object file
-puttyalt_proxy.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxy.c.obj
-.PHONY : puttyalt_proxy.c.obj
+puttyalt_proxy.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxy.c.o
+.PHONY : puttyalt_proxy.c.o
 
 puttyalt_proxy.i: puttyalt_proxy.c.i
 .PHONY : puttyalt_proxy.i
@@ -2085,13 +2077,13 @@ puttyalt_proxy.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxy.c.s
 .PHONY : puttyalt_proxy.c.s
 
-puttyalt_proxychain.obj: puttyalt_proxychain.c.obj
-.PHONY : puttyalt_proxychain.obj
+puttyalt_proxychain.o: puttyalt_proxychain.c.o
+.PHONY : puttyalt_proxychain.o
 
 # target to build an object file
-puttyalt_proxychain.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxychain.c.obj
-.PHONY : puttyalt_proxychain.c.obj
+puttyalt_proxychain.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxychain.c.o
+.PHONY : puttyalt_proxychain.c.o
 
 puttyalt_proxychain.i: puttyalt_proxychain.c.i
 .PHONY : puttyalt_proxychain.i
@@ -2109,13 +2101,13 @@ puttyalt_proxychain.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxychain.c.s
 .PHONY : puttyalt_proxychain.c.s
 
-puttyalt_proxydetect.obj: puttyalt_proxydetect.c.obj
-.PHONY : puttyalt_proxydetect.obj
+puttyalt_proxydetect.o: puttyalt_proxydetect.c.o
+.PHONY : puttyalt_proxydetect.o
 
 # target to build an object file
-puttyalt_proxydetect.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxydetect.c.obj
-.PHONY : puttyalt_proxydetect.c.obj
+puttyalt_proxydetect.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxydetect.c.o
+.PHONY : puttyalt_proxydetect.c.o
 
 puttyalt_proxydetect.i: puttyalt_proxydetect.c.i
 .PHONY : puttyalt_proxydetect.i
@@ -2133,13 +2125,13 @@ puttyalt_proxydetect.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_proxydetect.c.s
 .PHONY : puttyalt_proxydetect.c.s
 
-puttyalt_quickconnect.obj: puttyalt_quickconnect.c.obj
-.PHONY : puttyalt_quickconnect.obj
+puttyalt_quickconnect.o: puttyalt_quickconnect.c.o
+.PHONY : puttyalt_quickconnect.o
 
 # target to build an object file
-puttyalt_quickconnect.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_quickconnect.c.obj
-.PHONY : puttyalt_quickconnect.c.obj
+puttyalt_quickconnect.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_quickconnect.c.o
+.PHONY : puttyalt_quickconnect.c.o
 
 puttyalt_quickconnect.i: puttyalt_quickconnect.c.i
 .PHONY : puttyalt_quickconnect.i
@@ -2157,13 +2149,13 @@ puttyalt_quickconnect.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_quickconnect.c.s
 .PHONY : puttyalt_quickconnect.c.s
 
-puttyalt_quicklaunch.obj: puttyalt_quicklaunch.c.obj
-.PHONY : puttyalt_quicklaunch.obj
+puttyalt_quicklaunch.o: puttyalt_quicklaunch.c.o
+.PHONY : puttyalt_quicklaunch.o
 
 # target to build an object file
-puttyalt_quicklaunch.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_quicklaunch.c.obj
-.PHONY : puttyalt_quicklaunch.c.obj
+puttyalt_quicklaunch.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_quicklaunch.c.o
+.PHONY : puttyalt_quicklaunch.c.o
 
 puttyalt_quicklaunch.i: puttyalt_quicklaunch.c.i
 .PHONY : puttyalt_quicklaunch.i
@@ -2181,13 +2173,13 @@ puttyalt_quicklaunch.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_quicklaunch.c.s
 .PHONY : puttyalt_quicklaunch.c.s
 
-puttyalt_ratelimit.obj: puttyalt_ratelimit.c.obj
-.PHONY : puttyalt_ratelimit.obj
+puttyalt_ratelimit.o: puttyalt_ratelimit.c.o
+.PHONY : puttyalt_ratelimit.o
 
 # target to build an object file
-puttyalt_ratelimit.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ratelimit.c.obj
-.PHONY : puttyalt_ratelimit.c.obj
+puttyalt_ratelimit.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ratelimit.c.o
+.PHONY : puttyalt_ratelimit.c.o
 
 puttyalt_ratelimit.i: puttyalt_ratelimit.c.i
 .PHONY : puttyalt_ratelimit.i
@@ -2205,13 +2197,13 @@ puttyalt_ratelimit.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_ratelimit.c.s
 .PHONY : puttyalt_ratelimit.c.s
 
-puttyalt_reconnect.obj: puttyalt_reconnect.c.obj
-.PHONY : puttyalt_reconnect.obj
+puttyalt_reconnect.o: puttyalt_reconnect.c.o
+.PHONY : puttyalt_reconnect.o
 
 # target to build an object file
-puttyalt_reconnect.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_reconnect.c.obj
-.PHONY : puttyalt_reconnect.c.obj
+puttyalt_reconnect.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_reconnect.c.o
+.PHONY : puttyalt_reconnect.c.o
 
 puttyalt_reconnect.i: puttyalt_reconnect.c.i
 .PHONY : puttyalt_reconnect.i
@@ -2229,13 +2221,13 @@ puttyalt_reconnect.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_reconnect.c.s
 .PHONY : puttyalt_reconnect.c.s
 
-puttyalt_recorder.obj: puttyalt_recorder.c.obj
-.PHONY : puttyalt_recorder.obj
+puttyalt_recorder.o: puttyalt_recorder.c.o
+.PHONY : puttyalt_recorder.o
 
 # target to build an object file
-puttyalt_recorder.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_recorder.c.obj
-.PHONY : puttyalt_recorder.c.obj
+puttyalt_recorder.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_recorder.c.o
+.PHONY : puttyalt_recorder.c.o
 
 puttyalt_recorder.i: puttyalt_recorder.c.i
 .PHONY : puttyalt_recorder.i
@@ -2253,13 +2245,13 @@ puttyalt_recorder.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_recorder.c.s
 .PHONY : puttyalt_recorder.c.s
 
-puttyalt_renderer.obj: puttyalt_renderer.c.obj
-.PHONY : puttyalt_renderer.obj
+puttyalt_renderer.o: puttyalt_renderer.c.o
+.PHONY : puttyalt_renderer.o
 
 # target to build an object file
-puttyalt_renderer.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_renderer.c.obj
-.PHONY : puttyalt_renderer.c.obj
+puttyalt_renderer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_renderer.c.o
+.PHONY : puttyalt_renderer.c.o
 
 puttyalt_renderer.i: puttyalt_renderer.c.i
 .PHONY : puttyalt_renderer.i
@@ -2277,13 +2269,13 @@ puttyalt_renderer.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_renderer.c.s
 .PHONY : puttyalt_renderer.c.s
 
-puttyalt_scheduler.obj: puttyalt_scheduler.c.obj
-.PHONY : puttyalt_scheduler.obj
+puttyalt_scheduler.o: puttyalt_scheduler.c.o
+.PHONY : puttyalt_scheduler.o
 
 # target to build an object file
-puttyalt_scheduler.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scheduler.c.obj
-.PHONY : puttyalt_scheduler.c.obj
+puttyalt_scheduler.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scheduler.c.o
+.PHONY : puttyalt_scheduler.c.o
 
 puttyalt_scheduler.i: puttyalt_scheduler.c.i
 .PHONY : puttyalt_scheduler.i
@@ -2301,13 +2293,13 @@ puttyalt_scheduler.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scheduler.c.s
 .PHONY : puttyalt_scheduler.c.s
 
-puttyalt_scp.obj: puttyalt_scp.c.obj
-.PHONY : puttyalt_scp.obj
+puttyalt_scp.o: puttyalt_scp.c.o
+.PHONY : puttyalt_scp.o
 
 # target to build an object file
-puttyalt_scp.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scp.c.obj
-.PHONY : puttyalt_scp.c.obj
+puttyalt_scp.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scp.c.o
+.PHONY : puttyalt_scp.c.o
 
 puttyalt_scp.i: puttyalt_scp.c.i
 .PHONY : puttyalt_scp.i
@@ -2325,13 +2317,13 @@ puttyalt_scp.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scp.c.s
 .PHONY : puttyalt_scp.c.s
 
-puttyalt_scriptmgr.obj: puttyalt_scriptmgr.c.obj
-.PHONY : puttyalt_scriptmgr.obj
+puttyalt_scriptmgr.o: puttyalt_scriptmgr.c.o
+.PHONY : puttyalt_scriptmgr.o
 
 # target to build an object file
-puttyalt_scriptmgr.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scriptmgr.c.obj
-.PHONY : puttyalt_scriptmgr.c.obj
+puttyalt_scriptmgr.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scriptmgr.c.o
+.PHONY : puttyalt_scriptmgr.c.o
 
 puttyalt_scriptmgr.i: puttyalt_scriptmgr.c.i
 .PHONY : puttyalt_scriptmgr.i
@@ -2349,13 +2341,13 @@ puttyalt_scriptmgr.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scriptmgr.c.s
 .PHONY : puttyalt_scriptmgr.c.s
 
-puttyalt_scrollcomp.obj: puttyalt_scrollcomp.c.obj
-.PHONY : puttyalt_scrollcomp.obj
+puttyalt_scrollcomp.o: puttyalt_scrollcomp.c.o
+.PHONY : puttyalt_scrollcomp.o
 
 # target to build an object file
-puttyalt_scrollcomp.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scrollcomp.c.obj
-.PHONY : puttyalt_scrollcomp.c.obj
+puttyalt_scrollcomp.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scrollcomp.c.o
+.PHONY : puttyalt_scrollcomp.c.o
 
 puttyalt_scrollcomp.i: puttyalt_scrollcomp.c.i
 .PHONY : puttyalt_scrollcomp.i
@@ -2373,13 +2365,13 @@ puttyalt_scrollcomp.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_scrollcomp.c.s
 .PHONY : puttyalt_scrollcomp.c.s
 
-puttyalt_searchhl.obj: puttyalt_searchhl.c.obj
-.PHONY : puttyalt_searchhl.obj
+puttyalt_searchhl.o: puttyalt_searchhl.c.o
+.PHONY : puttyalt_searchhl.o
 
 # target to build an object file
-puttyalt_searchhl.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_searchhl.c.obj
-.PHONY : puttyalt_searchhl.c.obj
+puttyalt_searchhl.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_searchhl.c.o
+.PHONY : puttyalt_searchhl.c.o
 
 puttyalt_searchhl.i: puttyalt_searchhl.c.i
 .PHONY : puttyalt_searchhl.i
@@ -2397,13 +2389,13 @@ puttyalt_searchhl.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_searchhl.c.s
 .PHONY : puttyalt_searchhl.c.s
 
-puttyalt_serial.obj: puttyalt_serial.c.obj
-.PHONY : puttyalt_serial.obj
+puttyalt_serial.o: puttyalt_serial.c.o
+.PHONY : puttyalt_serial.o
 
 # target to build an object file
-puttyalt_serial.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_serial.c.obj
-.PHONY : puttyalt_serial.c.obj
+puttyalt_serial.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_serial.c.o
+.PHONY : puttyalt_serial.c.o
 
 puttyalt_serial.i: puttyalt_serial.c.i
 .PHONY : puttyalt_serial.i
@@ -2421,13 +2413,13 @@ puttyalt_serial.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_serial.c.s
 .PHONY : puttyalt_serial.c.s
 
-puttyalt_sessgroup.obj: puttyalt_sessgroup.c.obj
-.PHONY : puttyalt_sessgroup.obj
+puttyalt_sessgroup.o: puttyalt_sessgroup.c.o
+.PHONY : puttyalt_sessgroup.o
 
 # target to build an object file
-puttyalt_sessgroup.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessgroup.c.obj
-.PHONY : puttyalt_sessgroup.c.obj
+puttyalt_sessgroup.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessgroup.c.o
+.PHONY : puttyalt_sessgroup.c.o
 
 puttyalt_sessgroup.i: puttyalt_sessgroup.c.i
 .PHONY : puttyalt_sessgroup.i
@@ -2445,13 +2437,13 @@ puttyalt_sessgroup.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessgroup.c.s
 .PHONY : puttyalt_sessgroup.c.s
 
-puttyalt_sessions.obj: puttyalt_sessions.c.obj
-.PHONY : puttyalt_sessions.obj
+puttyalt_sessions.o: puttyalt_sessions.c.o
+.PHONY : puttyalt_sessions.o
 
 # target to build an object file
-puttyalt_sessions.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessions.c.obj
-.PHONY : puttyalt_sessions.c.obj
+puttyalt_sessions.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessions.c.o
+.PHONY : puttyalt_sessions.c.o
 
 puttyalt_sessions.i: puttyalt_sessions.c.i
 .PHONY : puttyalt_sessions.i
@@ -2469,13 +2461,13 @@ puttyalt_sessions.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessions.c.s
 .PHONY : puttyalt_sessions.c.s
 
-puttyalt_sesslock.obj: puttyalt_sesslock.c.obj
-.PHONY : puttyalt_sesslock.obj
+puttyalt_sesslock.o: puttyalt_sesslock.c.o
+.PHONY : puttyalt_sesslock.o
 
 # target to build an object file
-puttyalt_sesslock.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sesslock.c.obj
-.PHONY : puttyalt_sesslock.c.obj
+puttyalt_sesslock.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sesslock.c.o
+.PHONY : puttyalt_sesslock.c.o
 
 puttyalt_sesslock.i: puttyalt_sesslock.c.i
 .PHONY : puttyalt_sesslock.i
@@ -2493,13 +2485,13 @@ puttyalt_sesslock.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sesslock.c.s
 .PHONY : puttyalt_sesslock.c.s
 
-puttyalt_sessnotes.obj: puttyalt_sessnotes.c.obj
-.PHONY : puttyalt_sessnotes.obj
+puttyalt_sessnotes.o: puttyalt_sessnotes.c.o
+.PHONY : puttyalt_sessnotes.o
 
 # target to build an object file
-puttyalt_sessnotes.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessnotes.c.obj
-.PHONY : puttyalt_sessnotes.c.obj
+puttyalt_sessnotes.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessnotes.c.o
+.PHONY : puttyalt_sessnotes.c.o
 
 puttyalt_sessnotes.i: puttyalt_sessnotes.c.i
 .PHONY : puttyalt_sessnotes.i
@@ -2517,13 +2509,13 @@ puttyalt_sessnotes.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessnotes.c.s
 .PHONY : puttyalt_sessnotes.c.s
 
-puttyalt_sessreplay.obj: puttyalt_sessreplay.c.obj
-.PHONY : puttyalt_sessreplay.obj
+puttyalt_sessreplay.o: puttyalt_sessreplay.c.o
+.PHONY : puttyalt_sessreplay.o
 
 # target to build an object file
-puttyalt_sessreplay.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessreplay.c.obj
-.PHONY : puttyalt_sessreplay.c.obj
+puttyalt_sessreplay.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessreplay.c.o
+.PHONY : puttyalt_sessreplay.c.o
 
 puttyalt_sessreplay.i: puttyalt_sessreplay.c.i
 .PHONY : puttyalt_sessreplay.i
@@ -2541,13 +2533,13 @@ puttyalt_sessreplay.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sessreplay.c.s
 .PHONY : puttyalt_sessreplay.c.s
 
-puttyalt_sftpmgr.obj: puttyalt_sftpmgr.c.obj
-.PHONY : puttyalt_sftpmgr.obj
+puttyalt_sftpmgr.o: puttyalt_sftpmgr.c.o
+.PHONY : puttyalt_sftpmgr.o
 
 # target to build an object file
-puttyalt_sftpmgr.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sftpmgr.c.obj
-.PHONY : puttyalt_sftpmgr.c.obj
+puttyalt_sftpmgr.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sftpmgr.c.o
+.PHONY : puttyalt_sftpmgr.c.o
 
 puttyalt_sftpmgr.i: puttyalt_sftpmgr.c.i
 .PHONY : puttyalt_sftpmgr.i
@@ -2565,13 +2557,13 @@ puttyalt_sftpmgr.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sftpmgr.c.s
 .PHONY : puttyalt_sftpmgr.c.s
 
-puttyalt_sftppanel.obj: puttyalt_sftppanel.c.obj
-.PHONY : puttyalt_sftppanel.obj
+puttyalt_sftppanel.o: puttyalt_sftppanel.c.o
+.PHONY : puttyalt_sftppanel.o
 
 # target to build an object file
-puttyalt_sftppanel.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sftppanel.c.obj
-.PHONY : puttyalt_sftppanel.c.obj
+puttyalt_sftppanel.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sftppanel.c.o
+.PHONY : puttyalt_sftppanel.c.o
 
 puttyalt_sftppanel.i: puttyalt_sftppanel.c.i
 .PHONY : puttyalt_sftppanel.i
@@ -2589,13 +2581,13 @@ puttyalt_sftppanel.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sftppanel.c.s
 .PHONY : puttyalt_sftppanel.c.s
 
-puttyalt_sharedclip.obj: puttyalt_sharedclip.c.obj
-.PHONY : puttyalt_sharedclip.obj
+puttyalt_sharedclip.o: puttyalt_sharedclip.c.o
+.PHONY : puttyalt_sharedclip.o
 
 # target to build an object file
-puttyalt_sharedclip.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sharedclip.c.obj
-.PHONY : puttyalt_sharedclip.c.obj
+puttyalt_sharedclip.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sharedclip.c.o
+.PHONY : puttyalt_sharedclip.c.o
 
 puttyalt_sharedclip.i: puttyalt_sharedclip.c.i
 .PHONY : puttyalt_sharedclip.i
@@ -2613,13 +2605,13 @@ puttyalt_sharedclip.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sharedclip.c.s
 .PHONY : puttyalt_sharedclip.c.s
 
-puttyalt_shortcuts.obj: puttyalt_shortcuts.c.obj
-.PHONY : puttyalt_shortcuts.obj
+puttyalt_shortcuts.o: puttyalt_shortcuts.c.o
+.PHONY : puttyalt_shortcuts.o
 
 # target to build an object file
-puttyalt_shortcuts.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_shortcuts.c.obj
-.PHONY : puttyalt_shortcuts.c.obj
+puttyalt_shortcuts.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_shortcuts.c.o
+.PHONY : puttyalt_shortcuts.c.o
 
 puttyalt_shortcuts.i: puttyalt_shortcuts.c.i
 .PHONY : puttyalt_shortcuts.i
@@ -2637,13 +2629,13 @@ puttyalt_shortcuts.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_shortcuts.c.s
 .PHONY : puttyalt_shortcuts.c.s
 
-puttyalt_snippets.obj: puttyalt_snippets.c.obj
-.PHONY : puttyalt_snippets.obj
+puttyalt_snippets.o: puttyalt_snippets.c.o
+.PHONY : puttyalt_snippets.o
 
 # target to build an object file
-puttyalt_snippets.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_snippets.c.obj
-.PHONY : puttyalt_snippets.c.obj
+puttyalt_snippets.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_snippets.c.o
+.PHONY : puttyalt_snippets.c.o
 
 puttyalt_snippets.i: puttyalt_snippets.c.i
 .PHONY : puttyalt_snippets.i
@@ -2661,13 +2653,13 @@ puttyalt_snippets.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_snippets.c.s
 .PHONY : puttyalt_snippets.c.s
 
-puttyalt_sound.obj: puttyalt_sound.c.obj
-.PHONY : puttyalt_sound.obj
+puttyalt_sound.o: puttyalt_sound.c.o
+.PHONY : puttyalt_sound.o
 
 # target to build an object file
-puttyalt_sound.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sound.c.obj
-.PHONY : puttyalt_sound.c.obj
+puttyalt_sound.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sound.c.o
+.PHONY : puttyalt_sound.c.o
 
 puttyalt_sound.i: puttyalt_sound.c.i
 .PHONY : puttyalt_sound.i
@@ -2685,13 +2677,13 @@ puttyalt_sound.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sound.c.s
 .PHONY : puttyalt_sound.c.s
 
-puttyalt_splitview.obj: puttyalt_splitview.c.obj
-.PHONY : puttyalt_splitview.obj
+puttyalt_splitview.o: puttyalt_splitview.c.o
+.PHONY : puttyalt_splitview.o
 
 # target to build an object file
-puttyalt_splitview.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_splitview.c.obj
-.PHONY : puttyalt_splitview.c.obj
+puttyalt_splitview.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_splitview.c.o
+.PHONY : puttyalt_splitview.c.o
 
 puttyalt_splitview.i: puttyalt_splitview.c.i
 .PHONY : puttyalt_splitview.i
@@ -2709,13 +2701,13 @@ puttyalt_splitview.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_splitview.c.s
 .PHONY : puttyalt_splitview.c.s
 
-puttyalt_sshagent.obj: puttyalt_sshagent.c.obj
-.PHONY : puttyalt_sshagent.obj
+puttyalt_sshagent.o: puttyalt_sshagent.c.o
+.PHONY : puttyalt_sshagent.o
 
 # target to build an object file
-puttyalt_sshagent.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sshagent.c.obj
-.PHONY : puttyalt_sshagent.c.obj
+puttyalt_sshagent.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sshagent.c.o
+.PHONY : puttyalt_sshagent.c.o
 
 puttyalt_sshagent.i: puttyalt_sshagent.c.i
 .PHONY : puttyalt_sshagent.i
@@ -2733,13 +2725,13 @@ puttyalt_sshagent.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sshagent.c.s
 .PHONY : puttyalt_sshagent.c.s
 
-puttyalt_sshconfig.obj: puttyalt_sshconfig.c.obj
-.PHONY : puttyalt_sshconfig.obj
+puttyalt_sshconfig.o: puttyalt_sshconfig.c.o
+.PHONY : puttyalt_sshconfig.o
 
 # target to build an object file
-puttyalt_sshconfig.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sshconfig.c.obj
-.PHONY : puttyalt_sshconfig.c.obj
+puttyalt_sshconfig.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sshconfig.c.o
+.PHONY : puttyalt_sshconfig.c.o
 
 puttyalt_sshconfig.i: puttyalt_sshconfig.c.i
 .PHONY : puttyalt_sshconfig.i
@@ -2757,13 +2749,13 @@ puttyalt_sshconfig.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_sshconfig.c.s
 .PHONY : puttyalt_sshconfig.c.s
 
-puttyalt_startup.obj: puttyalt_startup.c.obj
-.PHONY : puttyalt_startup.obj
+puttyalt_startup.o: puttyalt_startup.c.o
+.PHONY : puttyalt_startup.o
 
 # target to build an object file
-puttyalt_startup.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_startup.c.obj
-.PHONY : puttyalt_startup.c.obj
+puttyalt_startup.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_startup.c.o
+.PHONY : puttyalt_startup.c.o
 
 puttyalt_startup.i: puttyalt_startup.c.i
 .PHONY : puttyalt_startup.i
@@ -2781,13 +2773,13 @@ puttyalt_startup.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_startup.c.s
 .PHONY : puttyalt_startup.c.s
 
-puttyalt_stats.obj: puttyalt_stats.c.obj
-.PHONY : puttyalt_stats.obj
+puttyalt_stats.o: puttyalt_stats.c.o
+.PHONY : puttyalt_stats.o
 
 # target to build an object file
-puttyalt_stats.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_stats.c.obj
-.PHONY : puttyalt_stats.c.obj
+puttyalt_stats.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_stats.c.o
+.PHONY : puttyalt_stats.c.o
 
 puttyalt_stats.i: puttyalt_stats.c.i
 .PHONY : puttyalt_stats.i
@@ -2805,13 +2797,13 @@ puttyalt_stats.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_stats.c.s
 .PHONY : puttyalt_stats.c.s
 
-puttyalt_statusbar.obj: puttyalt_statusbar.c.obj
-.PHONY : puttyalt_statusbar.obj
+puttyalt_statusbar.o: puttyalt_statusbar.c.o
+.PHONY : puttyalt_statusbar.o
 
 # target to build an object file
-puttyalt_statusbar.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_statusbar.c.obj
-.PHONY : puttyalt_statusbar.c.obj
+puttyalt_statusbar.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_statusbar.c.o
+.PHONY : puttyalt_statusbar.c.o
 
 puttyalt_statusbar.i: puttyalt_statusbar.c.i
 .PHONY : puttyalt_statusbar.i
@@ -2829,13 +2821,13 @@ puttyalt_statusbar.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_statusbar.c.s
 .PHONY : puttyalt_statusbar.c.s
 
-puttyalt_strbuf.obj: puttyalt_strbuf.c.obj
-.PHONY : puttyalt_strbuf.obj
+puttyalt_strbuf.o: puttyalt_strbuf.c.o
+.PHONY : puttyalt_strbuf.o
 
 # target to build an object file
-puttyalt_strbuf.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_strbuf.c.obj
-.PHONY : puttyalt_strbuf.c.obj
+puttyalt_strbuf.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_strbuf.c.o
+.PHONY : puttyalt_strbuf.c.o
 
 puttyalt_strbuf.i: puttyalt_strbuf.c.i
 .PHONY : puttyalt_strbuf.i
@@ -2853,13 +2845,13 @@ puttyalt_strbuf.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_strbuf.c.s
 .PHONY : puttyalt_strbuf.c.s
 
-puttyalt_tabs.obj: puttyalt_tabs.c.obj
-.PHONY : puttyalt_tabs.obj
+puttyalt_tabs.o: puttyalt_tabs.c.o
+.PHONY : puttyalt_tabs.o
 
 # target to build an object file
-puttyalt_tabs.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tabs.c.obj
-.PHONY : puttyalt_tabs.c.obj
+puttyalt_tabs.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tabs.c.o
+.PHONY : puttyalt_tabs.c.o
 
 puttyalt_tabs.i: puttyalt_tabs.c.i
 .PHONY : puttyalt_tabs.i
@@ -2877,13 +2869,13 @@ puttyalt_tabs.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tabs.c.s
 .PHONY : puttyalt_tabs.c.s
 
-puttyalt_tags.obj: puttyalt_tags.c.obj
-.PHONY : puttyalt_tags.obj
+puttyalt_tags.o: puttyalt_tags.c.o
+.PHONY : puttyalt_tags.o
 
 # target to build an object file
-puttyalt_tags.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tags.c.obj
-.PHONY : puttyalt_tags.c.obj
+puttyalt_tags.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tags.c.o
+.PHONY : puttyalt_tags.c.o
 
 puttyalt_tags.i: puttyalt_tags.c.i
 .PHONY : puttyalt_tags.i
@@ -2901,13 +2893,13 @@ puttyalt_tags.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tags.c.s
 .PHONY : puttyalt_tags.c.s
 
-puttyalt_telnet.obj: puttyalt_telnet.c.obj
-.PHONY : puttyalt_telnet.obj
+puttyalt_telnet.o: puttyalt_telnet.c.o
+.PHONY : puttyalt_telnet.o
 
 # target to build an object file
-puttyalt_telnet.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_telnet.c.obj
-.PHONY : puttyalt_telnet.c.obj
+puttyalt_telnet.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_telnet.c.o
+.PHONY : puttyalt_telnet.c.o
 
 puttyalt_telnet.i: puttyalt_telnet.c.i
 .PHONY : puttyalt_telnet.i
@@ -2925,13 +2917,13 @@ puttyalt_telnet.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_telnet.c.s
 .PHONY : puttyalt_telnet.c.s
 
-puttyalt_template.obj: puttyalt_template.c.obj
-.PHONY : puttyalt_template.obj
+puttyalt_template.o: puttyalt_template.c.o
+.PHONY : puttyalt_template.o
 
 # target to build an object file
-puttyalt_template.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_template.c.obj
-.PHONY : puttyalt_template.c.obj
+puttyalt_template.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_template.c.o
+.PHONY : puttyalt_template.c.o
 
 puttyalt_template.i: puttyalt_template.c.i
 .PHONY : puttyalt_template.i
@@ -2949,13 +2941,13 @@ puttyalt_template.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_template.c.s
 .PHONY : puttyalt_template.c.s
 
-puttyalt_termfx.obj: puttyalt_termfx.c.obj
-.PHONY : puttyalt_termfx.obj
+puttyalt_termfx.o: puttyalt_termfx.c.o
+.PHONY : puttyalt_termfx.o
 
 # target to build an object file
-puttyalt_termfx.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_termfx.c.obj
-.PHONY : puttyalt_termfx.c.obj
+puttyalt_termfx.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_termfx.c.o
+.PHONY : puttyalt_termfx.c.o
 
 puttyalt_termfx.i: puttyalt_termfx.c.i
 .PHONY : puttyalt_termfx.i
@@ -2973,13 +2965,13 @@ puttyalt_termfx.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_termfx.c.s
 .PHONY : puttyalt_termfx.c.s
 
-puttyalt_terminal_conf.obj: puttyalt_terminal_conf.c.obj
-.PHONY : puttyalt_terminal_conf.obj
+puttyalt_terminal_conf.o: puttyalt_terminal_conf.c.o
+.PHONY : puttyalt_terminal_conf.o
 
 # target to build an object file
-puttyalt_terminal_conf.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_terminal_conf.c.obj
-.PHONY : puttyalt_terminal_conf.c.obj
+puttyalt_terminal_conf.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_terminal_conf.c.o
+.PHONY : puttyalt_terminal_conf.c.o
 
 puttyalt_terminal_conf.i: puttyalt_terminal_conf.c.i
 .PHONY : puttyalt_terminal_conf.i
@@ -2997,13 +2989,13 @@ puttyalt_terminal_conf.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_terminal_conf.c.s
 .PHONY : puttyalt_terminal_conf.c.s
 
-puttyalt_termsearch.obj: puttyalt_termsearch.c.obj
-.PHONY : puttyalt_termsearch.obj
+puttyalt_termsearch.o: puttyalt_termsearch.c.o
+.PHONY : puttyalt_termsearch.o
 
 # target to build an object file
-puttyalt_termsearch.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_termsearch.c.obj
-.PHONY : puttyalt_termsearch.c.obj
+puttyalt_termsearch.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_termsearch.c.o
+.PHONY : puttyalt_termsearch.c.o
 
 puttyalt_termsearch.i: puttyalt_termsearch.c.i
 .PHONY : puttyalt_termsearch.i
@@ -3021,13 +3013,13 @@ puttyalt_termsearch.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_termsearch.c.s
 .PHONY : puttyalt_termsearch.c.s
 
-puttyalt_theme.obj: puttyalt_theme.c.obj
-.PHONY : puttyalt_theme.obj
+puttyalt_theme.o: puttyalt_theme.c.o
+.PHONY : puttyalt_theme.o
 
 # target to build an object file
-puttyalt_theme.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_theme.c.obj
-.PHONY : puttyalt_theme.c.obj
+puttyalt_theme.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_theme.c.o
+.PHONY : puttyalt_theme.c.o
 
 puttyalt_theme.i: puttyalt_theme.c.i
 .PHONY : puttyalt_theme.i
@@ -3045,13 +3037,13 @@ puttyalt_theme.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_theme.c.s
 .PHONY : puttyalt_theme.c.s
 
-puttyalt_themes.obj: puttyalt_themes.c.obj
-.PHONY : puttyalt_themes.obj
+puttyalt_themes.o: puttyalt_themes.c.o
+.PHONY : puttyalt_themes.o
 
 # target to build an object file
-puttyalt_themes.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_themes.c.obj
-.PHONY : puttyalt_themes.c.obj
+puttyalt_themes.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_themes.c.o
+.PHONY : puttyalt_themes.c.o
 
 puttyalt_themes.i: puttyalt_themes.c.i
 .PHONY : puttyalt_themes.i
@@ -3069,13 +3061,13 @@ puttyalt_themes.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_themes.c.s
 .PHONY : puttyalt_themes.c.s
 
-puttyalt_timeout.obj: puttyalt_timeout.c.obj
-.PHONY : puttyalt_timeout.obj
+puttyalt_timeout.o: puttyalt_timeout.c.o
+.PHONY : puttyalt_timeout.o
 
 # target to build an object file
-puttyalt_timeout.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_timeout.c.obj
-.PHONY : puttyalt_timeout.c.obj
+puttyalt_timeout.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_timeout.c.o
+.PHONY : puttyalt_timeout.c.o
 
 puttyalt_timeout.i: puttyalt_timeout.c.i
 .PHONY : puttyalt_timeout.i
@@ -3093,13 +3085,13 @@ puttyalt_timeout.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_timeout.c.s
 .PHONY : puttyalt_timeout.c.s
 
-puttyalt_transfer.obj: puttyalt_transfer.c.obj
-.PHONY : puttyalt_transfer.obj
+puttyalt_transfer.o: puttyalt_transfer.c.o
+.PHONY : puttyalt_transfer.o
 
 # target to build an object file
-puttyalt_transfer.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_transfer.c.obj
-.PHONY : puttyalt_transfer.c.obj
+puttyalt_transfer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_transfer.c.o
+.PHONY : puttyalt_transfer.c.o
 
 puttyalt_transfer.i: puttyalt_transfer.c.i
 .PHONY : puttyalt_transfer.i
@@ -3117,13 +3109,13 @@ puttyalt_transfer.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_transfer.c.s
 .PHONY : puttyalt_transfer.c.s
 
-puttyalt_tray.obj: puttyalt_tray.c.obj
-.PHONY : puttyalt_tray.obj
+puttyalt_tray.o: puttyalt_tray.c.o
+.PHONY : puttyalt_tray.o
 
 # target to build an object file
-puttyalt_tray.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tray.c.obj
-.PHONY : puttyalt_tray.c.obj
+puttyalt_tray.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tray.c.o
+.PHONY : puttyalt_tray.c.o
 
 puttyalt_tray.i: puttyalt_tray.c.i
 .PHONY : puttyalt_tray.i
@@ -3141,13 +3133,13 @@ puttyalt_tray.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tray.c.s
 .PHONY : puttyalt_tray.c.s
 
-puttyalt_triggers.obj: puttyalt_triggers.c.obj
-.PHONY : puttyalt_triggers.obj
+puttyalt_triggers.o: puttyalt_triggers.c.o
+.PHONY : puttyalt_triggers.o
 
 # target to build an object file
-puttyalt_triggers.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_triggers.c.obj
-.PHONY : puttyalt_triggers.c.obj
+puttyalt_triggers.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_triggers.c.o
+.PHONY : puttyalt_triggers.c.o
 
 puttyalt_triggers.i: puttyalt_triggers.c.i
 .PHONY : puttyalt_triggers.i
@@ -3165,13 +3157,13 @@ puttyalt_triggers.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_triggers.c.s
 .PHONY : puttyalt_triggers.c.s
 
-puttyalt_triggersv2.obj: puttyalt_triggersv2.c.obj
-.PHONY : puttyalt_triggersv2.obj
+puttyalt_triggersv2.o: puttyalt_triggersv2.c.o
+.PHONY : puttyalt_triggersv2.o
 
 # target to build an object file
-puttyalt_triggersv2.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_triggersv2.c.obj
-.PHONY : puttyalt_triggersv2.c.obj
+puttyalt_triggersv2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_triggersv2.c.o
+.PHONY : puttyalt_triggersv2.c.o
 
 puttyalt_triggersv2.i: puttyalt_triggersv2.c.i
 .PHONY : puttyalt_triggersv2.i
@@ -3189,13 +3181,13 @@ puttyalt_triggersv2.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_triggersv2.c.s
 .PHONY : puttyalt_triggersv2.c.s
 
-puttyalt_tunnel.obj: puttyalt_tunnel.c.obj
-.PHONY : puttyalt_tunnel.obj
+puttyalt_tunnel.o: puttyalt_tunnel.c.o
+.PHONY : puttyalt_tunnel.o
 
 # target to build an object file
-puttyalt_tunnel.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tunnel.c.obj
-.PHONY : puttyalt_tunnel.c.obj
+puttyalt_tunnel.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tunnel.c.o
+.PHONY : puttyalt_tunnel.c.o
 
 puttyalt_tunnel.i: puttyalt_tunnel.c.i
 .PHONY : puttyalt_tunnel.i
@@ -3213,13 +3205,13 @@ puttyalt_tunnel.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tunnel.c.s
 .PHONY : puttyalt_tunnel.c.s
 
-puttyalt_tunnelmon.obj: puttyalt_tunnelmon.c.obj
-.PHONY : puttyalt_tunnelmon.obj
+puttyalt_tunnelmon.o: puttyalt_tunnelmon.c.o
+.PHONY : puttyalt_tunnelmon.o
 
 # target to build an object file
-puttyalt_tunnelmon.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tunnelmon.c.obj
-.PHONY : puttyalt_tunnelmon.c.obj
+puttyalt_tunnelmon.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tunnelmon.c.o
+.PHONY : puttyalt_tunnelmon.c.o
 
 puttyalt_tunnelmon.i: puttyalt_tunnelmon.c.i
 .PHONY : puttyalt_tunnelmon.i
@@ -3237,13 +3229,13 @@ puttyalt_tunnelmon.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_tunnelmon.c.s
 .PHONY : puttyalt_tunnelmon.c.s
 
-puttyalt_unicode.obj: puttyalt_unicode.c.obj
-.PHONY : puttyalt_unicode.obj
+puttyalt_unicode.o: puttyalt_unicode.c.o
+.PHONY : puttyalt_unicode.o
 
 # target to build an object file
-puttyalt_unicode.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_unicode.c.obj
-.PHONY : puttyalt_unicode.c.obj
+puttyalt_unicode.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_unicode.c.o
+.PHONY : puttyalt_unicode.c.o
 
 puttyalt_unicode.i: puttyalt_unicode.c.i
 .PHONY : puttyalt_unicode.i
@@ -3261,13 +3253,13 @@ puttyalt_unicode.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_unicode.c.s
 .PHONY : puttyalt_unicode.c.s
 
-puttyalt_updater.obj: puttyalt_updater.c.obj
-.PHONY : puttyalt_updater.obj
+puttyalt_updater.o: puttyalt_updater.c.o
+.PHONY : puttyalt_updater.o
 
 # target to build an object file
-puttyalt_updater.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_updater.c.obj
-.PHONY : puttyalt_updater.c.obj
+puttyalt_updater.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_updater.c.o
+.PHONY : puttyalt_updater.c.o
 
 puttyalt_updater.i: puttyalt_updater.c.i
 .PHONY : puttyalt_updater.i
@@ -3285,13 +3277,13 @@ puttyalt_updater.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_updater.c.s
 .PHONY : puttyalt_updater.c.s
 
-puttyalt_urlhandler.obj: puttyalt_urlhandler.c.obj
-.PHONY : puttyalt_urlhandler.obj
+puttyalt_urlhandler.o: puttyalt_urlhandler.c.o
+.PHONY : puttyalt_urlhandler.o
 
 # target to build an object file
-puttyalt_urlhandler.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_urlhandler.c.obj
-.PHONY : puttyalt_urlhandler.c.obj
+puttyalt_urlhandler.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_urlhandler.c.o
+.PHONY : puttyalt_urlhandler.c.o
 
 puttyalt_urlhandler.i: puttyalt_urlhandler.c.i
 .PHONY : puttyalt_urlhandler.i
@@ -3309,13 +3301,13 @@ puttyalt_urlhandler.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_urlhandler.c.s
 .PHONY : puttyalt_urlhandler.c.s
 
-puttyalt_validate.obj: puttyalt_validate.c.obj
-.PHONY : puttyalt_validate.obj
+puttyalt_validate.o: puttyalt_validate.c.o
+.PHONY : puttyalt_validate.o
 
 # target to build an object file
-puttyalt_validate.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_validate.c.obj
-.PHONY : puttyalt_validate.c.obj
+puttyalt_validate.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_validate.c.o
+.PHONY : puttyalt_validate.c.o
 
 puttyalt_validate.i: puttyalt_validate.c.i
 .PHONY : puttyalt_validate.i
@@ -3333,13 +3325,13 @@ puttyalt_validate.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_validate.c.s
 .PHONY : puttyalt_validate.c.s
 
-puttyalt_workspace.obj: puttyalt_workspace.c.obj
-.PHONY : puttyalt_workspace.obj
+puttyalt_workspace.o: puttyalt_workspace.c.o
+.PHONY : puttyalt_workspace.o
 
 # target to build an object file
-puttyalt_workspace.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_workspace.c.obj
-.PHONY : puttyalt_workspace.c.obj
+puttyalt_workspace.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_workspace.c.o
+.PHONY : puttyalt_workspace.c.o
 
 puttyalt_workspace.i: puttyalt_workspace.c.i
 .PHONY : puttyalt_workspace.i
@@ -3357,13 +3349,13 @@ puttyalt_workspace.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_workspace.c.s
 .PHONY : puttyalt_workspace.c.s
 
-puttyalt_x11fwd.obj: puttyalt_x11fwd.c.obj
-.PHONY : puttyalt_x11fwd.obj
+puttyalt_x11fwd.o: puttyalt_x11fwd.c.o
+.PHONY : puttyalt_x11fwd.o
 
 # target to build an object file
-puttyalt_x11fwd.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_x11fwd.c.obj
-.PHONY : puttyalt_x11fwd.c.obj
+puttyalt_x11fwd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_x11fwd.c.o
+.PHONY : puttyalt_x11fwd.c.o
 
 puttyalt_x11fwd.i: puttyalt_x11fwd.c.i
 .PHONY : puttyalt_x11fwd.i
@@ -3381,13 +3373,13 @@ puttyalt_x11fwd.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_x11fwd.c.s
 .PHONY : puttyalt_x11fwd.c.s
 
-puttyalt_zmodem.obj: puttyalt_zmodem.c.obj
-.PHONY : puttyalt_zmodem.obj
+puttyalt_zmodem.o: puttyalt_zmodem.c.o
+.PHONY : puttyalt_zmodem.o
 
 # target to build an object file
-puttyalt_zmodem.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_zmodem.c.obj
-.PHONY : puttyalt_zmodem.c.obj
+puttyalt_zmodem.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/puttyalt.dir/build.make CMakeFiles/puttyalt.dir/puttyalt_zmodem.c.o
+.PHONY : puttyalt_zmodem.c.o
 
 puttyalt_zmodem.i: puttyalt_zmodem.c.i
 .PHONY : puttyalt_zmodem.i
@@ -3418,407 +3410,406 @@ help:
 	@echo "... generated_licence_h"
 	@echo "... puttyalt"
 	@echo "... puttyalt-gui"
-	@echo "... main.obj"
+	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... puttyalt.res"
-	@echo "... puttyalt_accessibility.obj"
+	@echo "... puttyalt_accessibility.o"
 	@echo "... puttyalt_accessibility.i"
 	@echo "... puttyalt_accessibility.s"
-	@echo "... puttyalt_agentfwd2.obj"
+	@echo "... puttyalt_agentfwd2.o"
 	@echo "... puttyalt_agentfwd2.i"
 	@echo "... puttyalt_agentfwd2.s"
-	@echo "... puttyalt_aliases.obj"
+	@echo "... puttyalt_aliases.o"
 	@echo "... puttyalt_aliases.i"
 	@echo "... puttyalt_aliases.s"
-	@echo "... puttyalt_autobackup.obj"
+	@echo "... puttyalt_autobackup.o"
 	@echo "... puttyalt_autobackup.i"
 	@echo "... puttyalt_autobackup.s"
-	@echo "... puttyalt_autocomplete.obj"
+	@echo "... puttyalt_autocomplete.o"
 	@echo "... puttyalt_autocomplete.i"
 	@echo "... puttyalt_autocomplete.s"
-	@echo "... puttyalt_autoupdate.obj"
+	@echo "... puttyalt_autoupdate.o"
 	@echo "... puttyalt_autoupdate.i"
 	@echo "... puttyalt_autoupdate.s"
-	@echo "... puttyalt_bandwidth.obj"
+	@echo "... puttyalt_bandwidth.o"
 	@echo "... puttyalt_bandwidth.i"
 	@echo "... puttyalt_bandwidth.s"
-	@echo "... puttyalt_base64.obj"
+	@echo "... puttyalt_base64.o"
 	@echo "... puttyalt_base64.i"
 	@echo "... puttyalt_base64.s"
-	@echo "... puttyalt_bellv2.obj"
+	@echo "... puttyalt_bellv2.o"
 	@echo "... puttyalt_bellv2.i"
 	@echo "... puttyalt_bellv2.s"
-	@echo "... puttyalt_bookmarks.obj"
+	@echo "... puttyalt_bookmarks.o"
 	@echo "... puttyalt_bookmarks.i"
 	@echo "... puttyalt_bookmarks.s"
-	@echo "... puttyalt_broadcast.obj"
+	@echo "... puttyalt_broadcast.o"
 	@echo "... puttyalt_broadcast.i"
 	@echo "... puttyalt_broadcast.s"
-	@echo "... puttyalt_chatlog.obj"
+	@echo "... puttyalt_chatlog.o"
 	@echo "... puttyalt_chatlog.i"
 	@echo "... puttyalt_chatlog.s"
-	@echo "... puttyalt_cliphistory.obj"
+	@echo "... puttyalt_cliphistory.o"
 	@echo "... puttyalt_cliphistory.i"
 	@echo "... puttyalt_cliphistory.s"
-	@echo "... puttyalt_clipmgr.obj"
+	@echo "... puttyalt_clipmgr.o"
 	@echo "... puttyalt_clipmgr.i"
 	@echo "... puttyalt_clipmgr.s"
-	@echo "... puttyalt_clipsync.obj"
+	@echo "... puttyalt_clipsync.o"
 	@echo "... puttyalt_clipsync.i"
 	@echo "... puttyalt_clipsync.s"
-	@echo "... puttyalt_cmdhistory.obj"
+	@echo "... puttyalt_cmdhistory.o"
 	@echo "... puttyalt_cmdhistory.i"
 	@echo "... puttyalt_cmdhistory.s"
-	@echo "... puttyalt_cmdpalette.obj"
+	@echo "... puttyalt_cmdpalette.o"
 	@echo "... puttyalt_cmdpalette.i"
 	@echo "... puttyalt_cmdpalette.s"
-	@echo "... puttyalt_codesign.obj"
+	@echo "... puttyalt_codesign.o"
 	@echo "... puttyalt_codesign.i"
 	@echo "... puttyalt_codesign.s"
-	@echo "... puttyalt_colorpicker.obj"
+	@echo "... puttyalt_colorpicker.o"
 	@echo "... puttyalt_colorpicker.i"
 	@echo "... puttyalt_colorpicker.s"
-	@echo "... puttyalt_colorscheme.obj"
+	@echo "... puttyalt_colorscheme.o"
 	@echo "... puttyalt_colorscheme.i"
 	@echo "... puttyalt_colorscheme.s"
-	@echo "... puttyalt_completion.obj"
+	@echo "... puttyalt_completion.o"
 	@echo "... puttyalt_completion.i"
 	@echo "... puttyalt_completion.s"
-	@echo "... puttyalt_connpool.obj"
+	@echo "... puttyalt_connpool.o"
 	@echo "... puttyalt_connpool.i"
 	@echo "... puttyalt_connpool.s"
-	@echo "... puttyalt_connprof.obj"
+	@echo "... puttyalt_connprof.o"
 	@echo "... puttyalt_connprof.i"
 	@echo "... puttyalt_connprof.s"
-	@echo "... puttyalt_credstore.obj"
+	@echo "... puttyalt_credstore.o"
 	@echo "... puttyalt_credstore.i"
 	@echo "... puttyalt_credstore.s"
-	@echo "... puttyalt_dashboard.obj"
+	@echo "... puttyalt_dashboard.o"
 	@echo "... puttyalt_dashboard.i"
 	@echo "... puttyalt_dashboard.s"
-	@echo "... puttyalt_debugcon.obj"
+	@echo "... puttyalt_debugcon.o"
 	@echo "... puttyalt_debugcon.i"
 	@echo "... puttyalt_debugcon.s"
-	@echo "... puttyalt_dialogs.obj"
+	@echo "... puttyalt_dialogs.o"
 	@echo "... puttyalt_dialogs.i"
 	@echo "... puttyalt_dialogs.s"
-	@echo "... puttyalt_envindicator.obj"
+	@echo "... puttyalt_envindicator.o"
 	@echo "... puttyalt_envindicator.i"
 	@echo "... puttyalt_envindicator.s"
-	@echo "... puttyalt_envmgr.obj"
+	@echo "... puttyalt_envmgr.o"
 	@echo "... puttyalt_envmgr.i"
 	@echo "... puttyalt_envmgr.s"
-	@echo "... puttyalt_escparse.obj"
+	@echo "... puttyalt_escparse.o"
 	@echo "... puttyalt_escparse.i"
 	@echo "... puttyalt_escparse.s"
-	@echo "... puttyalt_eventbus.obj"
+	@echo "... puttyalt_eventbus.o"
 	@echo "... puttyalt_eventbus.i"
 	@echo "... puttyalt_eventbus.s"
-	@echo "... puttyalt_expect.obj"
+	@echo "... puttyalt_expect.o"
 	@echo "... puttyalt_expect.i"
 	@echo "... puttyalt_expect.s"
-	@echo "... puttyalt_export2.obj"
+	@echo "... puttyalt_export2.o"
 	@echo "... puttyalt_export2.i"
 	@echo "... puttyalt_export2.s"
-	@echo "... puttyalt_filebrowser.obj"
+	@echo "... puttyalt_filebrowser.o"
 	@echo "... puttyalt_filebrowser.i"
 	@echo "... puttyalt_filebrowser.s"
-	@echo "... puttyalt_findreplace.obj"
+	@echo "... puttyalt_findreplace.o"
 	@echo "... puttyalt_findreplace.i"
 	@echo "... puttyalt_findreplace.s"
-	@echo "... puttyalt_fingerprint.obj"
+	@echo "... puttyalt_fingerprint.o"
 	@echo "... puttyalt_fingerprint.i"
 	@echo "... puttyalt_fingerprint.s"
-	@echo "... puttyalt_fontmgr.obj"
+	@echo "... puttyalt_fontmgr.o"
 	@echo "... puttyalt_fontmgr.i"
 	@echo "... puttyalt_fontmgr.s"
-	@echo "... puttyalt_geometry.obj"
+	@echo "... puttyalt_geometry.o"
 	@echo "... puttyalt_geometry.i"
 	@echo "... puttyalt_geometry.s"
-	@echo "... puttyalt_gesture.obj"
+	@echo "... puttyalt_gesture.o"
 	@echo "... puttyalt_gesture.i"
 	@echo "... puttyalt_gesture.s"
-	@echo "... puttyalt_gui.obj"
+	@echo "... puttyalt_gui.o"
 	@echo "... puttyalt_gui.i"
 	@echo "... puttyalt_gui.s"
-	@echo "... puttyalt_health.obj"
+	@echo "... puttyalt_health.o"
 	@echo "... puttyalt_health.i"
 	@echo "... puttyalt_health.s"
-	@echo "... puttyalt_hexview.obj"
+	@echo "... puttyalt_hexview.o"
 	@echo "... puttyalt_hexview.i"
 	@echo "... puttyalt_hexview.s"
-	@echo "... puttyalt_hostverify.obj"
+	@echo "... puttyalt_hostverify.o"
 	@echo "... puttyalt_hostverify.i"
 	@echo "... puttyalt_hostverify.s"
-	@echo "... puttyalt_hotkeymgr.obj"
+	@echo "... puttyalt_hotkeymgr.o"
 	@echo "... puttyalt_hotkeymgr.i"
 	@echo "... puttyalt_hotkeymgr.s"
-	@echo "... puttyalt_imgproto.obj"
+	@echo "... puttyalt_imgproto.o"
 	@echo "... puttyalt_imgproto.i"
 	@echo "... puttyalt_imgproto.s"
-	@echo "... puttyalt_import.obj"
+	@echo "... puttyalt_import.o"
 	@echo "... puttyalt_import.i"
 	@echo "... puttyalt_import.s"
-	@echo "... puttyalt_ini.obj"
+	@echo "... puttyalt_ini.o"
 	@echo "... puttyalt_ini.i"
 	@echo "... puttyalt_ini.s"
-	@echo "... puttyalt_inputfilter.obj"
+	@echo "... puttyalt_inputfilter.o"
 	@echo "... puttyalt_inputfilter.i"
 	@echo "... puttyalt_inputfilter.s"
-	@echo "... puttyalt_ipc.obj"
+	@echo "... puttyalt_ipc.o"
 	@echo "... puttyalt_ipc.i"
 	@echo "... puttyalt_ipc.s"
-	@echo "... puttyalt_jumphost.obj"
+	@echo "... puttyalt_jumphost.o"
 	@echo "... puttyalt_jumphost.i"
 	@echo "... puttyalt_jumphost.s"
-	@echo "... puttyalt_keepalive.obj"
+	@echo "... puttyalt_keepalive.o"
 	@echo "... puttyalt_keepalive.i"
 	@echo "... puttyalt_keepalive.s"
-	@echo "... puttyalt_keybind.obj"
+	@echo "... puttyalt_keybind.o"
 	@echo "... puttyalt_keybind.i"
 	@echo "... puttyalt_keybind.s"
-	@echo "... puttyalt_keygen.obj"
+	@echo "... puttyalt_keygen.o"
 	@echo "... puttyalt_keygen.i"
 	@echo "... puttyalt_keygen.s"
-	@echo "... puttyalt_keymanager.obj"
+	@echo "... puttyalt_keymanager.o"
 	@echo "... puttyalt_keymanager.i"
 	@echo "... puttyalt_keymanager.s"
-	@echo "... puttyalt_latency.obj"
+	@echo "... puttyalt_latency.o"
 	@echo "... puttyalt_latency.i"
 	@echo "... puttyalt_latency.s"
-	@echo "... puttyalt_layout.obj"
+	@echo "... puttyalt_layout.o"
 	@echo "... puttyalt_layout.i"
 	@echo "... puttyalt_layout.s"
-	@echo "... puttyalt_locale.obj"
+	@echo "... puttyalt_locale.o"
 	@echo "... puttyalt_locale.i"
 	@echo "... puttyalt_locale.s"
-	@echo "... puttyalt_logengine.obj"
+	@echo "... puttyalt_logengine.o"
 	@echo "... puttyalt_logengine.i"
 	@echo "... puttyalt_logengine.s"
-	@echo "... puttyalt_loggingv2.obj"
+	@echo "... puttyalt_loggingv2.o"
 	@echo "... puttyalt_loggingv2.i"
 	@echo "... puttyalt_loggingv2.s"
-	@echo "... puttyalt_logrotate.obj"
+	@echo "... puttyalt_logrotate.o"
 	@echo "... puttyalt_logrotate.i"
 	@echo "... puttyalt_logrotate.s"
-	@echo "... puttyalt_macro.obj"
+	@echo "... puttyalt_macro.o"
 	@echo "... puttyalt_macro.i"
 	@echo "... puttyalt_macro.s"
-	@echo "... puttyalt_mempool.obj"
+	@echo "... puttyalt_mempool.o"
 	@echo "... puttyalt_mempool.i"
 	@echo "... puttyalt_mempool.s"
-	@echo "... puttyalt_migrate.obj"
+	@echo "... puttyalt_migrate.o"
 	@echo "... puttyalt_migrate.i"
 	@echo "... puttyalt_migrate.s"
-	@echo "... puttyalt_monitor.obj"
+	@echo "... puttyalt_monitor.o"
 	@echo "... puttyalt_monitor.i"
 	@echo "... puttyalt_monitor.s"
-	@echo "... puttyalt_mux.obj"
+	@echo "... puttyalt_mux.o"
 	@echo "... puttyalt_mux.i"
 	@echo "... puttyalt_mux.s"
-	@echo "... puttyalt_netdiag.obj"
+	@echo "... puttyalt_netdiag.o"
 	@echo "... puttyalt_netdiag.i"
 	@echo "... puttyalt_netdiag.s"
-	@echo "... puttyalt_netscan.obj"
+	@echo "... puttyalt_netscan.o"
 	@echo "... puttyalt_netscan.i"
 	@echo "... puttyalt_netscan.s"
-	@echo "... puttyalt_notifcenter.obj"
+	@echo "... puttyalt_notifcenter.o"
 	@echo "... puttyalt_notifcenter.i"
 	@echo "... puttyalt_notifcenter.s"
-	@echo "... puttyalt_notify.obj"
+	@echo "... puttyalt_notify.o"
 	@echo "... puttyalt_notify.i"
 	@echo "... puttyalt_notify.s"
-	@echo "... puttyalt_palette.obj"
+	@echo "... puttyalt_palette.o"
 	@echo "... puttyalt_palette.i"
 	@echo "... puttyalt_palette.s"
-	@echo "... puttyalt_perfmon.obj"
+	@echo "... puttyalt_perfmon.o"
 	@echo "... puttyalt_perfmon.i"
 	@echo "... puttyalt_perfmon.s"
-	@echo "... puttyalt_perftimer.obj"
+	@echo "... puttyalt_perftimer.o"
 	@echo "... puttyalt_perftimer.i"
 	@echo "... puttyalt_perftimer.s"
-	@echo "... puttyalt_pinning.obj"
+	@echo "... puttyalt_pinning.o"
 	@echo "... puttyalt_pinning.i"
 	@echo "... puttyalt_pinning.s"
-	@echo "... puttyalt_plugin.obj"
+	@echo "... puttyalt_plugin.o"
 	@echo "... puttyalt_plugin.i"
 	@echo "... puttyalt_plugin.s"
-	@echo "... puttyalt_portable.obj"
+	@echo "... puttyalt_portable.o"
 	@echo "... puttyalt_portable.i"
 	@echo "... puttyalt_portable.s"
-	@echo "... puttyalt_portfwd.obj"
+	@echo "... puttyalt_portfwd.o"
 	@echo "... puttyalt_portfwd.i"
 	@echo "... puttyalt_portfwd.s"
-	@echo "... puttyalt_protoanalyze.obj"
+	@echo "... puttyalt_protoanalyze.o"
 	@echo "... puttyalt_protoanalyze.i"
 	@echo "... puttyalt_protoanalyze.s"
-	@echo "... puttyalt_proxy.obj"
+	@echo "... puttyalt_proxy.o"
 	@echo "... puttyalt_proxy.i"
 	@echo "... puttyalt_proxy.s"
-	@echo "... puttyalt_proxychain.obj"
+	@echo "... puttyalt_proxychain.o"
 	@echo "... puttyalt_proxychain.i"
 	@echo "... puttyalt_proxychain.s"
-	@echo "... puttyalt_proxydetect.obj"
+	@echo "... puttyalt_proxydetect.o"
 	@echo "... puttyalt_proxydetect.i"
 	@echo "... puttyalt_proxydetect.s"
-	@echo "... puttyalt_quickconnect.obj"
+	@echo "... puttyalt_quickconnect.o"
 	@echo "... puttyalt_quickconnect.i"
 	@echo "... puttyalt_quickconnect.s"
-	@echo "... puttyalt_quicklaunch.obj"
+	@echo "... puttyalt_quicklaunch.o"
 	@echo "... puttyalt_quicklaunch.i"
 	@echo "... puttyalt_quicklaunch.s"
-	@echo "... puttyalt_ratelimit.obj"
+	@echo "... puttyalt_ratelimit.o"
 	@echo "... puttyalt_ratelimit.i"
 	@echo "... puttyalt_ratelimit.s"
-	@echo "... puttyalt_reconnect.obj"
+	@echo "... puttyalt_reconnect.o"
 	@echo "... puttyalt_reconnect.i"
 	@echo "... puttyalt_reconnect.s"
-	@echo "... puttyalt_recorder.obj"
+	@echo "... puttyalt_recorder.o"
 	@echo "... puttyalt_recorder.i"
 	@echo "... puttyalt_recorder.s"
-	@echo "... puttyalt_renderer.obj"
+	@echo "... puttyalt_renderer.o"
 	@echo "... puttyalt_renderer.i"
 	@echo "... puttyalt_renderer.s"
-	@echo "... puttyalt_scheduler.obj"
+	@echo "... puttyalt_scheduler.o"
 	@echo "... puttyalt_scheduler.i"
 	@echo "... puttyalt_scheduler.s"
-	@echo "... puttyalt_scp.obj"
+	@echo "... puttyalt_scp.o"
 	@echo "... puttyalt_scp.i"
 	@echo "... puttyalt_scp.s"
-	@echo "... puttyalt_scriptmgr.obj"
+	@echo "... puttyalt_scriptmgr.o"
 	@echo "... puttyalt_scriptmgr.i"
 	@echo "... puttyalt_scriptmgr.s"
-	@echo "... puttyalt_scrollcomp.obj"
+	@echo "... puttyalt_scrollcomp.o"
 	@echo "... puttyalt_scrollcomp.i"
 	@echo "... puttyalt_scrollcomp.s"
-	@echo "... puttyalt_searchhl.obj"
+	@echo "... puttyalt_searchhl.o"
 	@echo "... puttyalt_searchhl.i"
 	@echo "... puttyalt_searchhl.s"
-	@echo "... puttyalt_serial.obj"
+	@echo "... puttyalt_serial.o"
 	@echo "... puttyalt_serial.i"
 	@echo "... puttyalt_serial.s"
-	@echo "... puttyalt_sessgroup.obj"
+	@echo "... puttyalt_sessgroup.o"
 	@echo "... puttyalt_sessgroup.i"
 	@echo "... puttyalt_sessgroup.s"
-	@echo "... puttyalt_sessions.obj"
+	@echo "... puttyalt_sessions.o"
 	@echo "... puttyalt_sessions.i"
 	@echo "... puttyalt_sessions.s"
-	@echo "... puttyalt_sesslock.obj"
+	@echo "... puttyalt_sesslock.o"
 	@echo "... puttyalt_sesslock.i"
 	@echo "... puttyalt_sesslock.s"
-	@echo "... puttyalt_sessnotes.obj"
+	@echo "... puttyalt_sessnotes.o"
 	@echo "... puttyalt_sessnotes.i"
 	@echo "... puttyalt_sessnotes.s"
-	@echo "... puttyalt_sessreplay.obj"
+	@echo "... puttyalt_sessreplay.o"
 	@echo "... puttyalt_sessreplay.i"
 	@echo "... puttyalt_sessreplay.s"
-	@echo "... puttyalt_sftpmgr.obj"
+	@echo "... puttyalt_sftpmgr.o"
 	@echo "... puttyalt_sftpmgr.i"
 	@echo "... puttyalt_sftpmgr.s"
-	@echo "... puttyalt_sftppanel.obj"
+	@echo "... puttyalt_sftppanel.o"
 	@echo "... puttyalt_sftppanel.i"
 	@echo "... puttyalt_sftppanel.s"
-	@echo "... puttyalt_sharedclip.obj"
+	@echo "... puttyalt_sharedclip.o"
 	@echo "... puttyalt_sharedclip.i"
 	@echo "... puttyalt_sharedclip.s"
-	@echo "... puttyalt_shortcuts.obj"
+	@echo "... puttyalt_shortcuts.o"
 	@echo "... puttyalt_shortcuts.i"
 	@echo "... puttyalt_shortcuts.s"
-	@echo "... puttyalt_snippets.obj"
+	@echo "... puttyalt_snippets.o"
 	@echo "... puttyalt_snippets.i"
 	@echo "... puttyalt_snippets.s"
-	@echo "... puttyalt_sound.obj"
+	@echo "... puttyalt_sound.o"
 	@echo "... puttyalt_sound.i"
 	@echo "... puttyalt_sound.s"
-	@echo "... puttyalt_splitview.obj"
+	@echo "... puttyalt_splitview.o"
 	@echo "... puttyalt_splitview.i"
 	@echo "... puttyalt_splitview.s"
-	@echo "... puttyalt_sshagent.obj"
+	@echo "... puttyalt_sshagent.o"
 	@echo "... puttyalt_sshagent.i"
 	@echo "... puttyalt_sshagent.s"
-	@echo "... puttyalt_sshconfig.obj"
+	@echo "... puttyalt_sshconfig.o"
 	@echo "... puttyalt_sshconfig.i"
 	@echo "... puttyalt_sshconfig.s"
-	@echo "... puttyalt_startup.obj"
+	@echo "... puttyalt_startup.o"
 	@echo "... puttyalt_startup.i"
 	@echo "... puttyalt_startup.s"
-	@echo "... puttyalt_stats.obj"
+	@echo "... puttyalt_stats.o"
 	@echo "... puttyalt_stats.i"
 	@echo "... puttyalt_stats.s"
-	@echo "... puttyalt_statusbar.obj"
+	@echo "... puttyalt_statusbar.o"
 	@echo "... puttyalt_statusbar.i"
 	@echo "... puttyalt_statusbar.s"
-	@echo "... puttyalt_strbuf.obj"
+	@echo "... puttyalt_strbuf.o"
 	@echo "... puttyalt_strbuf.i"
 	@echo "... puttyalt_strbuf.s"
-	@echo "... puttyalt_tabs.obj"
+	@echo "... puttyalt_tabs.o"
 	@echo "... puttyalt_tabs.i"
 	@echo "... puttyalt_tabs.s"
-	@echo "... puttyalt_tags.obj"
+	@echo "... puttyalt_tags.o"
 	@echo "... puttyalt_tags.i"
 	@echo "... puttyalt_tags.s"
-	@echo "... puttyalt_telnet.obj"
+	@echo "... puttyalt_telnet.o"
 	@echo "... puttyalt_telnet.i"
 	@echo "... puttyalt_telnet.s"
-	@echo "... puttyalt_template.obj"
+	@echo "... puttyalt_template.o"
 	@echo "... puttyalt_template.i"
 	@echo "... puttyalt_template.s"
-	@echo "... puttyalt_termfx.obj"
+	@echo "... puttyalt_termfx.o"
 	@echo "... puttyalt_termfx.i"
 	@echo "... puttyalt_termfx.s"
-	@echo "... puttyalt_terminal_conf.obj"
+	@echo "... puttyalt_terminal_conf.o"
 	@echo "... puttyalt_terminal_conf.i"
 	@echo "... puttyalt_terminal_conf.s"
-	@echo "... puttyalt_termsearch.obj"
+	@echo "... puttyalt_termsearch.o"
 	@echo "... puttyalt_termsearch.i"
 	@echo "... puttyalt_termsearch.s"
-	@echo "... puttyalt_theme.obj"
+	@echo "... puttyalt_theme.o"
 	@echo "... puttyalt_theme.i"
 	@echo "... puttyalt_theme.s"
-	@echo "... puttyalt_themes.obj"
+	@echo "... puttyalt_themes.o"
 	@echo "... puttyalt_themes.i"
 	@echo "... puttyalt_themes.s"
-	@echo "... puttyalt_timeout.obj"
+	@echo "... puttyalt_timeout.o"
 	@echo "... puttyalt_timeout.i"
 	@echo "... puttyalt_timeout.s"
-	@echo "... puttyalt_transfer.obj"
+	@echo "... puttyalt_transfer.o"
 	@echo "... puttyalt_transfer.i"
 	@echo "... puttyalt_transfer.s"
-	@echo "... puttyalt_tray.obj"
+	@echo "... puttyalt_tray.o"
 	@echo "... puttyalt_tray.i"
 	@echo "... puttyalt_tray.s"
-	@echo "... puttyalt_triggers.obj"
+	@echo "... puttyalt_triggers.o"
 	@echo "... puttyalt_triggers.i"
 	@echo "... puttyalt_triggers.s"
-	@echo "... puttyalt_triggersv2.obj"
+	@echo "... puttyalt_triggersv2.o"
 	@echo "... puttyalt_triggersv2.i"
 	@echo "... puttyalt_triggersv2.s"
-	@echo "... puttyalt_tunnel.obj"
+	@echo "... puttyalt_tunnel.o"
 	@echo "... puttyalt_tunnel.i"
 	@echo "... puttyalt_tunnel.s"
-	@echo "... puttyalt_tunnelmon.obj"
+	@echo "... puttyalt_tunnelmon.o"
 	@echo "... puttyalt_tunnelmon.i"
 	@echo "... puttyalt_tunnelmon.s"
-	@echo "... puttyalt_unicode.obj"
+	@echo "... puttyalt_unicode.o"
 	@echo "... puttyalt_unicode.i"
 	@echo "... puttyalt_unicode.s"
-	@echo "... puttyalt_updater.obj"
+	@echo "... puttyalt_updater.o"
 	@echo "... puttyalt_updater.i"
 	@echo "... puttyalt_updater.s"
-	@echo "... puttyalt_urlhandler.obj"
+	@echo "... puttyalt_urlhandler.o"
 	@echo "... puttyalt_urlhandler.i"
 	@echo "... puttyalt_urlhandler.s"
-	@echo "... puttyalt_validate.obj"
+	@echo "... puttyalt_validate.o"
 	@echo "... puttyalt_validate.i"
 	@echo "... puttyalt_validate.s"
-	@echo "... puttyalt_workspace.obj"
+	@echo "... puttyalt_workspace.o"
 	@echo "... puttyalt_workspace.i"
 	@echo "... puttyalt_workspace.s"
-	@echo "... puttyalt_x11fwd.obj"
+	@echo "... puttyalt_x11fwd.o"
 	@echo "... puttyalt_x11fwd.i"
 	@echo "... puttyalt_x11fwd.s"
-	@echo "... puttyalt_zmodem.obj"
+	@echo "... puttyalt_zmodem.o"
 	@echo "... puttyalt_zmodem.i"
 	@echo "... puttyalt_zmodem.s"
 .PHONY : help
