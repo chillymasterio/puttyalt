@@ -172,3 +172,26 @@
 #define PUTTYALT_STATUSBAR       1
 
 #endif /* PUTTYALT_H */
+
+/* v1.1.0 — Terminal Engine & UI Framework */
+#define PUTTYALT_TERMEMU         1
+#define PUTTYALT_SELECTION       1
+#define PUTTYALT_RINGBUF         1
+#define PUTTYALT_ANSIPARSE       1
+#define PUTTYALT_COLORMGR        1
+#define PUTTYALT_FONTCHAIN       1
+#define PUTTYALT_URLDETECT_V2    1
+#define PUTTYALT_CTXMENU         1
+#define PUTTYALT_QUICKBAR        1
+#define PUTTYALT_FAVORITES       1
+#define PUTTYALT_HEALTHCHK       1
+#define PUTTYALT_AUTORECONN      1
+#define PUTTYALT_JUMPCHAIN       1
+#define PUTTYALT_UILAYER         1
+#define PUTTYALT_TOOLTIP         1
+#define PUTTYALT_DOCKPANEL       1
+#define PUTTYALT_CFGVALID        1
+#define PUTTYALT_WIZARD          1
+#define PUTTYALT_SESSREPLAY_V2   1
+#define PUTTYALT_SCHEDIT         1
+#define PUTTYALT_BELLCTL         1
