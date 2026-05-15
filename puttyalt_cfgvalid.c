@@ -1,3 +1,6 @@
+#include <stdarg.h>
+#include "puttyalt_cfgvalid.h"
+#include <stdarg.h>
 #include "puttyalt_cfgvalid.h"
 #include <string.h>
 #include <stdio.h>
