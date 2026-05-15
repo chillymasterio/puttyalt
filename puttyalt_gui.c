@@ -565,7 +565,7 @@ static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
 
             cy += 16;
             SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
-            const char *ver = "Based on " PUTTYALT_UPSTREAM " | MIT License";
+            const char *ver = "Based on " PUTTYALT_UPSTREAM " | " PUTTYALT_VERSION_STR " | MIT License";
             TextOutA(hdc, 20, cy, ver, (int)strlen(ver));
         }
 
