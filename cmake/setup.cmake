@@ -134,3 +134,19 @@ endif()
 if(PUTTY_COVERAGE)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage -g ")
 endif()
+
+# PuttyAlt: security hardening flags
+option(PUTTYALT_HARDENING "Enable security hardening compiler flags" ON)
+if(PUTTYALT_HARDENING AND NOT MSVC)
+  add_compile_options(
+    -fstack-protector-strong
+    -D_FORTIFY_SOURCE=2
+  )
+  if(NOT APPLE)
+    add_link_options(
+      -Wl,-z,relro
+      -Wl,-z,now
+      -Wl,-z,noexecstack
+    )
+  endif()
+endif()
