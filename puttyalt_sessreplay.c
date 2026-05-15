@@ -1,161 +1,105 @@
 #include "puttyalt_sessreplay.h"
-#include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include <time.h>
 
-static long now_ms(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
-}
-
-int replay_init(SessionReplay *sr, int capacity)
+void replay_init(SessionReplay *sr)
 {
     memset(sr, 0, sizeof(*sr));
-    if (capacity <= 0) capacity = REPLAY_MAX_FRAMES;
-    sr->frames = (ReplayFrame *)calloc(capacity, sizeof(ReplayFrame));
-    if (!sr->frames) return -1;
-    sr->capacity = capacity;
-    sr->speed = 1.0f;
-    return 0;
+    sr->play_speed = 1.0f;
+    sr->frame_capacity = 4096;
+    sr->frames = calloc(sr->frame_capacity, sizeof(ReplayFrame));
 }
 
 void replay_destroy(SessionReplay *sr)
 {
+    for (int i = 0; i < sr->frame_count; i++) free(sr->frames[i].data);
     free(sr->frames);
     memset(sr, 0, sizeof(*sr));
 }
 
-int replay_record_frame(SessionReplay *sr, const unsigned char *data,
-                        int len, int is_input)
+int replay_start_recording(SessionReplay *sr)
 {
-    if (sr->state != REPLAY_RECORDING) return -1;
-    if (sr->frame_count >= sr->capacity) return -1;
-    if (len > REPLAY_MAX_DATA) len = REPLAY_MAX_DATA;
-
-    ReplayFrame *f = &sr->frames[sr->frame_count];
-    f->timestamp_ms = now_ms() - sr->start_time;
-    memcpy(f->data, data, len);
-    f->data_len = len;
-    f->is_input = is_input;
-    sr->frame_count++;
+    if (sr->state != REPLAY_STOPPED) return -1;
+    sr->frame_count = 0;
+    sr->start_time = (uint32_t)(clock() * 1000 / CLOCKS_PER_SEC);
+    sr->state = REPLAY_RECORDING;
     return 0;
 }
 
-int replay_start(SessionReplay *sr)
+void replay_stop_recording(SessionReplay *sr)
 {
     if (sr->state == REPLAY_RECORDING) {
-        sr->start_time = now_ms();
-        return 0;
+        sr->state = REPLAY_STOPPED;
+        sr->total_duration_ms = (uint32_t)(clock() * 1000 / CLOCKS_PER_SEC) - sr->start_time;
     }
-    if (sr->frame_count == 0) return -1;
-    sr->state = REPLAY_PLAYING;
-    sr->position = 0;
-    sr->start_time = now_ms();
-    sr->elapsed_ms = 0;
+}
+
+int replay_add_frame(SessionReplay *sr, const uint8_t *data, int len)
+{
+    if (sr->state != REPLAY_RECORDING || len <= 0) return -1;
+    if (sr->frame_count >= sr->frame_capacity) {
+        sr->frame_capacity *= 2;
+        sr->frames = realloc(sr->frames, sr->frame_capacity * sizeof(ReplayFrame));
+        if (!sr->frames) return -1;
+    }
+    ReplayFrame *f = &sr->frames[sr->frame_count++];
+    f->timestamp_ms = (uint32_t)(clock() * 1000 / CLOCKS_PER_SEC) - sr->start_time;
+    f->data_len = (uint16_t)len;
+    f->data = malloc(len);
+    if (f->data) memcpy(f->data, data, len);
     return 0;
 }
 
-int replay_pause(SessionReplay *sr)
+int replay_save(SessionReplay *sr, const char *path)
 {
-    if (sr->state == REPLAY_PLAYING) {
-        sr->state = REPLAY_PAUSED;
-        sr->elapsed_ms += now_ms() - sr->start_time;
-        return 0;
-    }
-    if (sr->state == REPLAY_PAUSED) {
-        sr->state = REPLAY_PLAYING;
-        sr->start_time = now_ms();
-        return 0;
-    }
-    return -1;
-}
-
-int replay_stop(SessionReplay *sr)
-{
-    sr->state = REPLAY_STOPPED;
-    sr->position = 0;
-    sr->elapsed_ms = 0;
-    return 0;
-}
-
-int replay_seek(SessionReplay *sr, int frame)
-{
-    if (frame < 0) frame = 0;
-    if (frame >= sr->frame_count) frame = sr->frame_count - 1;
-    sr->position = frame;
-    if (frame >= 0 && frame < sr->frame_count)
-        sr->elapsed_ms = sr->frames[frame].timestamp_ms;
-    return 0;
-}
-
-int replay_seek_time(SessionReplay *sr, long ms)
-{
+    FILE *f = fopen(path, "wb");
+    if (!f) return -1;
+    fwrite("SREC", 4, 1, f);
+    fwrite(&sr->frame_count, sizeof(int), 1, f);
+    fwrite(&sr->total_duration_ms, sizeof(uint32_t), 1, f);
     for (int i = 0; i < sr->frame_count; i++) {
-        if (sr->frames[i].timestamp_ms >= ms) {
-            sr->position = i;
-            sr->elapsed_ms = ms;
-            return i;
-        }
+        fwrite(&sr->frames[i].timestamp_ms, sizeof(uint32_t), 1, f);
+        fwrite(&sr->frames[i].data_len, sizeof(uint16_t), 1, f);
+        fwrite(sr->frames[i].data, sr->frames[i].data_len, 1, f);
     }
-    return -1;
-}
-
-void replay_set_speed(SessionReplay *sr, float speed)
-{
-    if (speed < 0.1f) speed = 0.1f;
-    if (speed > 10.0f) speed = 10.0f;
-    sr->speed = speed;
-}
-
-const ReplayFrame *replay_next_frame(SessionReplay *sr)
-{
-    if (sr->state != REPLAY_PLAYING || sr->position >= sr->frame_count)
-        return NULL;
-
-    long current_ms = sr->elapsed_ms + (long)((now_ms() - sr->start_time) * sr->speed);
-    ReplayFrame *f = &sr->frames[sr->position];
-
-    if (f->timestamp_ms <= current_ms) {
-        sr->position++;
-        if (sr->position >= sr->frame_count && sr->loop) {
-            sr->position = 0;
-            sr->start_time = now_ms();
-            sr->elapsed_ms = 0;
-        }
-        return f;
-    }
-    return NULL;
+    fclose(f);
+    snprintf(sr->filename, sizeof(sr->filename), "%s", path);
+    return 0;
 }
 
 int replay_load(SessionReplay *sr, const char *path)
 {
     FILE *f = fopen(path, "rb");
     if (!f) return -1;
-    int count = 0;
-    if (fread(&count, sizeof(int), 1, f) != 1) { fclose(f); return -1; }
-    if (count > sr->capacity) count = sr->capacity;
-    sr->frame_count = (int)fread(sr->frames, sizeof(ReplayFrame), count, f);
+    char magic[4]; fread(magic, 4, 1, f);
+    if (memcmp(magic, "SREC", 4) != 0) { fclose(f); return -1; }
+    replay_destroy(sr); replay_init(sr);
+    fread(&sr->frame_count, sizeof(int), 1, f);
+    fread(&sr->total_duration_ms, sizeof(uint32_t), 1, f);
+    if (sr->frame_count > sr->frame_capacity) {
+        sr->frame_capacity = sr->frame_count;
+        sr->frames = realloc(sr->frames, sr->frame_capacity * sizeof(ReplayFrame));
+    }
+    for (int i = 0; i < sr->frame_count; i++) {
+        fread(&sr->frames[i].timestamp_ms, sizeof(uint32_t), 1, f);
+        fread(&sr->frames[i].data_len, sizeof(uint16_t), 1, f);
+        sr->frames[i].data = malloc(sr->frames[i].data_len);
+        if (sr->frames[i].data) fread(sr->frames[i].data, sr->frames[i].data_len, 1, f);
+    }
     fclose(f);
-    sr->position = 0;
-    sr->state = REPLAY_STOPPED;
-    return sr->frame_count;
-}
-
-int replay_save(const SessionReplay *sr, const char *path)
-{
-    FILE *f = fopen(path, "wb");
-    if (!f) return -1;
-    fwrite(&sr->frame_count, sizeof(int), 1, f);
-    fwrite(sr->frames, sizeof(ReplayFrame), sr->frame_count, f);
-    fclose(f);
+    snprintf(sr->filename, sizeof(sr->filename), "%s", path);
     return 0;
 }
 
-long replay_duration(const SessionReplay *sr)
+int replay_play(SessionReplay *sr) { if (sr->frame_count == 0) return -1; sr->state = REPLAY_PLAYING; sr->play_pos = 0; return 0; }
+void replay_pause(SessionReplay *sr) { if (sr->state == REPLAY_PLAYING) sr->state = REPLAY_PAUSED; }
+void replay_stop(SessionReplay *sr) { sr->state = REPLAY_STOPPED; sr->play_pos = 0; }
+void replay_set_speed(SessionReplay *sr, float speed) { if (speed > 0.0f && speed <= 16.0f) sr->play_speed = speed; }
+
+ReplayFrame *replay_next_frame(SessionReplay *sr)
 {
-    if (sr->frame_count == 0) return 0;
-    return sr->frames[sr->frame_count - 1].timestamp_ms;
+    if (sr->state != REPLAY_PLAYING || sr->play_pos >= sr->frame_count) { replay_stop(sr); return NULL; }
+    return &sr->frames[sr->play_pos++];
 }

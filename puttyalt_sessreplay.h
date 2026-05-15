@@ -1,48 +1,38 @@
 #ifndef PUTTYALT_SESSREPLAY_H
 #define PUTTYALT_SESSREPLAY_H
+#include <stdint.h>
 
-#define REPLAY_MAX_FRAMES   65536
-#define REPLAY_MAX_DATA     256
-
-typedef enum {
-    REPLAY_STOPPED = 0,
-    REPLAY_PLAYING,
-    REPLAY_PAUSED,
-    REPLAY_RECORDING
-} ReplayState;
+typedef enum { REPLAY_STOPPED, REPLAY_RECORDING, REPLAY_PLAYING, REPLAY_PAUSED } ReplayState;
 
 typedef struct {
-    long          timestamp_ms;
-    unsigned char data[REPLAY_MAX_DATA];
-    int           data_len;
-    int           is_input;     /* 0=output, 1=input */
+    uint32_t timestamp_ms;
+    uint16_t data_len;
+    uint8_t *data;
 } ReplayFrame;
 
 typedef struct {
     ReplayFrame *frames;
-    int          frame_count;
-    int          capacity;
-    int          position;
-    ReplayState  state;
-    float        speed;         /* 1.0 = real-time */
-    long         start_time;
-    long         elapsed_ms;
-    int          loop;
+    int frame_count;
+    int frame_capacity;
+    ReplayState state;
+    int play_pos;
+    float play_speed;
+    uint32_t start_time;
+    uint32_t total_duration_ms;
+    char filename[512];
 } SessionReplay;
 
-int  replay_init(SessionReplay *sr, int capacity);
+void replay_init(SessionReplay *sr);
 void replay_destroy(SessionReplay *sr);
-int  replay_record_frame(SessionReplay *sr, const unsigned char *data,
-                         int len, int is_input);
-int  replay_start(SessionReplay *sr);
-int  replay_pause(SessionReplay *sr);
-int  replay_stop(SessionReplay *sr);
-int  replay_seek(SessionReplay *sr, int frame);
-int  replay_seek_time(SessionReplay *sr, long ms);
-void replay_set_speed(SessionReplay *sr, float speed);
-const ReplayFrame *replay_next_frame(SessionReplay *sr);
+int  replay_start_recording(SessionReplay *sr);
+void replay_stop_recording(SessionReplay *sr);
+int  replay_add_frame(SessionReplay *sr, const uint8_t *data, int len);
+int  replay_save(SessionReplay *sr, const char *path);
 int  replay_load(SessionReplay *sr, const char *path);
-int  replay_save(const SessionReplay *sr, const char *path);
-long replay_duration(const SessionReplay *sr);
+int  replay_play(SessionReplay *sr);
+void replay_pause(SessionReplay *sr);
+void replay_stop(SessionReplay *sr);
+void replay_set_speed(SessionReplay *sr, float speed);
+ReplayFrame *replay_next_frame(SessionReplay *sr);
 
 #endif
