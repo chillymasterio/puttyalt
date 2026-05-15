@@ -62,6 +62,23 @@ add_library(guiterminal STATIC
 add_library(noterminal STATIC
   stubs/no-term.c ldisc.c)
 
+# PuttyAlt feature modules
+add_library(puttyalt STATIC
+  puttyalt_portable.c
+  puttyalt_reconnect.c
+  puttyalt_geometry.c
+  puttyalt_sessions.c
+  puttyalt_snippets.c
+  puttyalt_health.c
+  puttyalt_logrotate.c
+  puttyalt_cliphistory.c
+  puttyalt_triggers.c
+  puttyalt_broadcast.c
+  puttyalt_keymanager.c
+  puttyalt_termsearch.c
+  puttyalt_envindicator.c
+  puttyalt_quickconnect.c)
+
 
 add_library(all-backends OBJECT
   pinger.c)
@@ -188,19 +205,3 @@ endif()
 
 configure_file(cmake/cmake.h.in ${GENERATED_SOURCES_DIR}/cmake.h)
 
-# PuttyAlt feature modules
-add_library(puttyalt STATIC
-  puttyalt_portable.c
-  puttyalt_reconnect.c
-  puttyalt_geometry.c
-  puttyalt_sessions.c
-  puttyalt_snippets.c
-  puttyalt_health.c
-  puttyalt_logrotate.c
-  puttyalt_cliphistory.c
-  puttyalt_triggers.c
-  puttyalt_broadcast.c
-  puttyalt_keymanager.c
-  puttyalt_termsearch.c
-  puttyalt_envindicator.c
-  puttyalt_quickconnect.c)
