@@ -1,6 +1,7 @@
 #ifndef PUTTYALT_RINGBUF_H
 #define PUTTYALT_RINGBUF_H
 #include "puttyalt_termemu.h"
+#include <stdint.h>
 
 typedef struct {
     TermCell **lines;
