@@ -77,7 +77,8 @@ add_library(puttyalt STATIC
   puttyalt_keymanager.c
   puttyalt_termsearch.c
   puttyalt_envindicator.c
-  puttyalt_quickconnect.c)
+  puttyalt_quickconnect.c
+  puttyalt_timeout.c)
 
 
 add_library(all-backends OBJECT
