@@ -183,3 +183,28 @@ if(WIN32)
 else()
   set_target_properties(puttyalt-gui PROPERTIES OUTPUT_NAME "puttyalt")
 endif()
+
+# v1.1.0 modules
+list(APPEND PUTTYALT_SOURCES
+    puttyalt_termemu.c
+    puttyalt_selection.c
+    puttyalt_ringbuf.c
+    puttyalt_ansiparse.c
+    puttyalt_colormgr.c
+    puttyalt_fontchain.c
+    puttyalt_urldetect.c
+    puttyalt_ctxmenu.c
+    puttyalt_quickbar.c
+    puttyalt_favorites.c
+    puttyalt_healthchk.c
+    puttyalt_autoreconn.c
+    puttyalt_jumpchain.c
+    puttyalt_uilayer.c
+    puttyalt_tooltip.c
+    puttyalt_dockpanel.c
+    puttyalt_cfgvalid.c
+    puttyalt_wizard.c
+    puttyalt_sessreplay.c
+    puttyalt_schedit.c
+    puttyalt_bellctl.c
+)
