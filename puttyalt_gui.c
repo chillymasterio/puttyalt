@@ -7,6 +7,7 @@
 
 #include "puttyalt_gui.h"
 #include "puttyalt_dialogs.h"
+#include "puttyalt_ctxmenu.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -1039,6 +1040,14 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         DestroyWindow(hwnd);
         return 0;
 
+    case WM_RBUTTONUP:
+        if (gui) {
+            POINT pt; GetCursorPos(&pt);
+            CtxMenu *cm = ctx_build_terminal(gui->connected, 0);
+            int cmd = ctx_show(cm, gui->hwnd, pt.x, pt.y);
+            if (cmd > 0) SendMessage(hwnd, WM_COMMAND, cmd, 0);
+        }
+        return 0;
     case WM_DESTROY:
         if (gui) gui->running = 0;
         PostQuitMessage(0);
