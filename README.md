@@ -103,7 +103,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Command Palette | Fuzzy search command launcher (Ctrl+Shift+P) |
 | Performance Monitor | Real-time metrics with threshold alerts |
 
-**Total: 155+ source modules across 300+ commits**
+**Total: 175+ source modules across 370+ commits**
 
 ### v1.0.6 (Latest)
 - Layout manager with named presets and pane persistence
