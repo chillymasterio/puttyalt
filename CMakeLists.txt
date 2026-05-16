@@ -78,7 +78,20 @@ add_library(puttyalt STATIC
   puttyalt_termsearch.c
   puttyalt_envindicator.c
   puttyalt_quickconnect.c
-  puttyalt_timeout.c)
+  puttyalt_timeout.c
+  puttyalt_aliases.c
+  puttyalt_tabs.c
+  puttyalt_sftppanel.c
+  puttyalt_credstore.c
+  puttyalt_theme.c
+  puttyalt_import.c
+  puttyalt_shortcuts.c
+  puttyalt_notify.c
+  puttyalt_proxydetect.c
+  puttyalt_transfer.c
+  puttyalt_latency.c
+  puttyalt_cmdhistory.c
+  puttyalt_statusbar.c)
 
 
 add_library(all-backends OBJECT
