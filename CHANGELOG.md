@@ -1,140 +1,81 @@
 # Changelog
 
-## [1.0.0] — 2026-05-21
-
-### Major Release — GUI Redesign & Full Feature Set
-
-#### New Features
-- **GUI Redesign**: Warm blue minimalist theme with sidebar panel, zoom controls
-- **Terminal Multiplexer**: Split panes, focus cycling, equalize layout
-- **Script Manager**: Run shell/Python/Lua/Expect scripts on session triggers
-- **Connection Profiler**: Real-time latency tracking, jitter analysis, CSV export
-- **Session Monitor**: Metric-based alerts with configurable rules and actions
-- **SSH Agent Manager**: Key lifecycle management, auto-add, lifetime control
-- **Clipboard Manager v2**: Ring buffer with search, deduplication, pinned entries
-- **Log Engine v3**: Multi-format output (raw/text/HTML/CSV/JSON) with rotation
-- **Session Groups**: Organize sessions into colored collapsible folders
-- **Terminal Renderer**: Cell-based grid rendering with dirty region tracking
-- **SSH Config Parser**: Full ~/.ssh/config read/write support
-- **Code Signing**: SmartScreen trust, Zone.Identifier removal, Authenticode support
-
-#### Improvements
-- Windows manifest: OS compatibility declarations, long path support, segment heap
-- Resource file: proper version info for SmartScreen trust
-- Default font changed to Cascadia Code
-- Sidebar: session list, bookmarks, snippets panels
-- Zoom: Ctrl++/Ctrl+-/Ctrl+0
-- Scrollback increased to 20000 lines default
-- Menu reorganization with keyboard shortcuts throughout
-
-#### Bug Fixes
-- tabs: set active to -1 when all tabs closed
-- snippets: null check on category parameter
-- macro: tighter slot bounds checking
-- IPC: reset fd to -1 after server stop
-- workspace: null-guard save parameters
-- validate: reject hostnames starting with dash
-- credstore: zero sensitive buffers after use
-- hostverify: use snprintf for null termination
-- escparse: return 0 for incomplete sequences
-- serial: validate baud rate range (50-4M)
-- connpool: add forward declaration for eviction
-- telnet: prevent option negotiation overflow
-
-## [0.4.0] — 2026-05-20
-
-### Workspaces, Tunnels, Plugins & 40+ New Modules
-(see previous changelog entries)
-
-## [0.3.0] — 2026-05-18
-
-### Split View, Macros & Autocomplete
-
-## [0.2.0] — 2026-05-17
-
-### Tabs, SFTP & Themes
-
-## [0.1.0] — 2026-05-16
-
-### Initial Release — Portable mode, reconnect, snippets
-
-## [1.0.2] - 2025-05-22
+## [1.1.0] — 2025-05-23
 
 ### Added
-- Hex viewer for binary data inspection with hex/ASCII toggle
-- SSH host fingerprint manager with trust levels and known_hosts export
-- Port forwarding manager supporting local, remote, and dynamic SOCKS tunnels
-- Tab completion engine with frequency-ranked suggestions and wordlists
-- Accessibility module: screen reader, high contrast themes, visual bell
-- Token bucket rate limiter for connection throttling
-- Chat-style session log with HTML export, filtering, and markers
-
-### Fixed
-- Missing stdio.h include in search highlight module
-- Missing stdlib.h include in fingerprint module
-- Missing stdio.h include in rate limiter module
-
-## [1.0.4] - 2025-05-22
-
-### Added
-- Environment variable manager with profiles and shell export
-- Session replay engine with speed control, seeking, and looping
-- Remote file browser with sorting, filtering, multi-select
-- Input/output filter pipeline with pattern matching and transforms
-- Debug console with log levels, variable watches, and export
-- Clipboard sync across sessions with history ring
-- Session notes with tags, search, and pinning
-- Protocol analyzer with packet capture and pcap export
-- Customizable hotkey manager with conflict detection
-- Color scheme manager with 4 built-in themes (Warm Blue, Midnight, Solarized, Nord)
-- Auto backup manager with rotation, pruning, and restore
-
-### Fixed
-- Missing stdlib.h in sessnotes and colorscheme modules
-
-## [1.0.5] - 2025-05-22
-
-### Added
-- Network scanner with CIDR range support and service detection
-- Terminal visual effects engine: CRT distortion, scanlines, glow
-- Localization system with 5 languages (en, ru, de, zh, ja)
-- SSH tunnel monitor with auto-reconnect and status dashboard
-- Command palette (Ctrl+Shift+P) with fuzzy search
-- Performance monitor with threshold alerts and CSV export
-- Session notes with tagging, search, and pinning
-- Protocol analyzer with pcap-compatible export
+- Terminal emulation engine with full cell-based rendering
+- ANSI escape sequence parser (CSI, SGR, OSC, DCS)
+- Text selection: character, word, line, and rectangle modes
+- Scrollback ring buffer (configurable, default 20,000 lines)
+- Scrollback text search
+- 256-color palette manager with xterm compatibility
+- Font fallback chain (Cascadia Code → Consolas → Courier New)
+- URL detection with protocol-aware matching
+- Right-click context menus (terminal, sidebar, tabs)
+- Quick connect bar with history
+- Session favorites with tags, pinning, and usage stats
+- Connection health monitor (latency, packet loss, idle detection)
+- Auto-reconnect with exponential backoff and jitter
+- SSH jump host chain manager (up to 8 hops)
+- UI abstraction layer for future framework migration
+- Tooltip system with configurable delay
+- Dockable panel layout engine (left/right/top/bottom/center/float)
+- Configuration validation and sanitization
+- First-run setup wizard
+- Session recording and binary replay format
+- Color scheme editor with import/export
+- Advanced bell controller (visual, system, taskbar, custom)
+- Enhanced portable mode with directory structure
+- Tab manager with pin, move, close-others, Ctrl+Tab
+- Broadcast v2 with target filtering and dangerous command detection
 
 ### Improved
-- Build system now supports 155+ source modules
-- Feature flags organized by version milestones
+- All 40+ menu items now have handlers
+- Dark-themed dialogs (Connect, Settings, Find, Theme)
+- Toolbar with standard icons
+- 16 keyboard accelerators
+- Interactive terminal (welcome screen + connected state)
+- Dynamic sidebar with session info
+- Status bar with live session data
+- Tab text updates on connect/disconnect
+- Version shown in terminal welcome
 
-## v1.0.6 (2025-05-22)
+## [1.0.6] — 2025-05-22
 
-### New Features
-- **Layout Manager**: Save/restore window layouts with named presets
-- **Macro Engine**: Record, play, loop macros with hotkey triggers
-- **Terminal Profiles**: Multiple terminal configurations (Default, Compact, Widescreen, Presentation)
-- **Auto-Updater**: Check for updates from GitHub releases
-- **Enhanced Status Bar**: Customizable sections with progress indicators
-- **Theme Engine**: 4 built-in themes with full color customization
-- **Keybinding Manager**: Configurable keyboard shortcuts
-- **SFTP Manager**: Integrated file browser with transfer queue
-- **Bandwidth Monitor**: Per-session throughput tracking and limits
-- **Proxy Chain**: SOCKS4/5 and HTTP CONNECT proxy support
-- **Hex Viewer**: Binary data inspection with search
-- **Fingerprint Manager**: SSH host key trust management
-- **Port Forwarding**: Local, remote, and dynamic tunnel management
-- **Tab Completion**: Frequency-ranked command completion
-- **Accessibility**: Screen reader support, high contrast themes
-- **Rate Limiter**: Token bucket connection throttling
-- **Chat Log**: Chat-style session log with HTML/text export
+### Added
+- Layout manager with named presets
+- Macro recorder with hotkey triggers
+- Terminal profile manager
+- Auto-updater with GitHub integration
+- Enhanced status bar
+- Theme engine with 4 built-in schemes
+- Keybinding manager
+- SFTP file manager
+- Bandwidth monitor
+- Proxy chain manager
 
-### Improvements
-- Enhanced SmartScreen bypass with WinVerifyTrust API integration
-- Auto Zone.Identifier cleanup on first run
-- Code signing scripts (PowerShell and batch)
-- Better manifest with full Windows version compatibility
+## [1.0.0] — 2025-05-19
 
-### Bug Fixes
-- Fixed missing stdio.h include in searchhl module
-- Fixed missing stdlib.h include in fingerprint and ratelimit modules
+### Added
+- Complete GUI redesign with Warm Blue theme
+- Win32 native application framework
+- Tab control, sidebar, toolbar, status bar
+- Session multiplexer
+- Script manager
+- Connection profiler
+- SSH agent forwarding
+- SSH config parser
+- 100+ feature modules
+
+## [0.4.0] — 2025-05-18
+- Workspaces, tunnel manager, plugins, serial port
+- 40+ new modules
+
+## [0.3.0] — 2025-05-17
+- Split view, macros, logging v2, autocomplete
+
+## [0.2.0] — 2025-05-16
+- Tabs, SFTP panel, themes, credential store
+
+## [0.1.0] — 2025-05-14
+- Initial release: portable mode, auto-reconnect, snippets, broadcast
