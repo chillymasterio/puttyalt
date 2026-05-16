@@ -125,3 +125,39 @@ MIT License — see [LICENSE](LICENSE) for details.
 - Accessibility: screen reader, high contrast themes, visual bell
 - Token bucket rate limiter
 - Chat-style session log with HTML export
+
+---
+
+## Coming Soon: PuttyAlt v2.0
+
+> **A complete UI rewrite is in development.**
+
+PuttyAlt v2.0 will feature a modern, GPU-accelerated rendering engine replacing the current Win32 GDI backend. Expect smooth animations, ligature support, true 24-bit color, split panes, a command palette, and much more.
+
+See [ROADMAP.md](ROADMAP.md) for the full plan.
+
+### v1.1.0 Highlights (Current)
+
+| Module | Description |
+|--------|-------------|
+| Terminal Engine | Full cell-based emulation with ANSI parser |
+| Text Selection | Char, word, line, and rectangle selection modes |
+| Scrollback Buffer | Ring buffer with configurable size and search |
+| Color Manager | xterm-256 palette with scheme editor |
+| Font Chain | Fallback chain with antialiasing control |
+| URL Detection | Clickable links with protocol matching |
+| Context Menus | Right-click menus for terminal, sidebar, tabs |
+| Quick Connect | Connect bar with history and user@host parsing |
+| Favorites | Session favorites with tags and usage tracking |
+| Health Monitor | Latency, packet loss, idle detection |
+| Auto-Reconnect | Exponential backoff with jitter |
+| Jump Hosts | Multi-hop SSH proxy chains (up to 8 hops) |
+| UI Layer | Abstraction for future framework migration |
+| Dock Panels | Left/right/top/bottom/center/float layout |
+| Tab Manager | Pin, move, close-others, Ctrl+Tab cycling |
+| Broadcast v2 | Target filtering, dangerous command detection |
+| Session Replay | Binary recording format with playback controls |
+| Setup Wizard | First-run configuration wizard |
+| Bell Controller | Visual flash, system, taskbar, custom sound |
+
+**Total: 175+ source modules across 370+ commits**
