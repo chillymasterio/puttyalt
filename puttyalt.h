@@ -36,3 +36,19 @@
 #define PUTTYALT_QUICK_CONNECT  1   /* URI-based quick connect */
 
 #endif /* PUTTYALT_H */
+
+/* v0.2.0 feature flags */
+#define PUTTYALT_TABS            1   /* Multi-session tabs */
+#define PUTTYALT_SFTP_PANEL      1   /* Split-pane SFTP browser */
+#define PUTTYALT_CRED_STORE      1   /* Encrypted credential store */
+#define PUTTYALT_THEMES          1   /* Colour theme engine */
+#define PUTTYALT_IMPORT          1   /* Session import */
+#define PUTTYALT_SHORTCUTS       1   /* Custom keyboard shortcuts */
+#define PUTTYALT_NOTIFY          1   /* Desktop notifications */
+#define PUTTYALT_PROXY_DETECT    1   /* Auto proxy detection */
+#define PUTTYALT_TRANSFER        1   /* File transfer progress */
+#define PUTTYALT_LATENCY         1   /* Connection latency tracker */
+#define PUTTYALT_CMD_HISTORY     1   /* Cross-session command history */
+#define PUTTYALT_STATUSBAR       1   /* Information status bar */
+#define PUTTYALT_TIMEOUT         1   /* Per-session timeouts */
+#define PUTTYALT_ALIASES         1   /* Hostname aliases */
