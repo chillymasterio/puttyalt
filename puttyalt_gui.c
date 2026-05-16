@@ -1155,6 +1155,7 @@ int gui_init(GUIState *gui, void *instance)
     snprintf(gui->title, sizeof(gui->title), "%s", title);
     gui->running = 1;
     gui->num_sessions = 1;
+    gui_set_status(gui, "Ready — Ctrl+N to connect");
     return 0;
 }
 
