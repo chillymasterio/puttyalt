@@ -27,3 +27,21 @@ puttyalt.ini
 # macOS
 .DS_Store
 Thumbs.db
+
+# Build artifacts
+build-*/
+*.exe
+*.obj
+*.o
+*.a
+*.lib
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
