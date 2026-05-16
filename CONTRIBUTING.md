@@ -35,7 +35,7 @@ Thank you for your interest in contributing to PuttyAlt! This document provides 
 
 ## Code Style
 
-PuttyAlt follows PuTTY's existing coding style:
+PuttyAlt v0.2.0 follows PuTTY's existing coding style:
 
 - **Language:** C99
 - **Indentation:** 4 spaces (no tabs)
