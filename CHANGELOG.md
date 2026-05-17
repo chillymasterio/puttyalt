@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.0] — 2025-05-24
+
+### Added — UX & Usability
+- Smart paste detection: warns before pasting dangerous commands (rm -rf, sudo, curl|bash)
+- Session search with fuzzy matching across names, hosts, and tags
+- Password generator with strength meter and entropy calculation
+- Drag-and-drop handler for SFTP upload and path paste
+- Snippet library with categories, search, and 10 default system commands
+- Session notes: per-connection annotations with auto-display on connect
+- Connection presets: Default, Development, Production, Presentation profiles
+- Notification queue with levels, actions, sound, and popup duration
+- Terminal search overlay (Ctrl+F) with highlight-all and case-insensitive mode
+- SSH key manager with type detection, agent integration, and host matching
+- Auto-complete v2 with command history learning and prefix matching
+- Connection timeout profiles: default, fast, patient
+- Multi-clipboard with 10 named slots and ring mode
+- Remote environment variable viewer with filter and edit
+- Quick commands panel with one-click monitoring shortcuts
+
 ## [1.1.0] — 2025-05-23
 
 ### Added
@@ -34,11 +53,6 @@
 - Dark-themed dialogs (Connect, Settings, Find, Theme)
 - Toolbar with standard icons
 - 16 keyboard accelerators
-- Interactive terminal (welcome screen + connected state)
-- Dynamic sidebar with session info
-- Status bar with live session data
-- Tab text updates on connect/disconnect
-- Version shown in terminal welcome
 
 ## [1.0.6] — 2025-05-22
 
@@ -47,7 +61,6 @@
 - Macro recorder with hotkey triggers
 - Terminal profile manager
 - Auto-updater with GitHub integration
-- Enhanced status bar
 - Theme engine with 4 built-in schemes
 - Keybinding manager
 - SFTP file manager
@@ -55,21 +68,12 @@
 - Proxy chain manager
 
 ## [1.0.0] — 2025-05-19
-
-### Added
 - Complete GUI redesign with Warm Blue theme
 - Win32 native application framework
-- Tab control, sidebar, toolbar, status bar
-- Session multiplexer
-- Script manager
-- Connection profiler
-- SSH agent forwarding
-- SSH config parser
 - 100+ feature modules
 
 ## [0.4.0] — 2025-05-18
 - Workspaces, tunnel manager, plugins, serial port
-- 40+ new modules
 
 ## [0.3.0] — 2025-05-17
 - Split view, macros, logging v2, autocomplete
