@@ -2,7 +2,7 @@
 
 **Enhanced SSH terminal based on PuTTY 0.83** — tabs, macros, SFTP, themes, plugins, and 100+ features in a portable EXE.
 
-![Version](https://img.shields.io/badge/version-1.0.6-blue)
+![Version](https://img.shields.io/badge/version-1.2.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey)
 
