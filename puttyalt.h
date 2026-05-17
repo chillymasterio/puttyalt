@@ -195,3 +195,20 @@
 #define PUTTYALT_SESSREPLAY_V2   1
 #define PUTTYALT_SCHEDIT         1
 #define PUTTYALT_BELLCTL         1
+
+/* v1.2.0 — UX & Usability */
+#define PUTTYALT_SMARTPASTE      1
+#define PUTTYALT_SESSSEARCH      1
+#define PUTTYALT_PASSGEN         1
+#define PUTTYALT_DRAGDROP        1
+#define PUTTYALT_SNIPPETLIB      1
+#define PUTTYALT_SESSNOTE_V2     1
+#define PUTTYALT_PRESETS         1
+#define PUTTYALT_NOTIFQUEUE      1
+#define PUTTYALT_SEARCHOVERLAY   1
+#define PUTTYALT_SSHKEYMGR       1
+#define PUTTYALT_AUTOCOMPLETE_V2 1
+#define PUTTYALT_CONNTIMEOUT     1
+#define PUTTYALT_MULTICLIP       1
+#define PUTTYALT_ENVVIEW         1
+#define PUTTYALT_QUICKCMD        1
