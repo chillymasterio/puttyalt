@@ -208,3 +208,22 @@ list(APPEND PUTTYALT_SOURCES
     puttyalt_schedit.c
     puttyalt_bellctl.c
 )
+
+# v1.2.0 UX & Usability modules
+list(APPEND PUTTYALT_SOURCES
+    puttyalt_smartpaste.c
+    puttyalt_sesssearch.c
+    puttyalt_passgen.c
+    puttyalt_dragdrop.c
+    puttyalt_snippetlib.c
+    puttyalt_sessnote.c
+    puttyalt_presets.c
+    puttyalt_notifqueue.c
+    puttyalt_searchoverlay.c
+    puttyalt_sshkeymgr.c
+    puttyalt_autocomplete_v2.c
+    puttyalt_conntimeout.c
+    puttyalt_multiclip.c
+    puttyalt_envview.c
+    puttyalt_quickcmd.c
+)
