@@ -49,3 +49,39 @@ puttyalt/
 3. **Layered** — UI abstracted from logic for framework migration
 4. **Cross-platform stubs** — All modules compile on Unix (as stubs)
 5. **AV-clean** — No suspicious Win32 APIs (LoadLibrary, ShellExecute, etc.)
+
+## v1.2.0 — UX Modules
+
+```
+├── puttyalt_smartpaste.h/c     — Dangerous paste detection
+├── puttyalt_sesssearch.h/c     — Fuzzy session search
+├── puttyalt_passgen.h/c        — Password generator
+├── puttyalt_dragdrop.h/c       — File drag & drop
+├── puttyalt_snippetlib.h/c     — Categorized snippet library
+├── puttyalt_sessnote.h/c       — Session annotations
+├── puttyalt_presets.h/c        — Connection presets
+├── puttyalt_notifqueue.h/c     — Notification queue
+├── puttyalt_searchoverlay.h/c  — Terminal search overlay
+├── puttyalt_sshkeymgr.h/c      — SSH key manager
+├── puttyalt_autocomplete_v2.h/c — Context-aware autocomplete
+├── puttyalt_conntimeout.h/c    — Timeout profiles
+├── puttyalt_multiclip.h/c      — Multi-clipboard (10 slots)
+├── puttyalt_envview.h/c        — Environment viewer
+└── puttyalt_quickcmd.h/c       — Quick command panel
+```
+
+## v1.3.0 — Workflow Modules
+
+```
+├── puttyalt_sessgroup_v2.h/c   — Nested session groups
+├── puttyalt_cmdhist_v2.h/c     — Cross-session command history
+├── puttyalt_sftpsync.h/c       — SFTP folder sync
+├── puttyalt_outputcap.h/c      — Output capture
+├── puttyalt_conndash.h/c       — Connection dashboard
+├── puttyalt_regtrig.h/c        — Regex trigger engine
+├── puttyalt_fileedit.h/c       — Inline file editor
+├── puttyalt_cronview.h/c       — Cron job viewer
+├── puttyalt_smartresize.h/c    — Smart window resize
+├── puttyalt_tabcolors.h/c      — Tab color tags
+└── puttyalt_sshexport.h/c      — OpenSSH config export
+```
