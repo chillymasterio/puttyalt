@@ -227,3 +227,18 @@ list(APPEND PUTTYALT_SOURCES
     puttyalt_envview.c
     puttyalt_quickcmd.c
 )
+
+# v1.3.0 Workflow & Productivity modules
+list(APPEND PUTTYALT_SOURCES
+    puttyalt_sessgroup_v2.c
+    puttyalt_cmdhist_v2.c
+    puttyalt_sftpsync.c
+    puttyalt_outputcap.c
+    puttyalt_conndash.c
+    puttyalt_regtrig.c
+    puttyalt_fileedit.c
+    puttyalt_cronview.c
+    puttyalt_smartresize.c
+    puttyalt_tabcolors.c
+    puttyalt_sshexport.c
+)
