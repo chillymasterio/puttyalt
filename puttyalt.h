@@ -212,3 +212,16 @@
 #define PUTTYALT_MULTICLIP       1
 #define PUTTYALT_ENVVIEW         1
 #define PUTTYALT_QUICKCMD        1
+
+/* v1.3.0 — Workflow & Productivity */
+#define PUTTYALT_SESSGROUP_V2    1
+#define PUTTYALT_CMDHIST_V2      1
+#define PUTTYALT_SFTPSYNC        1
+#define PUTTYALT_OUTPUTCAP       1
+#define PUTTYALT_CONNDASH        1
+#define PUTTYALT_REGTRIG         1
+#define PUTTYALT_FILEEDIT        1
+#define PUTTYALT_CRONVIEW        1
+#define PUTTYALT_SMARTRESIZE     1
+#define PUTTYALT_TABCOLORS       1
+#define PUTTYALT_SSHEXPORT       1
