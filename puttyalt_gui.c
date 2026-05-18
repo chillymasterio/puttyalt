@@ -1264,7 +1264,7 @@ void gui_show_about(GUIState *gui)
         "Enhanced SSH terminal based on %s\n\n"
         "Warm Blue theme with minimalist design.\n"
         "Tabs, macros, SFTP, split-view, themes,\n"
-        "plugins, and 190+ features.\n\n"
+        "plugins, and 205+ features.\n\n"
         "MIT License\n"
         "https://github.com/chillymasterio/puttyalt",
         PUTTYALT_NAME, PUTTYALT_VERSION_STR, PUTTYALT_UPSTREAM);
