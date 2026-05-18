@@ -103,7 +103,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Command Palette | Fuzzy search command launcher (Ctrl+Shift+P) |
 | Performance Monitor | Real-time metrics with threshold alerts |
 
-**Total: 190+ source modules across 400+ commits**
+**Total: 205+ source modules across 420+ commits**
 
 ### v1.0.6 (Latest)
 - Layout manager with named presets and pane persistence
@@ -160,4 +160,4 @@ See [ROADMAP.md](ROADMAP.md) for the full plan.
 | Setup Wizard | First-run configuration wizard |
 | Bell Controller | Visual flash, system, taskbar, custom sound |
 
-**Total: 190+ source modules across 400+ commits**
+**Total: 205+ source modules across 420+ commits**
