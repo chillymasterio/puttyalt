@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.0] — 2025-05-25
+
+### Added — Workflow & Productivity
+- Session groups v2 with nested folders and color-coding
+- Command history browser with cross-session search
+- SFTP sync with local folder watch and exclude patterns
+- Output capture with ANSI stripping and timestamps
+- Connection dashboard with live status and traffic overview
+- Regex trigger engine with notify, log, sound, highlight actions
+- Inline file editor with line editing and search
+- Cron job viewer with human-readable schedule descriptions
+- Smart resize with auto font scaling and grid snapping
+- Tab color tags (Production, Staging, Dev, etc.)
+- Session export/import to OpenSSH config format
+
 ## [1.2.0] — 2025-05-24
 
 ### Added — UX & Usability
