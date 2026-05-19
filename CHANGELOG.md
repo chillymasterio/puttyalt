@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.0.0] — 2025-05-27
+
+### Changed — Modern UI Rewrite
+- Complete GUI rewrite with GitHub Dark design system
+- Custom double-buffered rendering for all panels (flicker-free)
+- Custom owner-drawn tab bar with close buttons and hover states
+- Owner-drawn status bar with connection indicator
+- DWM dark title bar integration (Windows 10 1809+)
+- New sidebar design with section headers and quick actions
+- Centered welcome screen with keyboard shortcut grid
+- Removed legacy Win32 toolbar (cleaner, minimal interface)
+- All dialogs updated to new color palette
+- 120fps render cap with optimized message pump
+
+### Added
+- Design system header (puttyalt_design.h) with full token set
+- GitHub Dark color palette (backgrounds, surfaces, accents, semantic)
+- Typography scale with Segoe UI (interface) and Cascadia Code (terminal)
+- 4px spacing grid system
+- Rounded rectangle rendering helpers
+- Tab management: close tabs, add new, hover feedback
+- Connection status dot in status bar
+
+### Improved
+- Shell-style terminal prompt when connected
+- Status updates use targeted invalidation (not full repaint)
+- Tab titles update automatically on connect/disconnect
+- Reduced Sleep() from 10ms to 8ms for smoother feel
+
 ## [1.3.1] — 2025-05-26
 
 ### Added

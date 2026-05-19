@@ -67,42 +67,42 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [ ] **REST API** — control PuttyAlt from external tools
 - [ ] **Webhook triggers** — fire webhooks on connection events
 
-## v2.0.0 (Planned) — Modern UI Rewrite
-**Complete UI rewrite with modern rendering engine.**
+## v2.0.0 (Released) — Modern UI Rewrite
+**Complete UI rewrite with custom rendering engine.**
 
 ### Rendering
-- GPU-accelerated rendering (Direct2D / OpenGL / Vulkan)
-- 120 FPS terminal with smooth animations
-- Subpixel font rendering with gamma correction
-- Ligature support via HarfBuzz
-- True color (24-bit RGB) — parser ready since v1.1.0
-- Inline images (iTerm2 / Sixel / Kitty graphics)
+- [x] Double-buffered GDI rendering (flicker-free)
+- [x] 120 FPS message pump with 8ms sleep cap
+- [x] ClearType font rendering
+- [ ] GPU-accelerated rendering (Direct2D / Vulkan) — planned v2.1
+- [ ] Ligature support via HarfBuzz — planned v2.1
+- [x] True color (24-bit RGB) — parser ready since v1.1.0
+- [ ] Inline images (iTerm2 / Sixel / Kitty graphics) — planned v2.1
 
 ### Layout
-- Split panes (horizontal, vertical, nested, drag resize)
-- Floating panels with snap-to-edge
-- Minimap (scrollback overview)
-- Session thumbnails in tab bar
-- Zen mode (distraction-free fullscreen)
+- [x] Custom owner-drawn tab bar with close buttons
+- [x] Custom owner-drawn sidebar with sections
+- [x] Custom owner-drawn status bar
+- [x] DWM dark title bar integration
+- [ ] Split panes (horizontal, vertical) — planned v2.1
+- [ ] Floating panels with snap-to-edge — planned v2.1
+- [x] Zen mode (fullscreen via F11)
 
-### Interaction
-- Smooth scrolling with momentum and touchpad gestures
-- Search overlay with regex and live highlight
-- Command palette (Ctrl+Shift+P)
-- Inline tab rename (double-click)
-- Drag tabs between windows
+### Design System
+- [x] GitHub Dark inspired color palette
+- [x] Typography scale (Segoe UI + Cascadia Code)
+- [x] 4px spacing grid
+- [x] Rounded rectangle primitives
+- [x] Semantic color tokens (success, error, warning, info)
+- [x] Dark-themed dialogs matching new palette
 
 ### Architecture
-- Direct2D / SDL2 hybrid renderer
-- UILayer abstraction (ready since v1.1.0)
-- Plugin API v2 with sandboxed execution
-- WebSocket-based remote access (optional)
-
-### Timeline
-- Q3 2025: Renderer prototype
-- Q4 2025: Widget toolkit + split panes
-- Q1 2026: Beta with feature parity
-- Q2 2026: Stable v2.0.0
+- [x] Design system header (puttyalt_design.h)
+- [x] PaintBuffer double-buffering abstraction
+- [x] Custom window classes (tab bar, sidebar, terminal)
+- [x] UILayer abstraction (ready since v1.1.0)
+- [ ] Plugin API v2 with sandboxed execution — planned v2.1
+- [ ] WebSocket-based remote access (optional) — planned v2.1
 
 ## v2.1.0 (Vision)
 - Local AI command suggestions (no cloud)
