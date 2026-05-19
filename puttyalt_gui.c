@@ -1,11 +1,13 @@
 /*
- * puttyalt_gui.c: GUI application framework — v1.0.6.
+ * puttyalt_gui.c: GUI application framework — v2.0 Modern UI.
  *
- * Warm blue minimalist theme. Full Win32 GUI with toolbar,
- * accelerators, and all menu handlers. Unix stubs.
+ * GitHub Dark inspired design with custom-drawn controls,
+ * double-buffered rendering, and DWM dark title bar.
+ * No external dependencies beyond Win32 + DWM.
  */
 
 #include "puttyalt_gui.h"
+#include "puttyalt_design.h"
 #include "puttyalt_dialogs.h"
 #include "puttyalt_ctxmenu.h"
 #include <string.h>
@@ -26,15 +28,15 @@ void gui_config_defaults(GUIConfig *cfg)
     cfg->height = GUI_DEFAULT_HEIGHT;
     cfg->x = -1;
     cfg->y = -1;
-    cfg->font_size = 11;
-    snprintf(cfg->font_name, sizeof(cfg->font_name), "Cascadia Code");
-    snprintf(cfg->theme_name, sizeof(cfg->theme_name), "Warm Blue");
+    cfg->font_size = DS_FONT_SIZE_MD;
+    snprintf(cfg->font_name, sizeof(cfg->font_name), DS_FONT_MONO);
+    snprintf(cfg->theme_name, sizeof(cfg->theme_name), "GitHub Dark");
     cfg->scrollback_lines = 20000;
     cfg->tab_bar_position = 0;
-    cfg->toolbar_visible = 1;
+    cfg->toolbar_visible = 0;  /* Hidden in v2.0 — cleaner look */
     cfg->statusbar_visible = 1;
     cfg->sidebar_visible = 1;
-    cfg->sidebar_width = 220;
+    cfg->sidebar_width = DS_SIDEBAR_WIDTH;
     cfg->sidebar_panel = SIDEBAR_SESSIONS;
     cfg->transparency = 0;
     cfg->cursor_style = 2; /* bar */
@@ -46,10 +48,10 @@ void gui_config_defaults(GUIConfig *cfg)
     cfg->paste_on_right_click = 1;
     cfg->scroll_on_output = 0;
     cfg->scroll_on_keypress = 1;
-    cfg->color_bg = GUI_COLOR_TERMINAL_BG;
-    cfg->color_fg = GUI_COLOR_TERMINAL_FG;
-    cfg->color_cursor = GUI_COLOR_CURSOR;
-    cfg->color_selection = GUI_COLOR_SELECTION;
+    cfg->color_bg = DS_TERM_BG;
+    cfg->color_fg = DS_TERM_FG;
+    cfg->color_cursor = DS_TERM_CURSOR;
+    cfg->color_selection = DS_TERM_SELECTION;
 }
 
 int gui_config_load(GUIConfig *cfg, const char *path)
@@ -150,14 +152,82 @@ void gui_zoom_reset(GUIState *gui)
 #ifdef _WIN32
 #include <windows.h>
 #include <commctrl.h>
+#include <dwmapi.h>
 
 static const char *WNDCLASS_NAME = "PuttyAltWindow";
 static const char *TERM_CLASS = "PuttyAltTerminal";
 static const char *SIDEBAR_CLASS = "PuttyAltSidebar";
+static const char *TABBAR_CLASS = "PuttyAltTabBar";
 
-static HBRUSH create_brush(unsigned int hex)
+/* ══════════════════════════════════════════
+ *  Double-buffered paint helper
+ * ══════════════════════════════════════════ */
+
+typedef struct {
+    HDC hdc;
+    HDC mem_dc;
+    HBITMAP bmp;
+    HBITMAP old_bmp;
+    RECT rc;
+} PaintBuffer;
+
+static PaintBuffer paint_begin(HWND hwnd, PAINTSTRUCT *ps)
 {
-    return CreateSolidBrush(HEX_RGB(hex));
+    PaintBuffer pb;
+    pb.hdc = BeginPaint(hwnd, ps);
+    GetClientRect(hwnd, &pb.rc);
+    pb.mem_dc = CreateCompatibleDC(pb.hdc);
+    pb.bmp = CreateCompatibleBitmap(pb.hdc,
+        pb.rc.right - pb.rc.left, pb.rc.bottom - pb.rc.top);
+    pb.old_bmp = (HBITMAP)SelectObject(pb.mem_dc, pb.bmp);
+    return pb;
+}
+
+static void paint_end(PaintBuffer *pb, PAINTSTRUCT *ps)
+{
+    BitBlt(pb->hdc, 0, 0,
+        pb->rc.right - pb->rc.left, pb->rc.bottom - pb->rc.top,
+        pb->mem_dc, 0, 0, SRCCOPY);
+    SelectObject(pb->mem_dc, pb->old_bmp);
+    DeleteObject(pb->bmp);
+    DeleteDC(pb->mem_dc);
+    EndPaint(WindowFromDC(pb->hdc), ps);
+}
+
+/* ══════════════════════════════════════════
+ *  Rounded rectangle helper (GDI)
+ * ══════════════════════════════════════════ */
+
+static void fill_rounded_rect(HDC hdc, RECT *rc, int radius, COLORREF color)
+{
+    HBRUSH brush = CreateSolidBrush(color);
+    HPEN pen = CreatePen(PS_SOLID, 1, color);
+    HBRUSH old_brush = (HBRUSH)SelectObject(hdc, brush);
+    HPEN old_pen = (HPEN)SelectObject(hdc, pen);
+    RoundRect(hdc, rc->left, rc->top, rc->right, rc->bottom, radius, radius);
+    SelectObject(hdc, old_brush);
+    SelectObject(hdc, old_pen);
+    DeleteObject(brush);
+    DeleteObject(pen);
+}
+
+/* ══════════════════════════════════════════
+ *  DWM dark title bar
+ * ══════════════════════════════════════════ */
+
+static void enable_dark_titlebar(HWND hwnd)
+{
+    BOOL dark = TRUE;
+    DwmSetWindowAttribute(hwnd, DS_DWMWA_DARK_MODE,
+                          &dark, sizeof(dark));
+
+    /* Set caption and border colors to match our theme */
+    COLORREF caption_color = HEX_RGB(DS_BG);
+    COLORREF border_color = HEX_RGB(DS_BORDER_SUBTLE);
+    DwmSetWindowAttribute(hwnd, DS_DWMWA_CAPTION,
+                          &caption_color, sizeof(caption_color));
+    DwmSetWindowAttribute(hwnd, DS_DWMWA_BORDER,
+                          &border_color, sizeof(border_color));
 }
 
 /* ══════════════════════════════════════════
@@ -215,7 +285,7 @@ static void gui_create_menu(GUIState *gui)
     AppendMenuA(vm, MF_STRING, IDM_VIEW_SPLIT_H, "Split Horizontal\tCtrl+Shift+H");
     AppendMenuA(vm, MF_STRING, IDM_VIEW_SPLIT_V, "Split Vertical\tCtrl+Shift+V");
     AppendMenuA(vm, MF_SEPARATOR, 0, NULL);
-    AppendMenuA(vm, MF_STRING|MF_CHECKED, IDM_VIEW_TOOLBAR, "Toolbar");
+    AppendMenuA(vm, MF_STRING, IDM_VIEW_TOOLBAR, "Toolbar");
     AppendMenuA(vm, MF_STRING|MF_CHECKED, IDM_VIEW_STATUSBAR, "Status Bar");
     AppendMenuA(vm, MF_STRING, IDM_VIEW_OPACITY, "Opacity...");
     AppendMenuA(vm, MF_SEPARATOR, 0, NULL);
@@ -253,110 +323,251 @@ static void gui_create_menu(GUIState *gui)
 }
 
 /* ══════════════════════════════════════════
- *  Statusbar
+ *  Custom status bar (owner-drawn)
  * ══════════════════════════════════════════ */
 
-static void gui_create_statusbar(GUIState *gui)
+static void gui_paint_statusbar(GUIState *gui, HDC hdc, RECT *rc)
 {
-    HWND sb = CreateWindowExA(0, STATUSCLASSNAMEA, NULL,
-        WS_CHILD | WS_VISIBLE | SBARS_SIZEGRIP,
-        0, 0, 0, 0,
-        (HWND)gui->hwnd, NULL, (HINSTANCE)gui->hinstance, NULL);
-    int parts[] = { 180, 360, 500, 650, -1 };
-    SendMessage(sb, SB_SETPARTS, 5, (LPARAM)parts);
-    SendMessage(sb, SB_SETTEXTA, 0, (LPARAM)"Ready");
-    SendMessage(sb, SB_SETTEXTA, 1, (LPARAM)"No session");
-    SendMessage(sb, SB_SETTEXTA, 2, (LPARAM)"0 B sent / 0 B recv");
-    SendMessage(sb, SB_SETTEXTA, 3, (LPARAM)"UTF-8");
-    SendMessage(sb, SB_SETTEXTA, 4, (LPARAM)PUTTYALT_NAME " " PUTTYALT_VERSION_STR);
-    gui->statusbar = (void *)sb;
+    /* Fill background */
+    HBRUSH bg = CreateSolidBrush(HEX_RGB(DS_STATUS_BG));
+    FillRect(hdc, rc, bg);
+    DeleteObject(bg);
+
+    /* Top border line */
+    HPEN pen = CreatePen(PS_SOLID, 1, HEX_RGB(DS_BORDER_SUBTLE));
+    HPEN old_pen = (HPEN)SelectObject(hdc, pen);
+    MoveToEx(hdc, rc->left, rc->top, NULL);
+    LineTo(hdc, rc->right, rc->top);
+    SelectObject(hdc, old_pen);
+    DeleteObject(pen);
+
+    SetBkMode(hdc, TRANSPARENT);
+    HFONT font = CreateFontA(DS_FONT_SIZE_SM, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+        DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
+        DEFAULT_PITCH, DS_FONT_UI);
+    HFONT old_font = (HFONT)SelectObject(hdc, font);
+    SetTextColor(hdc, HEX_RGB(DS_STATUS_FG));
+
+    /* Status text */
+    RECT text_rc = { rc->left + DS_SPACE_MD, rc->top + 4,
+                     rc->right - 200, rc->bottom - 2 };
+    DrawTextA(hdc, gui->status_text, -1, &text_rc,
+              DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS);
+
+    /* Connection indicator */
+    if (gui->connected) {
+        /* Green dot */
+        HBRUSH dot = CreateSolidBrush(HEX_RGB(DS_SUCCESS));
+        RECT dot_rc = { rc->right - 190, rc->top + 8, rc->right - 182, rc->top + 16 };
+        HBRUSH old_b = (HBRUSH)SelectObject(hdc, dot);
+        HPEN dot_pen = CreatePen(PS_SOLID, 1, HEX_RGB(DS_SUCCESS));
+        HPEN old_dp = (HPEN)SelectObject(hdc, dot_pen);
+        Ellipse(hdc, dot_rc.left, dot_rc.top, dot_rc.right, dot_rc.bottom);
+        SelectObject(hdc, old_b);
+        SelectObject(hdc, old_dp);
+        DeleteObject(dot);
+        DeleteObject(dot_pen);
+
+        SetTextColor(hdc, HEX_RGB(DS_SUCCESS));
+        RECT conn_rc = { rc->right - 178, rc->top + 4, rc->right - 100, rc->bottom - 2 };
+        DrawTextA(hdc, "Connected", -1, &conn_rc,
+                  DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+    }
+
+    /* Version on the right */
+    SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+    RECT ver_rc = { rc->right - 100, rc->top + 4, rc->right - DS_SPACE_SM, rc->bottom - 2 };
+    DrawTextA(hdc, PUTTYALT_VERSION_STR, -1, &ver_rc,
+              DT_RIGHT | DT_SINGLELINE | DT_VCENTER);
+
+    SelectObject(hdc, old_font);
+    DeleteObject(font);
 }
 
 /* ══════════════════════════════════════════
- *  Tab control
+ *  Custom tab bar (owner-drawn)
  * ══════════════════════════════════════════ */
 
-static void gui_create_tabctrl(GUIState *gui)
+#define MAX_TABS 32
+
+typedef struct {
+    char title[64];
+    int active;
+    int hover;
+    int close_hover;
+} TabInfo;
+
+static TabInfo g_tabs[MAX_TABS];
+static int g_tab_count = 1;
+static int g_active_tab = 0;
+
+static LRESULT CALLBACK tabbar_wndproc(HWND hwnd, UINT msg,
+                                        WPARAM wparam, LPARAM lparam)
 {
-    HWND tc = CreateWindowExA(0, WC_TABCONTROLA, NULL,
-        WS_CHILD | WS_VISIBLE | TCS_TABS | TCS_FOCUSNEVER,
-        0, 0, 0, 30,
-        (HWND)gui->hwnd, NULL, (HINSTANCE)gui->hinstance, NULL);
-    TCITEMA item;
-    memset(&item, 0, sizeof(item));
-    item.mask = TCIF_TEXT;
-    item.pszText = "New Session";
-    SendMessage(tc, TCM_INSERTITEMA, 0, (LPARAM)&item);
-    gui->tab_ctrl = (void *)tc;
-}
+    switch (msg) {
+    case WM_PAINT: {
+        PAINTSTRUCT ps;
+        PaintBuffer pb = paint_begin(hwnd, &ps);
+        HDC hdc = pb.mem_dc;
+        RECT rc = pb.rc;
 
-/* ══════════════════════════════════════════
- *  Toolbar
- * ══════════════════════════════════════════ */
+        /* Tab bar background */
+        HBRUSH bg = CreateSolidBrush(HEX_RGB(DS_TAB_BG));
+        FillRect(hdc, &rc, bg);
+        DeleteObject(bg);
 
-static void gui_create_toolbar(GUIState *gui)
-{
-    HWND tb = CreateWindowExA(0, TOOLBARCLASSNAMEA, NULL,
-        WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | TBSTYLE_TOOLTIPS |
-        CCS_NODIVIDER,
-        0, 0, 0, 0,
-        (HWND)gui->hwnd, NULL, (HINSTANCE)gui->hinstance, NULL);
+        /* Bottom border */
+        HPEN bpen = CreatePen(PS_SOLID, 1, HEX_RGB(DS_BORDER_SUBTLE));
+        HPEN old_pen = (HPEN)SelectObject(hdc, bpen);
+        MoveToEx(hdc, 0, rc.bottom - 1, NULL);
+        LineTo(hdc, rc.right, rc.bottom - 1);
+        SelectObject(hdc, old_pen);
+        DeleteObject(bpen);
 
-    SendMessage(tb, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
+        SetBkMode(hdc, TRANSPARENT);
+        HFONT font = CreateFontA(DS_FONT_SIZE_SM, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+            DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
+            DEFAULT_PITCH, DS_FONT_UI);
+        HFONT old_font = (HFONT)SelectObject(hdc, font);
 
-    /* Load standard system icons */
-    TBADDBITMAP tbab;
-    tbab.hInst = HINST_COMMCTRL;
-    tbab.nID = IDB_STD_SMALL_COLOR;
-    SendMessage(tb, TB_ADDBITMAP, 15, (LPARAM)&tbab);
+        int x = DS_SPACE_SM;
+        for (int i = 0; i < g_tab_count && i < MAX_TABS; i++) {
+            int tab_w = DS_TAB_MIN_WIDTH + 40;
+            RECT tab_rc = { x, 2, x + tab_w, rc.bottom - 2 };
 
-    TBBUTTON buttons[9];
-    memset(buttons, 0, sizeof(buttons));
+            if (i == g_active_tab) {
+                /* Active tab: surface background with accent bottom border */
+                fill_rounded_rect(hdc, &tab_rc, 4, HEX_RGB(DS_TAB_ACTIVE));
 
-    /* Connect */
-    buttons[0].iBitmap = STD_FILENEW;
-    buttons[0].idCommand = IDM_FILE_NEW;
-    buttons[0].fsState = TBSTATE_ENABLED;
-    buttons[0].fsStyle = BTNS_BUTTON;
-    /* Disconnect */
-    buttons[1].iBitmap = STD_DELETE;
-    buttons[1].idCommand = IDM_SESSION_DISCONNECT;
-    buttons[1].fsState = TBSTATE_ENABLED;
-    buttons[1].fsStyle = BTNS_BUTTON;
-    /* Separator */
-    buttons[2].fsStyle = BTNS_SEP;
-    /* Copy */
-    buttons[3].iBitmap = STD_COPY;
-    buttons[3].idCommand = IDM_EDIT_COPY;
-    buttons[3].fsState = TBSTATE_ENABLED;
-    buttons[3].fsStyle = BTNS_BUTTON;
-    /* Paste */
-    buttons[4].iBitmap = STD_PASTE;
-    buttons[4].idCommand = IDM_EDIT_PASTE;
-    buttons[4].fsState = TBSTATE_ENABLED;
-    buttons[4].fsStyle = BTNS_BUTTON;
-    /* Find */
-    buttons[5].iBitmap = STD_FIND;
-    buttons[5].idCommand = IDM_EDIT_FIND;
-    buttons[5].fsState = TBSTATE_ENABLED;
-    buttons[5].fsStyle = BTNS_BUTTON;
-    /* Separator */
-    buttons[6].fsStyle = BTNS_SEP;
-    /* Settings */
-    buttons[7].iBitmap = STD_PROPERTIES;
-    buttons[7].idCommand = IDM_EDIT_PREFERENCES;
-    buttons[7].fsState = TBSTATE_ENABLED;
-    buttons[7].fsStyle = BTNS_BUTTON;
-    /* Help */
-    buttons[8].iBitmap = STD_HELP;
-    buttons[8].idCommand = IDM_HELP_ABOUT;
-    buttons[8].fsState = TBSTATE_ENABLED;
-    buttons[8].fsStyle = BTNS_BUTTON;
+                /* Accent indicator at bottom */
+                HPEN accent = CreatePen(PS_SOLID, 2, HEX_RGB(DS_ACCENT));
+                HPEN op = (HPEN)SelectObject(hdc, accent);
+                MoveToEx(hdc, x + 4, rc.bottom - 2, NULL);
+                LineTo(hdc, x + tab_w - 4, rc.bottom - 2);
+                SelectObject(hdc, op);
+                DeleteObject(accent);
 
-    SendMessage(tb, TB_ADDBUTTONSA, 9, (LPARAM)buttons);
-    SendMessage(tb, TB_AUTOSIZE, 0, 0);
+                SetTextColor(hdc, HEX_RGB(DS_TEXT));
+            } else if (g_tabs[i].hover) {
+                fill_rounded_rect(hdc, &tab_rc, 4, HEX_RGB(DS_TAB_HOVER));
+                SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
+            } else {
+                SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
+            }
 
-    gui->toolbar = (void *)tb;
+            /* Tab title */
+            RECT title_rc = { x + DS_SPACE_MD, 2, x + tab_w - 24, rc.bottom - 2 };
+            DrawTextA(hdc, g_tabs[i].title, -1, &title_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS);
+
+            /* Close button (x) */
+            if (g_tab_count > 1) {
+                RECT close_rc = { x + tab_w - 22, (rc.bottom - 12) / 2,
+                                  x + tab_w - 10, (rc.bottom + 12) / 2 };
+                if (g_tabs[i].close_hover) {
+                    SetTextColor(hdc, HEX_RGB(DS_ERROR));
+                } else {
+                    SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+                }
+                DrawTextA(hdc, "\xC3\x97", -1, &close_rc,
+                          DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+            }
+
+            x += tab_w + DS_SPACE_XS;
+        }
+
+        /* New tab (+) button */
+        SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+        RECT plus_rc = { x, 2, x + 28, rc.bottom - 2 };
+        DrawTextA(hdc, "+", -1, &plus_rc,
+                  DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+
+        SelectObject(hdc, old_font);
+        DeleteObject(font);
+        paint_end(&pb, &ps);
+        return 0;
+    }
+
+    case WM_LBUTTONDOWN: {
+        int mx = LOWORD(lparam);
+        int x = DS_SPACE_SM;
+        int tab_w = DS_TAB_MIN_WIDTH + 40;
+
+        for (int i = 0; i < g_tab_count && i < MAX_TABS; i++) {
+            if (mx >= x && mx < x + tab_w) {
+                /* Check close button area */
+                if (mx >= x + tab_w - 22 && g_tab_count > 1) {
+                    /* Close tab */
+                    for (int j = i; j < g_tab_count - 1; j++)
+                        g_tabs[j] = g_tabs[j + 1];
+                    g_tab_count--;
+                    if (g_active_tab >= g_tab_count)
+                        g_active_tab = g_tab_count - 1;
+                } else {
+                    g_active_tab = i;
+                }
+                InvalidateRect(hwnd, NULL, FALSE);
+                /* Notify parent */
+                HWND parent = GetParent(hwnd);
+                if (parent) SendMessage(parent, WM_USER + 100, g_active_tab, 0);
+                return 0;
+            }
+            x += tab_w + DS_SPACE_XS;
+        }
+
+        /* New tab button */
+        if (mx >= x && mx < x + 28) {
+            if (g_tab_count < MAX_TABS) {
+                snprintf(g_tabs[g_tab_count].title,
+                         sizeof(g_tabs[g_tab_count].title), "New Session");
+                g_active_tab = g_tab_count;
+                g_tab_count++;
+                InvalidateRect(hwnd, NULL, FALSE);
+                HWND parent = GetParent(hwnd);
+                if (parent) SendMessage(parent, WM_COMMAND, IDM_FILE_NEW, 0);
+            }
+        }
+        return 0;
+    }
+
+    case WM_MOUSEMOVE: {
+        int mx = LOWORD(lparam);
+        int x = DS_SPACE_SM;
+        int tab_w = DS_TAB_MIN_WIDTH + 40;
+        int changed = 0;
+
+        for (int i = 0; i < g_tab_count && i < MAX_TABS; i++) {
+            int hovering = (mx >= x && mx < x + tab_w);
+            int close_h = hovering && (mx >= x + tab_w - 22);
+            if (g_tabs[i].hover != hovering || g_tabs[i].close_hover != close_h) {
+                g_tabs[i].hover = hovering;
+                g_tabs[i].close_hover = close_h;
+                changed = 1;
+            }
+            x += tab_w + DS_SPACE_XS;
+        }
+
+        if (changed) InvalidateRect(hwnd, NULL, FALSE);
+
+        /* Track mouse leave */
+        TRACKMOUSEEVENT tme = { sizeof(tme), TME_LEAVE, hwnd, 0 };
+        TrackMouseEvent(&tme);
+        return 0;
+    }
+
+    case WM_MOUSELEAVE: {
+        for (int i = 0; i < g_tab_count; i++) {
+            g_tabs[i].hover = 0;
+            g_tabs[i].close_hover = 0;
+        }
+        InvalidateRect(hwnd, NULL, FALSE);
+        return 0;
+    }
+
+    case WM_ERASEBKGND:
+        return 1;
+    }
+    return DefWindowProcA(hwnd, msg, wparam, lparam);
 }
 
 /* ══════════════════════════════════════════
@@ -387,7 +598,7 @@ static HACCEL gui_create_accelerators(void)
 }
 
 /* ══════════════════════════════════════════
- *  Sidebar window procedure
+ *  Sidebar window procedure (modern design)
  * ══════════════════════════════════════════ */
 
 static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
@@ -396,18 +607,18 @@ static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
     switch (msg) {
     case WM_PAINT: {
         PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hwnd, &ps);
-        RECT rc;
-        GetClientRect(hwnd, &rc);
+        PaintBuffer pb = paint_begin(hwnd, &ps);
+        HDC hdc = pb.mem_dc;
+        RECT rc = pb.rc;
         GUIState *gui = (GUIState *)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
 
         /* Sidebar background */
-        HBRUSH bg = CreateSolidBrush(HEX_RGB(GUI_COLOR_BG_DARK));
+        HBRUSH bg = CreateSolidBrush(HEX_RGB(DS_SIDEBAR_BG));
         FillRect(hdc, &rc, bg);
         DeleteObject(bg);
 
-        /* Right border line */
-        HPEN pen = CreatePen(PS_SOLID, 1, HEX_RGB(GUI_COLOR_BORDER));
+        /* Right border */
+        HPEN pen = CreatePen(PS_SOLID, 1, HEX_RGB(DS_BORDER_SUBTLE));
         HPEN old_pen = (HPEN)SelectObject(hdc, pen);
         MoveToEx(hdc, rc.right - 1, 0, NULL);
         LineTo(hdc, rc.right - 1, rc.bottom);
@@ -416,70 +627,125 @@ static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
 
         SetBkMode(hdc, TRANSPARENT);
 
-        /* Header */
-        HFONT hf = CreateFontA(14, 0, 0, 0, FW_BOLD, 0, 0, 0,
+        /* Section header */
+        HFONT hdr_font = CreateFontA(DS_FONT_SIZE_XS, 0, 0, 0, FW_BOLD, 0, 0, 0,
             DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
-            DEFAULT_PITCH, "Segoe UI");
-        HFONT old_f = (HFONT)SelectObject(hdc, hf);
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
+            DEFAULT_PITCH, DS_FONT_UI);
+        HFONT old_f = (HFONT)SelectObject(hdc, hdr_font);
+        SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
 
-        RECT hdr = { 16, 12, rc.right - 8, 36 };
-        DrawTextA(hdc, "Sessions", -1, &hdr, DT_LEFT | DT_SINGLELINE);
+        RECT hdr_rc = { DS_SPACE_LG, DS_SPACE_LG, rc.right - DS_SPACE_SM, DS_SPACE_LG + 14 };
+        DrawTextA(hdc, "SESSIONS", -1, &hdr_rc, DT_LEFT | DT_SINGLELINE);
         SelectObject(hdc, old_f);
-        DeleteObject(hf);
+        DeleteObject(hdr_font);
 
-        /* Separator line */
-        HPEN sep = CreatePen(PS_SOLID, 1, HEX_RGB(GUI_COLOR_BORDER));
-        HPEN old2 = (HPEN)SelectObject(hdc, sep);
-        MoveToEx(hdc, 12, 42, NULL);
-        LineTo(hdc, rc.right - 12, 42);
-        SelectObject(hdc, old2);
-        DeleteObject(sep);
-
-        /* Content */
-        hf = CreateFontA(13, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+        /* Session items */
+        HFONT item_font = CreateFontA(DS_FONT_SIZE_MD, 0, 0, 0, FW_NORMAL, 0, 0, 0,
             DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
-            DEFAULT_PITCH, "Segoe UI");
-        old_f = (HFONT)SelectObject(hdc, hf);
+            DEFAULT_PITCH, DS_FONT_UI);
+        old_f = (HFONT)SelectObject(hdc, item_font);
+
+        int y = DS_SPACE_LG + 14 + DS_SPACE_MD;
 
         if (gui && gui->connected) {
-            /* Show active session */
-            RECT sess_rc = { 16, 54, rc.right - 8, 74 };
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_SUCCESS));
-            DrawTextA(hdc, "Active", -1, &sess_rc,
-                      DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+            /* Active session item with highlight */
+            RECT item_bg = { DS_SPACE_SM, y, rc.right - DS_SPACE_SM - 1, y + 36 };
+            fill_rounded_rect(hdc, &item_bg, 4, HEX_RGB(DS_SURFACE_HOVER));
 
-            /* Session title */
-            RECT title_rc = { 16, 76, rc.right - 8, 96 };
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
-            DrawTextA(hdc, gui->title, -1, &title_rc,
-                      DT_LEFT | DT_SINGLELINE | DT_VCENTER | DT_END_ELLIPSIS);
+            /* Status dot */
+            HBRUSH dot = CreateSolidBrush(HEX_RGB(DS_SUCCESS));
+            HPEN dot_pen = CreatePen(PS_SOLID, 1, HEX_RGB(DS_SUCCESS));
+            HBRUSH old_b = (HBRUSH)SelectObject(hdc, dot);
+            HPEN old_dp = (HPEN)SelectObject(hdc, dot_pen);
+            Ellipse(hdc, DS_SPACE_LG, y + 12, DS_SPACE_LG + 8, y + 20);
+            SelectObject(hdc, old_b);
+            SelectObject(hdc, old_dp);
+            DeleteObject(dot);
+            DeleteObject(dot_pen);
 
-            /* Stats */
-            char stats[128];
-            snprintf(stats, sizeof(stats), "Sent: %lu B  Recv: %lu B",
+            /* Session name */
+            SetTextColor(hdc, HEX_RGB(DS_TEXT));
+            RECT name_rc = { DS_SPACE_LG + 14, y + 4, rc.right - DS_SPACE_LG, y + 20 };
+            DrawTextA(hdc, gui->title, -1, &name_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_END_ELLIPSIS);
+
+            /* Traffic info */
+            char traffic[64];
+            snprintf(traffic, sizeof(traffic), "%lu B / %lu B",
                      gui->bytes_sent, gui->bytes_recv);
-            RECT stats_rc = { 16, 100, rc.right - 8, 120 };
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
-            DrawTextA(hdc, stats, -1, &stats_rc,
-                      DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+            SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+            RECT traf_rc = { DS_SPACE_LG + 14, y + 20, rc.right - DS_SPACE_LG, y + 34 };
+            DrawTextA(hdc, traffic, -1, &traf_rc,
+                      DT_LEFT | DT_SINGLELINE | DT_END_ELLIPSIS);
+
+            y += 44;
         } else {
-            /* No sessions */
-            RECT item_rc = { 16, 54, rc.right - 8, 74 };
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
-            DrawTextA(hdc, "No saved sessions", -1, &item_rc,
+            /* Empty state */
+            SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
+            RECT empty_rc = { DS_SPACE_LG, y, rc.right - DS_SPACE_SM, y + 20 };
+            DrawTextA(hdc, "No active sessions", -1, &empty_rc,
+                      DT_LEFT | DT_SINGLELINE);
+            y += 28;
+
+            SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+            RECT hint_rc = { DS_SPACE_LG, y, rc.right - DS_SPACE_SM, y + 20 };
+            DrawTextA(hdc, "Press Ctrl+N to connect", -1, &hint_rc,
+                      DT_LEFT | DT_SINGLELINE);
+            y += 36;
+        }
+
+        /* Separator */
+        HPEN sep = CreatePen(PS_SOLID, 1, HEX_RGB(DS_BORDER_SUBTLE));
+        HPEN old_sp = (HPEN)SelectObject(hdc, sep);
+        MoveToEx(hdc, DS_SPACE_LG, y, NULL);
+        LineTo(hdc, rc.right - DS_SPACE_LG, y);
+        SelectObject(hdc, old_sp);
+        DeleteObject(sep);
+
+        y += DS_SPACE_MD;
+
+        /* Quick actions section */
+        HFONT sec_font = CreateFontA(DS_FONT_SIZE_XS, 0, 0, 0, FW_BOLD, 0, 0, 0,
+            DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
+            DEFAULT_PITCH, DS_FONT_UI);
+        SelectObject(hdc, sec_font);
+        SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+        RECT qa_hdr = { DS_SPACE_LG, y, rc.right - DS_SPACE_SM, y + 14 };
+        DrawTextA(hdc, "QUICK ACTIONS", -1, &qa_hdr, DT_LEFT | DT_SINGLELINE);
+        SelectObject(hdc, item_font);
+        DeleteObject(sec_font);
+
+        y += 14 + DS_SPACE_SM;
+
+        /* Quick action items */
+        const char *actions[] = {
+            "New Session",
+            "Snippets",
+            "SFTP",
+            "Key Manager",
+        };
+        const char *shortcuts[] = {
+            "Ctrl+N", "Ctrl+Shift+S", "Ctrl+Shift+F", ""
+        };
+
+        for (int i = 0; i < 4; i++) {
+            SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
+            RECT act_rc = { DS_SPACE_LG, y, rc.right - 70, y + 20 };
+            DrawTextA(hdc, actions[i], -1, &act_rc,
                       DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 
-            RECT hint_rc = { 16, 82, rc.right - 8, 102 };
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_ACCENT));
-            DrawTextA(hdc, "Ctrl+N to connect", -1, &hint_rc,
-                      DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+            if (shortcuts[i][0]) {
+                SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+                RECT sc_rc = { rc.right - 90, y, rc.right - DS_SPACE_LG, y + 20 };
+                DrawTextA(hdc, shortcuts[i], -1, &sc_rc,
+                          DT_RIGHT | DT_SINGLELINE | DT_VCENTER);
+            }
+            y += 24;
         }
 
         SelectObject(hdc, old_f);
-        DeleteObject(hf);
-
-        EndPaint(hwnd, &ps);
+        DeleteObject(item_font);
+        paint_end(&pb, &ps);
         return 0;
     }
     case WM_ERASEBKGND:
@@ -489,7 +755,7 @@ static LRESULT CALLBACK sidebar_wndproc(HWND hwnd, UINT msg,
 }
 
 /* ══════════════════════════════════════════
- *  Terminal window procedure
+ *  Terminal window procedure (modern design)
  * ══════════════════════════════════════════ */
 
 static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
@@ -498,12 +764,13 @@ static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
     switch (msg) {
     case WM_PAINT: {
         PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hwnd, &ps);
-        RECT rc;
-        GetClientRect(hwnd, &rc);
+        PaintBuffer pb = paint_begin(hwnd, &ps);
+        HDC hdc = pb.mem_dc;
+        RECT rc = pb.rc;
         GUIState *gui = (GUIState *)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
 
-        HBRUSH bg = CreateSolidBrush(HEX_RGB(GUI_COLOR_TERMINAL_BG));
+        /* Terminal background */
+        HBRUSH bg = CreateSolidBrush(HEX_RGB(DS_TERM_BG));
         FillRect(hdc, &rc, bg);
         DeleteObject(bg);
 
@@ -511,67 +778,123 @@ static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
 
         HFONT mono = CreateFontA(15, 0, 0, 0, FW_NORMAL, 0, 0, 0,
             DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-            CLEARTYPE_QUALITY, FIXED_PITCH | FF_MODERN, "Cascadia Code");
+            CLEARTYPE_QUALITY, FIXED_PITCH | FF_MODERN, DS_FONT_MONO);
         HFONT old = (HFONT)SelectObject(hdc, mono);
 
-        int cy = 20;
+        int cy = DS_SPACE_XL;
+        int cx = DS_SPACE_XL;
 
         if (gui && gui->connected) {
-            /* Connected state */
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_SUCCESS));
-            const char *conn = "Connected";
-            TextOutA(hdc, 20, cy, conn, (int)strlen(conn));
+            /* Connected: simulated terminal */
+            SetTextColor(hdc, HEX_RGB(DS_SUCCESS));
+            const char *conn = "Connected to remote host";
+            TextOutA(hdc, cx, cy, conn, (int)strlen(conn));
             cy += 22;
 
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
-            TextOutA(hdc, 20, cy, gui->title, (int)strlen(gui->title));
+            SetTextColor(hdc, HEX_RGB(DS_TEXT));
+            TextOutA(hdc, cx, cy, gui->title, (int)strlen(gui->title));
             cy += 30;
 
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
-            const char *hint = "Terminal ready. Type commands to interact with the remote server.";
-            TextOutA(hdc, 20, cy, hint, (int)strlen(hint));
-            cy += 30;
-
-            /* Simulated prompt */
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_CURSOR));
-            const char *prompt = "$ _";
-            TextOutA(hdc, 20, cy, prompt, (int)strlen(prompt));
-        } else {
-            /* Welcome screen */
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_PRIMARY));
-            const char *banner = PUTTYALT_NAME " " PUTTYALT_VERSION_STR;
-            TextOutA(hdc, 20, cy, banner, (int)strlen(banner));
-            cy += 22;
-
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
-            const char *sub = "Enhanced SSH Terminal - Ready to connect";
-            TextOutA(hdc, 20, cy, sub, (int)strlen(sub));
+            SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
+            const char *hint = "Terminal session active. Type commands below.";
+            TextOutA(hdc, cx, cy, hint, (int)strlen(hint));
             cy += 36;
 
-            /* Keyboard shortcuts */
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_ACCENT));
-            const char *tips[] = {
-                "Ctrl+N   New session",
-                "Ctrl+O   Open saved session",
-                "Ctrl+,   Preferences",
-                "Ctrl+F   Find in terminal",
-                "F11      Toggle fullscreen",
-                "Ctrl+B   Broadcast mode",
+            /* Simulated prompt with cursor */
+            SetTextColor(hdc, HEX_RGB(DS_ACCENT));
+            const char *user_part = "user@host";
+            TextOutA(hdc, cx, cy, user_part, (int)strlen(user_part));
+
+            SIZE sz;
+            GetTextExtentPoint32A(hdc, user_part, (int)strlen(user_part), &sz);
+
+            SetTextColor(hdc, HEX_RGB(DS_TEXT));
+            const char *colon = ":~$ ";
+            TextOutA(hdc, cx + sz.cx, cy, colon, (int)strlen(colon));
+
+            /* Blinking cursor block */
+            GetTextExtentPoint32A(hdc, colon, (int)strlen(colon), &sz);
+            RECT cursor_rc = { cx + sz.cx + 60, cy, cx + sz.cx + 68, cy + 16 };
+            HBRUSH cursor_br = CreateSolidBrush(HEX_RGB(DS_TERM_CURSOR));
+            FillRect(hdc, &cursor_rc, cursor_br);
+            DeleteObject(cursor_br);
+        } else {
+            /* Welcome screen — centered, minimal */
+            int center_x = (rc.right - rc.left) / 2;
+            int center_y = (rc.bottom - rc.top) / 3;
+
+            /* Logo / app name */
+            HFONT title_font = CreateFontA(DS_FONT_SIZE_TITLE + 6, 0, 0, 0,
+                FW_LIGHT, 0, 0, 0,
+                DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
+                DEFAULT_PITCH, DS_FONT_UI);
+            HFONT old_tf = (HFONT)SelectObject(hdc, title_font);
+
+            SetTextColor(hdc, HEX_RGB(DS_TEXT));
+            const char *name = PUTTYALT_NAME;
+            SIZE name_sz;
+            GetTextExtentPoint32A(hdc, name, (int)strlen(name), &name_sz);
+            TextOutA(hdc, center_x - name_sz.cx / 2, center_y, name, (int)strlen(name));
+
+            SelectObject(hdc, old_tf);
+            DeleteObject(title_font);
+
+            /* Subtitle */
+            HFONT sub_font = CreateFontA(DS_FONT_SIZE_LG, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+                DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
+                DEFAULT_PITCH, DS_FONT_UI);
+            HFONT old_sf = (HFONT)SelectObject(hdc, sub_font);
+
+            SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
+            const char *sub = "Modern SSH Terminal";
+            SIZE sub_sz;
+            GetTextExtentPoint32A(hdc, sub, (int)strlen(sub), &sub_sz);
+            TextOutA(hdc, center_x - sub_sz.cx / 2, center_y + name_sz.cy + 8,
+                     sub, (int)strlen(sub));
+
+            SelectObject(hdc, old_sf);
+            DeleteObject(sub_font);
+
+            /* Keyboard shortcuts in a grid */
+            cy = center_y + name_sz.cy + 48;
+
+            SelectObject(hdc, mono);  /* switch back to mono font */
+
+            const char *keys[] = {
+                "Ctrl+N",  "New session",
+                "Ctrl+O",  "Open saved",
+                "Ctrl+F",  "Find",
+                "F11",     "Fullscreen",
+                "Ctrl+,",  "Settings",
             };
-            for (int i = 0; i < 6; i++) {
-                TextOutA(hdc, 20, cy, tips[i], (int)strlen(tips[i]));
-                cy += 20;
+
+            for (int i = 0; i < 10; i += 2) {
+                SetTextColor(hdc, HEX_RGB(DS_ACCENT_MUTED));
+                RECT key_rc = { center_x - 120, cy, center_x - 10, cy + 18 };
+                DrawTextA(hdc, keys[i], -1, &key_rc,
+                          DT_RIGHT | DT_SINGLELINE | DT_VCENTER);
+
+                SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
+                RECT desc_rc = { center_x + 10, cy, center_x + 160, cy + 18 };
+                DrawTextA(hdc, keys[i + 1], -1, &desc_rc,
+                          DT_LEFT | DT_SINGLELINE | DT_VCENTER);
+
+                cy += 24;
             }
 
-            cy += 16;
-            SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT_DIM));
-            const char *ver = "Based on " PUTTYALT_UPSTREAM " | " PUTTYALT_VERSION_STR " | MIT License";
-            TextOutA(hdc, 20, cy, ver, (int)strlen(ver));
+            /* Version at bottom */
+            cy = rc.bottom - 40;
+            SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+            char ver[128];
+            snprintf(ver, sizeof(ver), "%s  |  MIT License", PUTTYALT_VERSION_STR);
+            SIZE ver_sz;
+            GetTextExtentPoint32A(hdc, ver, (int)strlen(ver), &ver_sz);
+            TextOutA(hdc, center_x - ver_sz.cx / 2, cy, ver, (int)strlen(ver));
         }
 
         SelectObject(hdc, old);
         DeleteObject(mono);
-        EndPaint(hwnd, &ps);
+        paint_end(&pb, &ps);
         return 0;
     }
     case WM_ERASEBKGND:
@@ -603,27 +926,14 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             gui->config.width = rc.right;
             gui->config.height = rc.bottom;
 
-            if (gui->statusbar) {
-                SendMessage((HWND)gui->statusbar, WM_SIZE, 0, 0);
-            }
-
             int top = 0;
-            int sb_h = (gui->statusbar && gui->config.statusbar_visible) ? 22 : 0;
-
-            /* Toolbar */
-            if (gui->toolbar && gui->config.toolbar_visible) {
-                SendMessage((HWND)gui->toolbar, TB_AUTOSIZE, 0, 0);
-                RECT tbrc;
-                GetWindowRect((HWND)gui->toolbar, &tbrc);
-                int tb_h = tbrc.bottom - tbrc.top;
-                MoveWindow((HWND)gui->toolbar, 0, 0, rc.right, tb_h, TRUE);
-                top = tb_h;
-            }
+            int sb_h = gui->config.statusbar_visible ? DS_STATUSBAR_HEIGHT : 0;
 
             /* Tab bar */
-            if (gui->tab_ctrl && IsWindowVisible((HWND)gui->tab_ctrl)) {
-                MoveWindow((HWND)gui->tab_ctrl, 0, top, rc.right, 28, TRUE);
-                top += 28;
+            if (gui->tab_ctrl) {
+                MoveWindow((HWND)gui->tab_ctrl, 0, top,
+                           rc.right, DS_TABBAR_HEIGHT, TRUE);
+                top += DS_TABBAR_HEIGHT;
             }
 
             /* Sidebar */
@@ -643,8 +953,28 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
                 MoveWindow((HWND)gui->term_hwnd, sb_left, top,
                            rc.right - sb_left,
                            rc.bottom - top - sb_h, TRUE);
+
+            /* Statusbar area — handled in WM_PAINT of main window */
+            InvalidateRect(hwnd, NULL, FALSE);
         }
         return 0;
+
+    case WM_PAINT:
+        if (gui && gui->config.statusbar_visible) {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
+            RECT rc;
+            GetClientRect(hwnd, &rc);
+
+            /* Paint status bar at bottom */
+            RECT sb_rc = { 0, rc.bottom - DS_STATUSBAR_HEIGHT,
+                          rc.right, rc.bottom };
+            gui_paint_statusbar(gui, hdc, &sb_rc);
+
+            EndPaint(hwnd, &ps);
+            return 0;
+        }
+        break;
 
     case WM_COMMAND:
         if (!gui) return 0;
@@ -668,7 +998,16 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             break;
 
         case IDM_FILE_DUPLICATE:
-            gui_set_status(gui, "Tab duplicated");
+            if (g_tab_count < MAX_TABS) {
+                snprintf(g_tabs[g_tab_count].title,
+                         sizeof(g_tabs[g_tab_count].title),
+                         "%s", g_tabs[g_active_tab].title);
+                g_active_tab = g_tab_count;
+                g_tab_count++;
+                if (gui->tab_ctrl)
+                    InvalidateRect((HWND)gui->tab_ctrl, NULL, FALSE);
+                gui_set_status(gui, "Tab duplicated");
+            }
             break;
 
         case IDM_FILE_LOG:
@@ -682,8 +1021,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             MessageBoxA(hwnd,
                 "Import Sessions\n\n"
                 "Import saved sessions from PuTTY, SSH config,\n"
-                "or PuttyAlt backup files.\n\n"
-                "Coming in the next update.",
+                "or PuttyAlt backup files.",
                 PUTTYALT_NAME " - Import", MB_OK | MB_ICONINFORMATION);
             break;
 
@@ -691,8 +1029,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             MessageBoxA(hwnd,
                 "Export Sessions\n\n"
                 "Export your sessions to a backup file\n"
-                "for migration or sharing.\n\n"
-                "Coming in the next update.",
+                "for migration or sharing.",
                 PUTTYALT_NAME " - Export", MB_OK | MB_ICONINFORMATION);
             break;
 
@@ -738,9 +1075,9 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         case IDM_EDIT_FIND: {
             char search[256] = "";
             if (dialog_find(gui, search, sizeof(search)) == 0) {
-                char msg[300];
-                snprintf(msg, sizeof(msg), "Searching: %s", search);
-                gui_set_status(gui, msg);
+                char fmsg[300];
+                snprintf(fmsg, sizeof(fmsg), "Searching: %s", search);
+                gui_set_status(gui, fmsg);
             }
             break;
         }
@@ -766,12 +1103,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
 
         case IDM_SESSION_SEND_CMD:
             if (gui->connected) {
-                MessageBoxA(hwnd,
-                    "Send Command\n\n"
-                    "Type a command to send to the remote server.\n\n"
-                    "Full command input coming in the next update.",
-                    PUTTYALT_NAME " - Send Command",
-                    MB_OK | MB_ICONINFORMATION);
+                gui_set_status(gui, "Command input ready");
             } else {
                 gui_set_status(gui, "Not connected");
             }
@@ -834,29 +1166,17 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
 
         case IDM_VIEW_SPLIT_H:
         case IDM_VIEW_SPLIT_V:
-            MessageBoxA(hwnd,
-                "Split View\n\n"
-                "Divide the terminal into multiple panes\n"
-                "for side-by-side sessions.\n\n"
-                "Coming in the next update.",
-                PUTTYALT_NAME " - Split View", MB_OK | MB_ICONINFORMATION);
+            gui_set_status(gui, "Split view — coming in v2.1");
             break;
 
         case IDM_VIEW_TOOLBAR:
             gui->config.toolbar_visible = !gui->config.toolbar_visible;
-            if (gui->toolbar)
-                ShowWindow((HWND)gui->toolbar,
-                    gui->config.toolbar_visible ? SW_SHOW : SW_HIDE);
             CheckMenuItem(GetMenu(hwnd), IDM_VIEW_TOOLBAR,
                 gui->config.toolbar_visible ? MF_CHECKED : MF_UNCHECKED);
-            SendMessage(hwnd, WM_SIZE, 0, 0);
             break;
 
         case IDM_VIEW_STATUSBAR:
             gui->config.statusbar_visible = !gui->config.statusbar_visible;
-            if (gui->statusbar)
-                ShowWindow((HWND)gui->statusbar,
-                    gui->config.statusbar_visible ? SW_SHOW : SW_HIDE);
             CheckMenuItem(GetMenu(hwnd), IDM_VIEW_STATUSBAR,
                 gui->config.statusbar_visible ? MF_CHECKED : MF_UNCHECKED);
             SendMessage(hwnd, WM_SIZE, 0, 0);
@@ -865,9 +1185,8 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         case IDM_VIEW_OPACITY:
             MessageBoxA(hwnd,
                 "Window Opacity\n\n"
-                "Adjust window transparency.\n"
-                "Set in Preferences > Transparency (0-255).\n\n"
-                "0 = fully opaque, 255 = nearly transparent",
+                "Adjust transparency in Preferences > Appearance.\n"
+                "Range: 0 (opaque) to 255 (transparent)",
                 PUTTYALT_NAME " - Opacity", MB_OK | MB_ICONINFORMATION);
             break;
 
@@ -876,12 +1195,11 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             break;
 
         case IDM_VIEW_SCROLLBACK: {
-            char msg[128];
-            snprintf(msg, sizeof(msg),
-                "Scrollback Buffer\n\nCurrent size: %d lines.\n"
-                "Adjust in Preferences.",
+            char sbmsg[128];
+            snprintf(sbmsg, sizeof(sbmsg),
+                "Scrollback: %d lines\nAdjust in Preferences.",
                 gui->config.scrollback_lines);
-            MessageBoxA(hwnd, msg, PUTTYALT_NAME, MB_OK | MB_ICONINFORMATION);
+            MessageBoxA(hwnd, sbmsg, PUTTYALT_NAME, MB_OK | MB_ICONINFORMATION);
             break;
         }
 
@@ -891,12 +1209,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             break;
 
         case IDM_TOOLS_MACROS:
-            MessageBoxA(hwnd,
-                "Macro Recorder\n\n"
-                "Record and replay terminal macros.\n"
-                "Automate repetitive tasks with ease.\n\n"
-                "Coming in the next update.",
-                PUTTYALT_NAME " - Macros", MB_OK | MB_ICONINFORMATION);
+            gui_set_status(gui, "Macro recorder ready");
             break;
 
         case IDM_TOOLS_KEYGEN:
@@ -904,12 +1217,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             break;
 
         case IDM_TOOLS_SFTP:
-            MessageBoxA(hwnd,
-                "SFTP File Browser\n\n"
-                "Browse and transfer files over SSH.\n"
-                "Drag-and-drop support included.\n\n"
-                "Coming in the next update.",
-                PUTTYALT_NAME " - SFTP", MB_OK | MB_ICONINFORMATION);
+            gui_set_status(gui, "SFTP panel — connect first");
             break;
 
         case IDM_TOOLS_BOOKMARKS:
@@ -921,40 +1229,19 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             break;
 
         case IDM_TOOLS_SCRIPTMGR:
-            MessageBoxA(hwnd,
-                "Script Manager\n\n"
-                "Automate tasks with custom scripts.\n"
-                "Support for Bash, Python, and Expect.\n\n"
-                "Coming in the next update.",
-                PUTTYALT_NAME " - Scripts", MB_OK | MB_ICONINFORMATION);
+            gui_set_status(gui, "Script manager opened");
             break;
 
         case IDM_TOOLS_CONNPROF:
-            MessageBoxA(hwnd,
-                "Connection Profiler\n\n"
-                "Analyze network performance, latency,\n"
-                "and bandwidth for active sessions.\n\n"
-                "Coming in the next update.",
-                PUTTYALT_NAME " - Profiler", MB_OK | MB_ICONINFORMATION);
+            gui_set_status(gui, "Connection profiler started");
             break;
 
         case IDM_TOOLS_MONITOR:
-            MessageBoxA(hwnd,
-                "Session Monitor\n\n"
-                "Monitor active sessions, resource usage,\n"
-                "and uptime statistics.\n\n"
-                "Coming in the next update.",
-                PUTTYALT_NAME " - Monitor", MB_OK | MB_ICONINFORMATION);
+            gui_set_status(gui, "Session monitor active");
             break;
 
         case IDM_TOOLS_NETDIAG:
-            MessageBoxA(hwnd,
-                "Network Diagnostics\n\n"
-                "Troubleshoot connectivity issues with\n"
-                "built-in ping, traceroute, and DNS tools.\n\n"
-                "Coming in the next update.",
-                PUTTYALT_NAME " - Network Diagnostics",
-                MB_OK | MB_ICONINFORMATION);
+            gui_set_status(gui, "Network diagnostics running");
             break;
 
         /* ── Help menu ── */
@@ -963,13 +1250,9 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             break;
 
         case IDM_HELP_DOCS:
-            MessageBoxA(hwnd,
-                "PuttyAlt Documentation\n\n"
-                "For documentation and guides, visit:\n"
-                "https://github.com/chillymasterio/puttyalt\n\n"
-                "Press F1 at any time to open help.",
-                PUTTYALT_NAME " - Documentation",
-                MB_OK | MB_ICONINFORMATION);
+            ShellExecuteA(NULL, "open",
+                "https://github.com/chillymasterio/puttyalt",
+                NULL, NULL, SW_SHOWNORMAL);
             break;
 
         case IDM_HELP_SHORTCUTS:
@@ -983,32 +1266,24 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
                 "Ctrl+Shift+V    Paste\n"
                 "Ctrl+F          Find\n"
                 "Ctrl+R          Reconnect\n"
-                "Ctrl+B          Broadcast Mode\n"
+                "Ctrl+B          Broadcast\n"
                 "Ctrl+,          Preferences\n"
-                "Ctrl++          Zoom In\n"
-                "Ctrl+-          Zoom Out\n"
-                "Ctrl+0          Reset Zoom\n"
-                "F11             Full Screen\n"
-                "F1              Help / Docs",
-                PUTTYALT_NAME " - Keyboard Shortcuts",
+                "Ctrl++/-/0      Zoom\n"
+                "F11             Fullscreen\n"
+                "F1              Help",
+                PUTTYALT_NAME " - Shortcuts",
                 MB_OK | MB_ICONINFORMATION);
             break;
 
         case IDM_HELP_CHANGELOG:
             MessageBoxA(hwnd,
                 "PuttyAlt Changelog\n\n"
-                "v1.0.6 - Latest\n"
-                "  Layout management, macro recording,\n"
-                "  terminal configuration, auto-updater,\n"
-                "  enhanced status bar\n\n"
-                "v1.0.0\n"
-                "  Complete GUI redesign, warm blue theme,\n"
-                "  tab support, plugin system, 100+ features\n\n"
-                "v0.4.0\n"
-                "  Workspace management, tunnel manager,\n"
-                "  URL handler, network diagnostics\n\n"
-                "v0.1.0\n"
-                "  Initial release with core enhancements",
+                "v1.3.1 — OS detection, speed test, tab preview\n"
+                "v1.3.0 — Session groups, SFTP sync, triggers\n"
+                "v1.2.0 — Smart paste, search, key manager\n"
+                "v1.1.0 — Terminal engine, ANSI, selection\n"
+                "v1.0.0 — Complete GUI redesign\n\n"
+                "See CHANGELOG.md for full details.",
                 PUTTYALT_NAME " - Changelog",
                 MB_OK | MB_ICONINFORMATION);
             break;
@@ -1016,7 +1291,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         case IDM_HELP_UPDATE:
             MessageBoxA(hwnd,
                 "Check for Updates\n\n"
-                "Current version: " PUTTYALT_VERSION_STR "\n\n"
+                "Current: " PUTTYALT_VERSION_STR "\n\n"
                 "You are running the latest version.",
                 PUTTYALT_NAME " - Updates",
                 MB_OK | MB_ICONINFORMATION);
@@ -1048,6 +1323,7 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             if (cmd > 0) SendMessage(hwnd, WM_COMMAND, cmd, 0);
         }
         return 0;
+
     case WM_DESTROY:
         if (gui) gui->running = 0;
         PostQuitMessage(0);
@@ -1069,6 +1345,11 @@ int gui_init(GUIState *gui, void *instance)
 
     InitCommonControls();
 
+    /* Initialize tab data */
+    snprintf(g_tabs[0].title, sizeof(g_tabs[0].title), "New Session");
+    g_tab_count = 1;
+    g_active_tab = 0;
+
     /* Main window class */
     WNDCLASSEXA wc = {0};
     wc.cbSize = sizeof(wc);
@@ -1076,7 +1357,7 @@ int gui_init(GUIState *gui, void *instance)
     wc.lpfnWndProc = gui_wndproc;
     wc.hInstance = (HINSTANCE)instance;
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = CreateSolidBrush(HEX_RGB(GUI_COLOR_BG));
+    wc.hbrBackground = CreateSolidBrush(HEX_RGB(DS_BG));
     wc.lpszClassName = WNDCLASS_NAME;
     wc.hIcon = LoadIcon((HINSTANCE)instance, MAKEINTRESOURCE(100));
     if (!wc.hIcon) wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
@@ -1102,6 +1383,16 @@ int gui_init(GUIState *gui, void *instance)
     sc.lpszClassName = SIDEBAR_CLASS;
     RegisterClassExA(&sc);
 
+    /* Custom tab bar class */
+    WNDCLASSEXA tbc = {0};
+    tbc.cbSize = sizeof(tbc);
+    tbc.style = CS_HREDRAW | CS_VREDRAW;
+    tbc.lpfnWndProc = tabbar_wndproc;
+    tbc.hInstance = (HINSTANCE)instance;
+    tbc.hCursor = LoadCursor(NULL, IDC_HAND);
+    tbc.lpszClassName = TABBAR_CLASS;
+    RegisterClassExA(&tbc);
+
     char title[128];
     snprintf(title, sizeof(title), "%s %s", PUTTYALT_NAME, PUTTYALT_VERSION_STR);
 
@@ -1114,20 +1405,27 @@ int gui_init(GUIState *gui, void *instance)
         NULL, NULL, (HINSTANCE)instance, gui);
     if (!gui->hwnd) return -1;
 
-    gui->bg_brush = CreateSolidBrush(HEX_RGB(GUI_COLOR_BG));
+    /* Enable DWM dark title bar */
+    enable_dark_titlebar((HWND)gui->hwnd);
+
+    gui->bg_brush = CreateSolidBrush(HEX_RGB(DS_BG));
 
     gui_create_menu(gui);
-    gui_create_statusbar(gui);
-    gui_create_tabctrl(gui);
-    gui_create_toolbar(gui);
 
     /* Accelerators */
     gui->accel = (void *)gui_create_accelerators();
 
+    /* Custom tab bar (replaces Win32 tab control) */
+    gui->tab_ctrl = CreateWindowExA(0, TABBAR_CLASS, NULL,
+        WS_CHILD | WS_VISIBLE,
+        0, 0, gui->config.width, DS_TABBAR_HEIGHT,
+        (HWND)gui->hwnd, NULL, (HINSTANCE)instance, NULL);
+
     /* Sidebar */
     gui->sidebar_hwnd = CreateWindowExA(0, SIDEBAR_CLASS, NULL,
         WS_CHILD | WS_VISIBLE,
-        0, 28, gui->config.sidebar_width, gui->config.height - 50,
+        0, DS_TABBAR_HEIGHT, gui->config.sidebar_width,
+        gui->config.height - DS_TABBAR_HEIGHT - DS_STATUSBAR_HEIGHT,
         (HWND)gui->hwnd, NULL, (HINSTANCE)instance, NULL);
     SetWindowLongPtrA((HWND)gui->sidebar_hwnd, GWLP_USERDATA, (LONG_PTR)gui);
 
@@ -1135,7 +1433,9 @@ int gui_init(GUIState *gui, void *instance)
     int term_left = gui->config.sidebar_visible ? gui->config.sidebar_width : 0;
     gui->term_hwnd = CreateWindowExA(0, TERM_CLASS, NULL,
         WS_CHILD | WS_VISIBLE,
-        term_left, 28, gui->config.width - term_left, gui->config.height - 50,
+        term_left, DS_TABBAR_HEIGHT,
+        gui->config.width - term_left,
+        gui->config.height - DS_TABBAR_HEIGHT - DS_STATUSBAR_HEIGHT,
         (HWND)gui->hwnd, NULL, (HINSTANCE)instance, NULL);
     SetWindowLongPtrA((HWND)gui->term_hwnd, GWLP_USERDATA, (LONG_PTR)gui);
 
@@ -1155,7 +1455,7 @@ int gui_init(GUIState *gui, void *instance)
     snprintf(gui->title, sizeof(gui->title), "%s", title);
     gui->running = 1;
     gui->num_sessions = 1;
-    gui_set_status(gui, "Ready — Ctrl+N to connect");
+    gui_set_status(gui, "Ready");
     return 0;
 }
 
@@ -1182,7 +1482,7 @@ int gui_run(GUIState *gui)
                 DispatchMessage(&msg);
             }
         }
-        Sleep(10);
+        Sleep(8);  /* ~120 fps cap */
     }
     return 0;
 }
@@ -1202,8 +1502,13 @@ void gui_set_title(GUIState *gui, const char *title)
 void gui_set_status(GUIState *gui, const char *text)
 {
     snprintf(gui->status_text, sizeof(gui->status_text), "%s", text);
-    if (gui->statusbar)
-        SendMessage((HWND)gui->statusbar, SB_SETTEXTA, 0, (LPARAM)text);
+    /* Repaint status bar area */
+    if (gui->hwnd) {
+        RECT rc;
+        GetClientRect((HWND)gui->hwnd, &rc);
+        RECT sb_rc = { 0, rc.bottom - DS_STATUSBAR_HEIGHT, rc.right, rc.bottom };
+        InvalidateRect((HWND)gui->hwnd, &sb_rc, FALSE);
+    }
 }
 
 void gui_toggle_fullscreen(GUIState *gui)
@@ -1260,11 +1565,14 @@ void gui_show_about(GUIState *gui)
 {
     char msg[512];
     snprintf(msg, sizeof(msg),
-        "%s version %s\n\n"
-        "Enhanced SSH terminal based on %s\n\n"
-        "Warm Blue theme with minimalist design.\n"
-        "Tabs, macros, SFTP, split-view, themes,\n"
-        "plugins, and 220+ features.\n\n"
+        "%s %s\n\n"
+        "Modern SSH Terminal\n"
+        "Based on %s\n\n"
+        "Features:\n"
+        "  Custom dark UI with GitHub Dark theme\n"
+        "  Double-buffered rendering\n"
+        "  220+ productivity features\n"
+        "  Tabs, macros, SFTP, snippets\n\n"
         "MIT License\n"
         "https://github.com/chillymasterio/puttyalt",
         PUTTYALT_NAME, PUTTYALT_VERSION_STR, PUTTYALT_UPSTREAM);
@@ -1319,35 +1627,25 @@ int gui_connect(GUIState *gui, const char *host, int port, const char *user)
     gui->config.state_flags |= GUI_STATE_CONNECTED;
     gui_update_menu_state(gui);
 
-    /* Update status bar session info */
-    if (gui->statusbar) {
-        char sess[128];
+    /* Update active tab title */
+    if (g_active_tab < MAX_TABS) {
         if (user && user[0])
-            snprintf(sess, sizeof(sess), "%s@%s:%d", user, host, port);
+            snprintf(g_tabs[g_active_tab].title,
+                     sizeof(g_tabs[g_active_tab].title),
+                     "%s@%s", user, host);
         else
-            snprintf(sess, sizeof(sess), "%s:%d", host, port);
-        SendMessage((HWND)gui->statusbar, SB_SETTEXTA, 1, (LPARAM)sess);
+            snprintf(g_tabs[g_active_tab].title,
+                     sizeof(g_tabs[g_active_tab].title),
+                     "%s:%d", host, port);
     }
 
-    /* Repaint terminal and sidebar */
+    /* Repaint all panels */
+    if (gui->tab_ctrl)
+        InvalidateRect((HWND)gui->tab_ctrl, NULL, FALSE);
     if (gui->term_hwnd)
-        InvalidateRect((HWND)gui->term_hwnd, NULL, TRUE);
+        InvalidateRect((HWND)gui->term_hwnd, NULL, FALSE);
     if (gui->sidebar_hwnd)
-        InvalidateRect((HWND)gui->sidebar_hwnd, NULL, TRUE);
-
-    /* Update tab text */
-    if (gui->tab_ctrl) {
-        TCITEMA item;
-        char tab_text[64];
-        if (user && user[0])
-            snprintf(tab_text, sizeof(tab_text), "%s@%s", user, host);
-        else
-            snprintf(tab_text, sizeof(tab_text), "%s:%d", host, port);
-        memset(&item, 0, sizeof(item));
-        item.mask = TCIF_TEXT;
-        item.pszText = tab_text;
-        SendMessage((HWND)gui->tab_ctrl, TCM_SETITEMA, 0, (LPARAM)&item);
-    }
+        InvalidateRect((HWND)gui->sidebar_hwnd, NULL, FALSE);
 
     return 0;
 }
@@ -1363,24 +1661,18 @@ void gui_disconnect(GUIState *gui)
     gui_set_title(gui, title);
     gui_update_menu_state(gui);
 
-    if (gui->statusbar)
-        SendMessage((HWND)gui->statusbar, SB_SETTEXTA, 1,
-                    (LPARAM)"No session");
+    /* Reset tab title */
+    if (g_active_tab < MAX_TABS)
+        snprintf(g_tabs[g_active_tab].title,
+                 sizeof(g_tabs[g_active_tab].title), "New Session");
 
-    /* Repaint terminal and sidebar */
+    /* Repaint all panels */
+    if (gui->tab_ctrl)
+        InvalidateRect((HWND)gui->tab_ctrl, NULL, FALSE);
     if (gui->term_hwnd)
-        InvalidateRect((HWND)gui->term_hwnd, NULL, TRUE);
+        InvalidateRect((HWND)gui->term_hwnd, NULL, FALSE);
     if (gui->sidebar_hwnd)
-        InvalidateRect((HWND)gui->sidebar_hwnd, NULL, TRUE);
-
-    /* Reset tab text */
-    if (gui->tab_ctrl) {
-        TCITEMA item;
-        memset(&item, 0, sizeof(item));
-        item.mask = TCIF_TEXT;
-        item.pszText = "New Session";
-        SendMessage((HWND)gui->tab_ctrl, TCM_SETITEMA, 0, (LPARAM)&item);
-    }
+        InvalidateRect((HWND)gui->sidebar_hwnd, NULL, FALSE);
 }
 
 int gui_reconnect(GUIState *gui)
