@@ -41,10 +41,10 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **SSH config export** — export/import sessions to OpenSSH config format
 
 ### Still planned for v1.3.x patches
-- [ ] First-connect suggestions (OS detection)
-- [ ] Connection speed test on connect
-- [ ] Tab preview on hover
-- [ ] Session diff — compare two recordings side-by-side
+- [x] First-connect suggestions (OS detection)
+- [x] Connection speed test on connect
+- [x] Tab preview on hover
+- [x] Session diff — compare two recordings side-by-side
 
 ## v1.4.0 (Next) — Collaboration & Sharing
 *Focus: team workflows and compliance.*
