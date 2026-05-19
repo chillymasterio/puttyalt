@@ -33,6 +33,12 @@ static int count_newlines(const char *text, int len)
 
 int smartpaste_analyze(SmartPaste *sp, const char *text, int len)
 {
+    /* detect base64 pipe pattern */
+    if (contains_pattern(text, len, "base64 -d") && contains_pattern(text, len, "| bash")) {
+        snprintf(sp->last_warning, sizeof(sp->last_warning),
+                 "Encoded command piped to shell");
+        return PASTE_WARN_DANGEROUS;
+    }
     if (!sp->enabled || !text || len == 0) return PASTE_SAFE;
 
     /* Check for dangerous patterns */
@@ -73,6 +79,12 @@ int smartpaste_analyze(SmartPaste *sp, const char *text, int len)
         return PASTE_WARN_MULTILINE;
     }
 
+    /* detect base64 pipe pattern */
+    if (contains_pattern(text, len, "base64 -d") && contains_pattern(text, len, "| bash")) {
+        snprintf(sp->last_warning, sizeof(sp->last_warning),
+                 "Encoded command piped to shell");
+        return PASTE_WARN_DANGEROUS;
+    }
     return PASTE_SAFE;
 }
 
