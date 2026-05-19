@@ -242,3 +242,15 @@ list(APPEND PUTTYALT_SOURCES
     puttyalt_tabcolors.c
     puttyalt_sshexport.c
 )
+
+# v1.3.1 patches
+list(APPEND PUTTYALT_SOURCES
+    puttyalt_osdetect.c
+    puttyalt_speedtest.c
+    puttyalt_tabpreview.c
+    puttyalt_sessdiff.c
+    puttyalt_inputrecord.c
+    puttyalt_localecho.c
+    puttyalt_retrypolicy.c
+    puttyalt_timestamp.c
+)
