@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.1] — 2025-05-26
+
+### Added
+- First-connect OS detection with distro recognition and suggested snippets
+- Connection speed test with latency, jitter, and quality labels
+- Tab hover preview with cached output lines
+- Session diff viewer with LCS comparison
+- Input macro recorder with playback speed control
+- Local echo with auto-detection and password masking
+- Connection retry policies (default, aggressive, conservative)
+- Terminal timestamp annotations with elapsed time
+
+### Fixed
+- Smart paste now detects base64-encoded shell pipe attacks
+- Session search supports wildcard (*) queries
+- Output capture flushes periodically for crash safety
+- Inline editor detects and blocks binary file editing
+
 ## [1.3.0] — 2025-05-25
 
 ### Added — Workflow & Productivity
