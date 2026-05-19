@@ -12,6 +12,8 @@ typedef struct {
     int  add_timestamps;
     int  strip_ansi;
     int  max_size_mb;
+    int  flush_interval; /* lines between fflush */
+    int  lines_since_flush;
     unsigned long bytes_captured;
     unsigned long start_time;
     void *file_handle;

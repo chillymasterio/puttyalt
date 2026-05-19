@@ -9,6 +9,7 @@ void outcap_init(OutputCapture *oc)
     oc->add_timestamps = 1;
     oc->strip_ansi = 1;
     oc->max_size_mb = 100;
+    oc->flush_interval = 50;
 }
 
 int outcap_start(OutputCapture *oc, const char *path, int append)
@@ -62,6 +63,11 @@ int outcap_write(OutputCapture *oc, const char *data, int len)
     } else {
         fwrite(data, 1, len, f);
         oc->bytes_captured += len;
+        oc->lines_since_flush++;
+        if (oc->lines_since_flush >= oc->flush_interval) {
+            fflush(f);
+            oc->lines_since_flush = 0;
+        }
     }
     return 0;
 }
