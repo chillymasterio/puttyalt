@@ -27,6 +27,11 @@ int fileedit_open(FileEditor *fe, const char *content, const char *path)
     fe->lines = (char **)calloc(fe->capacity, sizeof(char *));
     if (!fe->lines) return -1;
 
+    /* detect binary content */
+    int binary_bytes = 0;
+    for (int i = 0; content && i < 512 && content[i]; i++)
+        if ((unsigned char)content[i] < 0x09 || ((unsigned char)content[i] > 0x0d && (unsigned char)content[i] < 0x20)) binary_bytes++;
+    if (binary_bytes > 16) { fe->is_binary = 1; fe->readonly = 1; }
     if (!content || !content[0]) {
         fe->lines[0] = (char *)calloc(1, 1);
         fe->line_count = 1;

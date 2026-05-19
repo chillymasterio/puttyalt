@@ -13,6 +13,7 @@ typedef struct {
     int  cursor_col;
     int  modified;
     int  readonly;
+    int  is_binary;
     char encoding[16];
     char line_ending[4]; /* "\n" or "\r\n" */
 } FileEditor;
