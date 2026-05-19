@@ -3,6 +3,7 @@
  */
 
 #include "puttyalt_dialogs.h"
+#include "puttyalt_design.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,8 +78,8 @@ static HBRUSH s_ed = NULL;
 static void init_brushes(void)
 {
     if (!s_bg) {
-        s_bg = CreateSolidBrush(HEX_RGB(GUI_COLOR_BG));
-        s_ed = CreateSolidBrush(HEX_RGB(GUI_COLOR_SURFACE));
+        s_bg = CreateSolidBrush(HEX_RGB(DS_BG));
+        s_ed = CreateSolidBrush(HEX_RGB(DS_SURFACE));
     }
 }
 
@@ -164,16 +165,16 @@ static INT_PTR dark_color(UINT msg, WPARAM wp)
     case WM_CTLCOLORDLG:
         return (INT_PTR)s_bg;
     case WM_CTLCOLORSTATIC:
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
-        SetBkColor(hdc, HEX_RGB(GUI_COLOR_BG));
+        SetTextColor(hdc, HEX_RGB(DS_TEXT));
+        SetBkColor(hdc, HEX_RGB(DS_BG));
         return (INT_PTR)s_bg;
     case WM_CTLCOLOREDIT:
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
-        SetBkColor(hdc, HEX_RGB(GUI_COLOR_SURFACE));
+        SetTextColor(hdc, HEX_RGB(DS_TEXT));
+        SetBkColor(hdc, HEX_RGB(DS_SURFACE));
         return (INT_PTR)s_ed;
     case WM_CTLCOLORLISTBOX:
-        SetTextColor(hdc, HEX_RGB(GUI_COLOR_TEXT));
-        SetBkColor(hdc, HEX_RGB(GUI_COLOR_SURFACE));
+        SetTextColor(hdc, HEX_RGB(DS_TEXT));
+        SetBkColor(hdc, HEX_RGB(DS_SURFACE));
         return (INT_PTR)s_ed;
     }
     return 0;
@@ -190,18 +191,18 @@ static void paint_btn(DRAWITEMSTRUCT *di, int primary)
         br = CreateSolidBrush(HEX_RGB(0x3580C0));
         tc = HEX_RGB(0xFFFFFF);
     } else if (primary) {
-        br = CreateSolidBrush(HEX_RGB(GUI_COLOR_PRIMARY));
+        br = CreateSolidBrush(HEX_RGB(DS_ACCENT));
         tc = HEX_RGB(0xFFFFFF);
     } else {
-        br = CreateSolidBrush(HEX_RGB(GUI_COLOR_SURFACE));
-        tc = HEX_RGB(GUI_COLOR_TEXT);
+        br = CreateSolidBrush(HEX_RGB(DS_SURFACE));
+        tc = HEX_RGB(DS_TEXT);
     }
 
     FillRect(di->hDC, &di->rcItem, br);
     DeleteObject(br);
 
     /* Border */
-    HPEN pen = CreatePen(PS_SOLID, 1, HEX_RGB(GUI_COLOR_BORDER));
+    HPEN pen = CreatePen(PS_SOLID, 1, HEX_RGB(DS_BORDER));
     HPEN old = (HPEN)SelectObject(di->hDC, pen);
     SelectObject(di->hDC, GetStockObject(NULL_BRUSH));
     Rectangle(di->hDC, di->rcItem.left, di->rcItem.top,
