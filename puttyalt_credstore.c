@@ -58,9 +58,14 @@ int credstore_add(CredStore *cs, const char *label, const char *username,
     (void)master_password;
 
     e->created_at = (long)time(NULL);
-    /* Zero temporary password buffer to prevent stack leaks */
-    volatile char *vp = (volatile char *)&e->encrypted[strlen(e->encrypted)];
-    while (vp > (volatile char *)e->encrypted + 20) { *--vp = 0; }
+    /* Zero unused portion of encrypted buffer to prevent data leaks */
+    {
+        size_t used = strlen(e->encrypted);
+        if (used < CRED_MAX_CIPHER) {
+            volatile char *vp = (volatile char *)&e->encrypted[CRED_MAX_CIPHER - 1];
+            while (vp > (volatile char *)&e->encrypted[used]) { *vp-- = 0; }
+        }
+    }
     e->last_used = 0;
     e->auto_fill = 1;
 

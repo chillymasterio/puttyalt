@@ -1,8 +1,13 @@
 #include "puttyalt_passgen.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
 #include <time.h>
 #include <math.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 static const char UPPER[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 static const char LOWER[] = "abcdefghijklmnopqrstuvwxyz";
@@ -55,11 +60,47 @@ int passgen_generate(PassGenConfig *cfg, char *buf, int buflen)
     if (clen == 0 || cfg->length <= 0) return -1;
     int len = cfg->length < buflen ? cfg->length : buflen - 1;
     
-    /* seed from time + address entropy */
-    srand((unsigned)(time(NULL) ^ (unsigned long)(void*)buf));
-    
-    for (int i = 0; i < len; i++)
-        buf[i] = charset[rand() % clen];
+    /* Use OS entropy source for cryptographic quality randomness */
+#ifdef _WIN32
+    /* Use CryptGenRandom via RtlGenRandom (SystemFunction036) */
+    {
+        unsigned char randbuf[256];
+        typedef int (WINAPI *RtlGenRandomFn)(void*, unsigned long);
+        HMODULE advapi = LoadLibraryA("advapi32.dll");
+        RtlGenRandomFn gen = advapi ?
+            (RtlGenRandomFn)GetProcAddress(advapi, "SystemFunction036") : NULL;
+        if (gen && gen(randbuf, (unsigned long)len)) {
+            for (int i = 0; i < len; i++)
+                buf[i] = charset[randbuf[i] % clen];
+        } else {
+            /* Fallback: mix multiple entropy sources */
+            unsigned int seed = (unsigned int)time(NULL);
+            seed ^= (unsigned int)(uintptr_t)buf;
+            seed ^= (unsigned int)GetTickCount();
+            srand(seed);
+            for (int i = 0; i < len; i++)
+                buf[i] = charset[rand() % clen];
+        }
+        if (advapi) FreeLibrary(advapi);
+    }
+#else
+    {
+        FILE *urand = fopen("/dev/urandom", "rb");
+        if (urand) {
+            unsigned char randbuf[256];
+            int rlen = len < 256 ? len : 256;
+            if (fread(randbuf, 1, rlen, urand) == (size_t)rlen) {
+                for (int i = 0; i < len; i++)
+                    buf[i] = charset[randbuf[i % rlen] % clen];
+            }
+            fclose(urand);
+        } else {
+            srand((unsigned)(time(NULL) ^ (unsigned long)(void*)buf));
+            for (int i = 0; i < len; i++)
+                buf[i] = charset[rand() % clen];
+        }
+    }
+#endif
     buf[len] = '\0';
     return len;
 }

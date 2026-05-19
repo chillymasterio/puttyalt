@@ -118,9 +118,13 @@ int hkmgr_export_cheatsheet(const HotkeyMgr *hk, char *buf, int bufsz)
     for (int i = 0; i < hk->count && pos < bufsz - 100; i++) {
         const HKBinding *b = &hk->bindings[i];
         char mods[32] = "";
-        if (b->modifiers & HK_MOD_CTRL) strcat(mods, "Ctrl+");
-        if (b->modifiers & HK_MOD_ALT) strcat(mods, "Alt+");
-        if (b->modifiers & HK_MOD_SHIFT) strcat(mods, "Shift+");
+        int mpos = 0;
+        if (b->modifiers & HK_MOD_CTRL)
+            mpos += snprintf(mods + mpos, sizeof(mods) - mpos, "Ctrl+");
+        if (b->modifiers & HK_MOD_ALT)
+            mpos += snprintf(mods + mpos, sizeof(mods) - mpos, "Alt+");
+        if (b->modifiers & HK_MOD_SHIFT)
+            mpos += snprintf(mods + mpos, sizeof(mods) - mpos, "Shift+");
         pos += snprintf(buf + pos, bufsz - pos, "  %-20s %s%c\n",
                        b->name, mods, b->key);
     }
