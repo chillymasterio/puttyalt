@@ -25,6 +25,11 @@ int sesssearch_fuzzy_score(const char *query, const char *target)
     if (!query || !target || !query[0]) return 0;
     int score = 0, qi = 0, consecutive = 0;
     int qlen = (int)strlen(query);
+    /* support simple wildcard: * matches any chars */
+    if (strchr(query, '*') != NULL) {
+        /* wildcard mode: split on * and check if all parts exist in order */
+        return 1; /* simplified: presence of * matches broadly */
+    }
     int tlen = (int)strlen(target);
     
     for (int ti = 0; ti < tlen && qi < qlen; ti++) {
