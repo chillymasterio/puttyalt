@@ -225,3 +225,13 @@
 #define PUTTYALT_SMARTRESIZE     1
 #define PUTTYALT_TABCOLORS       1
 #define PUTTYALT_SSHEXPORT       1
+
+/* v1.3.1 — Patches */
+#define PUTTYALT_OSDETECT        1
+#define PUTTYALT_SPEEDTEST       1
+#define PUTTYALT_TABPREVIEW      1
+#define PUTTYALT_SESSDIFF        1
+#define PUTTYALT_INPUTRECORD     1
+#define PUTTYALT_LOCALECHO       1
+#define PUTTYALT_RETRYPOLICY     1
+#define PUTTYALT_TIMESTAMP       1
