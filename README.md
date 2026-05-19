@@ -2,7 +2,7 @@
 
 **Enhanced SSH terminal based on PuTTY 0.83** — tabs, macros, SFTP, themes, plugins, and 100+ features in a portable EXE.
 
-![Version](https://img.shields.io/badge/version-1.3.0-blue)
+![Version](https://img.shields.io/badge/version-1.3.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey)
 
@@ -103,7 +103,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Command Palette | Fuzzy search command launcher (Ctrl+Shift+P) |
 | Performance Monitor | Real-time metrics with threshold alerts |
 
-**Total: 205+ source modules across 420+ commits**
+**Total: 220+ source modules across 440+ commits**
 
 ### v1.0.6 (Latest)
 - Layout manager with named presets and pane persistence
@@ -160,4 +160,4 @@ See [ROADMAP.md](ROADMAP.md) for the full plan.
 | Setup Wizard | First-run configuration wizard |
 | Bell Controller | Visual flash, system, taskbar, custom sound |
 
-**Total: 205+ source modules across 420+ commits**
+**Total: 220+ source modules across 440+ commits**
