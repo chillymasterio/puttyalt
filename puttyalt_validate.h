@@ -2,29 +2,20 @@
 #define PUTTYALT_VALIDATE_H
 
 typedef enum {
-    VAL_OK = 0,
-    VAL_WARN,
-    VAL_ERROR
-} ValidationLevel;
+    VALID_OK,
+    VALID_EMPTY,
+    VALID_TOO_LONG,
+    VALID_INVALID_CHARS,
+    VALID_OUT_OF_RANGE,
+    VALID_INVALID_FORMAT
+} ValidResult;
 
-typedef struct ValidationMessage {
-    ValidationLevel level;
-    char field[64];
-    char message[256];
-} ValidationMessage;
-
-typedef struct ValidationResult {
-    ValidationMessage messages[32];
-    int count;
-    int has_errors;
-} ValidationResult;
-
-void val_init(ValidationResult *vr);
-void val_add(ValidationResult *vr, ValidationLevel level,
-             const char *field, const char *msg);
-int  val_port(int port);
-int  val_hostname(const char *host);
-int  val_username(const char *user);
-int  val_path(const char *path);
+ValidResult validate_hostname(const char *host);
+ValidResult validate_port(const char *port_str, int *port_out);
+ValidResult validate_username(const char *user);
+ValidResult validate_path(const char *path);
+ValidResult validate_ip4(const char *ip);
+ValidResult validate_ip6(const char *ip);
+const char *validate_error_str(ValidResult r);
 
 #endif
