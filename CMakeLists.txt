@@ -88,10 +88,31 @@ add_library(puttyalt STATIC
   puttyalt_escparse.c
   puttyalt_validate.c
   puttyalt_sound.c
+  puttyalt_gui.c
+  puttyalt_dialogs.c
+  puttyalt_tray.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(UNIX)
   target_link_libraries(puttyalt PUBLIC dl m)
+endif()
+
+# GUI executable
+add_executable(puttyalt-gui WIN32 main.c)
+target_link_libraries(puttyalt-gui PRIVATE puttyalt)
+
+if(WIN32)
+  target_link_libraries(puttyalt-gui PRIVATE comctl32 shell32 comdlg32)
+  # Resource file for icon and manifest
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/puttyalt.rc")
+    target_sources(puttyalt-gui PRIVATE puttyalt.rc)
+  endif()
+  set_target_properties(puttyalt-gui PROPERTIES
+    OUTPUT_NAME "puttyalt"
+    WIN32_EXECUTABLE TRUE
+  )
+else()
+  set_target_properties(puttyalt-gui PROPERTIES OUTPUT_NAME "puttyalt")
 endif()
