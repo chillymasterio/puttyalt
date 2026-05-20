@@ -254,3 +254,9 @@ list(APPEND PUTTYALT_SOURCES
     puttyalt_retrypolicy.c
     puttyalt_timestamp.c
 )
+
+# v2.0.0 modules
+list(APPEND PUTTYALT_SOURCES
+    puttyalt_snipsync.c
+    puttyalt_audit.c
+)
