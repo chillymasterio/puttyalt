@@ -1,10 +1,11 @@
 # PuttyAlt
 
-**Enhanced SSH terminal based on PuTTY 0.83** — tabs, macros, SFTP, themes, plugins, and 100+ features in a portable EXE.
+**Modern SSH terminal built on PuTTY 0.83** — custom dark UI, tabs, macros, SFTP, 220+ productivity features in a single portable EXE.
 
-![Version](https://img.shields.io/badge/version-1.3.1-blue)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey)
+![Modules](https://img.shields.io/badge/modules-220+-orange)
 
 ## Features
 
@@ -17,7 +18,7 @@
 | **Automation** | Macros, snippets, triggers, scripts (shell/python/lua), scheduler |
 | **Networking** | Tunnel manager, proxy chains, keep-alive, serial port, Telnet |
 | **Monitoring** | Connection profiler, session monitor, bandwidth stats, latency |
-| **UI** | Warm blue theme, sidebar, toolbar, system tray, fullscreen |
+| **UI** | GitHub Dark theme, custom-drawn controls, DWM dark title bar, double-buffered rendering |
 
 ## Windows SmartScreen Notice
 
@@ -72,11 +73,12 @@ puttyalt [options] [user@]host[:port]
 
 | Version | Highlights |
 |---------|-----------|
-| **1.0.0** | GUI redesign (warm blue), multiplexer, script manager, session monitor, SSH agent, SSH config parser, code signing, 100+ modules |
-| 0.4.0 | Workspaces, tunnels, plugins, serial, 40+ new modules |
-| 0.3.0 | Split view, macros, logging v2, autocomplete |
-| 0.2.0 | Tabs, SFTP, themes, credential store |
-| 0.1.0 | Portable mode, reconnect, snippets, broadcast |
+| **2.0.0** | Modern UI rewrite — GitHub Dark theme, custom controls, DWM dark mode, double-buffered rendering, audit trail, snippet sync |
+| 1.3.x | Workflow — session groups, command history, SFTP sync, regex triggers, OS detection, speed test |
+| 1.2.0 | UX — smart paste, fuzzy search, password generator, multi-clipboard, SSH key manager |
+| 1.1.0 | Terminal engine — ANSI parser, selection, scrollback, 256-color, jump hosts, tab manager |
+| 1.0.x | Foundation — GUI redesign, 100+ modules, themes, macros, SFTP, scripts |
+| 0.x | Initial releases — portable mode, tabs, split view, broadcast |
 
 ## License
 
@@ -103,7 +105,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Command Palette | Fuzzy search command launcher (Ctrl+Shift+P) |
 | Performance Monitor | Real-time metrics with threshold alerts |
 
-**Total: 220+ source modules across 440+ commits**
+**Total: 220+ source modules across 450+ commits**
 
 ### v1.0.6 (Latest)
 - Layout manager with named presets and pane persistence
@@ -128,13 +130,18 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
-## Coming Soon: PuttyAlt v2.0
+## v2.0.0 — Modern UI
 
-> **A complete UI rewrite is in development.**
+PuttyAlt v2.0 ships with a completely rewritten interface:
 
-PuttyAlt v2.0 will feature a modern, GPU-accelerated rendering engine replacing the current Win32 GDI backend. Expect smooth animations, ligature support, true 24-bit color, split panes, a command palette, and much more.
+- **GitHub Dark** color palette — easy on the eyes, high contrast where it matters
+- **Custom-drawn controls** — no more ugly Win32 common controls
+- **Double-buffered rendering** — flicker-free at 120fps
+- **DWM dark title bar** — native Windows 10/11 dark mode integration
+- **Owner-drawn tab bar** — hover states, close buttons, new-tab button
+- **Minimal design** — no toolbar by default, clean status bar with connection indicator
 
-See [ROADMAP.md](ROADMAP.md) for the full plan.
+See [ROADMAP.md](ROADMAP.md) for upcoming features (split panes, GPU rendering, scripting).
 
 ### v1.1.0 Highlights (Current)
 
@@ -160,4 +167,4 @@ See [ROADMAP.md](ROADMAP.md) for the full plan.
 | Setup Wizard | First-run configuration wizard |
 | Bell Controller | Visual flash, system, taskbar, custom sound |
 
-**Total: 220+ source modules across 440+ commits**
+**Total: 220+ source modules across 450+ commits**
