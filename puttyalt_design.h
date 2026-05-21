@@ -120,3 +120,8 @@
 #define DS_DWMWA_BORDER      34
 
 #endif /* PUTTYALT_DESIGN_H */
+
+/* Welcome screen layout */
+#define DS_WELCOME_TITLE_SIZE  28
+#define DS_WELCOME_SUB_SIZE    14
+#define DS_WELCOME_KEY_COL     120
