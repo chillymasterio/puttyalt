@@ -1,27 +1,53 @@
 #include "puttyalt_tooltip.h"
 #include <string.h>
-#include <stdio.h>
-#include <time.h>
 
-void tooltip_init(Tooltip *tt) { memset(tt, 0, sizeof(*tt)); tt->delay_ms = 500; tt->duration_ms = 5000; }
-
-void tooltip_show(Tooltip *tt, const char *text, int x, int y)
+void tooltip_init(Tooltip *tt)
 {
+    memset(tt, 0, sizeof(*tt));
+}
+
+void tooltip_set(Tooltip *tt, const char *text, int x, int y)
+{
+    if (!text || !text[0]) { tooltip_hide(tt); return; }
+    if (strcmp(tt->text, text) == 0 && tt->active) return;
+
     snprintf(tt->text, sizeof(tt->text), "%s", text);
-    tt->x = x; tt->y = y;
-    tt->show_time = (unsigned long)(clock() * 1000 / CLOCKS_PER_SEC);
-    tt->visible = 0; /* will become visible after delay */
+    tt->x = x;
+    tt->y = y;
+    tt->active = 1;
+    tt->visible = 0;
+    tt->hover_start = 0;  /* set on next update */
+    tt->opacity = 0.0f;
+    /* Estimate size: 7px per char width, 20px height */
+    tt->width = (int)strlen(text) * 7 + 16;
+    tt->height = 24;
 }
 
-void tooltip_hide(Tooltip *tt) { tt->visible = 0; tt->text[0] = '\0'; }
-
-void tooltip_update(Tooltip *tt)
+void tooltip_hide(Tooltip *tt)
 {
-    if (!tt->text[0]) return;
-    unsigned long now = (unsigned long)(clock() * 1000 / CLOCKS_PER_SEC);
-    unsigned long elapsed = now - tt->show_time;
-    if (!tt->visible && elapsed >= (unsigned long)tt->delay_ms) tt->visible = 1;
-    if (tt->visible && elapsed >= (unsigned long)(tt->delay_ms + tt->duration_ms)) tooltip_hide(tt);
+    tt->active = 0;
+    tt->visible = 0;
+    tt->opacity = 0.0f;
 }
 
-int tooltip_should_show(Tooltip *tt) { return tt->visible && tt->text[0]; }
+void tooltip_update(Tooltip *tt, long now_ms)
+{
+    if (!tt->active) return;
+
+    if (tt->hover_start == 0) tt->hover_start = now_ms;
+
+    long elapsed = now_ms - tt->hover_start;
+    if (elapsed >= TOOLTIP_DELAY_MS) {
+        tt->visible = 1;
+        long fade_elapsed = elapsed - TOOLTIP_DELAY_MS;
+        if (fade_elapsed < TOOLTIP_FADE_MS)
+            tt->opacity = (float)fade_elapsed / (float)TOOLTIP_FADE_MS;
+        else
+            tt->opacity = 1.0f;
+    }
+}
+
+int tooltip_should_show(const Tooltip *tt)
+{
+    return tt->visible && tt->opacity > 0.01f;
+}
