@@ -260,3 +260,29 @@ list(APPEND PUTTYALT_SOURCES
     puttyalt_snipsync.c
     puttyalt_audit.c
 )
+
+# v2.0.0 extended modules
+list(APPEND PUTTYALT_SOURCES
+    puttyalt_transitions.c
+    puttyalt_cmdpal.c
+    puttyalt_sessshare.c
+    puttyalt_roles.c
+    puttyalt_cfgsync.c
+    puttyalt_luaengine.c
+    puttyalt_expect.c
+    puttyalt_webhooks.c
+    puttyalt_pipeline.c
+    puttyalt_restapi.c
+    puttyalt_taboverflow.c
+    puttyalt_sidebarresize.c
+    puttyalt_cursor.c
+    puttyalt_paths.c
+    puttyalt_focusring.c
+    puttyalt_validate.c
+    puttyalt_toast.c
+    puttyalt_scrollstate.c
+    puttyalt_tooltip.c
+    puttyalt_tabnav.c
+    puttyalt_sessorder.c
+    puttyalt_uptime.c
+)
