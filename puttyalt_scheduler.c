@@ -1,67 +1,66 @@
-#include <string.h>
 #include "puttyalt_scheduler.h"
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
 
-void sched_init(Scheduler *s)
+int sched_init(Scheduler *s)
 {
     memset(s, 0, sizeof(*s));
+    s->running = 1;
+    return 0;
 }
 
-int sched_add(Scheduler *s, const char *label, const char *cmd,
-              int session_id, SchedRepeat repeat, unsigned long first_run)
+int sched_add(Scheduler *s, const char *name, const char *cmd,
+              SchedType type, int interval)
 {
-    if (s->count >= SCHED_MAX_JOBS) return -1;
-    SchedJob *j = &s->jobs[s->count];
-    memset(j, 0, sizeof(*j));
-    strncpy(j->label, label, sizeof(j->label) - 1);
-    strncpy(j->command, cmd, SCHED_CMD_LEN - 1);
-    j->session_id = session_id;
-    j->repeat = repeat;
-    j->next_run = first_run;
-    j->enabled = 1;
-
-    switch (repeat) {
-        case SCHED_DAILY:   j->interval_sec = 86400; break;
-        case SCHED_WEEKLY:  j->interval_sec = 604800; break;
-        default: j->interval_sec = 0; break;
-    }
-    return s->count++;
+    if (s->count >= SCHED_MAX_TASKS) return -1;
+    SchedTask *t = &s->tasks[s->count];
+    memset(t, 0, sizeof(*t));
+    snprintf(t->name, sizeof(t->name), "%s", name);
+    snprintf(t->command, sizeof(t->command), "%s", cmd);
+    t->type = type;
+    t->interval_sec = interval > 0 ? interval : 60;
+    t->next_run = (long)time(NULL) + t->interval_sec;
+    t->enabled = 1;
+    s->count++;
+    return s->count - 1;
 }
 
-int sched_remove(Scheduler *s, int index)
+int sched_remove(Scheduler *s, int idx)
 {
-    if (index < 0 || index >= s->count) return -1;
-    for (int i = index; i < s->count - 1; i++)
-        s->jobs[i] = s->jobs[i + 1];
+    if (idx < 0 || idx >= s->count) return -1;
+    for (int i = idx; i < s->count - 1; i++)
+        s->tasks[i] = s->tasks[i + 1];
     s->count--;
     return 0;
 }
 
-int sched_tick(Scheduler *s, unsigned long now)
+int sched_tick(Scheduler *s, long now)
 {
-    int fired = 0;
+    if (!s->running) return 0;
+    int executed = 0;
     for (int i = 0; i < s->count; i++) {
-        SchedJob *j = &s->jobs[i];
-        if (!j->enabled) continue;
-        if (now < j->next_run) continue;
-
-        /* Fire the job */
-        j->run_count++;
-        fired++;
-
-        if (j->repeat == SCHED_ONCE) {
-            j->enabled = 0;
-        } else if (j->interval_sec > 0) {
-            j->next_run += j->interval_sec;
-        } else if (j->repeat == SCHED_INTERVAL && j->interval_sec > 0) {
-            j->next_run += j->interval_sec;
+        SchedTask *t = &s->tasks[i];
+        if (!t->enabled) continue;
+        if (t->max_runs > 0 && t->run_count >= t->max_runs) continue;
+        if (now >= t->next_run) {
+            t->last_run = now;
+            t->run_count++;
+            executed++;
+            if (t->type == SCHED_INTERVAL)
+                t->next_run = now + t->interval_sec;
+            else if (t->type == SCHED_ONCE)
+                t->enabled = 0;
         }
     }
-    return fired;
+    return executed;
 }
 
-int sched_enable(Scheduler *s, int index, int enabled)
+int sched_enable(Scheduler *s, int idx, int enabled)
 {
-    if (index < 0 || index >= s->count) return -1;
-    s->jobs[index].enabled = enabled;
+    if (idx < 0 || idx >= s->count) return -1;
+    s->tasks[idx].enabled = enabled;
     return 0;
 }
+
+void sched_destroy(Scheduler *s) { memset(s, 0, sizeof(*s)); }

@@ -1,37 +1,37 @@
 #ifndef PUTTYALT_SCHEDULER_H
 #define PUTTYALT_SCHEDULER_H
 
-#define SCHED_MAX_JOBS  32
-#define SCHED_CMD_LEN   512
+#define SCHED_MAX_TASKS 64
 
 typedef enum {
-    SCHED_ONCE = 0,
-    SCHED_DAILY,
-    SCHED_WEEKLY,
-    SCHED_INTERVAL
-} SchedRepeat;
+    SCHED_ONCE, SCHED_INTERVAL, SCHED_CRON, SCHED_ON_CONNECT
+} SchedType;
 
-typedef struct SchedJob {
-    char label[64];
-    char command[SCHED_CMD_LEN];
-    int session_id;
-    SchedRepeat repeat;
-    unsigned long next_run;
-    unsigned long interval_sec;
+typedef struct {
+    char name[64];
+    char command[512];
+    SchedType type;
+    int interval_sec;
+    long next_run;
+    long last_run;
+    int session_idx;
     int enabled;
     int run_count;
-} SchedJob;
+    int max_runs;  /* 0=unlimited */
+} SchedTask;
 
-typedef struct Scheduler {
-    SchedJob jobs[SCHED_MAX_JOBS];
+typedef struct {
+    SchedTask tasks[SCHED_MAX_TASKS];
     int count;
+    int running;
 } Scheduler;
 
-void sched_init(Scheduler *s);
-int  sched_add(Scheduler *s, const char *label, const char *cmd,
-               int session_id, SchedRepeat repeat, unsigned long first_run);
-int  sched_remove(Scheduler *s, int index);
-int  sched_tick(Scheduler *s, unsigned long now);
-int  sched_enable(Scheduler *s, int index, int enabled);
+int  sched_init(Scheduler *s);
+int  sched_add(Scheduler *s, const char *name, const char *cmd,
+               SchedType type, int interval);
+int  sched_remove(Scheduler *s, int idx);
+int  sched_tick(Scheduler *s, long now);
+int  sched_enable(Scheduler *s, int idx, int enabled);
+void sched_destroy(Scheduler *s);
 
 #endif
