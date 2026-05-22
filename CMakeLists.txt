@@ -286,3 +286,32 @@ list(APPEND PUTTYALT_SOURCES
     puttyalt_sessorder.c
     puttyalt_uptime.c
 )
+
+# v2.0.0 phase 3 modules
+list(APPEND PUTTYALT_SOURCES
+    puttyalt_activity.c
+    puttyalt_templates.c
+    puttyalt_approval.c
+    puttyalt_scheduler.c
+    puttyalt_shortcutoverlay.c
+    puttyalt_themeswitch.c
+    puttyalt_sesstags.c
+    puttyalt_clipboard_history.c
+    puttyalt_breadcrumb.c
+    puttyalt_minimap.c
+    puttyalt_splitview.c
+    puttyalt_colorpicker.c
+    puttyalt_fontpicker.c
+    puttyalt_opacity_ctrl.c
+    puttyalt_idle_detect.c
+    puttyalt_session_lock.c
+    puttyalt_reconnect_v2.c
+    puttyalt_bandwidth_limit.c
+    puttyalt_connpool.c
+    puttyalt_ssh_agent_v2.c
+    puttyalt_proxy_detect.c
+    puttyalt_dns_cache.c
+    puttyalt_keepalive_v2.c
+    puttyalt_session_notes_v2.c
+    puttyalt_quick_actions.c
+)
