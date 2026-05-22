@@ -1,11 +1,11 @@
 # PuttyAlt
 
-**Modern SSH terminal built on PuTTY 0.83** — custom dark UI, tabs, macros, SFTP, 220+ productivity features in a single portable EXE.
+**Modern SSH terminal built on PuTTY 0.83** — custom dark UI, tabs, macros, SFTP, 250+ productivity features in a single portable EXE.
 
 ![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Windows%20|%20Linux%20|%20macOS-lightgrey)
-![Modules](https://img.shields.io/badge/modules-220+-orange)
+![Modules](https://img.shields.io/badge/modules-250+-orange)
 
 ## Features
 
@@ -105,7 +105,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 | Command Palette | Fuzzy search command launcher (Ctrl+Shift+P) |
 | Performance Monitor | Real-time metrics with threshold alerts |
 
-**Total: 220+ source modules across 450+ commits**
+**Total: 250+ source modules across 500+ commits**
 
 ### v1.0.6 (Latest)
 - Layout manager with named presets and pane persistence
@@ -167,4 +167,4 @@ See [ROADMAP.md](ROADMAP.md) for upcoming features (split panes, GPU rendering, 
 | Setup Wizard | First-run configuration wizard |
 | Bell Controller | Visual flash, system, taskbar, custom sound |
 
-**Total: 220+ source modules across 450+ commits**
+**Total: 250+ source modules across 500+ commits**
