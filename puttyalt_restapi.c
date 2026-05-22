@@ -60,6 +60,22 @@ int rest_process_request(RestServer *rs, RestMethod method,
                          const char *path, const char *body,
                          char *response, int resp_max)
 {
+    if (!rs || !response || resp_max <= 0) return 500;
+    if (!path || !path[0]) {
+        snprintf(response, resp_max, "{\"error\":\"empty path\"}");
+        return 400;
+    }
+    /* Reject paths exceeding maximum length to prevent buffer issues */
+    if (strlen(path) > 512) {
+        snprintf(response, resp_max, "{\"error\":\"path too long\"}");
+        return 414;
+    }
+    /* Reject body payloads exceeding 64KB */
+    if (body && strlen(body) > 65536) {
+        snprintf(response, resp_max, "{\"error\":\"payload too large\"}");
+        return 413;
+    }
+
     if (!rs->running) {
         snprintf(response, resp_max, "{\"error\":\"server not running\"}");
         return 503;
