@@ -56,22 +56,42 @@ int webhook_remove(WebhookManager *wm, int idx)
     return 0;
 }
 
+static int webhook_check_timeout(const WebhookDef *h, long now)
+{
+    /* If last trigger was within the timeout window, consider it timed out
+     * (in a real async implementation this would check pending HTTP state) */
+    if (h->last_triggered > 0 && h->timeout_ms > 0) {
+        long deadline = h->last_triggered + (h->timeout_ms / 1000);
+        if (now > deadline && h->last_status == 0) {
+            return 1; /* timed out */
+        }
+    }
+    return 0;
+}
+
 int webhook_fire(WebhookManager *wm, WebhookEvent event,
                  const char *payload)
 {
-    if (!wm->global_enabled) return 0;
+    if (!wm || !wm->global_enabled) return 0;
     int fired = 0;
+    long now = (long)time(NULL);
 
     for (int i = 0; i < wm->hook_count; i++) {
         WebhookDef *h = &wm->hooks[i];
         if (!h->enabled || h->event != event) continue;
 
-        h->last_triggered = (long)time(NULL);
+        /* Skip hooks that are still in timeout/pending state */
+        if (webhook_check_timeout(h, now)) {
+            h->last_status = 408; /* Request Timeout */
+            continue;
+        }
+
+        h->last_triggered = now;
         h->total_fires++;
 
         /* In real implementation: HTTP POST to h->url
          * with payload as body and HMAC-SHA256 signature
-         * using h->secret as key */
+         * using h->secret as key, respecting h->timeout_ms */
         (void)payload;
         h->last_status = 200;  /* simulated success */
         fired++;
