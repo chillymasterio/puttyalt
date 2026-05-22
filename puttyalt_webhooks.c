@@ -1,6 +1,7 @@
 #include "puttyalt_webhooks.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 int webhook_init(WebhookManager *wm)

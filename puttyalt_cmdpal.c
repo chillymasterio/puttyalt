@@ -1,5 +1,6 @@
 #include "puttyalt_cmdpal.h"
 #include <string.h>
+#include <stdio.h>
 #include <ctype.h>
 
 static int fuzzy_match(const char *query, const char *text)
