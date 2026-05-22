@@ -15,6 +15,22 @@ static const char DIGIT[] = "0123456789";
 static const char SYMBOL[] = "!@#$%^&*()-_=+[]{}|;:,.<>?";
 static const char AMBIGUOUS[] = "0OolI1";
 
+/* Estimate Shannon entropy of a given password string */
+static double estimate_shannon_entropy(const char *password, int len)
+{
+    int freq[256] = {0};
+    for (int i = 0; i < len; i++)
+        freq[(unsigned char)password[i]]++;
+
+    double entropy = 0.0;
+    for (int i = 0; i < 256; i++) {
+        if (freq[i] == 0) continue;
+        double p = (double)freq[i] / len;
+        entropy -= p * log2(p);
+    }
+    return entropy * len;
+}
+
 void passgen_default(PassGenConfig *cfg)
 {
     memset(cfg, 0, sizeof(*cfg));
@@ -133,4 +149,11 @@ double passgen_entropy(PassGenConfig *cfg)
     int clen = build_charset(cfg, charset);
     if (clen <= 1) return 0;
     return cfg->length * log2((double)clen);
+}
+
+double passgen_actual_entropy(const char *password)
+{
+    if (!password || !password[0]) return 0.0;
+    int len = (int)strlen(password);
+    return estimate_shannon_entropy(password, len);
 }

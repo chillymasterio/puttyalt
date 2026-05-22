@@ -16,5 +16,6 @@ void passgen_default(PassGenConfig *cfg);
 int  passgen_generate(PassGenConfig *cfg, char *buf, int buflen);
 int  passgen_strength(const char *password); /* 0-100 score */
 double passgen_entropy(PassGenConfig *cfg);
+double passgen_actual_entropy(const char *password);
 
 #endif
