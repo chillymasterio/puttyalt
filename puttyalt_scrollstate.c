@@ -2,6 +2,7 @@
 
 void scroll_init(ScrollState *ss)
 {
+    if (!ss) return;
     ss->total_lines = 0;
     ss->visible_lines = 24;
     ss->scroll_pos = 0;
@@ -16,6 +17,7 @@ void scroll_init(ScrollState *ss)
 
 void scroll_set_content(ScrollState *ss, int total, int visible)
 {
+    if (!ss) return;
     int was_at_bottom = scroll_at_bottom(ss);
     ss->total_lines = total;
     ss->visible_lines = visible > 0 ? visible : 1;
@@ -33,6 +35,7 @@ void scroll_set_content(ScrollState *ss, int total, int visible)
 
 void scroll_to(ScrollState *ss, int pos)
 {
+    if (!ss) return;
     if (pos < 0) pos = 0;
     if (pos > ss->scroll_max) pos = ss->scroll_max;
     ss->scroll_pos = pos;
@@ -41,6 +44,7 @@ void scroll_to(ScrollState *ss, int pos)
 
 void scroll_by(ScrollState *ss, int delta)
 {
+    if (!ss) return;
     scroll_to(ss, ss->scroll_pos + delta);
 }
 
