@@ -9,6 +9,9 @@ void tabnav_init(TabNav *tn)
 
 void tabnav_set_active(TabNav *tn, int idx, int total)
 {
+    if (!tn) return;
+    if (total <= 0) return;
+    if (idx < 0 || idx >= total) return;
     if (idx == tn->active && total == tn->total) return;
     tn->total = total;
 
