@@ -1,5 +1,6 @@
 #include "puttyalt_tooltip.h"
 #include <string.h>
+#include <stdio.h>
 
 void tooltip_init(Tooltip *tt)
 {
