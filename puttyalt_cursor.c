@@ -3,6 +3,7 @@
 
 void cursor_init(CursorState *cs, CursorStyle style)
 {
+    if (!cs) return;
     cs->style = style;
     cs->visible = 1;
     cs->blink = 1;
@@ -17,6 +18,7 @@ void cursor_init(CursorState *cs, CursorStyle style)
 
 void cursor_set_style(CursorState *cs, CursorStyle style)
 {
+    if (!cs) return;
     cs->style = style;
     if (style == CURSOR_BAR) cs->thickness = 2;
     else if (style == CURSOR_UNDERLINE) cs->thickness = 2;
@@ -25,6 +27,7 @@ void cursor_set_style(CursorState *cs, CursorStyle style)
 
 void cursor_set_blink(CursorState *cs, int enable, int rate_ms)
 {
+    if (!cs) return;
     cs->blink = enable;
     if (rate_ms > 0) cs->blink_rate_ms = rate_ms;
     if (!enable) cs->blink_state = 1;
@@ -32,6 +35,7 @@ void cursor_set_blink(CursorState *cs, int enable, int rate_ms)
 
 int cursor_update(CursorState *cs, long now_ms)
 {
+    if (!cs) return 0;
     if (!cs->blink) { cs->blink_state = 1; return 0; }
     if (now_ms - cs->last_blink >= cs->blink_rate_ms) {
         cs->blink_state = !cs->blink_state;
