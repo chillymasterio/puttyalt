@@ -9,10 +9,10 @@ typedef struct {
 } UptimeTimer;
 
 void uptime_init(UptimeTimer *ut);
-void uptime_start(UptimeTimer *ut);
-void uptime_stop(UptimeTimer *ut);
-void uptime_pause(UptimeTimer *ut);
-void uptime_resume(UptimeTimer *ut);
+int  uptime_start(UptimeTimer *ut);
+int  uptime_stop(UptimeTimer *ut);
+int  uptime_pause(UptimeTimer *ut);
+int  uptime_resume(UptimeTimer *ut);
 long uptime_elapsed(const UptimeTimer *ut);
 void uptime_format(const UptimeTimer *ut, char *buf, int bufsz);
 

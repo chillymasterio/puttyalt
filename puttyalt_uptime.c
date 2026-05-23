@@ -8,34 +8,42 @@ void uptime_init(UptimeTimer *ut)
     memset(ut, 0, sizeof(*ut));
 }
 
-void uptime_start(UptimeTimer *ut)
+int uptime_start(UptimeTimer *ut)
 {
+    if (!ut) return -1;
+    if (ut->running) return -1; /* already running */
     ut->start_time = (long)time(NULL);
     ut->running = 1;
     ut->paused = 0;
+    return 0;
 }
 
-void uptime_stop(UptimeTimer *ut)
+int uptime_stop(UptimeTimer *ut)
 {
+    if (!ut) return -1;
+    if (!ut->running) return -1; /* not running */
     ut->running = 0;
     ut->paused = 0;
+    return 0;
 }
 
-void uptime_pause(UptimeTimer *ut)
+int uptime_pause(UptimeTimer *ut)
 {
-    if (ut->running && !ut->paused) {
-        ut->pause_time = (long)time(NULL);
-        ut->paused = 1;
-    }
+    if (!ut) return -1;
+    if (!ut->running || ut->paused) return -1;
+    ut->pause_time = (long)time(NULL);
+    ut->paused = 1;
+    return 0;
 }
 
-void uptime_resume(UptimeTimer *ut)
+int uptime_resume(UptimeTimer *ut)
 {
-    if (ut->paused) {
-        long paused_duration = (long)time(NULL) - ut->pause_time;
-        ut->start_time += paused_duration;
-        ut->paused = 0;
-    }
+    if (!ut) return -1;
+    if (!ut->paused) return -1;
+    long paused_duration = (long)time(NULL) - ut->pause_time;
+    ut->start_time += paused_duration;
+    ut->paused = 0;
+    return 0;
 }
 
 long uptime_elapsed(const UptimeTimer *ut)
