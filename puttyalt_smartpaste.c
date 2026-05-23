@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_smartpaste.h"
 #include <string.h>
 #include <stdlib.h>

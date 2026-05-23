@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_autocomplete_v2.h"
 #include <string.h>
 #include <ctype.h>

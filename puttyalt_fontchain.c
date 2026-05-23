@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "puttyalt_fontchain.h"
 #include <string.h>
 #include <stdio.h>

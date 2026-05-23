@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_sesssearch.h"
 #include <string.h>
 #include <ctype.h>

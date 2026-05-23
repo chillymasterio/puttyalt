@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_tabcolors.h"
 #include <string.h>
 

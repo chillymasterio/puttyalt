@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_sftpsync.h"
 #include <string.h>
 #include <time.h>

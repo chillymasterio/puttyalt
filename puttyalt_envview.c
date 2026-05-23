@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_envview.h"
 #include <string.h>
 

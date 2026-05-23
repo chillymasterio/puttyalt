@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_cmdhist_v2.h"
 #include <string.h>
 #include <stdlib.h>

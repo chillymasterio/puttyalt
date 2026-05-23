@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "puttyalt_portable_v2.h"
 #include <string.h>
 #include <stdio.h>

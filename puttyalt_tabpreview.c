@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_tabpreview.h"
 #include <string.h>
 

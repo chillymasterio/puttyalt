@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_searchoverlay.h"
 #include <string.h>
 #include <ctype.h>

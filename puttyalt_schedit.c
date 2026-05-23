@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "puttyalt_schedit.h"
 #include <string.h>
 
