@@ -58,13 +58,14 @@ HostVerifyStatus hv_check(const KnownHostDB *db, const char *host, int port,
 int hv_add(KnownHostDB *db, const char *host, int port,
            const char *key_type, const char *fingerprint, unsigned long now)
 {
+    if (!db || !host || !key_type || !fingerprint) return -1;
     if (db->count >= HV_MAX_KNOWN) return -1;
     KnownHost *h = &db->hosts[db->count];
     memset(h, 0, sizeof(*h));
-    strncpy(h->hostname, host, sizeof(h->hostname) - 1);
+    snprintf(h->hostname, sizeof(h->hostname), "%s", host);
     h->port = port;
-    strncpy(h->key_type, key_type, sizeof(h->key_type) - 1);
-    strncpy(h->fingerprint, fingerprint, HV_FP_LEN - 1);
+    snprintf(h->key_type, sizeof(h->key_type), "%s", key_type);
+    snprintf(h->fingerprint, HV_FP_LEN, "%s", fingerprint);
     h->first_seen = now;
     h->last_seen = now;
     h->status = HV_TRUSTED;
