@@ -1,5 +1,6 @@
 #include "puttyalt_speedtest.h"
 #include <string.h>
+#include <stdio.h>
 #include <time.h>
 
 void speedtest_init(SpeedTestResult *st)

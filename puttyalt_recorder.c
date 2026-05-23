@@ -1,5 +1,6 @@
 #include "puttyalt_recorder.h"
 #include <string.h>
+#include <stdio.h>
 #include <time.h>
 
 #ifndef _WIN32

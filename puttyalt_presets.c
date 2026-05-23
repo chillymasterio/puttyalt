@@ -1,5 +1,6 @@
 #include "puttyalt_presets.h"
 #include <string.h>
+#include <stdio.h>
 
 void preset_store_init(PresetStore *ps)
 {
