@@ -60,12 +60,12 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Approval workflow** — request access to sensitive hosts
 
 ## v1.5.0 (Future) — Scripting & Automation
-- [ ] **Lua scripting engine** — automate terminal interactions
-- [ ] **Expect-like automation** — wait/send patterns for login scripts
-- [ ] **Scheduled tasks** — run commands on cron-like schedule per session
-- [ ] **Pipeline builder** — chain commands across multiple sessions
-- [ ] **REST API** — control PuttyAlt from external tools
-- [ ] **Webhook triggers** — fire webhooks on connection events
+- [x] **Lua scripting engine** — automate terminal interactions
+- [x] **Expect-like automation** — wait/send patterns for login scripts
+- [x] **Scheduled tasks** — run commands on cron-like schedule per session
+- [x] **Pipeline builder** — chain commands across multiple sessions
+- [x] **REST API** — control PuttyAlt from external tools
+- [x] **Webhook triggers** — fire webhooks on connection events
 
 ## v2.0.0 (Released) — Modern UI Rewrite
 **Complete UI rewrite with custom rendering engine.**
