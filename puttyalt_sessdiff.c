@@ -1,5 +1,6 @@
 #include "puttyalt_sessdiff.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 void sessdiff_init(DiffResult *dr)

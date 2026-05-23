@@ -1,5 +1,6 @@
 #include "puttyalt_quickcmd.h"
 #include <string.h>
+#include <stdio.h>
 
 void quickcmd_init(QuickCmdPanel *qp)
 {
