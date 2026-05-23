@@ -20,6 +20,9 @@ int sessorder_add(SessionOrder *so, const char *id, int position)
 
 int sessorder_move(SessionOrder *so, const char *id, int new_pos)
 {
+    if (!so || !id) return -1;
+    if (new_pos < 0 || new_pos >= so->count) return -1;
+
     for (int i = 0; i < so->count; i++) {
         if (strcmp(so->session_ids[i], id) == 0) {
             int old_pos = so->positions[i];
