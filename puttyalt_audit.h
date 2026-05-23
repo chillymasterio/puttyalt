@@ -57,6 +57,7 @@ int  audit_flush(AuditTrail *at);
 int  audit_export_csv(const AuditTrail *at, const char *path);
 int  audit_search(const AuditTrail *at, const char *query,
                   AuditEntry *results, int max_results);
+int  audit_rotate_log(AuditTrail *at, long max_size_bytes);
 int  audit_clear_before(AuditTrail *at, long timestamp);
 
 #endif /* PUTTYALT_AUDIT_H */

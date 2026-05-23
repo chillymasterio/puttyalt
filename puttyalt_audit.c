@@ -152,6 +152,33 @@ int audit_search(const AuditTrail *at, const char *query,
     return found;
 }
 
+int audit_rotate_log(AuditTrail *at, long max_size_bytes)
+{
+    if (!at || !at->log_file || !at->log_path[0]) return -1;
+
+    /* Check current file size */
+    long pos = ftell(at->log_file);
+    if (pos < 0 || pos < max_size_bytes) return 0; /* no rotation needed */
+
+    /* Close current log */
+    fclose(at->log_file);
+    at->log_file = NULL;
+
+    /* Rename current log to .1 (simple single-file rotation) */
+    char rotated_path[560];
+    snprintf(rotated_path, sizeof(rotated_path), "%s.1", at->log_path);
+    rename(at->log_path, rotated_path);
+
+    /* Open fresh log file */
+    at->log_file = fopen(at->log_path, "a");
+    if (at->log_file) {
+        fprintf(at->log_file, "# PuttyAlt Audit Trail — rotated %ld\n",
+                (long)time(NULL));
+        fflush(at->log_file);
+    }
+    return 1; /* rotation performed */
+}
+
 int audit_clear_before(AuditTrail *at, long timestamp)
 {
     int keep_start = 0;
