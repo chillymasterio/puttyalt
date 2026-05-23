@@ -62,6 +62,7 @@ int  pipe_pause(PipeManager *pm, int pipe_idx);
 int  pipe_resume(PipeManager *pm, int pipe_idx);
 PipeStatus pipe_status(const PipeManager *pm, int pipe_idx);
 int  pipe_load(PipeManager *pm, const char *path);
+int  pipe_shutdown(PipeManager *pm);
 int  pipe_save(const PipeManager *pm, const char *path);
 
 #endif

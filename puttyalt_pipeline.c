@@ -120,6 +120,25 @@ int pipe_load(PipeManager *pm, const char *path)
     return 0;
 }
 
+int pipe_shutdown(PipeManager *pm)
+{
+    if (!pm) return -1;
+
+    /* Gracefully stop all running pipelines */
+    for (int i = 0; i < pm->pipe_count; i++) {
+        Pipeline *p = &pm->pipes[i];
+        if (p->status == PIPE_STATUS_RUNNING ||
+            p->status == PIPE_STATUS_PAUSED) {
+            p->status = PIPE_STATUS_IDLE;
+            p->finished_at = (long)time(NULL);
+            snprintf(p->error_msg, sizeof(p->error_msg),
+                     "Stopped by graceful shutdown");
+        }
+    }
+    pm->active_pipe = -1;
+    return 0;
+}
+
 int pipe_save(const PipeManager *pm, const char *path)
 {
     FILE *f = fopen(path, "w");
