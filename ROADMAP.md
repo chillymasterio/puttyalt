@@ -50,7 +50,7 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 *Focus: team workflows and compliance.*
 
 ### Planned
-- [ ] **Shared snippet libraries** — sync via git or network share
+- [x] **Shared snippet libraries** — sync via git or network share
 - [ ] **Session sharing** — read-only terminal stream for pair programming
 - [ ] **Audit trail** — compliance-ready log of all sessions and commands
 - [ ] **Role-based profiles** — restrict targets per user, enforce presets
