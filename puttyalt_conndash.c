@@ -1,5 +1,6 @@
 #include "puttyalt_conndash.h"
 #include <string.h>
+#include <stdio.h>
 #include <time.h>
 
 void conndash_init(ConnDashboard *cd)

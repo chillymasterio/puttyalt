@@ -1,5 +1,6 @@
 #include "puttyalt_logengine.h"
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>

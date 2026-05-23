@@ -1,5 +1,6 @@
 #include "puttyalt_osdetect.h"
 #include <string.h>
+#include <stdio.h>
 #include <ctype.h>
 
 void osdetect_init(OSDetectResult *r) { memset(r, 0, sizeof(*r)); }
