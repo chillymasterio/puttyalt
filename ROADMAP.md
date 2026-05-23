@@ -46,10 +46,8 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] Tab preview on hover
 - [x] Session diff — compare two recordings side-by-side
 
-## v1.4.0 (Next) — Collaboration & Sharing
+## v1.4.0 (Released) — Collaboration & Sharing
 *Focus: team workflows and compliance.*
-
-### Planned
 - [x] **Shared snippet libraries** — sync via git or network share
 - [x] **Session sharing** — read-only terminal stream for pair programming
 - [x] **Audit trail** — compliance-ready log of all sessions and commands
@@ -59,7 +57,7 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Activity feed** — who connected where and when (opt-in)
 - [x] **Approval workflow** — request access to sensitive hosts
 
-## v1.5.0 (Future) — Scripting & Automation
+## v1.5.0 (Released) — Scripting & Automation
 - [x] **Lua scripting engine** — automate terminal interactions
 - [x] **Expect-like automation** — wait/send patterns for login scripts
 - [x] **Scheduled tasks** — run commands on cron-like schedule per session
