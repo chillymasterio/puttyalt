@@ -5,6 +5,7 @@
 
 void uptime_init(UptimeTimer *ut)
 {
+    if (!ut) return;
     memset(ut, 0, sizeof(*ut));
 }
 
@@ -48,13 +49,14 @@ int uptime_resume(UptimeTimer *ut)
 
 long uptime_elapsed(const UptimeTimer *ut)
 {
-    if (!ut->running) return 0;
+    if (!ut || !ut->running) return 0;
     if (ut->paused) return ut->pause_time - ut->start_time;
     return (long)time(NULL) - ut->start_time;
 }
 
 void uptime_format(const UptimeTimer *ut, char *buf, int bufsz)
 {
+    if (!ut || !buf || bufsz <= 0) return;
     long secs = uptime_elapsed(ut);
     if (secs < 0) secs = 0;
 
