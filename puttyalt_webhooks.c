@@ -119,6 +119,7 @@ int webhook_test(WebhookManager *wm, int idx)
 
 int webhook_load(WebhookManager *wm, const char *path)
 {
+    if (!wm || !path || !path[0]) return -1;
     FILE *f = fopen(path, "r");
     if (!f) return -1;
     char line[1024];
@@ -144,6 +145,7 @@ int webhook_load(WebhookManager *wm, const char *path)
 
 int webhook_save(const WebhookManager *wm, const char *path)
 {
+    if (!wm || !path || !path[0]) return -1;
     FILE *f = fopen(path, "w");
     if (!f) return -1;
     fprintf(f, "# PuttyAlt Webhooks\n");
