@@ -102,10 +102,14 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [ ] Plugin API v2 with sandboxed execution — planned v2.1
 - [ ] WebSocket-based remote access (optional) — planned v2.1
 
-## v2.1.0 (Vision)
-- Local AI command suggestions (no cloud)
-- Cloud session sync (encrypted, opt-in)
-- Team collaboration (shared terminals)
-- Mobile companion (iOS/Android viewer)
-- Native Linux packages (deb/rpm/AppImage)
-- Native macOS build (Universal Binary)
+## v2.1.0 (Planned) — Performance & Extensibility
+*Focus: modern rendering, plugin ecosystem, and cloud features.*
+
+### Planned
+- [ ] **Split pane support** — horizontal and vertical splitting
+- [ ] **GPU-accelerated rendering** — Direct2D backend for smooth compositing
+- [ ] **Ligature support** — HarfBuzz integration for programming fonts
+- [ ] **Inline image protocol** — Sixel, iTerm2, and Kitty graphics support
+- [ ] **Plugin API v2 with sandbox** — isolated plugin execution environment
+- [ ] **Cloud session sync** — encrypted, opt-in session synchronization
+- [ ] **AI command suggestions** — local LLM-powered command completion
