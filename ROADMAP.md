@@ -51,13 +51,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Planned
 - [x] **Shared snippet libraries** — sync via git or network share
-- [ ] **Session sharing** — read-only terminal stream for pair programming
-- [ ] **Audit trail** — compliance-ready log of all sessions and commands
-- [ ] **Role-based profiles** — restrict targets per user, enforce presets
-- [ ] **Config sync** — export/import all settings as portable profile
-- [ ] **Team templates** — shared connection templates with locked fields
-- [ ] **Activity feed** — who connected where and when (opt-in)
-- [ ] **Approval workflow** — request access to sensitive hosts
+- [x] **Session sharing** — read-only terminal stream for pair programming
+- [x] **Audit trail** — compliance-ready log of all sessions and commands
+- [x] **Role-based profiles** — restrict targets per user, enforce presets
+- [x] **Config sync** — export/import all settings as portable profile
+- [x] **Team templates** — shared connection templates with locked fields
+- [x] **Activity feed** — who connected where and when (opt-in)
+- [x] **Approval workflow** — request access to sensitive hosts
 
 ## v1.5.0 (Future) — Scripting & Automation
 - [ ] **Lua scripting engine** — automate terminal interactions
