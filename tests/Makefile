@@ -10,7 +10,9 @@ CFLAGS  ?= -Wall -Wextra -std=c99 -g -I..
 LDFLAGS ?= -lm
 
 SRCDIR  = ..
-TESTS   = test_modules test_security test_terminal test_network
+TESTS   = test_modules test_security test_terminal test_network \
+          test_workflow test_automation test_ui_components \
+          test_session_mgmt test_config
 
 # Source files needed for linking (module implementations)
 SECURITY_SRCS = $(SRCDIR)/puttyalt_credstore.c \
@@ -33,6 +35,21 @@ NETWORK_SRCS  = $(SRCDIR)/puttyalt_keepalive.c \
 all: $(TESTS)
 
 test_modules: test_modules.c
+	$(CC) $(CFLAGS) -c -o $@.o $<
+
+test_workflow: test_workflow.c
+	$(CC) $(CFLAGS) -c -o $@.o $<
+
+test_automation: test_automation.c
+	$(CC) $(CFLAGS) -c -o $@.o $<
+
+test_ui_components: test_ui_components.c
+	$(CC) $(CFLAGS) -c -o $@.o $<
+
+test_session_mgmt: test_session_mgmt.c
+	$(CC) $(CFLAGS) -c -o $@.o $<
+
+test_config: test_config.c
 	$(CC) $(CFLAGS) -c -o $@.o $<
 
 test_security: test_security.c $(SECURITY_SRCS)
