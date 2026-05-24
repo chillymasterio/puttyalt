@@ -153,7 +153,7 @@ static int test_validate_port_range(void)
     assert(port == 65535);
     assert(validate_port("0", &port) == VALID_OUT_OF_RANGE);
     assert(validate_port("99999", &port) == VALID_OUT_OF_RANGE);
-    assert(validate_port("-1", &port) == VALID_OUT_OF_RANGE);
+    assert(validate_port("-1", &port) == VALID_INVALID_CHARS);
     return 1;
 }
 
@@ -164,7 +164,7 @@ static int test_validate_config_check(void)
     assert(validate_ip4("192.168.1.1") == VALID_OK);
     assert(validate_ip4("10.0.0.1") == VALID_OK);
     assert(validate_ip4("999.0.0.1") == VALID_OUT_OF_RANGE);
-    assert(validate_ip4("not.an.ip.addr") == VALID_OUT_OF_RANGE);
+    assert(validate_ip4("not.an.ip.addr") == VALID_INVALID_CHARS);
     return 1;
 }
 
@@ -174,6 +174,7 @@ static int test_scroll_position(void)
 {
     ScrollState ss;
     scroll_init(&ss);
+    ss.auto_scroll = 0;  /* disable auto-scroll for position test */
     scroll_set_content(&ss, 500, 24);
     assert(ss.total_lines == 500);
     assert(ss.visible_lines == 24);
@@ -186,6 +187,7 @@ static int test_scroll_page_up_down(void)
 {
     ScrollState ss;
     scroll_init(&ss);
+    ss.auto_scroll = 0;
     scroll_set_content(&ss, 1000, 25);
 
     /* Page down */

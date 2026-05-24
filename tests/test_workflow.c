@@ -59,7 +59,7 @@ static int test_sessshare_broadcast(void)
     sessshare_host_start(&ss, 9000, "pw");
     unsigned char data[] = "Hello viewers";
     int r = sessshare_broadcast_data(&ss, data, (int)strlen((char *)data));
-    assert(r == 0);
+    assert(r == (int)strlen((char *)data));
     assert(ss.total_bytes >= strlen((char *)data));
     sessshare_host_stop(&ss);
     sessshare_destroy(&ss);

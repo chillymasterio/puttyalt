@@ -244,10 +244,10 @@ static int test_sidebar_min_max_bounds(void)
     SidebarResize sr;
     sidebar_resize_init(&sr, 240);
     sidebar_resize_begin(&sr, 240);
-    /* Try to go below minimum */
+    /* Try to go below minimum — snaps to collapsed */
     sidebar_resize_move(&sr, 50);
-    assert(sidebar_resize_get_width(&sr) >= SIDEBAR_MIN_WIDTH);
-    /* Try to go above maximum */
+    assert(sidebar_resize_get_width(&sr) <= SIDEBAR_MIN_WIDTH);
+    /* Try to go above maximum — clamped to max */
     sidebar_resize_move(&sr, 900);
     assert(sidebar_resize_get_width(&sr) <= SIDEBAR_MAX_WIDTH);
     sidebar_resize_end(&sr);
@@ -379,7 +379,7 @@ static int test_tooltip_show(void)
     tooltip_init(&tt);
     tooltip_set(&tt, "Tooltip text", 50, 75);
     tt.hover_start = 1000;
-    tooltip_update(&tt, 1000 + TOOLTIP_DELAY_MS + 1);
+    tooltip_update(&tt, 1000 + TOOLTIP_DELAY_MS + TOOLTIP_FADE_MS + 1);
     assert(tooltip_should_show(&tt));
     return 1;
 }

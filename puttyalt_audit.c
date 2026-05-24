@@ -154,7 +154,8 @@ int audit_search(const AuditTrail *at, const char *query,
 
 int audit_rotate_log(AuditTrail *at, long max_size_bytes)
 {
-    if (!at || !at->log_file || !at->log_path[0]) return -1;
+    if (!at) return -1;
+    if (!at->log_file || !at->log_path[0]) return 0; /* no file, nothing to rotate */
 
     /* Check current file size */
     long pos = ftell(at->log_file);

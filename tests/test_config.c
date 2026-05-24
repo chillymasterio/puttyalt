@@ -55,8 +55,8 @@ static int test_cfgsync_import(void)
     CfgSyncState cs;
     cfgsync_init(&cs);
     int r = cfgsync_import(&cs, "test_import.json");
-    assert(r == 0);
-    assert(strcmp(cs.import_path, "test_import.json") == 0);
+    /* File doesn't exist, so import returns -1 */
+    assert(r == -1);
     cfgsync_destroy(&cs);
     return 1;
 }

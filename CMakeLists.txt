@@ -314,4 +314,5 @@ list(APPEND PUTTYALT_SOURCES
     puttyalt_keepalive_v2.c
     puttyalt_session_notes_v2.c
     puttyalt_quick_actions.c
+    puttyalt_sniplib.c
 )
