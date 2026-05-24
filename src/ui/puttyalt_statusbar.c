@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void sb_init(StatusBar *sb)
+void statusbar_init(StatusBar *sb)
 {
     memset(sb, 0, sizeof(*sb));
     sb->height = 22;

@@ -39,7 +39,7 @@ typedef struct {
     int       visible;
 } StatusBar;
 
-void sb_init(StatusBar *sb);
+void statusbar_init(StatusBar *sb);
 int  sb_add_section(StatusBar *sb, SBSectionType type, SBAlign align, int width);
 int  sb_set_text(StatusBar *sb, int index, const char *text);
 int  sb_set_progress(StatusBar *sb, int index, int pct);

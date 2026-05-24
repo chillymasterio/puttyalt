@@ -3,6 +3,9 @@
 #include <string.h>
 #include <time.h>
 #include <ctype.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 void pa_init(ProtoAnalyzer *pa)
 {
@@ -24,9 +27,13 @@ int pa_capture(ProtoAnalyzer *pa, PAProtocol proto, PADirection dir,
     memcpy(p->data, data, len);
     p->data_len = len;
     
+#ifdef _WIN32
+    p->timestamp_ms = (long)GetTickCount64();
+#else
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     p->timestamp_ms = ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
+#endif
     p->seq_num = pa->count;
 
     if (dir == PA_DIR_IN) { pa->bytes_in += len; pa->packets_in++; }
