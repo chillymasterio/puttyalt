@@ -8,10 +8,10 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "../puttyalt_termemu.h"
-#include "../puttyalt_ansiparse.h"
-#include "../puttyalt_selection.h"
-#include "../puttyalt_scrollstate.h"
+#include "puttyalt_termemu.h"
+#include "puttyalt_ansiparse.h"
+#include "puttyalt_selection.h"
+#include "puttyalt_scrollstate.h"
 
 static int tests_run = 0;
 static int tests_passed = 0;

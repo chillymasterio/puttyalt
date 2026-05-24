@@ -7,10 +7,10 @@
 #include <string.h>
 #include <assert.h>
 
-#include "../puttyalt_credstore.h"
-#include "../puttyalt_ratelimit.h"
-#include "../puttyalt_inputfilter.h"
-#include "../puttyalt_hostverify.h"
+#include "puttyalt_credstore.h"
+#include "puttyalt_ratelimit.h"
+#include "puttyalt_inputfilter.h"
+#include "puttyalt_hostverify.h"
 
 static int tests_run = 0;
 static int tests_passed = 0;

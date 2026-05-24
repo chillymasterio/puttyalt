@@ -7,10 +7,10 @@
 #include <string.h>
 #include <assert.h>
 
-#include "../puttyalt_keepalive.h"
-#include "../puttyalt_proxychain.h"
-#include "../puttyalt_connpool.h"
-#include "../puttyalt_tunnelmon.h"
+#include "puttyalt_keepalive.h"
+#include "puttyalt_proxychain.h"
+#include "puttyalt_connpool.h"
+#include "puttyalt_tunnelmon.h"
 
 static int tests_run = 0;
 static int tests_passed = 0;
