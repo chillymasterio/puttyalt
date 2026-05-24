@@ -6,7 +6,7 @@
 #   make clean      — remove binaries
 
 CC      ?= gcc
-CFLAGS  ?= -Wall -Wextra -std=c99 -g -I..
+CFLAGS  ?= -Wall -Wextra -std=c99 -g -I.. -I../include
 LDFLAGS ?= -lm
 
 SRCDIR  = ..
@@ -15,20 +15,20 @@ TESTS   = test_modules test_security test_terminal test_network \
           test_session_mgmt test_config
 
 # Source files needed for linking (module implementations)
-SECURITY_SRCS = $(SRCDIR)/puttyalt_credstore.c \
-                $(SRCDIR)/puttyalt_ratelimit.c \
-                $(SRCDIR)/puttyalt_inputfilter.c \
-                $(SRCDIR)/puttyalt_hostverify.c
+SECURITY_SRCS = $(SRCDIR)/src/security/puttyalt_credstore.c \
+                $(SRCDIR)/src/security/puttyalt_ratelimit.c \
+                $(SRCDIR)/src/security/puttyalt_inputfilter.c \
+                $(SRCDIR)/src/security/puttyalt_hostverify.c
 
-TERMINAL_SRCS = $(SRCDIR)/puttyalt_termemu.c \
-                $(SRCDIR)/puttyalt_ansiparse.c \
-                $(SRCDIR)/puttyalt_selection.c \
-                $(SRCDIR)/puttyalt_scrollstate.c
+TERMINAL_SRCS = $(SRCDIR)/src/terminal/puttyalt_termemu.c \
+                $(SRCDIR)/src/terminal/puttyalt_ansiparse.c \
+                $(SRCDIR)/src/terminal/puttyalt_selection.c \
+                $(SRCDIR)/src/ui/puttyalt_scrollstate.c
 
-NETWORK_SRCS  = $(SRCDIR)/puttyalt_keepalive.c \
-                $(SRCDIR)/puttyalt_proxychain.c \
-                $(SRCDIR)/puttyalt_connpool.c \
-                $(SRCDIR)/puttyalt_tunnelmon.c
+NETWORK_SRCS  = $(SRCDIR)/src/network/puttyalt_keepalive.c \
+                $(SRCDIR)/src/network/puttyalt_proxychain.c \
+                $(SRCDIR)/src/network/puttyalt_connpool.c \
+                $(SRCDIR)/src/network/puttyalt_tunnelmon.c
 
 .PHONY: all test clean
 
