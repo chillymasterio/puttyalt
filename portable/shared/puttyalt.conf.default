@@ -1,0 +1,24 @@
+# PuttyAlt Default Configuration
+# Copy to puttyalt.conf to customize
+
+[general]
+theme = Warm Blue
+font = Consolas
+font_size = 11
+tab_position = top
+
+[terminal]
+scrollback = 10000
+bell = Short Beep
+cursor_blink = true
+color_scheme = Warm Blue
+
+[network]
+keepalive_interval = 30
+reconnect_attempts = 5
+reconnect_delay = 2000
+
+[security]
+remember_passwords = false
+host_key_policy = ask
+audit_log = false
