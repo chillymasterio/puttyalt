@@ -1,37 +1,52 @@
-#include "puttyalt_speedtest.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <time.h>
+#endif
 
-void speedtest_init(SpeedTestResult *st)
+typedef struct {
+    double latency_ms;
+    double throughput_kbps;
+    int packet_loss_pct;
+    int samples;
+} SpeedResult;
+
+static double get_time_ms(void)
 {
-    memset(st, 0, sizeof(*st));
-    st->run_on_connect = 1;
-    st->test_size_kb = 64;
+#ifdef _WIN32
+    return (double)GetTickCount64();
+#else
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec * 1000.0 + ts.tv_nsec / 1e6;
+#endif
 }
 
-void speedtest_calc_quality(SpeedTestResult *st)
+void speedtest_init(SpeedResult *r)
 {
-    if (st->latency_ms < 50 && st->jitter_ms < 10 && st->packet_loss_pct == 0)
-        snprintf(st->quality, sizeof(st->quality), "Excellent");
-    else if (st->latency_ms < 150 && st->jitter_ms < 30 && st->packet_loss_pct <= 1)
-        snprintf(st->quality, sizeof(st->quality), "Good");
-    else if (st->latency_ms < 300 && st->packet_loss_pct <= 5)
-        snprintf(st->quality, sizeof(st->quality), "Fair");
-    else
-        snprintf(st->quality, sizeof(st->quality), "Poor");
+    memset(r, 0, sizeof(*r));
 }
 
-int speedtest_run_latency(SpeedTestResult *st, int sample_count)
+void speedtest_add_sample(SpeedResult *r, double latency, double throughput)
 {
-    (void)sample_count;
-    /* platform-specific: would measure RTT via echo */
-    time_t now = time(NULL);
-    struct tm *t = localtime(&now);
-    strftime(st->last_test, sizeof(st->last_test), "%Y-%m-%d %H:%M", t);
-    st->test_count++;
-    speedtest_calc_quality(st);
-    return 0;
+    r->latency_ms = (r->latency_ms * r->samples + latency) / (r->samples + 1);
+    r->throughput_kbps = (r->throughput_kbps * r->samples + throughput) / (r->samples + 1);
+    r->samples++;
 }
 
-const char *speedtest_quality_label(SpeedTestResult *st) { return st->quality; }
+const char *speedtest_grade(SpeedResult *r)
+{
+    if (r->latency_ms < 20 && r->throughput_kbps > 10000) return "Excellent";
+    if (r->latency_ms < 50 && r->throughput_kbps > 5000) return "Good";
+    if (r->latency_ms < 150 && r->throughput_kbps > 1000) return "Fair";
+    return "Poor";
+}
+
+int speedtest_format(SpeedResult *r, char *buf, int buflen)
+{
+    return snprintf(buf, buflen, "Latency: %.1fms | Speed: %.0f kbps | Grade: %s",
+                    r->latency_ms, r->throughput_kbps, speedtest_grade(r));
+}
