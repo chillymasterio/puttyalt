@@ -1,39 +1,38 @@
 # PuttyAlt
 
-**Modern SSH terminal built on PuTTY 0.83** — dark UI, custom-drawn controls, tabs, 233 modules in a single portable EXE.
+<div align="center">
 
-![Version](https://img.shields.io/badge/version-2.0.1-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Platform](https://img.shields.io/badge/platform-Windows%20x64-lightgrey)
-![Modules](https://img.shields.io/badge/modules-233-orange)
-![Tests](https://img.shields.io/badge/tests-108%20passing-brightgreen)
+### The SSH client you actually want to use.
+
+**PuTTY was built in 1999. Your workflow has changed. Your tools should too.**
+
+![Version](https://img.shields.io/badge/version-2.0.1-58A6FF?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
+![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
+![Modules](https://img.shields.io/badge/233%20modules-D29922?style=flat-square)
+![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
+
+**[Download v2.0.1](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.exe)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
+
+</div>
 
 ---
 
-## Screenshots
+## Why PuttyAlt?
 
-Dark theme with custom tab bar, sidebar, and terminal:
+| | PuTTY | Other terminals | **PuttyAlt** |
+|---|---|---|---|
+| Dark mode | No | Some | **Native dark UI, DWM title bar** |
+| Tabs | No | Yes | **Custom-drawn with hover & close** |
+| Automation | No | Limited | **Lua, expect, pipelines, REST API** |
+| Portable | Yes | Rarely | **Single EXE, zero install** |
+| Performance | Good | Varies | **120fps double-buffered, < 1MB** |
+| Open source | Yes | Some | **MIT, 35K lines of C99** |
 
-```
-+-----------------------------------------------------+
-|  PuttyAlt v2.0.1                            - [] X  |
-+----------+----------+------------------------------+
-| Session1 | Server2  |  +                            |
-+----------+----------+------------------------------+
-| SESSIONS |                                          |
-| * prod   |  PuttyAlt                                |
-|   dev    |  Modern SSH & Terminal Client             |
-|          |                                          |
-| QUICK    |     Ctrl+N   New Connection              |
-| New Sess |     Ctrl+P   Command Palette             |
-| Snippets |     Ctrl+F   Search                      |
-| SFTP     |     Ctrl+,   Preferences                 |
-| Keys     |     F11      Fullscreen                  |
-|          |                                          |
-+----------+------------------------------------------+
-| * Connected | user@host |               v2.0.1     |
-+-----------------------------------------------------+
-```
+> **One file. No install. No Electron. No dependencies.**
+> Download. Double-click. Connect.
+
+---
 
 ## Features
 
@@ -120,20 +119,21 @@ include/           All headers (single include path)
 | 1.2.0 | UX — smart paste, fuzzy search, password generator, multi-clipboard |
 | 1.1.0 | Terminal engine — ANSI parser, selection, scrollback, 256-color |
 
-## Windows SmartScreen
+## Design Philosophy
 
-First run may trigger SmartScreen — this is normal for unsigned software.
+```
+Fast.     — Native C99, no runtime, no VM, no framework overhead.
+Focused.  — SSH done right. Not a general terminal pretending to do SSH.
+Portable. — One EXE. Works from USB. No registry. No %APPDATA% mess.
+Private.  — Zero telemetry. No cloud. Your keys stay on your machine.
+```
 
-1. Click **"More info"** then **"Run anyway"**
-
-Or in PowerShell: `Unblock-File -Path .\puttyalt.exe`
-
-## Building
-
-Requirements: MinGW-w64 (x86_64-w64-mingw32-gcc)
+## Building from Source
 
 ```bash
-# Compile all modules
+git clone https://github.com/chillymasterio/puttyalt.git && cd puttyalt
+
+# Compile (MinGW-w64)
 for f in src/*/*.c; do
   x86_64-w64-mingw32-gcc -c -Iinclude -I. -O2 "$f" -o "build/$(basename $f .c).o"
 done
@@ -141,15 +141,26 @@ done
 # Link
 x86_64-w64-mingw32-gcc build/*.o -o puttyalt.exe \
   -mwindows -lws2_32 -lgdi32 -lcomctl32 -ldwmapi -lcomdlg32 -lm
-
-# Run tests (native)
-gcc -Iinclude -I. tests/test_automation.c src/automation/*.c -o test && ./test
 ```
+
+## Windows SmartScreen
+
+First launch may show a SmartScreen warning — normal for unsigned open-source software.
+
+Click **"More info"** → **"Run anyway"**, or: `Unblock-File -Path .\puttyalt.exe`
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE).
 
 ---
 
-**233 modules | 550+ commits | 35,000+ lines of C**
+<div align="center">
+
+**233 modules | 550+ commits | 35,000+ lines of C99**
+
+Built with care. No bloat. No compromise.
+
+**[Download PuttyAlt](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.exe)**
+
+</div>
