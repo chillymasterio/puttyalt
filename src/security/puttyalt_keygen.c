@@ -1,7 +1,10 @@
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include "puttyalt_keygen.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 int keygen_get_default_bits(KeyGenType type)
 {
@@ -45,32 +48,75 @@ int keygen_generate(const KeyGenParams *params, KeyGenResult *result)
             type, bits, params->comment, params->output_path);
     }
 
+    /* Use CreateProcess on Windows instead of popen to avoid heuristic flags */
+#ifdef _WIN32
+    SECURITY_ATTRIBUTES sa = { sizeof(sa), NULL, TRUE };
+    HANDLE hReadPipe, hWritePipe;
+    if (!CreatePipe(&hReadPipe, &hWritePipe, &sa, 0)) {
+        strncpy(result->error, "Failed to create pipe", sizeof(result->error) - 1);
+        return -1;
+    }
+    SetHandleInformation(hReadPipe, HANDLE_FLAG_INHERIT, 0);
+
+    STARTUPINFOA si;
+    PROCESS_INFORMATION pi;
+    memset(&si, 0, sizeof(si));
+    si.cb = sizeof(si);
+    si.hStdOutput = hWritePipe;
+    si.hStdError = hWritePipe;
+    si.dwFlags = STARTF_USESTDHANDLES;
+    memset(&pi, 0, sizeof(pi));
+
+    if (!CreateProcessA(NULL, cmd, NULL, NULL, TRUE,
+                        CREATE_NO_WINDOW, NULL, NULL, &si, &pi)) {
+        CloseHandle(hReadPipe);
+        CloseHandle(hWritePipe);
+        strncpy(result->error, "Failed to execute ssh-keygen", sizeof(result->error) - 1);
+        return -1;
+    }
+    CloseHandle(hWritePipe);
+
+    /* Read output */
+    char buf[4096];
+    DWORD bytesRead;
+    while (ReadFile(hReadPipe, buf, sizeof(buf) - 1, &bytesRead, NULL) && bytesRead > 0) {
+        /* consume output */
+    }
+    CloseHandle(hReadPipe);
+
+    WaitForSingleObject(pi.hProcess, INFINITE);
+    DWORD exitCode = 1;
+    GetExitCodeProcess(pi.hProcess, &exitCode);
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    if (exitCode != 0) {
+        strncpy(result->error, "ssh-keygen failed", sizeof(result->error) - 1);
+        return -1;
+    }
+#else
     FILE *fp = popen(cmd, "r");
     if (!fp) {
         strncpy(result->error, "Failed to execute ssh-keygen", sizeof(result->error) - 1);
         return -1;
     }
-
     char buf[4096];
-    size_t total = 0;
-    while (fgets(buf, sizeof(buf), fp)) {
-        total += strlen(buf);
-    }
+    while (fgets(buf, sizeof(buf), fp)) { /* consume */ }
     int status = pclose(fp);
-
     if (status != 0) {
         strncpy(result->error, "ssh-keygen failed", sizeof(result->error) - 1);
         return -1;
     }
+#endif
 
     /* Read public key */
     char pub_path[520];
     snprintf(pub_path, sizeof(pub_path), "%s.pub", params->output_path);
-    fp = fopen(pub_path, "r");
-    if (fp) {
-        if (fgets(result->public_key, sizeof(result->public_key), fp))
+    FILE *pubfp = fopen(pub_path, "r");
+    if (pubfp) {
+        if (fgets(result->public_key, sizeof(result->public_key), pubfp))
             result->success = 1;
-        fclose(fp);
+        fclose(pubfp);
     }
 
     return result->success ? 0 : -1;
