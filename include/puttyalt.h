@@ -7,9 +7,10 @@
 
 #define PUTTYALT_VERSION_MAJOR  2
 #define PUTTYALT_VERSION_MINOR  0
-#define PUTTYALT_VERSION_PATCH  1
+#define PUTTYALT_VERSION_PATCH  2
 
-#define PUTTYALT_VERSION_STR    "2.0.1"
+#define PUTTYALT_VERSION_STR    "2.0.2"
+#define PUTTYALT_BUILD_DATE     "2026-05-26"
 #define PUTTYALT_NAME           "PuttyAlt"
 #define PUTTYALT_APPNAME        "PuttyAlt"
 #define PUTTYALT_UPSTREAM       "PuTTY 0.83"
