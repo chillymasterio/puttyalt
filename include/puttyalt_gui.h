@@ -1,7 +1,7 @@
 /*
- * puttyalt_gui.h: GUI application framework — v1.0.0 redesign.
+ * puttyalt_gui.h: GUI application framework — v2.0 Modern UI.
  *
- * Warm blue minimalist design with intuitive UX.
+ * GitHub Dark design, custom-drawn controls, double-buffered rendering.
  */
 
 #ifndef PUTTYALT_GUI_H
@@ -84,6 +84,7 @@
 #define IDM_TOOLS_SCRIPTMGR   5009
 #define IDM_TOOLS_CONNPROF    5010
 #define IDM_TOOLS_MONITOR     5011
+#define IDM_TOOLS_CMDPAL      5012
 
 #define IDM_HELP_ABOUT        6001
 #define IDM_HELP_DOCS         6002

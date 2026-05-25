@@ -291,6 +291,8 @@ static void gui_create_menu(GUIState *gui)
     AppendMenuA(vm, MF_SEPARATOR, 0, NULL);
     AppendMenuA(vm, MF_STRING, IDM_VIEW_THEME, "Theme...");
 
+    AppendMenuA(tm, MF_STRING, IDM_TOOLS_CMDPAL, "Command Palette\tCtrl+P");
+    AppendMenuA(tm, MF_SEPARATOR, 0, NULL);
     AppendMenuA(tm, MF_STRING, IDM_TOOLS_SNIPPETS, "Snippets\tCtrl+Shift+S");
     AppendMenuA(tm, MF_STRING, IDM_TOOLS_MACROS, "Macros\tCtrl+Shift+M");
     AppendMenuA(tm, MF_STRING, IDM_TOOLS_KEYGEN, "Key Generator...");
@@ -585,6 +587,7 @@ static HACCEL gui_create_accelerators(void)
         { FCONTROL | FSHIFT | FVIRTKEY, 'V',   IDM_EDIT_PASTE },
         { FCONTROL | FSHIFT | FVIRTKEY, 'A',   IDM_EDIT_SELECTALL },
         { FCONTROL | FVIRTKEY,  'F',           IDM_EDIT_FIND },
+        { FCONTROL | FVIRTKEY,  'P',           IDM_TOOLS_CMDPAL },
         { FCONTROL | FVIRTKEY,  'R',           IDM_SESSION_RECONNECT },
         { FCONTROL | FVIRTKEY,  'B',           IDM_SESSION_BROADCAST },
         { FVIRTKEY,             VK_F11,        IDM_VIEW_FULLSCREEN },
@@ -819,12 +822,12 @@ static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
             FillRect(hdc, &cursor_rc, cursor_br);
             DeleteObject(cursor_br);
         } else {
-            /* Welcome screen — centered, minimal */
+            /* Welcome screen — centered, clean, minimal */
             int center_x = (rc.right - rc.left) / 2;
             int center_y = (rc.bottom - rc.top) / 3;
 
-            /* Logo / app name */
-            HFONT title_font = CreateFontA(DS_FONT_SIZE_TITLE + 6, 0, 0, 0,
+            /* App name — large, light weight */
+            HFONT title_font = CreateFontA(28, 0, 0, 0,
                 FW_LIGHT, 0, 0, 0,
                 DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
                 DEFAULT_PITCH, DS_FONT_UI);
@@ -839,57 +842,71 @@ static LRESULT CALLBACK term_wndproc(HWND hwnd, UINT msg,
             SelectObject(hdc, old_tf);
             DeleteObject(title_font);
 
-            /* Subtitle */
+            /* Tagline */
             HFONT sub_font = CreateFontA(DS_FONT_SIZE_LG, 0, 0, 0, FW_NORMAL, 0, 0, 0,
                 DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
                 DEFAULT_PITCH, DS_FONT_UI);
             HFONT old_sf = (HFONT)SelectObject(hdc, sub_font);
 
             SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
-            const char *sub = "Modern SSH Terminal";
+            const char *sub = "Modern SSH & Terminal Client";
             SIZE sub_sz;
             GetTextExtentPoint32A(hdc, sub, (int)strlen(sub), &sub_sz);
-            TextOutA(hdc, center_x - sub_sz.cx / 2, center_y + name_sz.cy + 8,
+            TextOutA(hdc, center_x - sub_sz.cx / 2, center_y + name_sz.cy + 6,
                      sub, (int)strlen(sub));
 
             SelectObject(hdc, old_sf);
             DeleteObject(sub_font);
 
-            /* Keyboard shortcuts in a grid */
-            cy = center_y + name_sz.cy + 48;
+            /* Shortcut hints — compact two-column grid */
+            cy = center_y + name_sz.cy + 52;
 
-            SelectObject(hdc, mono);  /* switch back to mono font */
+            HFONT hint_font = CreateFontA(DS_FONT_SIZE_SM, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+                DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
+                FIXED_PITCH | FF_MODERN, DS_FONT_MONO);
+            HFONT old_hf = (HFONT)SelectObject(hdc, hint_font);
 
             const char *keys[] = {
-                "Ctrl+N",  "New session",
-                "Ctrl+O",  "Open saved",
-                "Ctrl+F",  "Find",
+                "Ctrl+N",  "New Connection",
+                "Ctrl+P",  "Command Palette",
+                "Ctrl+F",  "Search",
+                "Ctrl+,",  "Preferences",
                 "F11",     "Fullscreen",
-                "Ctrl+,",  "Settings",
             };
 
             for (int i = 0; i < 10; i += 2) {
-                SetTextColor(hdc, HEX_RGB(DS_ACCENT_MUTED));
-                RECT key_rc = { center_x - 120, cy, center_x - 10, cy + 18 };
+                /* Key badge */
+                SetTextColor(hdc, HEX_RGB(DS_ACCENT));
+                RECT key_rc = { center_x - 130, cy, center_x - 12, cy + 20 };
                 DrawTextA(hdc, keys[i], -1, &key_rc,
                           DT_RIGHT | DT_SINGLELINE | DT_VCENTER);
 
-                SetTextColor(hdc, HEX_RGB(DS_TEXT_SECONDARY));
-                RECT desc_rc = { center_x + 10, cy, center_x + 160, cy + 18 };
+                /* Description */
+                SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
+                RECT desc_rc = { center_x + 8, cy, center_x + 180, cy + 20 };
                 DrawTextA(hdc, keys[i + 1], -1, &desc_rc,
                           DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 
-                cy += 24;
+                cy += 22;
             }
 
-            /* Version at bottom */
-            cy = rc.bottom - 40;
+            SelectObject(hdc, old_hf);
+            DeleteObject(hint_font);
+
+            /* Version footer — subtle */
+            cy = rc.bottom - 32;
+            HFONT ver_font = CreateFontA(DS_FONT_SIZE_XS, 0, 0, 0, FW_NORMAL, 0, 0, 0,
+                DEFAULT_CHARSET, 0, 0, CLEARTYPE_QUALITY,
+                DEFAULT_PITCH, DS_FONT_UI);
+            HFONT old_vf = (HFONT)SelectObject(hdc, ver_font);
             SetTextColor(hdc, HEX_RGB(DS_TEXT_MUTED));
             char ver[128];
-            snprintf(ver, sizeof(ver), "%s  |  MIT License", PUTTYALT_VERSION_STR);
+            snprintf(ver, sizeof(ver), "%s", PUTTYALT_VERSION_STR);
             SIZE ver_sz;
             GetTextExtentPoint32A(hdc, ver, (int)strlen(ver), &ver_sz);
             TextOutA(hdc, center_x - ver_sz.cx / 2, cy, ver, (int)strlen(ver));
+            SelectObject(hdc, old_vf);
+            DeleteObject(ver_font);
         }
 
         SelectObject(hdc, old);
@@ -1228,6 +1245,10 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
             dialog_tunnel_manager(gui);
             break;
 
+        case IDM_TOOLS_CMDPAL:
+            gui_set_status(gui, "Command Palette");
+            break;
+
         case IDM_TOOLS_SCRIPTMGR:
             gui_set_status(gui, "Script manager opened");
             break;
@@ -1278,11 +1299,13 @@ static LRESULT CALLBACK gui_wndproc(HWND hwnd, UINT msg,
         case IDM_HELP_CHANGELOG:
             MessageBoxA(hwnd,
                 "PuttyAlt Changelog\n\n"
-                "v1.3.1 — OS detection, speed test, tab preview\n"
-                "v1.3.0 — Session groups, SFTP sync, triggers\n"
-                "v1.2.0 — Smart paste, search, key manager\n"
-                "v1.1.0 — Terminal engine, ANSI, selection\n"
-                "v1.0.0 — Complete GUI redesign\n\n"
+                "v2.0.1 — Test suite, stability fixes, 233 modules\n"
+                "v2.0.0 — Modern UI rewrite, custom rendering\n"
+                "v1.5.0 — Scripting & automation (Lua, pipelines)\n"
+                "v1.4.0 — Collaboration (sharing, audit, roles)\n"
+                "v1.3.0 — Workflow (groups, SFTP sync, triggers)\n"
+                "v1.2.0 — UX (smart paste, search, key manager)\n"
+                "v1.1.0 — Terminal engine, ANSI, selection\n\n"
                 "See CHANGELOG.md for full details.",
                 PUTTYALT_NAME " - Changelog",
                 MB_OK | MB_ICONINFORMATION);
