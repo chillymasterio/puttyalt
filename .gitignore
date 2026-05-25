@@ -47,3 +47,6 @@ build-*/
 Thumbs.db
 test_export.json
 deploy.sh
+archive/
+*.iso
+puttyalt-*.7z
