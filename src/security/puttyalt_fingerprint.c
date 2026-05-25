@@ -1,146 +1,54 @@
-#include "puttyalt_fingerprint.h"
-#include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
-#include <time.h>
+#include <stdio.h>
 
-void fpstore_init(FPStore *fps)
+int fingerprint_format_sha256(const unsigned char *hash, int len, char *out, int outlen)
 {
-    memset(fps, 0, sizeof(*fps));
-}
-
-int fpstore_add(FPStore *fps, const char *host, int port,
-                const char *fingerprint, const char *algo)
-{
-    if (fps->count >= FP_MAX_HOSTS) return -1;
-    int idx = fpstore_find(fps, host, port);
-    if (idx >= 0) return idx;
-
-    FPEntry *e = &fps->entries[fps->count];
-    memset(e, 0, sizeof(*e));
-    snprintf(e->hostname, FP_MAX_HOST, "%s", host);
-    e->port = port;
-    snprintf(e->fingerprint, FP_MAX_FP, "%s", fingerprint);
-    snprintf(e->algo, FP_MAX_ALGO, "%s", algo);
-    e->trust = FP_TRUST_UNKNOWN;
-    e->first_seen = (long)time(NULL);
-    e->last_seen = e->first_seen;
-    e->seen_count = 1;
-    return fps->count++;
-}
-
-int fpstore_find(const FPStore *fps, const char *host, int port)
-{
-    for (int i = 0; i < fps->count; i++) {
-        if (strcmp(fps->entries[i].hostname, host) == 0 &&
-            fps->entries[i].port == port)
-            return i;
+    if (len <= 0 || !out) return -1;
+    int pos = 0;
+    for (int i = 0; i < len && pos < outlen - 3; i++) {
+        if (i > 0) out[pos++] = ':';
+        pos += snprintf(out + pos, outlen - pos, "%02x", hash[i]);
     }
-    return -1;
+    return pos;
 }
 
-FPTrustLevel fpstore_verify(FPStore *fps, const char *host, int port,
-                            const char *fingerprint)
+int fingerprint_format_md5(const unsigned char *hash, int len, char *out, int outlen)
 {
-    int idx = fpstore_find(fps, host, port);
-    if (idx < 0) return FP_TRUST_UNKNOWN;
-
-    FPEntry *e = &fps->entries[idx];
-    e->last_seen = (long)time(NULL);
-    e->seen_count++;
-
-    if (e->trust == FP_TRUST_REVOKED) return FP_TRUST_REVOKED;
-    if (strcmp(e->fingerprint, fingerprint) != 0) {
-        e->trust = FP_TRUST_CHANGED;
-        return FP_TRUST_CHANGED;
+    if (len != 16 || !out) return -1;
+    int pos = 0;
+    for (int i = 0; i < 16 && pos < outlen - 3; i++) {
+        if (i > 0) out[pos++] = ':';
+        pos += snprintf(out + pos, outlen - pos, "%02x", hash[i]);
     }
-    return e->trust;
+    return pos;
 }
 
-int fpstore_trust(FPStore *fps, int index)
+int fingerprint_randomart(const unsigned char *hash, int len, char *out, int outlen)
 {
-    if (index < 0 || index >= fps->count) return -1;
-    fps->entries[index].trust = FP_TRUST_TRUSTED;
-    return 0;
-}
-
-int fpstore_revoke(FPStore *fps, int index)
-{
-    if (index < 0 || index >= fps->count) return -1;
-    fps->entries[index].trust = FP_TRUST_REVOKED;
-    return 0;
-}
-
-int fpstore_remove(FPStore *fps, int index)
-{
-    if (index < 0 || index >= fps->count) return -1;
-    for (int i = index; i < fps->count - 1; i++)
-        fps->entries[i] = fps->entries[i + 1];
-    fps->count--;
-    return 0;
-}
-
-int fpstore_load(FPStore *fps, const char *path)
-{
-    FILE *f = fopen(path, "r");
-    char line[512];
-    if (!f) return -1;
-    fpstore_init(fps);
-    FPEntry *cur = NULL;
-
-    while (fgets(line, sizeof(line), f)) {
-        size_t len = strlen(line);
-        while (len > 0 && (line[len-1] == '\n' || line[len-1] == '\r'))
-            line[--len] = '\0';
-        if (strcmp(line, "[host]") == 0) {
-            if (fps->count >= FP_MAX_HOSTS) break;
-            cur = &fps->entries[fps->count++];
-            memset(cur, 0, sizeof(*cur));
-            continue;
-        }
-        if (!cur) continue;
-        if (strncmp(line, "name=", 5) == 0)
-            snprintf(cur->hostname, FP_MAX_HOST, "%s", line + 5);
-        else if (strncmp(line, "port=", 5) == 0)
-            cur->port = atoi(line + 5);
-        else if (strncmp(line, "fp=", 3) == 0)
-            snprintf(cur->fingerprint, FP_MAX_FP, "%s", line + 3);
-        else if (strncmp(line, "algo=", 5) == 0)
-            snprintf(cur->algo, FP_MAX_ALGO, "%s", line + 5);
-        else if (strncmp(line, "trust=", 6) == 0)
-            cur->trust = atoi(line + 6);
-    }
-    fclose(f);
-    return 0;
-}
-
-int fpstore_save(const FPStore *fps, const char *path)
-{
-    FILE *f = fopen(path, "w");
-    if (!f) return -1;
-    for (int i = 0; i < fps->count; i++) {
-        const FPEntry *e = &fps->entries[i];
-        fprintf(f, "[host]\nname=%s\nport=%d\nfp=%s\nalgo=%s\ntrust=%d\n\n",
-                e->hostname, e->port, e->fingerprint, e->algo, e->trust);
-    }
-    fclose(f);
-    return 0;
-}
-
-int fpstore_export_known_hosts(const FPStore *fps, const char *path)
-{
-    FILE *f = fopen(path, "w");
-    if (!f) return -1;
-    for (int i = 0; i < fps->count; i++) {
-        const FPEntry *e = &fps->entries[i];
-        if (e->trust == FP_TRUST_TRUSTED) {
-            if (e->port == 22)
-                fprintf(f, "%s %s %s\n", e->hostname, e->algo, e->fingerprint);
-            else
-                fprintf(f, "[%s]:%d %s %s\n", e->hostname, e->port,
-                        e->algo, e->fingerprint);
+    /* Bishop's randomart visualization */
+    int field[9][17];
+    memset(field, 0, sizeof(field));
+    int x = 8, y = 4;
+    for (int i = 0; i < len; i++) {
+        for (int j = 0; j < 4; j++) {
+            int v = (hash[i] >> (2 * j)) & 3;
+            if (v & 1) x = x < 16 ? x + 1 : x; else x = x > 0 ? x - 1 : x;
+            if (v & 2) y = y < 8 ? y + 1 : y; else y = y > 0 ? y - 1 : y;
+            field[y][x]++;
         }
     }
-    fclose(f);
-    return 0;
+    const char augment[] = " .o+=*BOX@%&#/^SE";
+    int pos = 0;
+    pos += snprintf(out + pos, outlen - pos, "+---[PuttyAlt]----+\n");
+    for (int r = 0; r < 9 && pos < outlen - 20; r++) {
+        out[pos++] = '|';
+        for (int c = 0; c < 17; c++) {
+            int v = field[r][c];
+            if (v >= 16) v = 16;
+            out[pos++] = augment[v];
+        }
+        out[pos++] = '|'; out[pos++] = '\n';
+    }
+    pos += snprintf(out + pos, outlen - pos, "+-----------------+");
+    return pos;
 }
