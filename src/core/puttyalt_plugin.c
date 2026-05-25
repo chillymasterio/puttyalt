@@ -36,7 +36,7 @@ int plugin_unload(PluginManager *pm, int index)
     if (p->cleanup) p->cleanup();
 
     p->state = PLUGIN_UNLOADED;
-    p->handle = NULL;
+    p->handle_id = 0;
     return 0;
 }
 

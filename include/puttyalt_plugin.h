@@ -24,7 +24,7 @@ typedef struct PluginInfo {
 typedef struct Plugin {
     PluginInfo info;
     PluginState state;
-    void *handle;          /* dlopen/LoadLibrary handle */
+    int handle_id;         /* internal plugin reference */
     int (*init)(void);
     void (*cleanup)(void);
     int (*on_connect)(const char *host, int port);
