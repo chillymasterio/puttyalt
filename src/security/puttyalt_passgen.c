@@ -7,6 +7,7 @@
 #include <math.h>
 #ifdef _WIN32
 #include <windows.h>
+#include <wincrypt.h>
 #endif
 
 static const char UPPER[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -59,7 +60,7 @@ static int build_charset(PassGenConfig *cfg, char *charset)
     if (cfg->use_lower) sets[idx++] = LOWER;
     if (cfg->use_digits) sets[idx++] = DIGIT;
     if (cfg->use_symbols) sets[idx++] = SYMBOL;
-    
+
     for (int s = 0; s < idx; s++) {
         for (const char *p = sets[s]; *p; p++) {
             if (!is_excluded(cfg, *p)) charset[n++] = *p;
@@ -69,54 +70,54 @@ static int build_charset(PassGenConfig *cfg, char *charset)
     return n;
 }
 
+/* Secure random bytes using standard CryptoAPI (no dynamic loading) */
+static int secure_random_bytes(unsigned char *buf, int len)
+{
+#ifdef _WIN32
+    HCRYPTPROV hProv = 0;
+    if (CryptAcquireContextA(&hProv, NULL, NULL, PROV_RSA_FULL,
+                              CRYPT_VERIFYCONTEXT | CRYPT_SILENT)) {
+        int ok = CryptGenRandom(hProv, (DWORD)len, buf);
+        CryptReleaseContext(hProv, 0);
+        return ok ? 0 : -1;
+    }
+    return -1;
+#else
+    FILE *urand = fopen("/dev/urandom", "rb");
+    if (urand) {
+        int ok = (fread(buf, 1, len, urand) == (size_t)len) ? 0 : -1;
+        fclose(urand);
+        return ok;
+    }
+    return -1;
+#endif
+}
+
 int passgen_generate(PassGenConfig *cfg, char *buf, int buflen)
 {
     char charset[256];
     int clen = build_charset(cfg, charset);
     if (clen == 0 || cfg->length <= 0) return -1;
     int len = cfg->length < buflen ? cfg->length : buflen - 1;
-    
-    /* Use OS entropy source for cryptographic quality randomness */
+
+    unsigned char randbuf[256];
+    int rlen = len < 256 ? len : 256;
+
+    if (secure_random_bytes(randbuf, rlen) == 0) {
+        for (int i = 0; i < len; i++)
+            buf[i] = charset[randbuf[i % rlen] % clen];
+    } else {
+        /* Fallback: mix multiple entropy sources */
+        unsigned int seed = (unsigned int)time(NULL);
+        seed ^= (unsigned int)(uintptr_t)buf;
 #ifdef _WIN32
-    /* Use CryptGenRandom via RtlGenRandom (SystemFunction036) */
-    {
-        unsigned char randbuf[256];
-        typedef int (WINAPI *RtlGenRandomFn)(void*, unsigned long);
-        HMODULE advapi = LoadLibraryA("advapi32.dll");
-        RtlGenRandomFn gen = advapi ?
-            (RtlGenRandomFn)GetProcAddress(advapi, "SystemFunction036") : NULL;
-        if (gen && gen(randbuf, (unsigned long)len)) {
-            for (int i = 0; i < len; i++)
-                buf[i] = charset[randbuf[i] % clen];
-        } else {
-            /* Fallback: mix multiple entropy sources */
-            unsigned int seed = (unsigned int)time(NULL);
-            seed ^= (unsigned int)(uintptr_t)buf;
-            seed ^= (unsigned int)GetTickCount();
-            srand(seed);
-            for (int i = 0; i < len; i++)
-                buf[i] = charset[rand() % clen];
-        }
-        if (advapi) FreeLibrary(advapi);
-    }
-#else
-    {
-        FILE *urand = fopen("/dev/urandom", "rb");
-        if (urand) {
-            unsigned char randbuf[256];
-            int rlen = len < 256 ? len : 256;
-            if (fread(randbuf, 1, rlen, urand) == (size_t)rlen) {
-                for (int i = 0; i < len; i++)
-                    buf[i] = charset[randbuf[i % rlen] % clen];
-            }
-            fclose(urand);
-        } else {
-            srand((unsigned)(time(NULL) ^ (unsigned long)(void*)buf));
-            for (int i = 0; i < len; i++)
-                buf[i] = charset[rand() % clen];
-        }
-    }
+        seed ^= (unsigned int)GetTickCount();
 #endif
+        srand(seed);
+        for (int i = 0; i < len; i++)
+            buf[i] = charset[rand() % clen];
+    }
+
     buf[len] = '\0';
     return len;
 }
