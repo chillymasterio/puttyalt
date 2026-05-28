@@ -8,11 +8,11 @@
 
 ![Version](https://img.shields.io/badge/version-2.0.2-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
-![Platform](https://img.shields.io/badge/Windows%20|%20Linux-0D1117?style=flat-square&logo=windows&logoColor=white)
+![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
 ![Modules](https://img.shields.io/badge/270+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
 
-**[Download v2.0.2](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.exe)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
+**[Download v2.0.2](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
 
 </div>
 
@@ -25,12 +25,10 @@
 | Dark mode | No | Some | **Native dark UI, 10 color schemes** |
 | Tabs | No | Yes | **Groups, hover preview, drag reorder** |
 | Automation | No | Limited | **Lua, expect, macros, watchdog, cron** |
-| Portable | Yes | Rarely | **Single EXE + modular DLLs, zero install** |
 | Performance | Good | Varies | **120fps double-buffered, truecolor** |
-| Cross-platform | Windows | Varies | **Windows GUI + Linux CLI** |
 | Open source | Yes | Some | **MIT, 40K+ lines of C99** |
 
-> **One file. No install. No Electron. No dependencies.**
+> **No Electron. No dependencies. No bloat.**
 > Download. Double-click. Connect.
 
 ---
@@ -49,19 +47,17 @@
 | **Tools** | Clipboard ring, hex dump, base64, regex matching, hostname auto-complete, Unicode/CJK support, structured logging |
 | **Config** | Switchable profiles, keyboard remapping, env variables with expansion, theme export/import, config migration, auto-backup |
 
-## Quick Install
-
-```powershell
-# One-liner (no SmartScreen):
-irm https://raw.githubusercontent.com/chillymasterio/puttyalt/main/install.ps1 | iex
-```
+## Quick Start
 
 ```bash
-# Or download portable EXE:
-wget https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.exe
+# Download and run
+wget https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi
 
-# Linux CLI:
-chmod +x puttyalt && ./puttyalt
+# Or build from source
+git clone https://github.com/chillymasterio/puttyalt.git
+cd puttyalt
+x86_64-w64-mingw32-gcc -c -Iinclude -I. -O2 src/*/*.c
+x86_64-w64-mingw32-gcc *.o -o puttyalt.msi -mwindows -lgdi32 -ldwmapi -lws2_32 -lcomctl32
 ```
 
 ## Command Line
@@ -75,7 +71,6 @@ puttyalt [options] [user@]host[:port]
   -load name    Load saved session
   -e command    Execute remote command
   -v            Verbose mode
-  -portable     Force portable mode
   -config file  Alternate config file
 ```
 
@@ -109,10 +104,6 @@ src/
 ├── tools/         70 modules — SCP, hex, base64, Unicode, logging, regex
 └── config/        16 modules — profiles, keybinds, env, migration, backup
 
-portable/
-├── windows/       puttyalt.exe + 9 DLL modules
-└── linux/         CLI client with session manager
-
 tests/             9 suites (108 assertions, all passing)
 ```
 
@@ -120,7 +111,7 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
-| **2.0.2** | 270+ modules, truecolor, Sixel, 2FA, macro recording, tab preview, watchdog, Linux CLI, portable bundle |
+| **2.0.2** | 270+ modules, truecolor, Sixel, 2FA, macro recording, tab preview, watchdog, cipher prefs |
 | **2.0.1** | UI polish, command palette, multi-size icon, test suite (108/108), project reorganization |
 | **2.0.0** | Complete UI rewrite — dark theme, custom controls, DWM integration, double-buffered rendering |
 | 1.5.0 | Scripting & Automation — Lua engine, expect, pipelines, REST API, webhooks |
@@ -131,16 +122,15 @@ tests/             9 suites (108 assertions, all passing)
 ```
 Fast.       — Native C99, no runtime, no VM, no framework overhead.
 Focused.    — SSH done right. Not a general terminal pretending to do SSH.
-Portable.   — One EXE. Works from USB. No registry. No %APPDATA% mess.
+Modular.    — 270+ modules organized by function. Extend what you need.
 Private.    — Zero telemetry. No cloud. Your keys stay on your machine.
-Extensible. — 9 modular DLLs. Add what you need, skip what you don't.
 ```
 
 ## Windows SmartScreen
 
 First launch may show a SmartScreen warning — normal for unsigned open-source software.
 
-Click **"More info"** → **"Run anyway"**, or: `Unblock-File -Path .\puttyalt.exe`
+Click **"More info"** → **"Run anyway"**.
 
 ## License
 
@@ -154,6 +144,6 @@ MIT — see [LICENSE](LICENSE).
 
 Built with care. No bloat. No compromise.
 
-**[Download PuttyAlt](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.exe)**
+**[Download PuttyAlt](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)**
 
 </div>
