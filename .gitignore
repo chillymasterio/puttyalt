@@ -50,3 +50,27 @@ deploy.sh
 archive/
 *.iso
 puttyalt-*.7z
+
+# Local deploy tooling — never commit
+deploy-kit/
+deploy-kit*.zip
+
+# Portable distribution — compiled binaries belong in release assets, not the repo
+portable/linux/puttyalt
+portable/windows/puttyalt.exe
+portable/windows/modules/*.dll
+
+# Build & distribution artifacts (ship as release assets, never commit)
+build_test/
+build*/
+*.msi
+*.tar
+*.tar.gz
+*.tgz
+puttyalt-*.zip
+*.pdb
+*.exp
+*.ilk
+
+# Local-only helper scripts (kept on disk, not published)
+tools/set_icon.py

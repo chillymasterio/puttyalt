@@ -6,13 +6,13 @@
 
 **PuTTY was built in 1999. Your workflow has changed. Your tools should too.**
 
-![Version](https://img.shields.io/badge/version-2.0.2-58A6FF?style=flat-square)
+![Version](https://img.shields.io/badge/version-2.0.1-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
 ![Modules](https://img.shields.io/badge/270+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
 
-**[Download v2.0.2](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
+**[Download v2.0.1](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
 
 </div>
 
@@ -111,8 +111,7 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
-| **2.0.2** | 270+ modules, truecolor, Sixel, 2FA, macro recording, tab preview, watchdog, cipher prefs |
-| **2.0.1** | UI polish, command palette, multi-size icon, test suite (108/108), project reorganization |
+| **2.0.1** | 270+ modules, truecolor, Sixel, 2FA, macro recording, tab preview, watchdog, cipher prefs, command palette, multi-size icon, test suite (108/108), project reorganization |
 | **2.0.0** | Complete UI rewrite — dark theme, custom controls, DWM integration, double-buffered rendering |
 | 1.5.0 | Scripting & Automation — Lua engine, expect, pipelines, REST API, webhooks |
 | 1.4.0 | Collaboration — audit trail, roles, session sharing, approval workflow |
