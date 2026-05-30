@@ -23,7 +23,6 @@ add_library(puttyalt STATIC
   src/ui/puttyalt_tabs.c
   src/tools/puttyalt_sftppanel.c
   src/security/puttyalt_credstore.c
-  src/core/puttyalt_theme.c
   src/tools/puttyalt_import.c
   src/tools/puttyalt_shortcuts.c
   src/tools/puttyalt_notify.c
@@ -48,13 +47,11 @@ add_library(puttyalt STATIC
   src/network/puttyalt_tunnel.c
   src/tools/puttyalt_serial.c
   src/tools/puttyalt_findreplace.c
-  src/session/puttyalt_tags.c
   src/tools/puttyalt_export2.c
   src/network/puttyalt_connpool.c
   src/tools/puttyalt_urlhandler.c
   src/tools/puttyalt_scp.c
   src/network/puttyalt_netdiag.c
-  src/tools/puttyalt_template.c
   src/ui/puttyalt_colorpicker.c
   src/ui/puttyalt_fontmgr.c
   src/core/puttyalt_startup.c
@@ -76,7 +73,6 @@ add_library(puttyalt STATIC
   src/tools/puttyalt_mempool.c
   src/tools/puttyalt_strbuf.c
   src/core/puttyalt_ini.c
-  src/automation/puttyalt_triggersv2.c
   src/security/puttyalt_keygen.c
   src/security/puttyalt_hostverify.c
   src/core/puttyalt_imgproto.c
@@ -136,7 +132,6 @@ add_library(puttyalt STATIC
   src/terminal/puttyalt_termfx.c
   src/core/puttyalt_locale.c
   src/network/puttyalt_tunnelmon.c
-  src/ui/puttyalt_cmdpalette.c
   src/tools/puttyalt_perfmon.c
   src/core/puttyalt_layout.c
   src/automation/puttyalt_macro.c
@@ -196,7 +191,6 @@ list(APPEND PUTTYALT_SOURCES
     src/core/puttyalt_ctxmenu.c
     src/ui/puttyalt_quickbar.c
     src/ui/puttyalt_favorites.c
-    src/tools/puttyalt_healthchk.c
     src/network/puttyalt_autoreconn.c
     src/network/puttyalt_jumpchain.c
     src/core/puttyalt_uilayer.c
@@ -206,7 +200,6 @@ list(APPEND PUTTYALT_SOURCES
     src/core/puttyalt_wizard.c
     src/session/puttyalt_sessreplay.c
     src/config/puttyalt_schedit.c
-    src/terminal/puttyalt_bellctl.c
 )
 
 # v1.2.0 UX & Usability modules
