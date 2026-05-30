@@ -102,14 +102,53 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [ ] Plugin API v2 with sandboxed execution — planned v2.1
 - [ ] WebSocket-based remote access (optional) — planned v2.1
 
-## v2.1.0 (Planned) — Performance & Extensibility
+## v2.1.0 (In Progress) — Performance & Extensibility
 *Focus: modern rendering, plugin ecosystem, and cloud features.*
 
-### Planned
-- [ ] **Split pane support** — horizontal and vertical splitting
-- [ ] **GPU-accelerated rendering** — Direct2D backend for smooth compositing
+### Split panes
+- [x] **Split pane support** — binary split tree, horizontal and vertical splitting
+- [x] **Pane focus navigation** — directional (h/j/k/l) and cyclic focus moves
+- [x] **Pane resize** — divider drag-resize with per-pane minimum-size clamps
+- [x] **Pane zoom** — toggle one pane fullscreen with geometry restore
+- [x] **Multi-pane broadcast** — fan keystrokes to all panes in a group
+
+### Rendering
+- [x] **Direct2D backend abstraction** — hardware path with software fallback
+- [x] **Glyph-run render cache** — LRU cache to skip re-rasterizing cells
+- [x] **Dirty-rectangle tracking** — coalesced partial redraw
+- [x] **Frame pacer** — target-FPS budget with skip logic
 - [ ] **Ligature support** — HarfBuzz integration for programming fonts
-- [ ] **Inline image protocol** — Sixel, iTerm2, and Kitty graphics support
-- [ ] **Plugin API v2 with sandbox** — isolated plugin execution environment
-- [ ] **Cloud session sync** — encrypted, opt-in session synchronization
-- [ ] **AI command suggestions** — local LLM-powered command completion
+
+### Inline images
+- [x] **iTerm2 protocol** — OSC 1337 inline image parser
+- [x] **Kitty graphics protocol** — APC `_G` sequence parser
+- [x] **Image cell placement** — grid anchoring and overlap resolution
+- [x] **Image scaling** — aspect-preserving cell-fit geometry
+- [x] **Graphics memory budget** — byte ledger with LRU eviction
+- [x] **OSC/APC router** — dispatch table isolating image detection
+
+### Plugin API v2 (sandboxed)
+- [x] **Manifest parser** — INI-style plugin descriptor with capabilities
+- [x] **Capability grants** — manifest → permission set enforcement
+- [x] **Sandboxed message bus** — capability-checked, rate/size-limited
+- [x] **Lifecycle state machine** — load/enable/disable/unload transitions
+- [x] **Plugin registry** — id/name-indexed loaded-plugin table
+- [x] **Hook dispatch** — priority-ordered event delivery to plugins
+
+### Cloud sync
+- [x] **Encrypted envelope codec** — versioned, checksummed sync payloads
+- [x] **Conflict resolution** — three-way merge, last-writer-wins
+- [ ] **Cloud transport** — encrypted, opt-in remote synchronization
+
+### AI command suggestions
+- [x] **Weighted ranker** — prefix + recency + frequency scoring
+- [x] **Decaying frequency model** — time-decayed command usage stats
+- [x] **Fuzzy history index** — subsequence matching over history
+- [x] **Suggestion cache** — TTL-keyed result cache
+
+### Workspace & layout
+- [x] **Layout save/restore** — named window/pane layout store
+- [x] **Workspace manager** — group sessions, active-workspace switching
+- [x] **Floating panel snap** — snap-to-edge magnetism
+- [x] **Session restore on startup** — replay open sessions on launch
+- [x] **Quick-launch entries** — palette command registry
