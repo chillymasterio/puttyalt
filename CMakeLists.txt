@@ -121,7 +121,6 @@ add_library(puttyalt STATIC
   src/core/puttyalt_themes.c
   src/ui/puttyalt_keybind.c
   src/tools/puttyalt_sftpmgr.c
-  src/network/puttyalt_bandwidth.c
   src/network/puttyalt_proxy.c
   src/session/puttyalt_sessnotes.c
   src/network/puttyalt_protoanalyze.c
@@ -133,11 +132,8 @@ add_library(puttyalt STATIC
   src/core/puttyalt_locale.c
   src/network/puttyalt_tunnelmon.c
   src/tools/puttyalt_perfmon.c
-  src/core/puttyalt_layout.c
-  src/automation/puttyalt_macro.c
   src/terminal/puttyalt_terminal_conf.c
   src/tools/puttyalt_updater.c
-  src/ui/puttyalt_statusbar.c
 )
 
 target_include_directories(puttyalt PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -198,7 +194,6 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_dockpanel.c
     src/config/puttyalt_cfgvalid.c
     src/core/puttyalt_wizard.c
-    src/session/puttyalt_sessreplay.c
     src/config/puttyalt_schedit.c
 )
 
@@ -262,7 +257,6 @@ list(APPEND PUTTYALT_SOURCES
     src/security/puttyalt_roles.c
     src/config/puttyalt_cfgsync.c
     src/automation/puttyalt_luaengine.c
-    src/automation/puttyalt_expect.c
     src/automation/puttyalt_webhooks.c
     src/automation/puttyalt_pipeline.c
     src/automation/puttyalt_restapi.c
@@ -271,10 +265,8 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_cursor.c
     src/core/puttyalt_paths.c
     src/ui/puttyalt_focusring.c
-    src/config/puttyalt_validate.c
     src/ui/puttyalt_toast.c
     src/ui/puttyalt_scrollstate.c
-    src/ui/puttyalt_tooltip.c
     src/ui/puttyalt_tabnav.c
     src/session/puttyalt_sessorder.c
     src/tools/puttyalt_uptime.c
@@ -285,22 +277,18 @@ list(APPEND PUTTYALT_SOURCES
     src/config/puttyalt_activity.c
     src/config/puttyalt_templates.c
     src/security/puttyalt_approval.c
-    src/automation/puttyalt_scheduler.c
     src/ui/puttyalt_shortcutoverlay.c
     src/ui/puttyalt_themeswitch.c
     src/session/puttyalt_sesstags.c
     src/editor/puttyalt_clipboard_history.c
     src/ui/puttyalt_breadcrumb.c
     src/ui/puttyalt_minimap.c
-    src/ui/puttyalt_splitview.c
-    src/ui/puttyalt_colorpicker.c
     src/ui/puttyalt_fontpicker.c
     src/ui/puttyalt_opacity_ctrl.c
     src/tools/puttyalt_idle_detect.c
     src/session/puttyalt_session_lock.c
     src/network/puttyalt_reconnect_v2.c
     src/network/puttyalt_bandwidth_limit.c
-    src/network/puttyalt_connpool.c
     src/security/puttyalt_ssh_agent_v2.c
     src/network/puttyalt_proxy_detect.c
     src/network/puttyalt_dns_cache.c
@@ -308,4 +296,80 @@ list(APPEND PUTTYALT_SOURCES
     src/session/puttyalt_session_notes_v2.c
     src/ui/puttyalt_quick_actions.c
     src/editor/puttyalt_sniplib.c
+)
+
+# v2.1.0 split panes, GPU render, inline images, plugin API v2, cloud sync, AI suggestions
+list(APPEND PUTTYALT_SOURCES
+    src/ui/puttyalt_splitpane.c
+    src/ui/puttyalt_panenav.c
+    src/ui/puttyalt_paneresize.c
+    src/core/puttyalt_d2dbackend.c
+    src/core/puttyalt_rendercache.c
+    src/core/puttyalt_dirtyrect.c
+    src/core/puttyalt_framepace.c
+    src/automation/puttyalt_pmanifest.c
+    src/security/puttyalt_pgrant.c
+    src/automation/puttyalt_msgbus.c
+    src/automation/puttyalt_pluglife.c
+    src/automation/puttyalt_plugreg.c
+    src/automation/puttyalt_hookdispatch.c
+    src/security/puttyalt_syncenvelope.c
+    src/session/puttyalt_syncconflict.c
+    src/automation/puttyalt_cmdsuggest.c
+    src/automation/puttyalt_cmdfreqmodel.c
+    src/tools/puttyalt_histfuzzy.c
+    src/tools/puttyalt_sugcache.c
+    src/terminal/puttyalt_itermimg.c
+    src/terminal/puttyalt_kittygfx.c
+    src/terminal/puttyalt_imgcell.c
+    src/terminal/puttyalt_imgscale.c
+    src/terminal/puttyalt_gfxbudget.c
+    src/terminal/puttyalt_oscroute.c
+    src/ui/puttyalt_panelsnap.c
+    src/config/puttyalt_layoutstore.c
+    src/session/puttyalt_wsmanager.c
+    src/terminal/puttyalt_panecast.c
+    src/ui/puttyalt_panezoom.c
+    src/session/puttyalt_bootrestore.c
+    src/ui/puttyalt_launchentries.c
+)
+
+# v2.2.0 Vulkan/GPU, collaboration, performance, advanced terminal, cloud transport
+list(APPEND PUTTYALT_SOURCES
+    src/network/puttyalt_cloudsync.c
+    src/network/puttyalt_lathist.c
+    src/network/puttyalt_readsizer.c
+    src/network/puttyalt_writebatch.c
+    src/network/puttyalt_wsframe.c
+    src/security/puttyalt_auditchain.c
+    src/security/puttyalt_credscope.c
+    src/security/puttyalt_keyrotate.c
+    src/security/puttyalt_sharetier.c
+    src/security/puttyalt_tofupin.c
+    src/security/puttyalt_vaultring.c
+    src/session/puttyalt_coedit.c
+    src/session/puttyalt_optransform.c
+    src/session/puttyalt_presence.c
+    src/terminal/puttyalt_bidirun.c
+    src/terminal/puttyalt_blockrect.c
+    src/terminal/puttyalt_cellslab.c
+    src/terminal/puttyalt_cmdtrack.c
+    src/terminal/puttyalt_damageregion.c
+    src/terminal/puttyalt_glyphatlas.c
+    src/terminal/puttyalt_graphwidth.c
+    src/terminal/puttyalt_hyperlinx.c
+    src/terminal/puttyalt_inputcoal.c
+    src/terminal/puttyalt_ligshape.c
+    src/terminal/puttyalt_lineundo.c
+    src/terminal/puttyalt_promptmark.c
+    src/terminal/puttyalt_reflowsched.c
+    src/terminal/puttyalt_rendercmdq.c
+    src/terminal/puttyalt_sbarena.c
+    src/terminal/puttyalt_subpixelpos.c
+    src/terminal/puttyalt_tabstops.c
+    src/terminal/puttyalt_vkbackend.c
+    src/terminal/puttyalt_vsyncctl.c
+    src/tools/puttyalt_asciicast.c
+    src/ui/puttyalt_annotate.c
+    src/ui/puttyalt_scrubber.c
 )
