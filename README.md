@@ -9,7 +9,7 @@
 ![Version](https://img.shields.io/badge/version-2.0.1-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
-![Modules](https://img.shields.io/badge/330+%20modules-D29922?style=flat-square)
+![Modules](https://img.shields.io/badge/350+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
 
 **[Download v2.0.1](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
@@ -40,7 +40,7 @@
 |----------|-----------|
 | **UI** | 10 color schemes (Dracula, Nord, Tokyo Night...), split panes (h/v) with focus nav/zoom, floating panel snap, animations, tab groups, search bar, font scaling, quick-launch palette |
 | **Sessions** | Ratings, bookmarks with folders, labels, notes, clone/template, import from PuTTY registry, workspaces, startup restore, quick Ctrl+Tab switcher |
-| **Terminal** | Truecolor (24-bit), inline images (Sixel, iTerm2, Kitty), ligatures, bracketed paste, mouse tracking (SGR), multi-pane broadcast, scrollback search |
+| **Terminal** | Truecolor (24-bit), inline images (Sixel, iTerm2, Kitty), GPU glyph atlas, OSC 8 hyperlinks, OSC 133 prompt marks, ligatures, BiDi, block selection, multi-pane broadcast, scrollback search |
 | **Security** | 2FA/TOTP detection, certificate viewer, TOFU host verification, known_hosts parser, audit trail, credential store |
 | **Automation** | Lua scripting, expect patterns, macro recording, watchdog alerts, cron scheduler, tmux integration, sandboxed plugin API v2, AI command suggestions, REST API, webhooks |
 | **Networking** | SSH banner/OS detection, cipher preferences, keep-alive manager, DNS cache, speed test, proxy presets, port forwarding manager |
@@ -112,7 +112,8 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
-| **2.1.0** (in progress) | Split panes (h/v, focus nav, zoom, broadcast), render cache + dirty-rect redraw, inline images (iTerm2/Kitty), sandboxed plugin API v2, AI command suggestions, workspaces, layout save/restore |
+| **2.2.0** (in progress) | Vulkan/GPU glyph atlas, real-time collaboration (co-edit, presence, annotations), perf (arena/slab allocators, write batching, latency histogram), OSC 8 hyperlinks, OSC 133 prompt marks, BiDi, WebSocket transport, audit signing chain |
+| **2.1.0** | Split panes (h/v, focus nav, zoom, broadcast), render cache + dirty-rect redraw, inline images (iTerm2/Kitty), sandboxed plugin API v2, AI command suggestions, workspaces, layout save/restore |
 | **2.0.1** | 270+ modules, truecolor, Sixel, 2FA, macro recording, tab preview, watchdog, cipher prefs, command palette, multi-size icon, test suite (108/108), project reorganization |
 | **2.0.0** | Complete UI rewrite — dark theme, custom controls, DWM integration, double-buffered rendering |
 | 1.5.0 | Scripting & Automation — Lua engine, expect, pipelines, REST API, webhooks |
@@ -123,7 +124,7 @@ tests/             9 suites (108 assertions, all passing)
 ```
 Fast.       — Native C99, no runtime, no VM, no framework overhead.
 Focused.    — SSH done right. Not a general terminal pretending to do SSH.
-Modular.    — 330+ modules organized by function. Extend what you need.
+Modular.    — 350+ modules organized by function. Extend what you need.
 Private.    — Zero telemetry. No cloud. Your keys stay on your machine.
 ```
 
@@ -141,7 +142,7 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**330+ modules | 680+ commits | 45,000+ lines of C99**
+**350+ modules | 730+ commits | 48,000+ lines of C99**
 
 Built with care. No bloat. No compromise.
 
