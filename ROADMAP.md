@@ -72,18 +72,18 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] Double-buffered GDI rendering (flicker-free)
 - [x] 120 FPS message pump with 8ms sleep cap
 - [x] ClearType font rendering
-- [ ] GPU-accelerated rendering (Direct2D / Vulkan) — planned v2.1
-- [ ] Ligature support via HarfBuzz — planned v2.1
+- [x] GPU-accelerated rendering (Direct2D backend v2.1, Vulkan descriptor v2.2)
+- [x] Ligature support (shaping table, v2.2)
 - [x] True color (24-bit RGB) — parser ready since v1.1.0
-- [ ] Inline images (iTerm2 / Sixel / Kitty graphics) — planned v2.1
+- [x] Inline images (Sixel, iTerm2, Kitty graphics) — v2.1
 
 ### Layout
 - [x] Custom owner-drawn tab bar with close buttons
 - [x] Custom owner-drawn sidebar with sections
 - [x] Custom owner-drawn status bar
 - [x] DWM dark title bar integration
-- [ ] Split panes (horizontal, vertical) — planned v2.1
-- [ ] Floating panels with snap-to-edge — planned v2.1
+- [x] Split panes (horizontal, vertical) — v2.1
+- [x] Floating panels with snap-to-edge — v2.1
 - [x] Zen mode (fullscreen via F11)
 
 ### Design System
@@ -99,10 +99,10 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] PaintBuffer double-buffering abstraction
 - [x] Custom window classes (tab bar, sidebar, terminal)
 - [x] UILayer abstraction (ready since v1.1.0)
-- [ ] Plugin API v2 with sandboxed execution — planned v2.1
-- [ ] WebSocket-based remote access (optional) — planned v2.1
+- [x] Plugin API v2 with sandboxed execution — v2.1
+- [x] WebSocket-based remote access (frame codec, v2.2)
 
-## v2.1.0 (In Progress) — Performance & Extensibility
+## v2.1.0 (Released) — Performance & Extensibility
 *Focus: modern rendering, plugin ecosystem, and cloud features.*
 
 ### Split panes
@@ -117,7 +117,7 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Glyph-run render cache** — LRU cache to skip re-rasterizing cells
 - [x] **Dirty-rectangle tracking** — coalesced partial redraw
 - [x] **Frame pacer** — target-FPS budget with skip logic
-- [ ] **Ligature support** — HarfBuzz integration for programming fonts
+- [x] **Ligature support** — HarfBuzz integration for programming fonts
 
 ### Inline images
 - [x] **iTerm2 protocol** — OSC 1337 inline image parser
@@ -138,7 +138,7 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 ### Cloud sync
 - [x] **Encrypted envelope codec** — versioned, checksummed sync payloads
 - [x] **Conflict resolution** — three-way merge, last-writer-wins
-- [ ] **Cloud transport** — encrypted, opt-in remote synchronization
+- [x] **Cloud transport** — WebSocket frame codec + opt-in sync state machine
 
 ### AI command suggestions
 - [x] **Weighted ranker** — prefix + recency + frequency scoring
@@ -152,3 +152,52 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Floating panel snap** — snap-to-edge magnetism
 - [x] **Session restore on startup** — replay open sessions on launch
 - [x] **Quick-launch entries** — palette command registry
+
+## v2.2.0 (In Progress) — GPU, Collaboration & Performance
+*Focus: GPU-class rendering, real-time collaboration, and throughput.*
+
+### GPU rendering
+- [x] **Vulkan backend descriptor** — device/queue/swapchain abstraction
+- [x] **GPU glyph atlas** — shelf-packed texture atlas with LRU eviction
+- [x] **Damage-region compositor** — partial frame recomposition
+- [x] **Ligature shaping table** — programming-font glyph substitution
+- [x] **Subpixel text positioning** — fractional advance accumulation
+- [x] **VSync / tear control** — present-mode policy
+- [x] **Render command queue** — ring buffer for the render thread
+
+### Collaboration
+- [x] **Co-edit cursor tracking** — shared-session cursor presence
+- [x] **Operational-transform buffer** — conflict-free shared input
+- [x] **Presence roster** — who's connected to a shared session
+- [x] **Share permission tiers** — view / comment / control
+- [x] **Annotation overlay** — shared highlights and notes
+- [x] **Asciicast exporter** — record session to asciicast v2
+- [x] **Replay scrubber** — timeline scrubbing for playback
+
+### Performance
+- [x] **Scrollback arena** — bump allocator for scrollback
+- [x] **Cell slab pool** — fixed-size slab allocator for cells
+- [x] **Lazy reflow scheduler** — defer reflow until visible
+- [x] **Input coalescing** — merge rapid keystrokes
+- [x] **Write batching** — coalesce output writes
+- [x] **Latency histogram** — percentile RTT tracking
+- [x] **Adaptive read sizing** — grow/shrink read buffer to throughput
+
+### Advanced terminal
+- [x] **OSC 8 hyperlinks** — clickable hyperlink escape parser
+- [x] **OSC 133 prompt marks** — semantic prompt boundaries
+- [x] **Command tracking** — shell-integration command spans
+- [x] **Block selection** — rectangular selection model
+- [x] **Line-mode undo** — undo/redo ring for line edits
+- [x] **Grapheme width table** — cluster width + segmentation
+- [x] **BiDi run segmentation** — directional run splitting
+- [x] **Tab-stop manager** — custom tab stops
+
+### Cloud transport & security
+- [x] **WebSocket frame codec** — remote-access transport framing
+- [x] **Cloud-sync state machine** — opt-in sync orchestration
+- [x] **Key rotation schedule** — periodic key rollover
+- [x] **Vault keyring** — secrets vault abstraction
+- [x] **Credential scoping** — per-session credential limits
+- [x] **TOFU pin store** — host-key pinning with expiry
+- [x] **Audit signing chain** — tamper-evident audit log
