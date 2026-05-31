@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #define MAX_LIGATURES 64
 typedef struct { char seq[8]; int glyph_id; int enabled; } Ligature;
 static Ligature g_lig[MAX_LIGATURES]; static int g_lig_count = 0;
