@@ -58,7 +58,7 @@ wget https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyal
 git clone https://github.com/chillymasterio/puttyalt.git
 cd puttyalt
 x86_64-w64-mingw32-gcc -c -Iinclude -I. -O2 src/*/*.c
-x86_64-w64-mingw32-gcc *.o -o puttyalt.msi -mwindows -lgdi32 -ldwmapi -lws2_32 -lcomctl32
+x86_64-w64-mingw32-gcc *.o -o puttyalt.exe -mwindows -lgdi32 -ldwmapi -lws2_32 -lcomctl32
 ```
 
 ## Command Line
@@ -94,15 +94,15 @@ puttyalt [options] [user@]host[:port]
 
 ```
 src/
-├── core/          30 modules — GUI, layout, render cache, dirty-rect, frame pacer
-├── ui/            57 modules — tabs, split panes, focus nav, panel snap, animations
-├── network/       45 modules — SSH, tunnels, proxy, DNS, cipher prefs
-├── session/       27 modules — bookmarks, workspaces, sync, restore, import
-├── security/      20 modules — 2FA, certs, plugin grants, sync envelope, audit
-├── terminal/      26 modules — truecolor, inline images, broadcast, mouse, paste
-├── automation/    22 modules — Lua, expect, plugin API v2, AI suggestions, cron
+├── core/          29 modules — GUI, layout, render cache, dirty-rect, frame pacer
+├── ui/            58 modules — tabs, split panes, focus nav, panel snap, scrubber
+├── network/       48 modules — SSH, tunnels, proxy, DNS, write batch, latency hist
+├── session/       29 modules — bookmarks, workspaces, co-edit, presence, restore
+├── security/      26 modules — 2FA, certs, plugin grants, vault, TOFU pin, audit chain
+├── terminal/      44 modules — GPU atlas, inline images, hyperlinks, BiDi, allocators
+├── automation/    20 modules — Lua, expect, plugin API v2, AI suggestions, cron
 ├── editor/        12 modules — snippets, clipboard, categories
-├── tools/         75 modules — SCP, hex, base64, fuzzy history, logging, regex
+├── tools/         71 modules — SCP, hex, base64, fuzzy history, asciicast, logging
 └── config/        19 modules — profiles, layouts, keybinds, migration, backup
 
 tests/             9 suites (108 assertions, all passing)
