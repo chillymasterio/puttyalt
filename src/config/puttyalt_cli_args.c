@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 typedef struct { char host[256]; int port; char user[64]; char keyfile[256]; char session[128]; int verbose; int portable; char config[512]; char command[1024]; } CliArgs;
 int cli_parse(int argc, char **argv, CliArgs *args) {
     memset(args, 0, sizeof(*args)); args->port = 22;
