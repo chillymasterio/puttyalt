@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX_SSH_HOSTS 128
 typedef struct { char alias[128]; char hostname[256]; int port; char user[64]; char identity[256]; char proxy[256]; } SshConfigHost;
 static SshConfigHost g_hosts[MAX_SSH_HOSTS]; static int g_host_count = 0;
