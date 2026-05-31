@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX_KNOWN 512
 typedef struct { char host[256]; int port; char keytype[32]; char fingerprint[128]; int trusted; } KnownHostEntry;
 static KnownHostEntry g_kh[MAX_KNOWN]; static int g_kh_count = 0;
