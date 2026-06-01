@@ -373,3 +373,43 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_annotate.c
     src/ui/puttyalt_scrubber.c
 )
+
+# v2.3.0 mobile/touch, accessibility, modern protocols (mosh/SSH3), local analytics
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_condtrig.c
+    src/automation/puttyalt_scriptvar.c
+    src/automation/puttyalt_snippetexp.c
+    src/automation/puttyalt_taskqueue.c
+    src/config/puttyalt_kvstore.c
+    src/config/puttyalt_migstep.c
+    src/config/puttyalt_profilexport.c
+    src/network/puttyalt_connretry.c
+    src/network/puttyalt_happyeye.c
+    src/network/puttyalt_mosh.c
+    src/network/puttyalt_proxyauto.c
+    src/network/puttyalt_sockstat.c
+    src/network/puttyalt_ssh3.c
+    src/security/puttyalt_keyfmt.c
+    src/security/puttyalt_pwstrength.c
+    src/session/puttyalt_sesscolor.c
+    src/session/puttyalt_sessmru.c
+    src/session/puttyalt_sesstemplate.c
+    src/terminal/puttyalt_altscreen.c
+    src/terminal/puttyalt_charwidth.c
+    src/terminal/puttyalt_palette256.c
+    src/terminal/puttyalt_reflowcache.c
+    src/tools/puttyalt_byteunit.c
+    src/tools/puttyalt_clipfmt.c
+    src/tools/puttyalt_durparse.c
+    src/tools/puttyalt_grepfilter.c
+    src/tools/puttyalt_jsonmini.c
+    src/tools/puttyalt_localstats.c
+    src/ui/puttyalt_breadtrail.c
+    src/ui/puttyalt_hicontrast.c
+    src/ui/puttyalt_oskbd.c
+    src/ui/puttyalt_srqueue.c
+    src/ui/puttyalt_toastqueue.c
+    src/ui/puttyalt_touchgest.c
+    src/ui/puttyalt_vscroll.c
+    src/ui/puttyalt_zoompan.c
+)

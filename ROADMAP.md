@@ -201,3 +201,56 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Credential scoping** — per-session credential limits
 - [x] **TOFU pin store** — host-key pinning with expiry
 - [x] **Audit signing chain** — tamper-evident audit log
+
+## v2.3.0 (In Progress) — Mobile, Accessibility & Modern Protocols
+*Focus: touch devices, accessibility, and next-gen transports.*
+
+### Mobile & touch
+- [x] **Touch gestures** — tap, double-tap, swipe, pinch, long-press
+- [x] **On-screen keyboard** — virtual keyboard layout model
+- [x] **Virtual scroll** — windowed rendering for huge lists
+- [x] **Zoom/pan** — image preview transform
+
+### Accessibility
+- [x] **Screen-reader queue** — prioritized announce queue
+- [x] **High-contrast theme** — WCAG contrast-ratio adapter
+- [x] **Breadcrumb trail** — navigable folder path
+- [x] **East-Asian width** — wide/combining char classifier
+
+### Modern protocols
+- [x] **Mosh roaming** — UDP roaming session state
+- [x] **SSH3 (over QUIC)** — connection + stream multiplex
+- [x] **Happy Eyeballs** — dual-stack connect racer (RFC 8305)
+- [x] **Socket stats** — rtt, retransmit, window tracking
+- [x] **Proxy auto-config** — host pattern -> proxy matcher
+- [x] **Connection retry** — jittered exponential backoff
+
+### Terminal & rendering
+- [x] **256-color palette** — xterm palette to RGB
+- [x] **Reflow cache** — cached wrap break-points per width
+- [x] **Alternate screen** — alt-buffer state + cursor save
+
+### Productivity
+- [x] **Session MRU** — recent sessions with pinning
+- [x] **Per-session color** — deterministic accent assignment
+- [x] **Session templates** — field locking + instantiation
+- [x] **Snippet expansion** — placeholder substitution
+- [x] **Grep filter** — live include/exclude output filter
+- [x] **Toast queue** — TTL notification queue
+- [x] **Clipboard format detect** — URL/path/json/code/number
+- [x] **Local analytics** — privacy-first usage counters
+- [x] **Task queue** — priority background jobs
+
+### Config & utilities
+- [x] **KV config store** — typed key/value store
+- [x] **Profile export** — portable INI blob
+- [x] **Migration runner** — versioned config steps
+- [x] **Duration parser** — human duration <-> ms
+- [x] **Byte formatting** — human-readable sizes/rates
+- [x] **Mini JSON** — flat value extractor
+- [x] **Script scope vars** — automation scope stack
+
+### Security
+- [x] **Passphrase strength** — entropy-bit estimator
+- [x] **Key format detect** — SSH public-key type
+- [x] **Conditional triggers** — match -> action with cooldown
