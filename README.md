@@ -9,7 +9,7 @@
 ![Version](https://img.shields.io/badge/version-2.0.1-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
-![Modules](https://img.shields.io/badge/350+%20modules-D29922?style=flat-square)
+![Modules](https://img.shields.io/badge/420+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
 
 **[Download v2.0.1](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
@@ -112,6 +112,8 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
+| **2.4.0** (in progress) | AI assist (prompt context, command explainer, sequence planner), connection multiplexing (mux channels, QUIC flow), cloud profiles, advanced SFTP (resumable, mirror, throttle), CSI parser, OSC 52/9;4 |
+| **2.3.0** | Touch gestures, on-screen keyboard, accessibility (screen-reader queue, high-contrast), Mosh/SSH3 protocols, Happy Eyeballs, session MRU, local analytics |
 | **2.2.0** (in progress) | Vulkan/GPU glyph atlas, real-time collaboration (co-edit, presence, annotations), perf (arena/slab allocators, write batching, latency histogram), OSC 8 hyperlinks, OSC 133 prompt marks, BiDi, WebSocket transport, audit signing chain |
 | **2.1.0** | Split panes (h/v, focus nav, zoom, broadcast), render cache + dirty-rect redraw, inline images (iTerm2/Kitty), sandboxed plugin API v2, AI command suggestions, workspaces, layout save/restore |
 | **2.0.1** | 270+ modules, truecolor, Sixel, 2FA, macro recording, tab preview, watchdog, cipher prefs, command palette, multi-size icon, test suite (108/108), project reorganization |
@@ -124,7 +126,7 @@ tests/             9 suites (108 assertions, all passing)
 ```
 Fast.       — Native C99, no runtime, no VM, no framework overhead.
 Focused.    — SSH done right. Not a general terminal pretending to do SSH.
-Modular.    — 350+ modules organized by function. Extend what you need.
+Modular.    — 420+ modules organized by function. Extend what you need.
 Private.    — Zero telemetry. No cloud. Your keys stay on your machine.
 ```
 
@@ -142,7 +144,7 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**350+ modules | 730+ commits | 48,000+ lines of C99**
+**420+ modules | 800+ commits | 52,000+ lines of C99**
 
 Built with care. No bloat. No compromise.
 
