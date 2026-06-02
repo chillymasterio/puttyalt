@@ -413,3 +413,41 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_vscroll.c
     src/ui/puttyalt_zoompan.c
 )
+
+# v2.4.0 AI assist, connection multiplexing, cloud profiles, advanced SFTP
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_aicache.c
+    src/automation/puttyalt_aiprompt.c
+    src/automation/puttyalt_aiseq.c
+    src/automation/puttyalt_cmdexplain.c
+    src/automation/puttyalt_retryctx.c
+    src/automation/puttyalt_workflowstep.c
+    src/config/puttyalt_hotreload.c
+    src/config/puttyalt_settingdiff.c
+    src/config/puttyalt_themeval.c
+    src/core/puttyalt_chanwin.c
+    src/core/puttyalt_muxchan.c
+    src/network/puttyalt_bwthrottle.c
+    src/network/puttyalt_keyexch.c
+    src/network/puttyalt_quicflow.c
+    src/security/puttyalt_authmethod.c
+    src/security/puttyalt_hostkeyrot.c
+    src/session/puttyalt_cloudprofile.c
+    src/session/puttyalt_sessgraph.c
+    src/session/puttyalt_sessshare2.c
+    src/terminal/puttyalt_csiparse.c
+    src/terminal/puttyalt_oscclip.c
+    src/terminal/puttyalt_oscprogress.c
+    src/terminal/puttyalt_scrollregion.c
+    src/tools/puttyalt_colordiff.c
+    src/tools/puttyalt_diffhunk.c
+    src/tools/puttyalt_logsearch.c
+    src/tools/puttyalt_pathcomplete.c
+    src/tools/puttyalt_ratecalc.c
+    src/tools/puttyalt_sftpmirror.c
+    src/tools/puttyalt_sftpqueue.c
+    src/tools/puttyalt_sftpresume.c
+    src/ui/puttyalt_cmdbar.c
+    src/ui/puttyalt_splitlayout.c
+    src/ui/puttyalt_statusseg.c
+)

@@ -254,3 +254,54 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Passphrase strength** — entropy-bit estimator
 - [x] **Key format detect** — SSH public-key type
 - [x] **Conditional triggers** — match -> action with cooldown
+
+## v2.4.0 (In Progress) — AI Assist, Multiplexing & Cloud
+*Focus: AI-assisted workflows, connection multiplexing, and cloud profiles.*
+
+### AI assist
+- [x] **Prompt context builder** — recent cmds + cwd + errors
+- [x] **Completion cache** — TTL-keyed AI response cache
+- [x] **Command explainer** — flag/pipe/danger heuristics
+- [x] **Sequence planner** — multi-step command plan with confirm gates
+
+### Connection multiplexing
+- [x] **Mux channel table** — ControlMaster-style channel registry
+- [x] **Channel flow window** — per-channel window accounting
+- [x] **KEX negotiation** — algorithm intersection
+- [x] **Auth method order** — negotiation + attempt tracking
+- [x] **QUIC flow control** — stream credit accounting
+- [x] **Session graph** — jump-host dependency topology
+
+### Cloud & sharing
+- [x] **Cloud profile sync** — revision + dirty-set metadata
+- [x] **Shared session roster** — participants with role tiers
+- [x] **Host key rotation** — RFC 8308 rotation tracking
+
+### Advanced SFTP
+- [x] **Transfer queue** — progress + retry tracking
+- [x] **Resumable transfers** — offset + checksum window
+- [x] **Directory mirror** — local/remote diff sets
+- [x] **Bandwidth throttle** — token-bucket rate limit
+- [x] **Rate + ETA** — sliding-window calculator
+- [x] **Path completion** — remote tab-completion
+
+### Terminal
+- [x] **CSI parser** — parameter + intermediate + final
+- [x] **Scroll region** — DECSTBM margins + origin mode
+- [x] **OSC 52 clipboard** — set/query parser
+- [x] **OSC 9;4 progress** — taskbar progress parser
+
+### Productivity
+- [x] **Command bar** — input model with history
+- [x] **Split layouts** — grid/columns/main-stack presets
+- [x] **Status segments** — priority-drop layout
+- [x] **Log search** — indexed ring-buffer search
+- [x] **Color diff** — side-by-side line classifier
+- [x] **Diff hunk parser** — unified-diff headers
+- [x] **Workflow steps** — multi-host execution
+
+### Config & resilience
+- [x] **Hot reload** — mtime + content-hash watcher
+- [x] **Setting diff** — changed-key computation
+- [x] **Theme validation** — required keys + hex checks
+- [x] **Retry context** — per-error-class policies
