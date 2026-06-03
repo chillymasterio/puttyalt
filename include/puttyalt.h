@@ -5,12 +5,13 @@
 #ifndef PUTTYALT_H
 #define PUTTYALT_H
 
-#define PUTTYALT_VERSION_MAJOR  2
+#define PUTTYALT_VERSION_MAJOR  3
 #define PUTTYALT_VERSION_MINOR  0
-#define PUTTYALT_VERSION_PATCH  2
+#define PUTTYALT_VERSION_PATCH  0
 
-#define PUTTYALT_VERSION_STR    "2.0.2"
-#define PUTTYALT_BUILD_DATE     "2026-05-26"
+#define PUTTYALT_VERSION_STR    "3.0.0"
+#define PUTTYALT_BUILD_DATE     "2026-06-03"
+#define PUTTYALT_CODENAME       "New Era"
 #define PUTTYALT_NAME           "PuttyAlt"
 #define PUTTYALT_APPNAME        "PuttyAlt"
 #define PUTTYALT_UPSTREAM       "PuTTY 0.83"
