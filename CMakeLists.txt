@@ -451,3 +451,44 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_splitlayout.c
     src/ui/puttyalt_statusseg.c
 )
+
+# v3.0.0 New Era: AI copilot/agent, zero-trust security, distributed sessions, GPU compositor
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_aiagent.c
+    src/automation/puttyalt_copilot.c
+    src/automation/puttyalt_eventstream.c
+    src/automation/puttyalt_pipeline2.c
+    src/automation/puttyalt_scenario.c
+    src/config/puttyalt_featureflags.c
+    src/config/puttyalt_settingsync.c
+    src/network/puttyalt_connpool2.c
+    src/network/puttyalt_dohresolve.c
+    src/network/puttyalt_multipath.c
+    src/network/puttyalt_sshmux.c
+    src/security/puttyalt_certpin.c
+    src/security/puttyalt_mfaflow.c
+    src/security/puttyalt_vault2.c
+    src/security/puttyalt_zerotrust.c
+    src/session/puttyalt_distsess.c
+    src/session/puttyalt_sesssync2.c
+    src/session/puttyalt_workspace2.c
+    src/terminal/puttyalt_compositor.c
+    src/terminal/puttyalt_gpurender.c
+    src/terminal/puttyalt_shaper.c
+    src/terminal/puttyalt_termstate2.c
+    src/tools/puttyalt_cmdrunner.c
+    src/tools/puttyalt_obsv.c
+    src/tools/puttyalt_recorder2.c
+    src/tools/puttyalt_tracer.c
+    src/ui/puttyalt_cmdpalette2.c
+    src/ui/puttyalt_dashboard2.c
+    src/ui/puttyalt_notifcenter2.c
+    src/ui/puttyalt_themeengine.c
+)
+
+# Wire all feature-module source lists into the library target.
+# (Previously these lists were appended but never compiled into puttyalt,
+#  so modules like ctxmenu were missing from the GUI link.)
+if(PUTTYALT_SOURCES)
+  target_sources(puttyalt PRIVATE ${PUTTYALT_SOURCES})
+endif()

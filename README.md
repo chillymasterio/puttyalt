@@ -6,13 +6,13 @@
 
 **PuTTY was built in 1999. Your workflow has changed. Your tools should too.**
 
-![Version](https://img.shields.io/badge/version-2.0.1-58A6FF?style=flat-square)
+![Version](https://img.shields.io/badge/version-3.0.0-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
-![Modules](https://img.shields.io/badge/420+%20modules-D29922?style=flat-square)
+![Modules](https://img.shields.io/badge/450+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
 
-**[Download v2.0.1](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
+**[Download v3.0.0](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.exe)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
 
 </div>
 
@@ -52,7 +52,7 @@
 
 ```bash
 # Download and run
-wget https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi
+wget https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.exe
 
 # Or build from source
 git clone https://github.com/chillymasterio/puttyalt.git
@@ -112,7 +112,8 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
-| **2.4.0** (in progress) | AI assist (prompt context, command explainer, sequence planner), connection multiplexing (mux channels, QUIC flow), cloud profiles, advanced SFTP (resumable, mirror, throttle), CSI parser, OSC 52/9;4 |
+| **3.0.0** New Era | AI copilot + autonomous agent, zero-trust policy engine, MFA flow, distributed sessions (quorum), GPU compositor + frame graph, SSH multiplexer, CRDT sync, observability (metrics/tracing), 30 flagship modules |
+| **2.4.0** | AI assist (prompt context, command explainer, sequence planner), connection multiplexing (mux channels, QUIC flow), cloud profiles, advanced SFTP (resumable, mirror, throttle), CSI parser, OSC 52/9;4 |
 | **2.3.0** | Touch gestures, on-screen keyboard, accessibility (screen-reader queue, high-contrast), Mosh/SSH3 protocols, Happy Eyeballs, session MRU, local analytics |
 | **2.2.0** (in progress) | Vulkan/GPU glyph atlas, real-time collaboration (co-edit, presence, annotations), perf (arena/slab allocators, write batching, latency histogram), OSC 8 hyperlinks, OSC 133 prompt marks, BiDi, WebSocket transport, audit signing chain |
 | **2.1.0** | Split panes (h/v, focus nav, zoom, broadcast), render cache + dirty-rect redraw, inline images (iTerm2/Kitty), sandboxed plugin API v2, AI command suggestions, workspaces, layout save/restore |
@@ -126,7 +127,7 @@ tests/             9 suites (108 assertions, all passing)
 ```
 Fast.       — Native C99, no runtime, no VM, no framework overhead.
 Focused.    — SSH done right. Not a general terminal pretending to do SSH.
-Modular.    — 420+ modules organized by function. Extend what you need.
+Modular.    — 450+ modules organized by function. Extend what you need.
 Private.    — Zero telemetry. No cloud. Your keys stay on your machine.
 ```
 
@@ -144,10 +145,10 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**420+ modules | 800+ commits | 52,000+ lines of C99**
+**450+ modules | 830+ commits | 55,000+ lines of C99**
 
 Built with care. No bloat. No compromise.
 
-**[Download PuttyAlt](https://github.com/chillymasterio/puttyalt/releases/download/v2.0.1/puttyalt.msi)**
+**[Download PuttyAlt](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.exe)**
 
 </div>

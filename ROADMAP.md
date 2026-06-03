@@ -305,3 +305,48 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Setting diff** — changed-key computation
 - [x] **Theme validation** — required keys + hex checks
 - [x] **Retry context** — per-error-class policies
+
+## v3.0.0 (Released) — New Era
+*A flagship release: AI copilot, zero-trust security, distributed sessions, GPU compositor.*
+
+### AI & automation
+- [x] **AI copilot** — turn history + context builder
+- [x] **Autonomous agent** — plan/act/observe loop
+- [x] **Pipeline v2** — DAG stages with dependency gating
+- [x] **Scenario runner** — scripted expect/send with timeouts
+- [x] **Command runner** — batch execution with aggregation
+- [x] **Event stream** — typed subscribers with replay buffer
+
+### Security (zero-trust)
+- [x] **Zero-trust policy engine** — per-action allow/deny
+- [x] **MFA flow** — TOTP/push/WebAuthn state machine
+- [x] **Secrets vault v2** — envelope-encrypted entries
+- [x] **Certificate pinning** — SPKI hash allowlist
+
+### Distributed & cloud
+- [x] **Distributed sessions** — leader/follower quorum replication
+- [x] **Session sync v2** — CRDT last-write-wins registers
+- [x] **Settings sync** — conflict-aware push/pull
+- [x] **Multipath transport** — per-path scheduling + failover
+- [x] **Connection pool v2** — health-based reuse
+- [x] **DoH resolver** — DNS-over-HTTPS cache with TTL
+
+### Rendering & terminal
+- [x] **Layer compositor** — z-ordered surfaces, damage merge
+- [x] **GPU frame graph** — pass ordering + barriers
+- [x] **Text shaper** — cluster grouping + ligatures
+- [x] **Terminal state v2** — mode bitmap + cursor stack
+- [x] **Theme engine v3** — derived color tokens
+
+### Workflow & UX
+- [x] **SSH multiplexer** — virtual terminals over one connection
+- [x] **Workspace v2** — layout + activation order
+- [x] **Command palette v2** — fuzzy scoring + recent boost
+- [x] **Dashboard v2** — widget grid with metric bindings
+- [x] **Notification center v2** — grouped + actionable
+- [x] **Session recorder v2** — timed frames with seek index
+
+### Observability
+- [x] **Metrics** — counter/gauge/histogram
+- [x] **Span tracer** — parent-linked timing
+- [x] **Feature flags** — rollout-percentage gating
