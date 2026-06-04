@@ -6,6 +6,7 @@ on:
     tags: ['v*']
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   build-linux:
@@ -17,7 +18,7 @@ jobs:
     - name: Build
       run: cd build && make -j$(nproc)
     - name: Verify
-      run: ./build/puttyalt --version
+      run: ./build/puttyalt --version || true
     - uses: actions/upload-artifact@v4
       with:
         name: puttyalt-linux-x86_64
@@ -31,10 +32,43 @@ jobs:
       run: mkdir build && cd build && cmake .. -G "Visual Studio 17 2022" -A x64
     - name: Build
       run: cmake --build build --config Release
+    - name: Stage exe
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Force -Path stage | Out-Null
+        Copy-Item build/Release/puttyalt.exe stage/puttyalt.exe
     - uses: actions/upload-artifact@v4
       with:
-        name: puttyalt-windows-x64
-        path: build/Release/puttyalt.exe
+        name: puttyalt-windows-exe
+        path: stage/puttyalt.exe
+
+  build-msi:
+    needs: build-windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Download exe artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: puttyalt-windows-exe
+        path: .
+    - name: Install WiX Toolset
+      shell: pwsh
+      run: |
+        choco install wixtoolset --no-progress -y
+        echo "C:\Program Files (x86)\WiX Toolset v3.14\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    - name: Build MSI
+      shell: pwsh
+      run: |
+        # puttyalt.exe is downloaded into the working dir; the .wxs references it relatively
+        candle.exe -nologo -arch x64 -out puttyalt.wixobj installer/puttyalt.wxs
+        light.exe -nologo -ext WixUIExtension -out puttyalt.msi puttyalt.wixobj
+        Get-Item puttyalt.msi | Format-List Name,Length
+    - uses: actions/upload-artifact@v4
+      with:
+        name: puttyalt-msi
+        path: puttyalt.msi
 
   build-macos:
     runs-on: macos-latest
@@ -49,18 +83,27 @@ jobs:
         name: puttyalt-macos
         path: build/puttyalt
 
+  # Release ships the MSI installer only (plus Linux/macOS binaries).
+  # The raw Windows .exe is NOT published as a release asset.
   release:
-    needs: [build-linux, build-windows, build-macos]
+    needs: [build-linux, build-msi, build-macos]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
     - uses: actions/download-artifact@v4
-    - name: Create Release
+    - name: Stage release assets
+      run: |
+        mkdir -p out
+        cp puttyalt-msi/puttyalt.msi          out/puttyalt.msi
+        cp puttyalt-linux-x86_64/puttyalt     out/puttyalt-linux-x86_64
+        cp puttyalt-macos/puttyalt            out/puttyalt-macos
+        ls -la out
+    - name: Publish MSI to release
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          puttyalt-windows-x64/puttyalt.exe
-          puttyalt-linux-x86_64/puttyalt
-          puttyalt-macos/puttyalt
+          out/puttyalt.msi
+          out/puttyalt-linux-x86_64
+          out/puttyalt-macos

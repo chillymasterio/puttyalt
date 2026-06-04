@@ -12,7 +12,7 @@
 ![Modules](https://img.shields.io/badge/450+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
 
-**[Download v3.0.0](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.exe)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
+**[Download v3.0.0](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
 
 </div>
 
@@ -52,7 +52,7 @@
 
 ```bash
 # Download and run
-wget https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.exe
+wget https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.msi
 
 # Or build from source
 git clone https://github.com/chillymasterio/puttyalt.git
@@ -149,6 +149,6 @@ MIT — see [LICENSE](LICENSE).
 
 Built with care. No bloat. No compromise.
 
-**[Download PuttyAlt](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.exe)**
+**[Download PuttyAlt](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.msi)**
 
 </div>
