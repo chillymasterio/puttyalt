@@ -486,6 +486,44 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_themeengine.c
 )
 
+# v3.1.0 post-quantum crypto, WASM plugins, edge/IoT, Unicode 15.1, modern protocols
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_hookchain.c
+    src/automation/puttyalt_jobsched.c
+    src/automation/puttyalt_ratelimit2.c
+    src/automation/puttyalt_retryqueue.c
+    src/automation/puttyalt_wasmrt.c
+    src/config/puttyalt_backupsched.c
+    src/config/puttyalt_defaults2.c
+    src/config/puttyalt_envprofile.c
+    src/config/puttyalt_schemaval.c
+    src/network/puttyalt_edgeconn.c
+    src/network/puttyalt_natpunch.c
+    src/network/puttyalt_proxyhop.c
+    src/network/puttyalt_tlsinfo.c
+    src/security/puttyalt_authlog.c
+    src/security/puttyalt_keyderive.c
+    src/security/puttyalt_pqkem.c
+    src/session/puttyalt_quickconnect2.c
+    src/session/puttyalt_sessfolder.c
+    src/session/puttyalt_sessicon.c
+    src/terminal/puttyalt_colorquant.c
+    src/terminal/puttyalt_decmode.c
+    src/terminal/puttyalt_kitty_kbd.c
+    src/terminal/puttyalt_synchout.c
+    src/terminal/puttyalt_unicode15.c
+    src/tools/puttyalt_b64stream.c
+    src/tools/puttyalt_clipsync2.c
+    src/tools/puttyalt_filesync2.c
+    src/tools/puttyalt_logexport.c
+    src/tools/puttyalt_searchidx.c
+    src/tools/puttyalt_wasmhost.c
+    src/ui/puttyalt_minimap2.c
+    src/ui/puttyalt_palettecmd.c
+    src/ui/puttyalt_statusicon.c
+    src/ui/puttyalt_tabscroll.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)

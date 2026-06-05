@@ -350,3 +350,52 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Metrics** — counter/gauge/histogram
 - [x] **Span tracer** — parent-linked timing
 - [x] **Feature flags** — rollout-percentage gating
+
+## v3.1.0 (In Progress) — Future-Proof: PQ Crypto, WASM & Edge
+*Focus: post-quantum security, WASM plugins, and constrained networks.*
+
+### Modern cryptography
+- [x] **Post-quantum KEM** — ML-KEM and hybrid negotiation
+- [x] **HKDF key derivation** — extract/expand chain
+- [x] **TLS info parser** — version/cipher/PFS detection
+- [x] **Auth attempt log** — lockout detection
+
+### WASM plugin platform
+- [x] **WASM runtime** — fuel-metered module execution
+- [x] **Host-call dispatch** — capability-gated host functions
+
+### Edge & networking
+- [x] **Edge/IoT profiles** — low-power/lossy/metered tuning
+- [x] **NAT hole-punching** — STUN-style candidate pairs
+- [x] **Multi-hop proxy chains** — SOCKS/HTTP/SSH hops
+- [x] **Quick-connect parser** — user@host:port/path?opts
+
+### Terminal modernization
+- [x] **Unicode 15.1** — emoji ZWJ + variation selectors
+- [x] **Synchronized output** — DEC 2026 frame batching
+- [x] **Kitty keyboard** — CSI u protocol codec
+- [x] **DEC mode registry** — DECSET/DECRST tracking
+- [x] **Truecolor quantizer** — cached 256/16 fallback
+
+### Productivity & UX
+- [x] **Command palette categories** — grouped actions + keybinds
+- [x] **Session folder tree** — collapsible hierarchy
+- [x] **Session icons** — OS-detected badges
+- [x] **Status icon FSM** — latency-aware signal bars
+- [x] **Tab scroll** — overflow chevrons
+- [x] **Minimap v2** — density buckets + viewport marker
+- [x] **Inverted search index** — token postings over scrollback
+- [x] **Clipboard sync ring** — deduplicated history
+
+### Automation & config
+- [x] **Lifecycle hook chain** — pre/post connect/disconnect
+- [x] **Job scheduler** — cron-like next-run
+- [x] **Retry queue** — backoff + max attempts
+- [x] **Rate limiter v2** — sliding window
+- [x] **File sync conflicts** — bidirectional detector
+- [x] **Backup scheduler** — rotation policy
+- [x] **Env profiles** — dev/staging/prod variable sets
+- [x] **Schema validation** — typed field constraints
+- [x] **Layered defaults** — built-in < global < session
+- [x] **Log export** — JSONL/CSV/plain
+- [x] **Streaming base64** — partial-block codec
