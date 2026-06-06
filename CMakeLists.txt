@@ -524,6 +524,42 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tabscroll.c
 )
 
+# v3.2.0 enterprise compliance, advanced terminal graphics, smart networking, dev tooling
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_alertrule.c
+    src/automation/puttyalt_cmdapproval.c
+    src/automation/puttyalt_runbook.c
+    src/automation/puttyalt_statemachine.c
+    src/automation/puttyalt_webhook2.c
+    src/config/puttyalt_keymap2.c
+    src/config/puttyalt_policyfile.c
+    src/config/puttyalt_rbac.c
+    src/network/puttyalt_bwgraph.c
+    src/network/puttyalt_dnssec.c
+    src/network/puttyalt_geoip.c
+    src/security/puttyalt_compliance.c
+    src/security/puttyalt_idtoken.c
+    src/security/puttyalt_secretscan.c
+    src/security/puttyalt_sessrecord.c
+    src/session/puttyalt_sessbatch.c
+    src/session/puttyalt_sessquota.c
+    src/session/puttyalt_sessvault.c
+    src/terminal/puttyalt_graphemes.c
+    src/terminal/puttyalt_sixel2.c
+    src/terminal/puttyalt_titlestack.c
+    src/terminal/puttyalt_underline.c
+    src/tools/puttyalt_auditquery.c
+    src/tools/puttyalt_csvparse.c
+    src/tools/puttyalt_diffmerge.c
+    src/tools/puttyalt_hexedit.c
+    src/tools/puttyalt_metricspush.c
+    src/tools/puttyalt_portscan.c
+    src/tools/puttyalt_treeview.c
+    src/ui/puttyalt_inputhint.c
+    src/ui/puttyalt_tabgroup2.c
+    src/ui/puttyalt_themepick2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)

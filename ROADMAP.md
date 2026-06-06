@@ -399,3 +399,48 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Layered defaults** — built-in < global < session
 - [x] **Log export** — JSONL/CSV/plain
 - [x] **Streaming base64** — partial-block codec
+
+## v3.2.0 (In Progress) — Enterprise, Compliance & Dev Tooling
+*Focus: enterprise governance, compliance, and power-user tooling.*
+
+### Compliance & governance
+- [x] **Compliance framework** — PCI/SOC2/HIPAA/GDPR rule sets
+- [x] **Tamper-evident recording** — hash-chained session log
+- [x] **RBAC matrix** — roles x permissions with inheritance
+- [x] **Secret leak scanner** — outbound credential detection
+- [x] **Command approval** — privileged-op workflow
+- [x] **Audit query engine** — filter by user/time/severity
+- [x] **Org policy files** — enforced/locked settings
+- [x] **Session vault binding** — per-session TTL unlock
+- [x] **OIDC/SSO claims** — identity token parser
+- [x] **Session quotas** — time/bytes/cmd limits
+- [x] **Alert rules** — threshold + duration engine
+
+### Terminal graphics
+- [x] **Sixel v2** — palette registers + raster attributes
+- [x] **Grapheme clusters** — UAX #29 boundary detection
+- [x] **Extended underlines** — curly/dotted/dashed + color
+- [x] **Title stack** — XTPUSH/XTPOPTITLE
+
+### Smart networking
+- [x] **DNSSEC validation** — chain-of-trust signaling
+- [x] **Port scanner** — open/closed/filtered aggregation
+- [x] **GeoIP cache** — region + latency preference
+- [x] **Bandwidth graph** — up/down ring buffer
+
+### Developer tooling
+- [x] **Three-way merge** — conflict markers
+- [x] **CSV parser** — RFC 4180 quoting
+- [x] **Hex editor** — byte buffer view model
+- [x] **Tree view** — generic expand/select model
+- [x] **State machine** — automation flow engine
+- [x] **Runbook executor** — rollback markers
+- [x] **Metrics push** — Prometheus/StatsD/Influx
+
+### UX & productivity
+- [x] **Tab groups v2** — color labels + collapse
+- [x] **Theme picker v2** — favorites ordering
+- [x] **Input hints** — history ghost-text prediction
+- [x] **Keymap v2** — chord sequences + contexts
+- [x] **Batch operations** — bulk session actions
+- [x] **Webhook v2** — retry + signing
