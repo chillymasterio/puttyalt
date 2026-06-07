@@ -560,6 +560,42 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_themepick2.c
 )
 
+# v3.3.0 AI/ML ops, session intelligence, modern transfer, polish
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_anomaly.c
+    src/automation/puttyalt_cronexpr.c
+    src/automation/puttyalt_pipefilter.c
+    src/automation/puttyalt_predict.c
+    src/automation/puttyalt_smartretry.c
+    src/automation/puttyalt_workflow2.c
+    src/config/puttyalt_profilemgr.c
+    src/config/puttyalt_secretref.c
+    src/config/puttyalt_settingui.c
+    src/network/puttyalt_conngraph.c
+    src/network/puttyalt_loadbalance.c
+    src/network/puttyalt_rsync.c
+    src/session/puttyalt_sessexport2.c
+    src/session/puttyalt_sessscore.c
+    src/session/puttyalt_sessshare3.c
+    src/session/puttyalt_sesstimeline.c
+    src/terminal/puttyalt_charset.c
+    src/terminal/puttyalt_imgrender.c
+    src/terminal/puttyalt_scrollmark.c
+    src/terminal/puttyalt_smartcopy.c
+    src/tools/puttyalt_archive.c
+    src/tools/puttyalt_cmdsafety.c
+    src/tools/puttyalt_exportcsv.c
+    src/tools/puttyalt_jsonpath.c
+    src/tools/puttyalt_logcluster.c
+    src/tools/puttyalt_progressbar.c
+    src/tools/puttyalt_snippetlib2.c
+    src/ui/puttyalt_cmdhelp.c
+    src/ui/puttyalt_paneborder.c
+    src/ui/puttyalt_quickaction.c
+    src/ui/puttyalt_searchpanel.c
+    src/ui/puttyalt_tooltip2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)

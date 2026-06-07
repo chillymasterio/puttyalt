@@ -444,3 +444,48 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Keymap v2** — chord sequences + contexts
 - [x] **Batch operations** — bulk session actions
 - [x] **Webhook v2** — retry + signing
+
+## v3.3.0 (In Progress) — Intelligent Ops & Polish
+*Focus: ML-assisted operations, session intelligence, and refinement.*
+
+### AI/ML-assisted operations
+- [x] **Anomaly detector** — z-score over rolling window
+- [x] **Command predictor** — Markov bigram model
+- [x] **Smart retry** — adaptive strategy learning
+- [x] **Log clustering** — template extraction (Drain-lite)
+- [x] **Command safety** — risk scoring + blocking
+- [x] **Smart copy** — content type auto-detection
+
+### Session intelligence
+- [x] **Session scoring** — latency/error/uptime composite grade
+- [x] **Activity timeline** — event markers + range query
+- [x] **Connection graph** — topology + BFS reachability
+- [x] **Scoped share links** — tokens with expiry + scope
+- [x] **Session export v2** — JSON/YAML/sshconfig/PuTTY
+
+### Transfer & networking
+- [x] **Rsync delta sync** — rolling + strong checksums
+- [x] **Archive detection** — tar/zip/gz/bz2/xz/7z
+- [x] **Load balancer** — round-robin/least-conn/latency
+- [x] **Image render tracking** — inline image placement
+
+### Developer tooling
+- [x] **JSONPath-lite** — dot-notation extraction
+- [x] **Cron expression matcher** — full 5-field
+- [x] **Pipe filter chain** — grep/head transformations
+- [x] **Secret references** — env/vault/file/keychain
+- [x] **CSV export** — RFC-correct quoting
+- [x] **Profile inheritance** — connection profile manager
+- [x] **Snippet library v2** — tags + fuzzy search
+
+### UX polish
+- [x] **Quick action menu** — context-aware suggestions
+- [x] **Search panel** — result navigation
+- [x] **Pane borders** — active highlight
+- [x] **Scrollback marks** — quick navigation
+- [x] **Command help** — inline synopsis lookup
+- [x] **Progress bar** — ETA + rate display
+- [x] **Tooltip v2** — delayed rich tooltips
+- [x] **Settings UI** — categories + search
+- [x] **Charset designation** — G0-G3 + DEC graphics
+- [x] **Workflow v2** — conditional branches
