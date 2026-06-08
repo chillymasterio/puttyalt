@@ -596,6 +596,43 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tooltip2.c
 )
 
+# v3.4.0 SSH protocol depth, transport tuning, advanced UI, utilities
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_expect2.c
+    src/automation/puttyalt_macroplay.c
+    src/automation/puttyalt_schedule2.c
+    src/automation/puttyalt_trigger3.c
+    src/config/puttyalt_configdiff.c
+    src/config/puttyalt_remember.c
+    src/network/puttyalt_keepalive3.c
+    src/network/puttyalt_portforward2.c
+    src/network/puttyalt_socks5.c
+    src/network/puttyalt_sshcompress.c
+    src/network/puttyalt_sshrekey.c
+    src/security/puttyalt_hostkey2.c
+    src/session/puttyalt_sessfilter.c
+    src/session/puttyalt_sessgroup3.c
+    src/session/puttyalt_sessnote2.c
+    src/session/puttyalt_sesstag2.c
+    src/terminal/puttyalt_mouse2.c
+    src/terminal/puttyalt_oscfont.c
+    src/terminal/puttyalt_rectsel.c
+    src/terminal/puttyalt_wrapstate.c
+    src/tools/puttyalt_diffstat.c
+    src/tools/puttyalt_filepick.c
+    src/tools/puttyalt_iprange.c
+    src/tools/puttyalt_sshfp.c
+    src/tools/puttyalt_tarlist.c
+    src/tools/puttyalt_textwrap.c
+    src/tools/puttyalt_throughput.c
+    src/tools/puttyalt_uuid.c
+    src/tools/puttyalt_yamlparse.c
+    src/ui/puttyalt_animcurve.c
+    src/ui/puttyalt_colorwheel.c
+    src/ui/puttyalt_contextbar.c
+    src/ui/puttyalt_statusline2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)

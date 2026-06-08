@@ -9,7 +9,7 @@
 ![Version](https://img.shields.io/badge/version-3.0.0-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
-![Modules](https://img.shields.io/badge/550+%20modules-D29922?style=flat-square)
+![Modules](https://img.shields.io/badge/580+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/108%20tests%20passing-3FB950?style=flat-square)
 
 **[Download v3.0.0](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
@@ -112,6 +112,7 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
+| **3.4.0** (in progress) | SSH rekey/compression, port forwarding v2, keepalive v3, host key rotation, SSHFP, SOCKS5, mouse v2 (SGR pixel), rectangular selection, powerline status, color wheel, 33 modules |
 | **3.3.0** (in progress) | Anomaly detection, command prediction (Markov), session scoring, log clustering, rsync delta sync, load balancer, connection graph, smart copy/safety, JSONPath, cron matcher, 32 modules |
 | **3.2.0** (in progress) | Enterprise compliance (PCI/SOC2/HIPAA), RBAC, tamper-evident recording, secret scanner, Sixel v2, DNSSEC, GeoIP, hex editor, three-way merge, state machine, alert rules, 32 modules |
 | **3.1.0** (in progress) | Post-quantum KEM (ML-KEM/hybrid), WASM plugin runtime, edge/IoT profiles, Unicode 15.1 emoji, NAT hole-punching, Kitty keyboard protocol, synchronized output, session folder tree, 34 modules |
@@ -130,7 +131,7 @@ tests/             9 suites (108 assertions, all passing)
 ```
 Fast.       — Native C99, no runtime, no VM, no framework overhead.
 Focused.    — SSH done right. Not a general terminal pretending to do SSH.
-Modular.    — 550+ modules organized by function. Extend what you need.
+Modular.    — 580+ modules organized by function. Extend what you need.
 Private.    — Zero telemetry. No cloud. Your keys stay on your machine.
 ```
 
@@ -148,7 +149,7 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**550+ modules | 930+ commits | 64,000+ lines of C99**
+**580+ modules | 960+ commits | 67,000+ lines of C99**
 
 Built with care. No bloat. No compromise.
 

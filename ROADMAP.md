@@ -489,3 +489,51 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Settings UI** — categories + search
 - [x] **Charset designation** — G0-G3 + DEC graphics
 - [x] **Workflow v2** — conditional branches
+
+## v3.4.0 (In Progress) — Protocol Depth & Refinement
+*Focus: SSH protocol completeness, transport tuning, and UI refinement.*
+
+### SSH protocol
+- [x] **Rekey policy** — by bytes/time (RFC 4253)
+- [x] **Compression negotiation** — zlib/zlib@openssh with ratio
+- [x] **Port forwarding v2** — local/remote/dynamic SOCKS
+- [x] **Keepalive v3** — adaptive interval + dead detection
+- [x] **Host key trust v2** — rotation acceptance
+- [x] **SSHFP verification** — DNS fingerprint records (RFC 4255)
+- [x] **SOCKS5 client** — handshake state machine
+
+### Transport & performance
+- [x] **Throughput meter** — EWMA smoothing + peak
+- [x] **IP range/CIDR** — matching + private detection
+
+### Terminal
+- [x] **OSC 10/11/12** — font/cursor color query
+- [x] **Mouse protocol v2** — SGR pixel mode
+- [x] **Rectangular selection** — block selection model
+- [x] **Line wrap state** — DECAWM pending-wrap
+- [x] **Macro playback** — timed replay with loop
+
+### UI & UX
+- [x] **Status line v2** — powerline segments
+- [x] **Context action bar** — state-driven buttons
+- [x] **Color wheel** — HSV picker
+- [x] **Animation easing** — cubic/bounce curves
+- [x] **Word-wrap engine** — hyphenation hints
+
+### Sessions & config
+- [x] **Session tags v2** — AND/OR filter expressions
+- [x] **Session notes v2** — pinned markdown notes
+- [x] **Session groups v3** — nesting + drag reorder
+- [x] **Session fuzzy filter** — name/host/tag
+- [x] **Per-host memory** — last-used settings
+- [x] **Config 3-way merge** — sync conflict resolution
+- [x] **Task scheduler v2** — priorities + dependencies
+
+### Tooling & parsing
+- [x] **Expect v2** — send queue
+- [x] **Trigger v3** — action chains
+- [x] **YAML parser** — flat key/value
+- [x] **TAR header parser** — ustar entries
+- [x] **UUID v4** — generate + validate
+- [x] **File picker** — multi-select + filter
+- [x] **Diff statistics** — additions/deletions
