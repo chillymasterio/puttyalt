@@ -633,6 +633,42 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_statusline2.c
 )
 
+# v3.5.0 terminal emulation depth, hardware auth, protocol parsers, UI primitives
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_chainrun.c
+    src/automation/puttyalt_eventhook.c
+    src/automation/puttyalt_luaapi.c
+    src/automation/puttyalt_restendpoint.c
+    src/config/puttyalt_inifile.c
+    src/config/puttyalt_keyseq.c
+    src/network/puttyalt_iface.c
+    src/network/puttyalt_proxyssl.c
+    src/network/puttyalt_sshtunnel.c
+    src/security/puttyalt_fido2.c
+    src/security/puttyalt_pkcs11.c
+    src/session/puttyalt_recentconn.c
+    src/session/puttyalt_sessstats.c
+    src/terminal/puttyalt_apc.c
+    src/terminal/puttyalt_attrs.c
+    src/terminal/puttyalt_cursorshape.c
+    src/terminal/puttyalt_dcs.c
+    src/terminal/puttyalt_linedraw.c
+    src/terminal/puttyalt_reflow2.c
+    src/terminal/puttyalt_screenbuf.c
+    src/terminal/puttyalt_tabstop.c
+    src/terminal/puttyalt_vt220.c
+    src/tools/puttyalt_glob.c
+    src/tools/puttyalt_md5.c
+    src/tools/puttyalt_scpv2.c
+    src/tools/puttyalt_sftpattr.c
+    src/tools/puttyalt_timefmt.c
+    src/tools/puttyalt_wordcomplete.c
+    src/ui/puttyalt_modaldialog.c
+    src/ui/puttyalt_scrollbar.c
+    src/ui/puttyalt_splitresize.c
+    src/ui/puttyalt_tablist.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)

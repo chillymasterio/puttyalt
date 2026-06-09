@@ -537,3 +537,48 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **UUID v4** — generate + validate
 - [x] **File picker** — multi-select + filter
 - [x] **Diff statistics** — additions/deletions
+
+## v3.5.0 (In Progress) — Terminal Depth & Hardware Auth
+*Focus: complete terminal emulation, hardware security keys, protocol parsers.*
+
+### Terminal emulation
+- [x] **VT220 conformance** — DECSCL conformance levels
+- [x] **DCS parser** — device control strings (Sixel/UDK/DECRQSS)
+- [x] **APC handler** — application program commands (Kitty)
+- [x] **Tab stops** — HTS/TBC stop management
+- [x] **Box drawing** — DEC line-draw to Unicode
+- [x] **Cell attributes** — SGR packing/unpacking
+- [x] **Cursor shape** — DECSCUSR styles + blink
+- [x] **Dirty-line tracking** — partial redraw buffer
+- [x] **Text reflow** — rewrap on resize
+- [x] **Key sequences** — terminfo-lite escape mapper
+
+### Hardware & security
+- [x] **PKCS#11** — smartcard/HSM slot descriptor
+- [x] **FIDO2/U2F** — security key authentication
+- [x] **SSH tunnels** — lifecycle with auto-restart
+
+### Protocols
+- [x] **HTTPS CONNECT proxy** — tunnel handshake
+- [x] **SFTP attributes** — permissions/times parser
+- [x] **SCP v2** — protocol message parser
+- [x] **REST endpoints** — method+path router
+- [x] **Lua API registry** — function binding table
+
+### UI primitives
+- [x] **Tab list** — reorder/close/activate model
+- [x] **Split resize** — interactive divider drag
+- [x] **Modal dialogs** — focus trap + result
+- [x] **Scrollbar** — geometry + thumb hit testing
+
+### Utilities
+- [x] **Glob matching** — *, ?, [...] patterns
+- [x] **INI parser** — sectioned config
+- [x] **Word completion** — buffer vocabulary
+- [x] **Digest** — fast cache-key hashing
+- [x] **Recent connections** — frequency + LRU
+- [x] **Network interfaces** — bind preference
+- [x] **Time formatting** — relative/ISO/clock
+- [x] **Session statistics** — bytes/duration/cmds
+- [x] **Event hooks** — priority dispatcher
+- [x] **Command chains** — &&/||/; operators
