@@ -669,6 +669,41 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tablist.c
 )
 
+# v3.6.0 editor primitives, search, data viz, integrations, polish
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_batchexec.c
+    src/automation/puttyalt_pluginhost.c
+    src/automation/puttyalt_scriptload.c
+    src/automation/puttyalt_taskpool.c
+    src/config/puttyalt_settingstore.c
+    src/config/puttyalt_themeload.c
+    src/editor/puttyalt_buffer.c
+    src/editor/puttyalt_undostack.c
+    src/network/puttyalt_bandwidthmon.c
+    src/network/puttyalt_dnsresolve.c
+    src/network/puttyalt_wsclient.c
+    src/session/puttyalt_bookmark2.c
+    src/session/puttyalt_sessmeta.c
+    src/session/puttyalt_sessrestore2.c
+    src/terminal/puttyalt_colorscheme2.c
+    src/terminal/puttyalt_palette2.c
+    src/terminal/puttyalt_scrollback2.c
+    src/tools/puttyalt_bytefmt.c
+    src/tools/puttyalt_clipformat.c
+    src/tools/puttyalt_fuzzy2.c
+    src/tools/puttyalt_hashverify.c
+    src/tools/puttyalt_regex2.c
+    src/tools/puttyalt_sparkline.c
+    src/tools/puttyalt_tablefmt.c
+    src/tools/puttyalt_validate2.c
+    src/ui/puttyalt_breadcrumb2.c
+    src/ui/puttyalt_gauge.c
+    src/ui/puttyalt_keymapui.c
+    src/ui/puttyalt_progressmodal.c
+    src/ui/puttyalt_searchhl2.c
+    src/ui/puttyalt_tooltip3.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
