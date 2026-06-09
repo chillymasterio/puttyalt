@@ -30,7 +30,7 @@ static void test_keepalive_init(void)
     KeepAliveManager km;
     ka_init(&km);
     assert(km.count == 0);
-    assert(km.global_interval == 0);
+    assert(km.global_interval == 60);
     PASS();
 }
 

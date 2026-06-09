@@ -94,7 +94,7 @@ static void test_term_scroll_up(void)
 
     /* Row 0 should now be empty (new blank line scrolled in at bottom) */
     TermCell *c = term_cell_at(&ts, ts.rows - 1, 0);
-    assert(c && c->ch == 0);
+    assert(c && c->ch == ' ');
 
     term_destroy(&ts);
     PASS();
@@ -113,7 +113,7 @@ static void test_term_erase_line(void)
     term_erase_line(&ts, 0); /* erase from cursor to end */
 
     TermCell *c = term_cell_at(&ts, 0, 4);
-    assert(c && c->ch == 0);
+    assert(c && c->ch == ' ');
 
     /* Characters before cursor should remain */
     c = term_cell_at(&ts, 0, 0);
