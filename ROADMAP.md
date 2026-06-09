@@ -582,3 +582,51 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Session statistics** — bytes/duration/cmds
 - [x] **Event hooks** — priority dispatcher
 - [x] **Command chains** — &&/||/; operators
+
+## v3.6.0 (In Progress) — Editor, Search & Polish
+*Focus: text editing, search/data-viz, integrations, and test hardening.*
+
+### Editor & search
+- [x] **Gap buffer** — efficient text editing primitive
+- [x] **Undo/redo stack** — editor operation history
+- [x] **Regex engine v2** — anchors, classes, quantifiers
+- [x] **Fuzzy matcher v2** — fzf-style scoring
+- [x] **Search highlighting** — match ranges + current
+- [x] **Word completion** — buffer vocabulary
+
+### Data visualization
+- [x] **Sparklines** — Unicode block charts
+- [x] **Gauge widget** — color-zoned meter
+- [x] **ASCII tables** — column-aligned formatter
+- [x] **Byte formatting** — SI/binary/grouped
+
+### Integrations
+- [x] **WebSocket client** — RFC 6455 frame codec
+- [x] **DNS resolution** — A/AAAA/CNAME handler
+- [x] **Plugin host runtime** — lifecycle + sandbox
+- [x] **Theme loader** — iTerm/WT JSON format
+- [x] **Script loader** — dependency resolution
+- [x] **Hash verification** — file integrity check
+
+### Sessions & config
+- [x] **Bookmarks v2** — folders + favorites
+- [x] **Session metadata** — custom key/value
+- [x] **Session restore v2** — window layout persistence
+- [x] **Settings store** — change tracking
+- [x] **Bandwidth monitor** — per-session aggregation
+- [x] **Batch execution** — concurrency-limited
+- [x] **Task pool** — priority worker pool
+
+### Terminal & UI
+- [x] **Scrollback v2** — ring buffer with markers
+- [x] **Dynamic palette** — OSC 4 color set/query
+- [x] **Color scheme v2** — bright palette
+- [x] **Clipboard formatting** — ANSI strip + EOL
+- [x] **Progress modal** — long-operation feedback
+- [x] **Rich tooltip** — multi-line + key hints
+- [x] **Breadcrumb v2** — clickable segments
+- [x] **Keymap editor** — conflict detection
+- [x] **Input validation** — hostname/port/email
+
+### Quality
+- [x] **Test fixes** — hostverify API, terminal blanks, keepalive (38/38 pass)
