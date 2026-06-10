@@ -630,3 +630,52 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Quality
 - [x] **Test fixes** — hostverify API, terminal blanks, keepalive (38/38 pass)
+
+## v3.7.0 (In Progress) — i18n, Accessibility & Quality
+*Focus: internationalization, accessibility, profiling, and verification tooling.*
+
+### Internationalization & accessibility
+- [x] **i18n string table** — locale fallback
+- [x] **Locale formatting** — number/date by locale
+- [x] **Accessibility v2** — focus order + ARIA roles
+- [x] **BiDi segmentation** — LTR/RTL run detection
+- [x] **UI zoom** — font steps + DPI scaling
+
+### Networking
+- [x] **IPv6 parsing** — address + classification
+- [x] **Connection state machine** — validated lifecycle
+- [x] **Reconnect v3** — backoff + jitter cap
+- [x] **Connection history v2** — reliability stats
+- [x] **Rate calculator v2** — smoothed ETA
+
+### Terminal & editor
+- [x] **OSC parser v2** — numeric + string params
+- [x] **Escape filter** — strip/sanitize control codes
+- [x] **Syntax highlighting** — keyword/string/comment tokenizer
+- [x] **Character counter** — chars/words/lines (UTF-8)
+- [x] **Output throttle** — flood prevention
+- [x] **Ring buffer v2** — overflow tracking
+
+### Tools & automation
+- [x] **Function profiler** — call counts + timing
+- [x] **Script debugger** — breakpoints + watch
+- [x] **JSON builder** — object/array emission
+- [x] **Levenshtein distance** — typo suggestions
+- [x] **Command tokenizer** — quotes/escapes/pipes
+- [x] **Conditional variables** — automation expansion
+- [x] **Config import** — PuTTY/OpenSSH/JSON
+- [x] **Settings export v3** — portable archive
+- [x] **Macro editor** — insert/delete/reorder
+
+### UI & sessions
+- [x] **Audit log v2** — severity levels
+- [x] **Radial menu** — pie context geometry
+- [x] **Notification toasts** — positioned queue
+- [x] **Session grid** — tile layout
+- [x] **Session search v2** — multi-field ranking
+- [x] **Split layout v2** — nested binary tree
+
+### Quality & tooling
+- [x] **verify.sh** — local quality gate (compile + link + dup-symbol + tests)
+- [x] **Warning cleanup** — zero-warning test build
+- [x] **Test suite** — 38/38 passing
