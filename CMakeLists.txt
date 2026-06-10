@@ -704,6 +704,41 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tooltip3.c
 )
 
+# v3.7.0 i18n/a11y, profiling, IPv6, advanced parsing, UI primitives
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_condvar.c
+    src/automation/puttyalt_macroedit.c
+    src/automation/puttyalt_scriptdebug.c
+    src/config/puttyalt_export3.c
+    src/config/puttyalt_i18n.c
+    src/config/puttyalt_import2.c
+    src/config/puttyalt_locale2.c
+    src/editor/puttyalt_syntax.c
+    src/network/puttyalt_connstate.c
+    src/network/puttyalt_ipv6.c
+    src/network/puttyalt_reconnect3.c
+    src/security/puttyalt_audit2.c
+    src/session/puttyalt_connhistory2.c
+    src/session/puttyalt_sessgrid.c
+    src/session/puttyalt_sesssearch2.c
+    src/terminal/puttyalt_bidi2.c
+    src/terminal/puttyalt_charcount.c
+    src/terminal/puttyalt_escfilter.c
+    src/terminal/puttyalt_oscparse2.c
+    src/tools/puttyalt_cmdparse.c
+    src/tools/puttyalt_jsonbuild.c
+    src/tools/puttyalt_levenshtein.c
+    src/tools/puttyalt_perfprof.c
+    src/tools/puttyalt_ratecalc2.c
+    src/tools/puttyalt_ringbuf2.c
+    src/tools/puttyalt_throttle2.c
+    src/ui/puttyalt_a11y2.c
+    src/ui/puttyalt_notifytoast.c
+    src/ui/puttyalt_radialmenu.c
+    src/ui/puttyalt_splitlayout2.c
+    src/ui/puttyalt_zoom2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
