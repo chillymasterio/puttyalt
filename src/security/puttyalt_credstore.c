@@ -100,11 +100,6 @@ void credstore_touch(CredStore *cs, int index)
         cs->entries[index].last_used = (long)time(NULL);
 }
 
-static void credstore_clear_entries(CredStore *cs)
-{
-    cs->count = 0;
-}
-
 int credstore_load(CredStore *cs, const char *path)
 {
     FILE *f = fopen(path, "r");

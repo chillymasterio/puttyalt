@@ -75,8 +75,10 @@ TermCell *term_cell_at(TermState *ts, int row, int col)
 
 void term_set_cursor(TermState *ts, int row, int col)
 {
-    if (row < 0) row = 0; if (row >= ts->rows) row = ts->rows - 1;
-    if (col < 0) col = 0; if (col >= ts->cols) col = ts->cols - 1;
+    if (row < 0) row = 0;
+    if (row >= ts->rows) row = ts->rows - 1;
+    if (col < 0) col = 0;
+    if (col >= ts->cols) col = ts->cols - 1;
     ts->cursor_row = row; ts->cursor_col = col;
 }
 
