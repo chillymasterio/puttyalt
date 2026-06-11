@@ -679,3 +679,50 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **verify.sh** — local quality gate (compile + link + dup-symbol + tests)
 - [x] **Warning cleanup** — zero-warning test build
 - [x] **Test suite** — 38/38 passing
+
+## v3.8.0 (In Progress) — Crypto Helpers, UTF-8 & Widgets
+*Focus: encoding/crypto primitives, UTF-8 correctness, UI widgets.*
+
+### Crypto & encoding
+- [x] **Base32** — RFC 4648 encode/decode
+- [x] **TOTP** — code computation model
+- [x] **CRC32** — IEEE checksum
+- [x] **UTF-8** — encode/decode/validate/strlen
+- [x] **URL parser** — scheme/host/port/path/query
+- [x] **Hex dump v2** — offset + ASCII gutter
+
+### Terminal
+- [x] **ANSI 256-color** — SGR sequence parser
+- [x] **Text selection v2** — char/word/line/block
+- [x] **Wrap indent** — continuation tracking
+- [x] **Cursor blink** — timing + visibility
+
+### UI widgets
+- [x] **List view** — selection/scroll/filter
+- [x] **Dropdown** — keyboard navigation
+- [x] **Spinner** — loading animation
+- [x] **Diff view** — side-by-side layout
+
+### Sessions & config
+- [x] **Connection preset v2** — parameter overrides
+- [x] **Session clone v2** — field selection
+- [x] **Session pinning** — priority order
+- [x] **Config migration v2** — version chain
+- [x] **Key binding map** — modifier combos
+- [x] **State manager** — persistence flags
+
+### Networking & automation
+- [x] **Packet log** — SSH type counts
+- [x] **Bandwidth limit v2** — burst allowance
+- [x] **Protocol negotiation** — SSH banner exchange
+- [x] **Trigger matcher** — multi-pattern
+- [x] **Replay macro** — speed control
+- [x] **Schedule rules** — interval/daily/weekly
+- [x] **Action queue** — undo support
+- [x] **Key store** — agent integration
+- [x] **Memory pool** — fixed-block allocator
+- [x] **Shell quoting** — POSIX/Windows
+- [x] **File type detection** — extension + magic
+
+### Tooling
+- [x] **verify.sh v2** — now tracks -Wall warning count
