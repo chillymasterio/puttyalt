@@ -739,6 +739,41 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_zoom2.c
 )
 
+# v3.8.0 crypto helpers (base32/TOTP/CRC32), UTF-8, UI widgets, protocol
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_actionqueue.c
+    src/automation/puttyalt_replaymacro.c
+    src/automation/puttyalt_schedrule.c
+    src/automation/puttyalt_triggermatch.c
+    src/config/puttyalt_cfgmigrate2.c
+    src/config/puttyalt_keybindmap.c
+    src/config/puttyalt_preset2.c
+    src/network/puttyalt_bandwidthlimit2.c
+    src/network/puttyalt_packetlog.c
+    src/network/puttyalt_proto2.c
+    src/network/puttyalt_urlparse.c
+    src/security/puttyalt_keystore.c
+    src/security/puttyalt_totp.c
+    src/session/puttyalt_sessclone2.c
+    src/session/puttyalt_sesspin.c
+    src/terminal/puttyalt_ansi256.c
+    src/terminal/puttyalt_cursorblink.c
+    src/terminal/puttyalt_selection2.c
+    src/terminal/puttyalt_wrapindent.c
+    src/tools/puttyalt_base32.c
+    src/tools/puttyalt_crc32.c
+    src/tools/puttyalt_diffview.c
+    src/tools/puttyalt_filetype.c
+    src/tools/puttyalt_hexdump2.c
+    src/tools/puttyalt_mempool2.c
+    src/tools/puttyalt_quote.c
+    src/tools/puttyalt_statemgr.c
+    src/tools/puttyalt_unicode2.c
+    src/ui/puttyalt_dropdown.c
+    src/ui/puttyalt_listview.c
+    src/ui/puttyalt_spinner.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
