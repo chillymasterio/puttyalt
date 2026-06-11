@@ -44,12 +44,13 @@ CERR=0
 while read -r s; do
     base=$(basename "$s" .c)
     case " $SKIP " in *" $base "*) continue ;; esac
-    if ! "$CC" -c -std=c99 -O2 -DNDEBUG -Iinclude -I. "$s" \
+    if ! "$CC" -c -std=c99 -Wall -O2 -DNDEBUG -Iinclude -I. "$s" \
          -o "$OBJ/$(echo "$s" | tr / _ | sed 's/\.c$/.o/')" 2>>"$OBJ/cc.log"; then
         echo "  CERR: $s"; CERR=$((CERR + 1))
     fi
 done < "$OBJ/srcs.txt"
-echo "  [2] compile errors: $CERR"
+WARN=$(grep -c "warning:" "$OBJ/cc.log" 2>/dev/null || echo 0)
+echo "  [2] compile errors: $CERR | warnings: $WARN"
 [ "$CERR" -eq 0 ] || FAIL=1
 
 # [3] Duplicate-symbol check across the full object set.
