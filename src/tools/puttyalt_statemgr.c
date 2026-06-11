@@ -23,11 +23,13 @@ const char *statemgr_get(const StateMgr *s, const char *key) {
     return 0;
 }
 int statemgr_export_persistent(const StateMgr *s, char *out, int outlen) {
-    if(!s||!out) return -1; int pos=0;
+    if(!s||!out) return -1;
+    int pos=0;
     for (int i=0;i<s->n && pos<outlen;i++) if (s->states[i].persistent)
         pos+=snprintf(out+pos,outlen-pos,"%s=%s\n",s->states[i].key,s->states[i].value);
     return pos;
 }
 int statemgr_dirty_count(const StateMgr *s) {
-    if(!s) return -1; int n=0; for(int i=0;i<s->n;i++) if(s->states[i].dirty)n++; return n;
+    if(!s) return -1;
+    int n=0; for(int i=0;i<s->n;i++) if(s->states[i].dirty)n++; return n;
 }

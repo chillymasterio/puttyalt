@@ -5,7 +5,8 @@
 typedef struct { int from_version; int to_version; char description[64]; int applied; } cm_migration;
 typedef struct { cm_migration migrations[CM_MAX]; int n; int current_version; int target_version; } CfgMigrate2;
 void cfgmigrate2_init(CfgMigrate2 *c, int current, int target) {
-    if(!c) return; memset(c,0,sizeof(*c)); c->current_version=current; c->target_version=target;
+    if(!c) return;
+    memset(c,0,sizeof(*c)); c->current_version=current; c->target_version=target;
 }
 int cfgmigrate2_register(CfgMigrate2 *c, int from, int to, const char *desc) {
     if(!c||c->n>=CM_MAX||to!=from+1) return -1;

@@ -11,7 +11,8 @@ int replaymacro_add(ReplayMacro *r, uint64_t offset_ms, int data_len) {
 }
 void replaymacro_set_speed(ReplayMacro *r, int pct) { if(r) r->speed_pct=pct>0?pct:100; }
 int replaymacro_start(ReplayMacro *r, uint64_t now_ms) {
-    if(!r||r->n==0) return -1; r->cursor=0; r->base_ms=now_ms; r->playing=1; return 0;
+    if(!r||r->n==0) return -1;
+    r->cursor=0; r->base_ms=now_ms; r->playing=1; return 0;
 }
 int replaymacro_due(ReplayMacro *r, uint64_t now_ms) {
     if(!r||!r->playing||r->cursor>=r->n) return -1;
@@ -20,7 +21,8 @@ int replaymacro_due(ReplayMacro *r, uint64_t now_ms) {
     return -1;
 }
 int replaymacro_advance(ReplayMacro *r) {
-    if(!r||r->cursor>=r->n) return -1; r->cursor++;
+    if(!r||r->cursor>=r->n) return -1;
+    r->cursor++;
     if (r->cursor>=r->n) r->playing=0;
     return r->cursor;
 }

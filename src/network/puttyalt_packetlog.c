@@ -14,7 +14,8 @@ uint32_t packetlog_type_count(const PacketLog *p, int type) {
     return (p&&type>=0&&type<PL_TYPES)?p->type_counts[type]:0;
 }
 int packetlog_most_common(const PacketLog *p) {
-    if(!p) return -1; int best=-1; uint32_t bc=0;
+    if(!p) return -1;
+    int best=-1; uint32_t bc=0;
     for (int i=0;i<PL_TYPES;i++) if (p->type_counts[i]>bc) { bc=p->type_counts[i]; best=i; }
     return best;
 }

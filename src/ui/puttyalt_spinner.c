@@ -4,7 +4,8 @@ static const char *SPIN_DOTS[]={"\xe2\xa0\x8b","\xe2\xa0\x99","\xe2\xa0\xb9","\x
 static const char *SPIN_LINE[]={"|","/","-","\\"};
 typedef struct { int frame; int style; uint64_t last_ms; int interval_ms; } Spinner;
 void spinner_init(Spinner *s, int style, int interval_ms) {
-    if(!s) return; s->frame=0; s->style=style; s->last_ms=0; s->interval_ms=interval_ms>0?interval_ms:80;
+    if(!s) return;
+    s->frame=0; s->style=style; s->last_ms=0; s->interval_ms=interval_ms>0?interval_ms:80;
 }
 const char *spinner_tick(Spinner *s, uint64_t now_ms) {
     if(!s) return "";

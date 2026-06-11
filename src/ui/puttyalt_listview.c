@@ -6,7 +6,8 @@
 typedef struct { char text[LV_TEXT]; int id; int selected; int visible; } lv_item;
 typedef struct { lv_item items[LV_MAX]; int n; int cursor; int scroll; int viewport_rows; } ListView;
 void listview_init(ListView *l, int viewport_rows) {
-    if(!l) return; memset(l,0,sizeof(*l)); l->viewport_rows=viewport_rows>0?viewport_rows:10; l->cursor=-1;
+    if(!l) return;
+    memset(l,0,sizeof(*l)); l->viewport_rows=viewport_rows>0?viewport_rows:10; l->cursor=-1;
 }
 int listview_add(ListView *l, const char *text, int id) {
     if(!l||l->n>=LV_MAX) return -1;

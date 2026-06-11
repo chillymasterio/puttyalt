@@ -21,7 +21,8 @@ int sesspin_unpin(SessPin *s, const char *name) {
     return -1;
 }
 int sesspin_ordered(const SessPin *s, int *out_idx, int cap) {
-    if(!s) return -1; int n=0, used[SP_MAX]={0};
+    if(!s) return -1;
+    int n=0, used[SP_MAX]={0};
     /* pinned first by pin_order, then unpinned by registration */
     for (int k=0;k<cap;k++) {
         int best=-1;

@@ -4,7 +4,8 @@
 #include <stdio.h>
 typedef struct { char scheme[16]; char host[128]; int port; char path[160]; char query[128]; char user[64]; } UrlParse;
 int urlparse(const char *url, UrlParse *out) {
-    if(!url||!out) return -1; memset(out,0,sizeof(*out)); out->port=0;
+    if(!url||!out) return -1;
+    memset(out,0,sizeof(*out)); out->port=0;
     char work[512]; snprintf(work,sizeof(work),"%s",url);
     char *p=work;
     char *scheme=strstr(p,"://");
@@ -23,5 +24,6 @@ int urlparse(const char *url, UrlParse *out) {
     return out->host[0]?0:-1;
 }
 int urlparse_is_secure(const UrlParse *u) {
-    if(!u) return 0; return (strcmp(u->scheme,"https")==0||strcmp(u->scheme,"ssh")==0||strcmp(u->scheme,"sftp")==0)?1:0;
+    if(!u) return 0;
+    return (strcmp(u->scheme,"https")==0||strcmp(u->scheme,"ssh")==0||strcmp(u->scheme,"sftp")==0)?1:0;
 }

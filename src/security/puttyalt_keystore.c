@@ -12,7 +12,8 @@ int keystore_add(KeyStore *k, const char *name, const char *type, const char *fp
     snprintf(e->fingerprint,96,"%s",fp?fp:""); e->bits=bits; e->has_passphrase=has_pass?1:0; return k->n++;
 }
 int keystore_load_to_agent(KeyStore *k, int idx) {
-    if(!k||idx<0||idx>=k->n) return -1; k->keys[idx].in_agent=1; return 0;
+    if(!k||idx<0||idx>=k->n) return -1;
+    k->keys[idx].in_agent=1; return 0;
 }
 int keystore_find_by_fp(const KeyStore *k, const char *fp) {
     if(!k||!fp) return -1;
@@ -20,6 +21,7 @@ int keystore_find_by_fp(const KeyStore *k, const char *fp) {
     return -1;
 }
 int keystore_agent_count(const KeyStore *k) {
-    if(!k) return -1; int n=0; for(int i=0;i<k->n;i++) if(k->keys[i].in_agent)n++; return n;
+    if(!k) return -1;
+    int n=0; for(int i=0;i<k->n;i++) if(k->keys[i].in_agent)n++; return n;
 }
 int keystore_count(const KeyStore *k) { return k?k->n:-1; }

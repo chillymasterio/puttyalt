@@ -3,7 +3,8 @@
 #define MP_BLOCKS 256
 typedef struct { unsigned char used[MP_BLOCKS]; int block_size; int total_blocks; int allocated; int peak; } MemPool2;
 void mempool2_init(MemPool2 *m, int block_size, int total_blocks) {
-    if(!m) return; memset(m,0,sizeof(*m)); m->block_size=block_size;
+    if(!m) return;
+    memset(m,0,sizeof(*m)); m->block_size=block_size;
     m->total_blocks=total_blocks<MP_BLOCKS?total_blocks:MP_BLOCKS;
 }
 int mempool2_alloc(MemPool2 *m) {

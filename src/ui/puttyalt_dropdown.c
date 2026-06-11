@@ -16,7 +16,8 @@ int dropdown_move(Dropdown *d, int delta) {
     return d->highlighted;
 }
 int dropdown_commit(Dropdown *d) {
-    if(!d||!d->open) return -1; d->selected=d->highlighted; d->open=0; return d->selected;
+    if(!d||!d->open) return -1;
+    d->selected=d->highlighted; d->open=0; return d->selected;
 }
 const char *dropdown_selected_text(const Dropdown *d) {
     return (d&&d->selected>=0&&d->selected<d->n)?d->items[d->selected]:"";

@@ -22,7 +22,8 @@ int keybindmap_lookup(const KeyBindMap *k, int keycode, int modifiers) {
     return -1;
 }
 int keybindmap_format(int keycode, int modifiers, char *out, int outlen) {
-    if(!out) return -1; int pos=0;
+    if(!out) return -1;
+    int pos=0;
     if (modifiers&KB_MOD_CTRL) pos+=snprintf(out+pos,outlen-pos,"Ctrl+");
     if (modifiers&KB_MOD_ALT) pos+=snprintf(out+pos,outlen-pos,"Alt+");
     if (modifiers&KB_MOD_SHIFT) pos+=snprintf(out+pos,outlen-pos,"Shift+");

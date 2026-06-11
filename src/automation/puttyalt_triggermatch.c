@@ -11,7 +11,8 @@ int triggermatch_add(TriggerMatch *t, const char *pattern, int action_id) {
     snprintf(t->patterns[t->n].pattern,TM_PAT,"%s",pattern); t->patterns[t->n].action_id=action_id; return t->n++;
 }
 int triggermatch_scan(TriggerMatch *t, const char *text, int *out_actions, int cap) {
-    if(!t||!text) return -1; int n=0;
+    if(!t||!text) return -1;
+    int n=0;
     for (int i=0;i<t->n && n<cap;i++) {
         if (strstr(text,t->patterns[i].pattern)) { t->patterns[i].matches++; out_actions[n++]=t->patterns[i].action_id; }
     }

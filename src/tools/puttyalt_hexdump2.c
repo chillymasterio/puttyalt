@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 int hexdump2_line(const unsigned char *data, int len, int offset, int width, char *out, int outlen) {
-    if(!data||!out) return -1; if(width<=0)width=16;
+    if(!data||!out) return -1;
+    if(width<=0)width=16;
     int pos=snprintf(out,outlen,"%08x  ",offset);
     for (int i=0;i<width;i++) {
         if (i<len) pos+=snprintf(out+pos,outlen-pos,"%02x ",data[i]);

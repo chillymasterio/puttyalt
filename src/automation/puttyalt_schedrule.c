@@ -19,7 +19,8 @@ int schedrule_add_daily(SchedRule *s, const char *action, int hour, int minute) 
     snprintf(r->action,64,"%s",action?action:""); r->enabled=1; return s->n++;
 }
 int schedrule_due(SchedRule *s, uint64_t now_ms, int *out_idx, int cap) {
-    if(!s) return -1; int n=0;
+    if(!s) return -1;
+    int n=0;
     for (int i=0;i<s->n && n<cap;i++) {
         sr_rule *r=&s->rules[i];
         if (!r->enabled) continue;

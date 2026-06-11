@@ -2,7 +2,8 @@
 #include <stdint.h>
 typedef struct { int blink_on; int blink_enabled; uint64_t last_toggle; int interval_ms; int visible; } CursorBlink;
 void cursorblink_init(CursorBlink *c, int interval_ms) {
-    if(!c) return; c->blink_on=1; c->blink_enabled=1; c->last_toggle=0; c->interval_ms=interval_ms>0?interval_ms:500; c->visible=1;
+    if(!c) return;
+    c->blink_on=1; c->blink_enabled=1; c->last_toggle=0; c->interval_ms=interval_ms>0?interval_ms:500; c->visible=1;
 }
 int cursorblink_tick(CursorBlink *c, uint64_t now_ms) {
     if(!c||!c->blink_enabled||!c->visible) return c?c->blink_on:0;
