@@ -726,3 +726,51 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Tooling
 - [x] **verify.sh v2** — now tracks -Wall warning count
+
+## v3.9.0 (In Progress) — Data, Layout & Quality
+*Focus: data structures, layout systems, parsing, and warning cleanup.*
+
+### Data & parsing
+- [x] **JSON merge patch** — RFC 7386
+- [x] **Text diff** — line-based LCS
+- [x] **Time parsing** — ISO 8601 / relative
+- [x] **Option parser** — getopt-like CLI
+- [x] **String utilities** — trim/split/replace
+- [x] **Path utilities** — basename/dirname/join
+- [x] **logfmt** — structured key=value
+
+### Layout & UI
+- [x] **Grid layout** — rows x cols with spans
+- [x] **Dockable panels** — left/right/top/bottom/float
+- [x] **Menu bar** — submenus + accelerators
+- [x] **Status widgets** — composable indicators
+- [x] **Progress ring** — circular segments
+- [x] **Theme variables** — cascading resolution
+
+### Terminal
+- [x] **Resize handler** — cursor clamp + reflow
+- [x] **Scroll region v2** — DECSLRM margins
+- [x] **Character map** — codepage/ACS translation
+- [x] **Input mode** — insert/replace/vi/normal
+
+### Networking & security
+- [x] **Connection pool v3** — idle timeout + warmup
+- [x] **DNS cache v2** — negative caching
+- [x] **Address pool** — health-based selection
+- [x] **TLS verification** — certificate chain
+- [x] **Password policy** — length/complexity
+
+### Automation & infra
+- [x] **Event bus v2** — topic wildcards
+- [x] **Pipeline executor** — stage chaining
+- [x] **Job queue v2** — dependency ordering
+- [x] **Task dependency graph** — topological sort
+- [x] **Condition checker** — automation guards
+- [x] **Retry timer** — fixed/linear/exp/fibonacci
+- [x] **LRU cache v2** — TTL + size eviction
+- [x] **Session template v2** — variable substitution
+- [x] **Session bookmarks** — in-scroll marks
+- [x] **Form validation** — field rules
+
+### Quality
+- [x] **Warning cleanup** — 474 -> 101 across-tree (-78%)
