@@ -13,7 +13,8 @@ int contextbar_add(ContextBar *c, const char *label, int action_id, int state_ma
 }
 void contextbar_set_state(ContextBar *c, int state) { if(c) c->current_state=state; }
 int contextbar_visible_buttons(const ContextBar *c, int *out_idx, int cap) {
-    if(!c) return -1; int n=0;
+    if(!c) return -1;
+    int n=0;
     for (int i=0;i<c->n && n<cap;i++) if (c->buttons[i].state_mask & c->current_state) out_idx[n++]=i;
     return n;
 }

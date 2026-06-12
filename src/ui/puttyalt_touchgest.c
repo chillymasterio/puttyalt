@@ -7,7 +7,8 @@ enum tg_gesture { TG_NONE=0, TG_TAP, TG_DOUBLETAP, TG_SWIPE_L, TG_SWIPE_R, TG_SW
 typedef struct { int id, x, y, sx, sy; uint64_t t0; int active; } tg_point;
 typedef struct { tg_point pts[TG_MAX_POINTS]; int count; int swipe_thresh; int longpress_ms; uint64_t last_tap_ms; } TouchGesture;
 void touchgest_init(TouchGesture *g, int swipe_thresh, int longpress_ms) {
-    if (!g) return; memset(g,0,sizeof(*g));
+    if (!g) return;
+    memset(g,0,sizeof(*g));
     g->swipe_thresh = swipe_thresh>0?swipe_thresh:40; g->longpress_ms = longpress_ms>0?longpress_ms:500;
 }
 int touchgest_down(TouchGesture *g, int id, int x, int y, uint64_t now_ms) {

@@ -10,7 +10,8 @@ int imgrender_place(ImgRender *r, int img_id, int row, int col, int width_cols, 
     p->width_cols=width_cols; p->height_rows=height_rows; p->visible=1; return 0;
 }
 void imgrender_scroll(ImgRender *r, int lines) {
-    if(!r) return; r->scroll_offset+=lines;
+    if(!r) return;
+    r->scroll_offset+=lines;
     for (int i=0;i<r->n;i++) {
         int screen_row = r->p[i].top_row - r->scroll_offset;
         r->p[i].visible = (screen_row + r->p[i].height_rows > 0);
@@ -25,5 +26,6 @@ int imgrender_at_row(const ImgRender *r, int screen_row) {
     return -1;
 }
 int imgrender_visible_count(const ImgRender *r) {
-    if(!r) return -1; int n=0; for(int i=0;i<r->n;i++) if(r->p[i].visible)n++; return n;
+    if(!r) return -1;
+    int n=0; for(int i=0;i<r->n;i++) if(r->p[i].visible)n++; return n;
 }

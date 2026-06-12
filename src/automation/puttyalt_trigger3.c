@@ -14,7 +14,8 @@ int trigger3_add(Trigger3 *t, const char *pattern, const char *action, int actio
     tr->action_type=action_type; tr->enabled=1; tr->once=once?1:0; return t->n-1;
 }
 int trigger3_scan(Trigger3 *t, const char *line, int *out_actions, int cap) {
-    if(!t||!line) return -1; int n=0;
+    if(!t||!line) return -1;
+    int n=0;
     for (int i=0;i<t->n && n<cap;i++) {
         tr_trigger *tr=&t->t[i];
         if (!tr->enabled) continue;

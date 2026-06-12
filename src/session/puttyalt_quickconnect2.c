@@ -4,7 +4,8 @@
 #include <stdlib.h>
 typedef struct { char user[64]; char host[160]; int port; char path[160]; int compress; char keyfile[160]; } QuickConnect2;
 int quickconnect2_parse(const char *str, QuickConnect2 *out) {
-    if(!str||!out) return -1; memset(out,0,sizeof(*out)); out->port=22;
+    if(!str||!out) return -1;
+    memset(out,0,sizeof(*out)); out->port=22;
     char work[512]; snprintf(work,sizeof(work),"%s",str);
     char *p=work;
     /* scheme:// optional */

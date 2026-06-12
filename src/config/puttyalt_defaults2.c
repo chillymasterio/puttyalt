@@ -18,7 +18,8 @@ int defaults2_set(Defaults2 *d, const char *key, const char *val, int layer) {
     snprintf(d->e[d->n].key,DF_KEY,"%s",key); snprintf(d->e[d->n].val,DF_VAL,"%s",val?val:""); d->e[d->n].layer=layer; d->n++; return 0;
 }
 const char *defaults2_resolve(const Defaults2 *d, const char *key) {
-    if(!d||!key) return 0; const char *best=0; int best_layer=-1;
+    if(!d||!key) return 0;
+    const char *best=0; int best_layer=-1;
     for (int i=0;i<d->n;i++) if (strcmp(d->e[i].key,key)==0 && d->e[i].layer>best_layer) { best_layer=d->e[i].layer; best=d->e[i].val; }
     return best;
 }

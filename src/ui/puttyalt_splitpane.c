@@ -103,7 +103,8 @@ int splitpane_close(SplitPaneTree *t, int pane_id) {
     int leaf = sp_find_leaf(t, pane_id);
     if (leaf == SP_NONE) return -1;
     int p = t->nodes[leaf].parent;
-    if (p == SP_NONE) return -1;  /* cannot close the only pane */
+    if (p == SP_NONE) return -1;
+    /* cannot close the only pane */
     int sib = (t->nodes[p].child[0] == leaf) ? t->nodes[p].child[1]
                                              : t->nodes[p].child[0];
     if (sib == SP_NONE) return -1;

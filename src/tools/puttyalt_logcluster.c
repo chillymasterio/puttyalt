@@ -24,7 +24,8 @@ int logcluster_add(LogCluster *l, const char *line) {
     snprintf(l->c[l->n].template,LC_TMPL,"%s",tmpl); l->c[l->n].count=1; return l->n++;
 }
 int logcluster_top(const LogCluster *l, char *buf, int buflen) {
-    if(!l||!buf) return -1; int best=-1, bc=0;
+    if(!l||!buf) return -1;
+    int best=-1, bc=0;
     for (int i=0;i<l->n;i++) if (l->c[i].count>bc) { bc=l->c[i].count; best=i; }
     if (best<0) return -1;
     return snprintf(buf,buflen,"%s (x%d)",l->c[best].template,bc);

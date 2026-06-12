@@ -19,7 +19,8 @@ int portforward2_find_by_port(const PortForward2 *p, int listen_port) {
     return -1;
 }
 void portforward2_track_conn(PortForward2 *p, int idx, int delta) {
-    if(!p||idx<0||idx>=p->n) return; p->r[idx].conns+=delta; if(p->r[idx].conns<0) p->r[idx].conns=0;
+    if(!p||idx<0||idx>=p->n) return;
+    p->r[idx].conns+=delta; if(p->r[idx].conns<0) p->r[idx].conns=0;
 }
 int portforward2_format(const PortForward2 *p, int idx, char *out, int outlen) {
     if(!p||idx<0||idx>=p->n||!out) return -1;
@@ -29,5 +30,6 @@ int portforward2_format(const PortForward2 *p, int idx, char *out, int outlen) {
     return snprintf(out,outlen,"-%s %d:%s:%d",tn[r->type],r->listen_port,r->dest_host,r->dest_port);
 }
 int portforward2_active_count(const PortForward2 *p) {
-    if(!p) return -1; int n=0; for(int i=0;i<p->n;i++) if(p->r[i].active)n++; return n;
+    if(!p) return -1;
+    int n=0; for(int i=0;i<p->n;i++) if(p->r[i].active)n++; return n;
 }

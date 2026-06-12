@@ -10,7 +10,8 @@
 #define ATTR_HIDDEN     (1u<<7)
 typedef struct { uint16_t flags; uint8_t fg256; uint8_t bg256; uint32_t fg_rgb; uint32_t bg_rgb; int truecolor; } CellAttrs;
 void attrs_init(CellAttrs *a) {
-    if(!a) return; a->flags=0; a->fg256=7; a->bg256=0; a->fg_rgb=0xC0C0C0; a->bg_rgb=0; a->truecolor=0;
+    if(!a) return;
+    a->flags=0; a->fg256=7; a->bg256=0; a->fg_rgb=0xC0C0C0; a->bg_rgb=0; a->truecolor=0;
 }
 void attrs_set(CellAttrs *a, uint16_t flag) { if(a) a->flags|=flag; }
 void attrs_clear(CellAttrs *a, uint16_t flag) { if(a) a->flags&=~flag; }

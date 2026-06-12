@@ -3,7 +3,8 @@
 #include <stdint.h>
 typedef struct { int success_count, fail_count; int base_delay_ms; int learned_delay_ms; double success_rate; } SmartRetry;
 void smartretry_init(SmartRetry *s, int base_delay_ms) {
-    if(!s) return; memset(s,0,sizeof(*s)); s->base_delay_ms=base_delay_ms>0?base_delay_ms:1000;
+    if(!s) return;
+    memset(s,0,sizeof(*s)); s->base_delay_ms=base_delay_ms>0?base_delay_ms:1000;
     s->learned_delay_ms=s->base_delay_ms;
 }
 int smartretry_record(SmartRetry *s, int success, int actual_delay_ms) {

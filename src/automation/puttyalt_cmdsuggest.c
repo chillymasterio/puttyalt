@@ -45,7 +45,8 @@ void cmdsug_set_weights(CmdSuggestRanker *r, float recency, float freq, float af
 
 static float cmdsug_affinity(const char *cmd, const char *prefix) {
     size_t pl, i;
-    if (!prefix || !prefix[0]) return 0.5f;            /* no prefix: neutral */
+    if (!prefix || !prefix[0]) return 0.5f;
+    /* no prefix: neutral */
     pl = strlen(prefix);
     for (i = 0; i < pl; i++)
         if (cmd[i] == '\0' || cmd[i] != prefix[i])

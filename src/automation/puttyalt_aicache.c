@@ -16,7 +16,8 @@ int aicache_put(AiCache *c, const char *prompt, const char *completion, uint64_t
     ac_entry *e=&c->e[c->n++]; e->hash=h; snprintf(e->val,AC_VAL,"%s",completion); e->ts=now_ms; return 0;
 }
 int aicache_get(AiCache *c, const char *prompt, uint64_t now_ms, char *out, int outlen) {
-    if(!c||!prompt) return -1; uint64_t h=ac_hash(prompt);
+    if(!c||!prompt) return -1;
+    uint64_t h=ac_hash(prompt);
     for (int i=0;i<c->n;i++) if (c->e[i].hash==h) {
         if ((now_ms-c->e[i].ts)>(uint64_t)c->ttl_ms) return -1;
         c->e[i].hits++; if(out) snprintf(out,outlen,"%s",c->e[i].val); return 0;

@@ -12,7 +12,8 @@ void cmdbar_insert(CmdBar *c, char ch) {
     c->buf[c->cursor++]=ch;
 }
 void cmdbar_backspace(CmdBar *c) {
-    if(!c||c->cursor==0) return; int len=(int)strlen(c->buf);
+    if(!c||c->cursor==0) return;
+    int len=(int)strlen(c->buf);
     memmove(&c->buf[c->cursor-1],&c->buf[c->cursor],len-c->cursor+1); c->cursor--;
 }
 int cmdbar_submit(CmdBar *c, char *out, int outlen) {

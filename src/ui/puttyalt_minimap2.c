@@ -10,7 +10,8 @@ int minimap2_line_to_bucket(const Minimap2 *m, int line) {
     int b=(line*MM_BUCKETS)/m->total_lines; return b>=MM_BUCKETS?MM_BUCKETS-1:(b<0?0:b);
 }
 void minimap2_mark_line(Minimap2 *m, int line, int weight) {
-    if(!m) return; int b=minimap2_line_to_bucket(m,line); m->density[b]+=weight;
+    if(!m) return;
+    int b=minimap2_line_to_bucket(m,line); m->density[b]+=weight;
 }
 int minimap2_viewport_bucket_range(const Minimap2 *m, int *first, int *last) {
     if(!m) return -1;

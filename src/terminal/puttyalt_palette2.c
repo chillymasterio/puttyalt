@@ -4,7 +4,8 @@
 #include <stdint.h>
 typedef struct { uint32_t colors[256]; int modified[256]; } Palette2;
 void palette2_init(Palette2 *p) {
-    if(!p) return; memset(p,0,sizeof(*p));
+    if(!p) return;
+    memset(p,0,sizeof(*p));
     /* init xterm 256 palette compactly */
     static const uint32_t basic[16]={0x000000,0x800000,0x008000,0x808000,0x000080,0x800080,0x008080,0xc0c0c0,
         0x808080,0xff0000,0x00ff00,0xffff00,0x0000ff,0xff00ff,0x00ffff,0xffffff};
@@ -14,7 +15,8 @@ void palette2_init(Palette2 *p) {
     for (int i=232;i<256;i++) { int gray=(i-232)*10+8; p->colors[i]=(gray<<16)|(gray<<8)|gray; }
 }
 int palette2_set(Palette2 *p, int idx, uint32_t color) {
-    if(!p||idx<0||idx>255) return -1; p->colors[idx]=color; p->modified[idx]=1; return 0;
+    if(!p||idx<0||idx>255) return -1;
+    p->colors[idx]=color; p->modified[idx]=1; return 0;
 }
 uint32_t palette2_get(const Palette2 *p, int idx) {
     return (p&&idx>=0&&idx<256)?p->colors[idx]:0;
@@ -32,5 +34,6 @@ int palette2_reset(Palette2 *p, int idx) {
     return 0;
 }
 int palette2_modified_count(const Palette2 *p) {
-    if(!p) return -1; int n=0; for(int i=0;i<256;i++) if(p->modified[i])n++; return n;
+    if(!p) return -1;
+    int n=0; for(int i=0;i<256;i++) if(p->modified[i])n++; return n;
 }

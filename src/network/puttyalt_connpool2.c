@@ -8,7 +8,8 @@ enum cp2_state { CP2_IDLE=0, CP2_BUSY=1, CP2_UNHEALTHY=2, CP2_WARMING=3 };
 typedef struct { char host[CP2_HOST]; int port; int state; int health; uint64_t last_used; int reuse_count; } cp2_conn;
 typedef struct { cp2_conn c[CP2_MAX]; int n; int max_idle_ms; } ConnPool2;
 void connpool2_init(ConnPool2 *p, int max_idle_ms) {
-    if(!p) return; memset(p,0,sizeof(*p)); p->max_idle_ms=max_idle_ms>0?max_idle_ms:300000;
+    if(!p) return;
+    memset(p,0,sizeof(*p)); p->max_idle_ms=max_idle_ms>0?max_idle_ms:300000;
 }
 int connpool2_acquire(ConnPool2 *p, const char *host, int port, uint64_t now_ms) {
     if(!p||!host) return -1;
@@ -26,7 +27,8 @@ void connpool2_release(ConnPool2 *p, int idx, int healthy) {
     if (!healthy && p->c[idx].health>0) p->c[idx].health-=20;
 }
 int connpool2_reap_idle(ConnPool2 *p, uint64_t now_ms) {
-    if(!p) return -1; int reaped=0;
+    if(!p) return -1;
+    int reaped=0;
     for (int i=0;i<p->n;i++) if ((p->c[i].state==CP2_IDLE||p->c[i].state==CP2_UNHEALTHY) && (now_ms-p->c[i].last_used)>(uint64_t)p->max_idle_ms) {
         memmove(&p->c[i],&p->c[i+1],sizeof(cp2_conn)*(p->n-i-1)); p->n--; i--; reaped++;
     }

@@ -13,14 +13,16 @@ int sessnote2_add(SessNote2 *s, const char *text, uint64_t now_ms) {
 }
 void sessnote2_pin(SessNote2 *s, int idx, int pin) { if(s&&idx>=0&&idx<s->n) s->notes[idx].pinned=pin?1:0; }
 int sessnote2_ordered(const SessNote2 *s, int *out_idx, int cap) {
-    if(!s) return -1; int n=0;
+    if(!s) return -1;
+    int n=0;
     /* pinned first */
     for (int i=0;i<s->n && n<cap;i++) if (s->notes[i].pinned) out_idx[n++]=i;
     for (int i=0;i<s->n && n<cap;i++) if (!s->notes[i].pinned) out_idx[n++]=i;
     return n;
 }
 int sessnote2_search(const SessNote2 *s, const char *query, int *out_idx, int cap) {
-    if(!s||!query) return -1; int n=0;
+    if(!s||!query) return -1;
+    int n=0;
     for (int i=0;i<s->n && n<cap;i++) if (strstr(s->notes[i].text,query)) out_idx[n++]=i;
     return n;
 }

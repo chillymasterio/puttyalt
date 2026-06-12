@@ -10,13 +10,15 @@ int migstep_register(MigStep *m, int from_ver, int to_ver, const char *desc) {
     mig_step *s=&m->s[m->n++]; s->from_ver=from_ver; s->to_ver=to_ver; snprintf(s->desc,64,"%s",desc?desc:""); return 0;
 }
 int migstep_run_to(MigStep *m, int target_ver) {
-    if(!m) return -1; int applied=0;
+    if(!m) return -1;
+    int applied=0;
     while (m->current_ver<target_ver) {
         int found=0;
         for (int i=0;i<m->n;i++) if (m->s[i].from_ver==m->current_ver && !m->s[i].applied) {
             m->s[i].applied=1; m->current_ver=m->s[i].to_ver; applied++; found=1; break;
         }
-        if (!found) return -1; /* gap in migration chain */
+        if (!found) return -1;
+        /* gap in migration chain */
     }
     return applied;
 }

@@ -27,7 +27,8 @@ int searchidx_add_line(SearchIdx *s, int line_id, const char *text) {
     return 0;
 }
 int searchidx_query(const SearchIdx *s, const char *term, int *out_lines, int cap) {
-    if(!s||!term) return -1; char lower[SI_TERM]; int i=0;
+    if(!s||!term) return -1;
+    char lower[SI_TERM]; int i=0;
     for (; term[i] && i<SI_TERM-1; i++) lower[i]=(term[i]>='A'&&term[i]<='Z')?term[i]+32:term[i]; lower[i]=0;
     for (int t=0;t<s->n;t++) if (strcmp(s->terms[t].term,lower)==0) {
         int k=s->terms[t].nlines<cap?s->terms[t].nlines:cap;

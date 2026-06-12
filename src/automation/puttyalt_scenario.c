@@ -15,7 +15,8 @@ int scenario_add(Scenario *s, int kind, const char *text, int timeout_ms) {
     return s->n++;
 }
 int scenario_start(Scenario *s, uint64_t now_ms) {
-    if(!s||s->n==0) return -1; s->cursor=0; s->state=SC_WAITING; s->step_start=now_ms; return 0;
+    if(!s||s->n==0) return -1;
+    s->cursor=0; s->state=SC_WAITING; s->step_start=now_ms; return 0;
 }
 int scenario_feed(Scenario *s, const char *output, uint64_t now_ms) {
     if(!s||s->state!=SC_WAITING||s->cursor>=s->n) return -1;

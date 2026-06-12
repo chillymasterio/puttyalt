@@ -15,14 +15,16 @@ static int sl_loaded_mask(const ScriptLoad *s) {
     int m=0; for(int i=0;i<s->n;i++) if(s->scripts[i].loaded) m|=(1<<i); return m;
 }
 int scriptload_next(ScriptLoad *s) {
-    if(!s) return -1; int loaded=sl_loaded_mask(s);
+    if(!s) return -1;
+    int loaded=sl_loaded_mask(s);
     for (int i=0;i<s->n;i++) if (!s->scripts[i].loaded && (s->scripts[i].dep_mask&loaded)==s->scripts[i].dep_mask) {
         s->scripts[i].loaded=1; s->scripts[i].load_order=s->order_counter++; return i;
     }
     return -1; /* none ready (or cyclic deps) */
 }
 int scriptload_all_loaded(const ScriptLoad *s) {
-    if(!s) return 0; for(int i=0;i<s->n;i++) if(!s->scripts[i].loaded) return 0; return 1;
+    if(!s) return 0;
+    for(int i=0;i<s->n;i++) if(!s->scripts[i].loaded) return 0; return 1;
 }
 int scriptload_has_cycle(ScriptLoad *s) {
     if(!s) return 0;

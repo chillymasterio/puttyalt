@@ -4,7 +4,8 @@
 typedef struct { int is_leaf; int pane_id; int vertical; float ratio; int child_a; int child_b; int x,y,w,h; } sl_node;
 typedef struct { sl_node nodes[SL_MAX]; int n; int root; } SplitLayout2;
 void splitlayout2_init(SplitLayout2 *s, int w, int h) {
-    if(!s) return; memset(s,0,sizeof(*s));
+    if(!s) return;
+    memset(s,0,sizeof(*s));
     s->root=0; s->nodes[0].is_leaf=1; s->nodes[0].pane_id=0; s->nodes[0].x=0; s->nodes[0].y=0; s->nodes[0].w=w; s->nodes[0].h=h;
     s->n=1;
 }
@@ -24,8 +25,10 @@ static void sl_layout(SplitLayout2 *s, int idx, int x, int y, int w, int h) {
     else { int ah=(int)(h*n->ratio); sl_layout(s,n->child_a,x,y,w,ah); sl_layout(s,n->child_b,x,y+ah,w,h-ah); }
 }
 int splitlayout2_recompute(SplitLayout2 *s) {
-    if(!s) return -1; sl_node *r=&s->nodes[s->root]; sl_layout(s,s->root,r->x,r->y,r->w,r->h); return 0;
+    if(!s) return -1;
+    sl_node *r=&s->nodes[s->root]; sl_layout(s,s->root,r->x,r->y,r->w,r->h); return 0;
 }
 int splitlayout2_leaf_count(const SplitLayout2 *s) {
-    if(!s) return -1; int n=0; for(int i=0;i<s->n;i++) if(s->nodes[i].is_leaf)n++; return n;
+    if(!s) return -1;
+    int n=0; for(int i=0;i<s->n;i++) if(s->nodes[i].is_leaf)n++; return n;
 }

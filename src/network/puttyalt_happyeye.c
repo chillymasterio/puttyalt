@@ -8,7 +8,8 @@ enum he_result { HE_PENDING=0, HE_CONNECTED=1, HE_FAILED=2 };
 typedef struct { char addr[64]; int family; uint64_t start_ms; int state; } he_attempt;
 typedef struct { he_attempt a[HE_MAX_ADDR]; int n; int delay_ms; int winner; uint64_t first_start_ms; } HappyEye;
 void happyeye_init(HappyEye *h, int delay_ms) {
-    if(!h) return; memset(h,0,sizeof(*h)); h->delay_ms=delay_ms>0?delay_ms:250; h->winner=-1;
+    if(!h) return;
+    memset(h,0,sizeof(*h)); h->delay_ms=delay_ms>0?delay_ms:250; h->winner=-1;
 }
 int happyeye_add(HappyEye *h, const char *addr, int family) {
     if(!h||!addr||h->n>=HE_MAX_ADDR) return -1;

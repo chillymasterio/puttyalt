@@ -23,7 +23,8 @@ int runbook_complete(Runbook *r, int success) {
     return r->steps[r->cursor].critical ? -1 : 0; /* -1 = trigger rollback */
 }
 int runbook_rollback_plan(Runbook *r, int *out_idx, int cap) {
-    if(!r||r->failed_at<0) return -1; int n=0;
+    if(!r||r->failed_at<0) return -1;
+    int n=0;
     /* rollback completed steps in reverse */
     for (int i=r->failed_at-1;i>=0 && n<cap;i--) if (r->steps[i].status==RB_DONE && r->steps[i].rollback[0]) {
         out_idx[n++]=i; r->steps[i].status=RB_ROLLED_BACK;

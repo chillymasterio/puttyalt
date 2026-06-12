@@ -84,7 +84,8 @@ int presence_join(PresenceRoster *r, uint32_t user_id,
     if (!r || user_id == 0) return -1;
     e = presence_find(r, user_id);
     if (!e) {
-        if (r->count >= PRESENCE_MAX) return -1;   /* roster full */
+        if (r->count >= PRESENCE_MAX) return -1;
+        /* roster full */
         e = &r->entries[r->count++];
         memset(e, 0, sizeof(*e));
         e->user_id = user_id;

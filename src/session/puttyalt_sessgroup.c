@@ -43,7 +43,8 @@ int sessgroup_add_session(SessionGroupMgr *gm, const char *group, int session_id
     SessionGroup *g = sessgroup_find(gm, group);
     if (!g || g->count >= GROUP_MAX_SESSIONS) return -1;
     for (int i = 0; i < g->count; i++)
-        if (g->session_ids[i] == session_id) return 0; /* already there */
+        if (g->session_ids[i] == session_id) return 0;
+        /* already there */
     g->session_ids[g->count++] = session_id;
     return 0;
 }

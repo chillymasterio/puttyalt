@@ -2,7 +2,8 @@
 #include <stdint.h>
 typedef struct { uint64_t max_data; uint64_t sent; uint64_t max_stream_data; uint64_t stream_sent; int blocked; } QuicFlow;
 void quicflow_init(QuicFlow *q, uint64_t conn_max, uint64_t stream_max) {
-    if(!q) return; q->max_data=conn_max; q->sent=0; q->max_stream_data=stream_max; q->stream_sent=0; q->blocked=0;
+    if(!q) return;
+    q->max_data=conn_max; q->sent=0; q->max_stream_data=stream_max; q->stream_sent=0; q->blocked=0;
 }
 int quicflow_can_send(const QuicFlow *q, uint64_t n) {
     if(!q) return 0;

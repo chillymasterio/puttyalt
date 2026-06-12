@@ -29,7 +29,8 @@ int evtbus_unsubscribe(EventBus *bus, int handle)
 
 void evtbus_publish(EventBus *bus, const Event *evt)
 {
-    if (bus->dispatching) return; /* prevent re-entrancy */
+    if (bus->dispatching) return;
+    /* prevent re-entrancy */
     bus->dispatching = 1;
 
     for (int i = 0; i < bus->count; i++) {

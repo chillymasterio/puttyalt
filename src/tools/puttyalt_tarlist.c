@@ -7,7 +7,8 @@ static long tar_octal(const char *p, int len) {
     return v;
 }
 int tarlist_parse_header(const unsigned char *block, TarEntry *out) {
-    if(!block||!out) return -1; memset(out,0,sizeof(*out));
+    if(!block||!out) return -1;
+    memset(out,0,sizeof(*out));
     /* check for empty block (end of archive) */
     int empty=1; for(int i=0;i<512;i++) if(block[i]){ empty=0; break; }
     if (empty) return 1;

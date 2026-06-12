@@ -12,7 +12,8 @@ int sshmux_open(SshMux *m, const char *title, int channel_id, int rows, int cols
     v->rows=rows; v->cols=cols; v->active=1; if(m->focused<0) m->focused=m->n; return m->n++;
 }
 int sshmux_close(SshMux *m, int idx) {
-    if(!m||idx<0||idx>=m->n) return -1; m->v[idx].active=0;
+    if(!m||idx<0||idx>=m->n) return -1;
+    m->v[idx].active=0;
     if (m->focused==idx) { m->focused=-1; for(int i=0;i<m->n;i++) if(m->v[i].active){ m->focused=i; break; } }
     return 0;
 }

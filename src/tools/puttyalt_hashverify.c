@@ -4,10 +4,12 @@
 enum hv_algo { HV_MD5=0, HV_SHA1=1, HV_SHA256=2, HV_SHA512=3 };
 typedef struct { int algo; char expected[130]; char computed[130]; int verified; } HashVerify;
 void hashverify_init(HashVerify *h, int algo, const char *expected) {
-    if(!h) return; memset(h,0,sizeof(*h)); h->algo=algo; snprintf(h->expected,130,"%s",expected?expected:"");
+    if(!h) return;
+    memset(h,0,sizeof(*h)); h->algo=algo; snprintf(h->expected,130,"%s",expected?expected:"");
 }
 int hashverify_set_computed(HashVerify *h, const char *computed) {
-    if(!h||!computed) return -1; snprintf(h->computed,130,"%s",computed);
+    if(!h||!computed) return -1;
+    snprintf(h->computed,130,"%s",computed);
     /* case-insensitive compare */
     const char *a=h->expected, *b=h->computed;
     while (*a && *b) {

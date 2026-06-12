@@ -13,7 +13,8 @@ static ch_entry *ch_find(ConnHistory2 *c, const char *host, int port) {
     ch_entry *e=&c->entries[c->n++]; snprintf(e->host,CH_HOST,"%s",host); e->port=port; return e;
 }
 int connhistory2_record(ConnHistory2 *c, const char *host, int port, int success, uint64_t now_ms) {
-    if(!c||!host) return -1; ch_entry *e=ch_find(c,host,port); if(!e) return -1;
+    if(!c||!host) return -1;
+    ch_entry *e=ch_find(c,host,port); if(!e) return -1;
     e->last_attempt=now_ms;
     if (success) { e->success_count++; e->last_success=now_ms; } else e->fail_count++;
     return 0;

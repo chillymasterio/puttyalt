@@ -29,6 +29,7 @@ int filesync2_action(const FileSync2 *f, int idx) {
     return FS_SKIP;
 }
 int filesync2_count_conflicts(const FileSync2 *f) {
-    if(!f) return -1; int c=0; for(int i=0;i<f->n;i++) if(filesync2_action(f,i)==FS_CONFLICT)c++; return c;
+    if(!f) return -1;
+    int c=0; for(int i=0;i<f->n;i++) if(filesync2_action(f,i)==FS_CONFLICT)c++; return c;
 }
 int filesync2_count(const FileSync2 *f) { return f?f->n:-1; }

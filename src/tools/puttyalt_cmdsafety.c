@@ -3,7 +3,8 @@
 #include <stdio.h>
 typedef struct { int risk_score; int destructive; int needs_sudo; int affects_system; char reason[128]; } CmdSafety;
 int cmdsafety_analyze(const char *cmd, CmdSafety *out) {
-    if(!cmd||!out) return -1; memset(out,0,sizeof(*out));
+    if(!cmd||!out) return -1;
+    memset(out,0,sizeof(*out));
     int score=0;
     if (strstr(cmd,"rm -rf /")||strstr(cmd,"rm -rf /*")) { score+=90; out->destructive=1; snprintf(out->reason,128,"recursive delete from root"); }
     else if (strstr(cmd,"rm -rf")) { score+=40; out->destructive=1; snprintf(out->reason,128,"recursive force delete"); }

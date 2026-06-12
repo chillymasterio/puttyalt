@@ -12,10 +12,12 @@ int portscan_record(PortScan *p, int port, int state, const char *service, int r
     snprintf(r->service,24,"%s",service?service:""); r->rtt_ms=rtt_ms; return 0;
 }
 int portscan_open_count(const PortScan *p) {
-    if(!p) return -1; int n=0; for(int i=0;i<p->n;i++) if(p->r[i].state==PS_OPEN)n++; return n;
+    if(!p) return -1;
+    int n=0; for(int i=0;i<p->n;i++) if(p->r[i].state==PS_OPEN)n++; return n;
 }
 int portscan_summary(const PortScan *p, char *buf, int buflen) {
-    if(!p||!buf) return -1; int pos=0;
+    if(!p||!buf) return -1;
+    int pos=0;
     for (int i=0;i<p->n && pos<buflen;i++) if (p->r[i].state==PS_OPEN)
         pos+=snprintf(buf+pos,buflen-pos,"%d/%s open\n",p->r[i].port,p->r[i].service[0]?p->r[i].service:"?");
     return pos;

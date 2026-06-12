@@ -6,10 +6,12 @@
 typedef struct { uint64_t ts; uint32_t hash; int slot; } bs_backup;
 typedef struct { bs_backup b[BS_MAX]; int n; int interval_ms; int keep; uint64_t last_backup; } BackupSched;
 void backupsched_init(BackupSched *b, int interval_ms, int keep) {
-    if(!b) return; memset(b,0,sizeof(*b)); b->interval_ms=interval_ms>0?interval_ms:3600000; b->keep=keep>0&&keep<=BS_MAX?keep:8;
+    if(!b) return;
+    memset(b,0,sizeof(*b)); b->interval_ms=interval_ms>0?interval_ms:3600000; b->keep=keep>0&&keep<=BS_MAX?keep:8;
 }
 int backupsched_due(const BackupSched *b, uint64_t now_ms) {
-    if(!b) return 0; return (b->last_backup==0 || (now_ms-b->last_backup)>=(uint64_t)b->interval_ms)?1:0;
+    if(!b) return 0;
+    return (b->last_backup==0 || (now_ms-b->last_backup)>=(uint64_t)b->interval_ms)?1:0;
 }
 int backupsched_record(BackupSched *b, uint32_t config_hash, uint64_t now_ms) {
     if(!b) return -1;

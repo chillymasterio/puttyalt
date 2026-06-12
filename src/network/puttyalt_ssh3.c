@@ -11,7 +11,8 @@ typedef struct {
     uint64_t next_stream_id; int established;
 } Ssh3Conn;
 void ssh3_init(Ssh3Conn *c, const char *authority, int port) {
-    if(!c) return; memset(c,0,sizeof(*c));
+    if(!c) return;
+    memset(c,0,sizeof(*c));
     snprintf(c->authority,128,"%s",authority?authority:""); c->port=port>0?port:443;
     c->udp_mtu=1200; c->next_stream_id=1;
 }
@@ -32,7 +33,8 @@ int ssh3_stream_write(Ssh3Conn *c, uint64_t id, int len) {
     return -1;
 }
 int ssh3_open_streams(const Ssh3Conn *c) {
-    if(!c) return -1; int n=0;
+    if(!c) return -1;
+    int n=0;
     for (int i=0;i<c->stream_count;i++) if (c->streams[i].open) n++;
     return n;
 }

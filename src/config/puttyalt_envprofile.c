@@ -7,7 +7,8 @@
 typedef struct { char key[EP_NAME]; char val[EP_VAL]; } ep_var;
 typedef struct { char profile[EP_NAME]; ep_var v[EP_MAX]; int n; } EnvProfile;
 void envprofile_init(EnvProfile *e, const char *profile) {
-    if(!e) return; memset(e,0,sizeof(*e)); snprintf(e->profile,EP_NAME,"%s",profile?profile:"default");
+    if(!e) return;
+    memset(e,0,sizeof(*e)); snprintf(e->profile,EP_NAME,"%s",profile?profile:"default");
 }
 int envprofile_set(EnvProfile *e, const char *key, const char *val) {
     if(!e||!key) return -1;
@@ -16,7 +17,8 @@ int envprofile_set(EnvProfile *e, const char *key, const char *val) {
     snprintf(e->v[e->n].key,EP_NAME,"%s",key); snprintf(e->v[e->n].val,EP_VAL,"%s",val?val:""); e->n++; return 0;
 }
 int envprofile_expand(const EnvProfile *e, const char *tmpl, char *out, int outlen) {
-    if(!e||!tmpl||!out) return -1; int o=0;
+    if(!e||!tmpl||!out) return -1;
+    int o=0;
     for (const char *p=tmpl; *p && o<outlen-1; ) {
         if (*p=='$' && p[1]=='{') {
             const char *end=strchr(p+2,'}');

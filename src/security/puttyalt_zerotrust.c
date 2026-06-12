@@ -7,7 +7,8 @@ enum zt_decision { ZT_DENY=0, ZT_ALLOW=1, ZT_PROMPT=2 };
 typedef struct { char resource[ZT_NAME]; char action[ZT_NAME]; int decision; int require_mfa; } zt_rule;
 typedef struct { zt_rule r[ZT_MAX]; int n; int default_decision; } ZeroTrust;
 void zerotrust_init(ZeroTrust *z, int default_decision) {
-    if(!z) return; memset(z,0,sizeof(*z)); z->default_decision=default_decision;
+    if(!z) return;
+    memset(z,0,sizeof(*z)); z->default_decision=default_decision;
 }
 int zerotrust_add_rule(ZeroTrust *z, const char *resource, const char *action, int decision, int require_mfa) {
     if(!z||z->n>=ZT_MAX||!resource||!action) return -1;

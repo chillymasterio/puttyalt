@@ -9,12 +9,14 @@ int jsonbuild_obj_end(JsonBuild *j) { if(!j||j->depth==0) return -1; if(j->len<1
 int jsonbuild_arr_start(JsonBuild *j) { if(!j) return -1; jb_comma(j); if(j->len<1023) j->buf[j->len++]='['; j->depth++; return 0; }
 int jsonbuild_arr_end(JsonBuild *j) { if(!j||j->depth==0) return -1; if(j->len<1023) j->buf[j->len++]=']'; j->depth--; j->need_comma=1; return 0; }
 int jsonbuild_key_str(JsonBuild *j, const char *key, const char *val) {
-    if(!j||!key) return -1; jb_comma(j);
+    if(!j||!key) return -1;
+    jb_comma(j);
     j->len+=snprintf(j->buf+j->len,1024-j->len,"\"%s\":\"%s\"",key,val?val:"");
     j->need_comma=1; return 0;
 }
 int jsonbuild_key_int(JsonBuild *j, const char *key, long val) {
-    if(!j||!key) return -1; jb_comma(j);
+    if(!j||!key) return -1;
+    jb_comma(j);
     j->len+=snprintf(j->buf+j->len,1024-j->len,"\"%s\":%ld",key,val);
     j->need_comma=1; return 0;
 }

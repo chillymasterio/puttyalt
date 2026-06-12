@@ -2,7 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 static int tv_is_hex_color(const char *v) {
-    if(!v||v[0]!='#') return 0; int n=(int)strlen(v+1);
+    if(!v||v[0]!='#') return 0;
+    int n=(int)strlen(v+1);
     if (n!=6 && n!=8) return 0;
     for (const char *p=v+1;*p;p++) if(!((*p>='0'&&*p<='9')||(*p>='a'&&*p<='f')||(*p>='A'&&*p<='F'))) return 0;
     return 1;

@@ -19,12 +19,14 @@ static int cp2_fuzzy(const char *q, const char *t) {
             char tc=t[ti]; if(tc>='A'&&tc<='Z')tc+=32;
             if (tc==qc) { score += 10 + streak*5; streak++; ti++; found=1; break; }
         }
-        if (!found) return -1; streak=0;
+        if (!found) return -1;
+        streak=0;
     }
     return score;
 }
 int cmdpalette2_search(CmdPalette2 *p, const char *query, int *out_ids, int cap) {
-    if(!p||!query) return -1; int nm=0;
+    if(!p||!query) return -1;
+    int nm=0;
     for (int i=0;i<p->n;i++) {
         int s = query[0]? cp2_fuzzy(query,p->items[i].label) : 0;
         if (s>=0) { p->items[i].score = s + p->items[i].recent_rank*3; } else p->items[i].score=-1;

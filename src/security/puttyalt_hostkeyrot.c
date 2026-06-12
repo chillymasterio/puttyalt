@@ -7,7 +7,8 @@
 typedef struct { char fingerprint[HKR_FP]; char keytype[24]; uint64_t first_seen; int active; } hkr_key;
 typedef struct { hkr_key keys[HKR_MAX]; int n; char hostname[128]; } HostKeyRot;
 void hostkeyrot_init(HostKeyRot *h, const char *hostname) {
-    if(!h) return; memset(h,0,sizeof(*h)); snprintf(h->hostname,128,"%s",hostname?hostname:"");
+    if(!h) return;
+    memset(h,0,sizeof(*h)); snprintf(h->hostname,128,"%s",hostname?hostname:"");
 }
 int hostkeyrot_observe(HostKeyRot *h, const char *keytype, const char *fp, uint64_t now_ms) {
     if(!h||!fp) return -1;

@@ -13,7 +13,8 @@ int netiface_add(NetIface *n, const char *name, const char *addr, int is_up, int
     i->is_up=is_up?1:0; i->is_loopback=is_loopback?1:0; i->metric=metric; return n->n++;
 }
 int netiface_best(NetIface *n) {
-    if(!n) return -1; int best=-1;
+    if(!n) return -1;
+    int best=-1;
     for (int i=0;i<n->n;i++) {
         if (!n->ifs[i].is_up || n->ifs[i].is_loopback) continue;
         if (best<0 || n->ifs[i].metric<n->ifs[best].metric) best=i;
@@ -21,6 +22,7 @@ int netiface_best(NetIface *n) {
     n->preferred=best; return best;
 }
 const char *netiface_bind_addr(const NetIface *n) {
-    if(!n||n->preferred<0) return 0; return n->ifs[n->preferred].addr;
+    if(!n||n->preferred<0) return 0;
+    return n->ifs[n->preferred].addr;
 }
 int netiface_count(const NetIface *n) { return n?n->n:-1; }

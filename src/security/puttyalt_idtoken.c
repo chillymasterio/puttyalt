@@ -4,7 +4,8 @@
 #include <stdlib.h>
 typedef struct { char subject[64]; char issuer[96]; char email[96]; long exp; long iat; int valid; } IdToken;
 int idtoken_parse_claims(const char *json, IdToken *out) {
-    if(!json||!out) return -1; memset(out,0,sizeof(*out));
+    if(!json||!out) return -1;
+    memset(out,0,sizeof(*out));
     const char *p;
     if ((p=strstr(json,"\"sub\""))) { p=strchr(p,':'); if(p){ p=strchr(p,'"'); if(p){ p++; int i=0; while(*p&&*p!='"'&&i<63) out->subject[i++]=*p++; } } }
     if ((p=strstr(json,"\"iss\""))) { p=strchr(p,':'); if(p){ p=strchr(p,'"'); if(p){ p++; int i=0; while(*p&&*p!='"'&&i<95) out->issuer[i++]=*p++; } } }
@@ -15,7 +16,8 @@ int idtoken_parse_claims(const char *json, IdToken *out) {
     return out->valid?0:-1;
 }
 int idtoken_is_expired(const IdToken *t, long now_epoch) {
-    if(!t) return 1; return (t->exp>0 && now_epoch>=t->exp)?1:0;
+    if(!t) return 1;
+    return (t->exp>0 && now_epoch>=t->exp)?1:0;
 }
 int idtoken_summary(const IdToken *t, char *buf, int buflen) {
     if(!t||!buf) return -1;

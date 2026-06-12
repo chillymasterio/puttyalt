@@ -18,7 +18,8 @@ int recentconn_record(RecentConn *r, const char *host, int port, const char *use
     e->count=1; e->last_ms=now_ms; return 0;
 }
 int recentconn_top(const RecentConn *r, int by_freq, int *out_idx, int cap) {
-    if(!r) return -1; int used[RC_MAX]={0}, n=0;
+    if(!r) return -1;
+    int used[RC_MAX]={0}, n=0;
     for (int k=0;k<cap && k<r->n;k++) {
         int best=-1;
         for (int i=0;i<r->n;i++) if (!used[i]) {

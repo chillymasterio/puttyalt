@@ -21,6 +21,7 @@ int eventhook_dispatch(EventHook *e, const char *event, int *out_handlers, int c
     return n;
 }
 void eventhook_enable(EventHook *e, int handler_id, int on) {
-    if(!e) return; for(int i=0;i<e->n;i++) if(e->hooks[i].handler_id==handler_id) e->hooks[i].enabled=on?1:0;
+    if(!e) return;
+    for(int i=0;i<e->n;i++) if(e->hooks[i].handler_id==handler_id) e->hooks[i].enabled=on?1:0;
 }
 int eventhook_count(const EventHook *e) { return e?e->n:-1; }

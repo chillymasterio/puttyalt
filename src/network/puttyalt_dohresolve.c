@@ -26,7 +26,8 @@ int dohresolve_lookup(DohResolve *d, const char *host, int family, uint64_t now_
     d->misses++; return -1;
 }
 int dohresolve_purge_expired(DohResolve *d, uint64_t now_ms) {
-    if(!d) return -1; int p=0;
+    if(!d) return -1;
+    int p=0;
     for (int i=0;i<d->n;i++) if (now_ms>=d->r[i].expires_ms) { memmove(&d->r[i],&d->r[i+1],sizeof(dh_record)*(d->n-i-1)); d->n--; i--; p++; }
     return p;
 }

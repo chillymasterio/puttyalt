@@ -30,8 +30,10 @@ void reflowcache_invalidate_line(ReflowCache *c, int line_id) {
     for (int i=0;i<c->n;i++) if (c->e[i].line_id==line_id) c->e[i].valid=0;
 }
 void reflowcache_invalidate_all(ReflowCache *c) {
-    if(!c) return; for (int i=0;i<c->n;i++) c->e[i].valid=0;
+    if(!c) return;
+    for (int i=0;i<c->n;i++) c->e[i].valid=0;
 }
 int reflowcache_hit_rate_pct(const ReflowCache *c) {
-    if(!c) return -1; int t=c->hits+c->misses; return t? (c->hits*100)/t : 0;
+    if(!c) return -1;
+    int t=c->hits+c->misses; return t? (c->hits*100)/t : 0;
 }

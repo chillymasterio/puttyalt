@@ -24,7 +24,8 @@ int fuzzy2_score(const char *needle, const char *haystack) {
     return score;
 }
 int fuzzy2_rank(const char *needle, const char **candidates, int n, int *out_scores) {
-    if(!needle||!candidates) return -1; int matches=0;
+    if(!needle||!candidates) return -1;
+    int matches=0;
     for (int i=0;i<n;i++) {
         int s=fuzzy2_score(needle,candidates[i]);
         if(out_scores) out_scores[i]=s;

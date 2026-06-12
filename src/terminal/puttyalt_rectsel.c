@@ -3,7 +3,8 @@
 typedef struct { int start_row, start_col, end_row, end_col; int active; int block_mode; } RectSel;
 void rectsel_init(RectSel *r) { if(r) memset(r,0,sizeof(*r)); }
 void rectsel_begin(RectSel *r, int row, int col, int block_mode) {
-    if(!r) return; r->start_row=row; r->start_col=col; r->end_row=row; r->end_col=col; r->active=1; r->block_mode=block_mode?1:0;
+    if(!r) return;
+    r->start_row=row; r->start_col=col; r->end_row=row; r->end_col=col; r->active=1; r->block_mode=block_mode?1:0;
 }
 void rectsel_extend(RectSel *r, int row, int col) { if(r&&r->active){ r->end_row=row; r->end_col=col; } }
 void rectsel_end(RectSel *r) { if(r) r->active=0; }

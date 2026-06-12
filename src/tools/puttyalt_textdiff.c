@@ -7,7 +7,8 @@ typedef struct { td_edit edits[TD_MAX*2]; int n; } TextDiff;
 void textdiff_init(TextDiff *t) { if(t) memset(t,0,sizeof(*t)); }
 /* Simple diff: compare line arrays, mark equal/insert/delete */
 int textdiff_compute(TextDiff *t, const char **a, int na, const char **b, int nb) {
-    if(!t||!a||!b||na>TD_MAX||nb>TD_MAX) return -1; t->n=0;
+    if(!t||!a||!b||na>TD_MAX||nb>TD_MAX) return -1;
+    t->n=0;
     /* LCS length table */
     static int lcs[TD_MAX+1][TD_MAX+1];
     for (int i=0;i<=na;i++) for (int j=0;j<=nb;j++) {
@@ -28,6 +29,7 @@ int textdiff_compute(TextDiff *t, const char **a, int na, const char **b, int nb
     t->n=tn; return tn;
 }
 int textdiff_changes(const TextDiff *t) {
-    if(!t) return -1; int n=0; for(int i=0;i<t->n;i++) if(t->edits[i].op!=TD_EQUAL)n++; return n;
+    if(!t) return -1;
+    int n=0; for(int i=0;i<t->n;i++) if(t->edits[i].op!=TD_EQUAL)n++; return n;
 }
 int textdiff_count(const TextDiff *t) { return t?t->n:-1; }

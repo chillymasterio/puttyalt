@@ -7,7 +7,8 @@
 typedef struct { char name[LS_NAME]; uint64_t count; uint64_t last_ms; } ls_counter;
 typedef struct { ls_counter c[LS_MAX_COUNTERS]; int n; uint64_t session_start_ms; } LocalStats;
 void localstats_init(LocalStats *s, uint64_t now_ms) {
-    if(!s) return; memset(s,0,sizeof(*s)); s->session_start_ms=now_ms;
+    if(!s) return;
+    memset(s,0,sizeof(*s)); s->session_start_ms=now_ms;
 }
 int localstats_incr(LocalStats *s, const char *name, uint64_t now_ms) {
     if(!s||!name) return -1;

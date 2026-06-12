@@ -49,7 +49,8 @@ int sesssearch_fuzzy_score(const char *query, const char *target)
 
 int sesssearch_match(SessionSearch *ss, const char *name, const char *host, const char *tags)
 {
-    if (!ss->query[0]) return 1; /* empty query matches all */
+    if (!ss->query[0]) return 1;
+    /* empty query matches all */
     
     int best = 0, s;
     if (name && (s = sesssearch_fuzzy_score(ss->query, name)) > best) best = s;

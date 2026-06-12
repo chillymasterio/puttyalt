@@ -7,11 +7,13 @@ enum db_widget { DB_GRAPH=0, DB_GAUGE=1, DB_TABLE=2, DB_SPARK=3, DB_TEXT=4 };
 typedef struct { char title[DB_NAME]; int type; int col, row, w, h; char metric[DB_NAME]; int visible; } db_widget;
 typedef struct { db_widget w[DB_MAX]; int n; int cols, rows; } Dashboard2;
 void dashboard2_init(Dashboard2 *d, int cols, int rows) {
-    if(!d) return; memset(d,0,sizeof(*d)); d->cols=cols>0?cols:4; d->rows=rows>0?rows:3;
+    if(!d) return;
+    memset(d,0,sizeof(*d)); d->cols=cols>0?cols:4; d->rows=rows>0?rows:3;
 }
 int dashboard2_add(Dashboard2 *d, const char *title, int type, int col, int row, int w, int h, const char *metric) {
     if(!d||d->n>=DB_MAX) return -1;
-    if (col+w>d->cols || row+h>d->rows) return -1; /* out of grid */
+    if (col+w>d->cols || row+h>d->rows) return -1;
+    /* out of grid */
     db_widget *wg=&d->w[d->n]; snprintf(wg->title,DB_NAME,"%s",title?title:""); wg->type=type;
     wg->col=col; wg->row=row; wg->w=w; wg->h=h; snprintf(wg->metric,DB_NAME,"%s",metric?metric:""); wg->visible=1;
     return d->n++;

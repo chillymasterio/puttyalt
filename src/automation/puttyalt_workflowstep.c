@@ -7,7 +7,8 @@ enum ws_state { WS_PENDING=0, WS_RUNNING, WS_OK, WS_FAIL };
 typedef struct { char host[WS_NAME]; int state; int exit_code; } ws_host;
 typedef struct { ws_host h[WS_MAX_HOSTS]; int n; char command[256]; int parallel; int fail_fast; } WorkflowStep;
 void workflowstep_init(WorkflowStep *w, const char *command, int parallel, int fail_fast) {
-    if(!w) return; memset(w,0,sizeof(*w)); snprintf(w->command,256,"%s",command?command:"");
+    if(!w) return;
+    memset(w,0,sizeof(*w)); snprintf(w->command,256,"%s",command?command:"");
     w->parallel=parallel?1:0; w->fail_fast=fail_fast?1:0;
 }
 int workflowstep_add_host(WorkflowStep *w, const char *host) {
@@ -34,6 +35,7 @@ int workflowstep_complete(WorkflowStep *w, int idx, int exit_code) {
     return 0;
 }
 int workflowstep_done(const WorkflowStep *w) {
-    if(!w) return -1; for(int i=0;i<w->n;i++) if(w->h[i].state==WS_PENDING||w->h[i].state==WS_RUNNING) return 0; return 1;
+    if(!w) return -1;
+    for(int i=0;i<w->n;i++) if(w->h[i].state==WS_PENDING||w->h[i].state==WS_RUNNING) return 0; return 1;
 }
 int workflowstep_failures(const WorkflowStep *w) { if(!w) return -1; int n=0; for(int i=0;i<w->n;i++) if(w->h[i].state==WS_FAIL)n++; return n; }

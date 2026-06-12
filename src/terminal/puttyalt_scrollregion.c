@@ -2,7 +2,8 @@
 #include <string.h>
 typedef struct { int top, bottom; int rows; int origin_mode; } ScrollRegion;
 void scrollregion_init(ScrollRegion *s, int rows) {
-    if(!s) return; s->rows=rows; s->top=0; s->bottom=rows-1; s->origin_mode=0;
+    if(!s) return;
+    s->rows=rows; s->top=0; s->bottom=rows-1; s->origin_mode=0;
 }
 int scrollregion_set(ScrollRegion *s, int top, int bottom) {
     if(!s) return -1;
@@ -12,7 +13,8 @@ int scrollregion_set(ScrollRegion *s, int top, int bottom) {
 }
 void scrollregion_reset(ScrollRegion *s) { if(s){ s->top=0; s->bottom=s->rows-1; } }
 int scrollregion_contains(const ScrollRegion *s, int row) {
-    if(!s) return 0; return (row>=s->top && row<=s->bottom)?1:0;
+    if(!s) return 0;
+    return (row>=s->top && row<=s->bottom)?1:0;
 }
 int scrollregion_clamp_cursor(const ScrollRegion *s, int row) {
     if(!s) return row;

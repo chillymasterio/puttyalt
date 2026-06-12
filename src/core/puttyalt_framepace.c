@@ -67,7 +67,8 @@ int framepace_should_render(FramePacer *p, unsigned int now_ms)
 {
     uint32_t elapsed;
     if (!p) return -1;
-    if (!p->have_last) return 1;            /* first frame always renders */
+    if (!p->have_last) return 1;
+    /* first frame always renders */
     elapsed = (uint32_t)now_ms - p->last_render_ms;
     /* Accumulate elapsed time into the budget, capped to avoid runaway. */
     if (p->budget_ms + elapsed < p->budget_ms)

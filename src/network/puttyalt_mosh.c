@@ -10,7 +10,8 @@ typedef struct {
     uint64_t bytes_sent, bytes_recv;
 } MoshSession;
 void mosh_init(MoshSession *m, int timeout_ms) {
-    if(!m) return; memset(m,0,sizeof(*m));
+    if(!m) return;
+    memset(m,0,sizeof(*m));
     m->state=MOSH_INIT; m->timeout_ms=timeout_ms>0?timeout_ms:60000;
 }
 int mosh_set_key(MoshSession *m, const unsigned char *key, int len) {
@@ -28,13 +29,15 @@ int mosh_roam(MoshSession *m, const char *new_ip, int new_port, uint64_t now_ms)
 }
 int mosh_on_datagram(MoshSession *m, uint64_t seq, int len, uint64_t now_ms) {
     if(!m||m->state<MOSH_CONNECTED) return -1;
-    if (seq<=m->remote_seq) return 0; /* stale/dup */
+    if (seq<=m->remote_seq) return 0;
+    /* stale/dup */
     m->remote_seq=seq; m->bytes_recv+=len; m->last_recv_ms=now_ms;
     if (m->state==MOSH_ROAMING) m->state=MOSH_CONNECTED;
     return 1;
 }
 uint64_t mosh_send_seq(MoshSession *m, int len) {
-    if(!m) return 0; m->bytes_sent+=len; return ++m->local_seq;
+    if(!m) return 0;
+    m->bytes_sent+=len; return ++m->local_seq;
 }
 int mosh_is_timed_out(const MoshSession *m, uint64_t now_ms) {
     if(!m||m->state<MOSH_CONNECTED) return 0;

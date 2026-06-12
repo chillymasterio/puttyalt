@@ -8,7 +8,8 @@ enum cmdap_state { CMDAP_PENDING=0, CMDAP_APPROVED=1, CMDAP_DENIED=2, CMDAP_EXPI
 typedef struct { char command[CMDAP_CMD]; char requester[40]; int state; uint64_t requested_ms; int timeout_ms; char approver[40]; } cmdap_req;
 typedef struct { cmdap_req reqs[CMDAP_MAX]; int n; int default_timeout_ms; } CmdApproval;
 void cmdapproval_init(CmdApproval *a, int default_timeout_ms) {
-    if(!a) return; memset(a,0,sizeof(*a)); a->default_timeout_ms=default_timeout_ms>0?default_timeout_ms:300000;
+    if(!a) return;
+    memset(a,0,sizeof(*a)); a->default_timeout_ms=default_timeout_ms>0?default_timeout_ms:300000;
 }
 int cmdapproval_request(CmdApproval *a, const char *command, const char *requester, uint64_t now_ms) {
     if(!a||a->n>=CMDAP_MAX||!command) return -1;
@@ -27,7 +28,8 @@ int cmdapproval_state(const CmdApproval *a, int idx, uint64_t now_ms) {
     return a->reqs[idx].state;
 }
 int cmdapproval_pending_count(const CmdApproval *a, uint64_t now_ms) {
-    if(!a) return -1; int n=0;
+    if(!a) return -1;
+    int n=0;
     for (int i=0;i<a->n;i++) if (cmdapproval_state(a,i,now_ms)==CMDAP_PENDING) n++;
     return n;
 }

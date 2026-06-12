@@ -12,7 +12,8 @@ void uptime_init(UptimeTimer *ut)
 int uptime_start(UptimeTimer *ut)
 {
     if (!ut) return -1;
-    if (ut->running) return -1; /* already running */
+    if (ut->running) return -1;
+    /* already running */
     ut->start_time = (long)time(NULL);
     ut->running = 1;
     ut->paused = 0;
@@ -22,7 +23,8 @@ int uptime_start(UptimeTimer *ut)
 int uptime_stop(UptimeTimer *ut)
 {
     if (!ut) return -1;
-    if (!ut->running) return -1; /* not running */
+    if (!ut->running) return -1;
+    /* not running */
     ut->running = 0;
     ut->paused = 0;
     return 0;

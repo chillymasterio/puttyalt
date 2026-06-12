@@ -8,7 +8,8 @@ typedef struct { uint64_t t_ms; char data[RC2_DATA]; int len; } rc2_frame;
 typedef struct { rc2_frame f[RC2_MAX]; int n; uint64_t start_ms; int recording; } Recorder2;
 void recorder2_init(Recorder2 *r) { if(r) memset(r,0,sizeof(*r)); }
 int recorder2_start(Recorder2 *r, uint64_t now_ms) {
-    if(!r) return -1; r->n=0; r->start_ms=now_ms; r->recording=1; return 0;
+    if(!r) return -1;
+    r->n=0; r->start_ms=now_ms; r->recording=1; return 0;
 }
 int recorder2_capture(Recorder2 *r, const char *data, int len, uint64_t now_ms) {
     if(!r||!r->recording||!data) return -1;

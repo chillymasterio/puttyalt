@@ -4,7 +4,8 @@
 #define AN_WINDOW 64
 typedef struct { double samples[AN_WINDOW]; int head, count; double mean, m2; double threshold_z; } Anomaly;
 void anomaly_init(Anomaly *a, double threshold_z) {
-    if(!a) return; memset(a,0,sizeof(*a)); a->threshold_z=threshold_z>0?threshold_z:3.0;
+    if(!a) return;
+    memset(a,0,sizeof(*a)); a->threshold_z=threshold_z>0?threshold_z:3.0;
 }
 static double an_stddev(const Anomaly *a) {
     if (a->count<2) return 0;

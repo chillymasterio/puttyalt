@@ -22,7 +22,8 @@ const char *sessmeta_get(const SessMeta *s, int session_id, const char *key) {
     return 0;
 }
 int sessmeta_keys(const SessMeta *s, int session_id, int *out_idx, int cap) {
-    if(!s) return -1; int n=0;
+    if(!s) return -1;
+    int n=0;
     for (int i=0;i<s->n && n<cap;i++) if (s->m[i].session_id==session_id) out_idx[n++]=i;
     return n;
 }

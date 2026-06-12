@@ -5,7 +5,8 @@
 #define TT_TEXT 256
 typedef struct { char text[TT_TEXT]; int x, y; int show_delay_ms; int visible; uint64_t hover_start; int target_id; } Tooltip2;
 void tooltip2_init(Tooltip2 *t, int delay_ms) {
-    if(!t) return; memset(t,0,sizeof(*t)); t->show_delay_ms=delay_ms>0?delay_ms:500; t->target_id=-1;
+    if(!t) return;
+    memset(t,0,sizeof(*t)); t->show_delay_ms=delay_ms>0?delay_ms:500; t->target_id=-1;
 }
 void tooltip2_hover(Tooltip2 *t, int target_id, const char *text, int x, int y, uint64_t now_ms) {
     if(!t) return;

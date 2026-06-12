@@ -12,7 +12,8 @@ int import2_detect(const char *content) {
     return IM_UNKNOWN;
 }
 int import2_putty(const char *content, im_session *out) {
-    if(!content||!out) return -1; memset(out,0,sizeof(*out)); out->port=22;
+    if(!content||!out) return -1;
+    memset(out,0,sizeof(*out)); out->port=22;
     const char *p;
     if ((p=strstr(content,"HostName="))) sscanf(p+9,"%159[^\n\r]",out->host);
     if ((p=strstr(content,"PortNumber="))) out->port=atoi(p+11);
@@ -20,7 +21,8 @@ int import2_putty(const char *content, im_session *out) {
     return out->host[0]?0:-1;
 }
 int import2_sshconfig(const char *content, im_session *out) {
-    if(!content||!out) return -1; memset(out,0,sizeof(*out)); out->port=22;
+    if(!content||!out) return -1;
+    memset(out,0,sizeof(*out)); out->port=22;
     const char *p;
     if ((p=strstr(content,"HostName "))) sscanf(p+9,"%159s",out->host);
     if ((p=strstr(content,"Port "))) out->port=atoi(p+5);

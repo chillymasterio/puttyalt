@@ -13,7 +13,8 @@ int jobsched_add(JobSched *j, const char *name, int interval_sec, uint64_t now_m
     job->next_run_ms=now_ms+(uint64_t)interval_sec*1000; job->enabled=1; return j->n-1;
 }
 int jobsched_due(JobSched *j, uint64_t now_ms, int *out_indices, int cap) {
-    if(!j) return -1; int n=0;
+    if(!j) return -1;
+    int n=0;
     for (int i=0;i<j->n && n<cap;i++) if (j->jobs[i].enabled && now_ms>=j->jobs[i].next_run_ms) {
         out_indices[n++]=i; j->jobs[i].next_run_ms=now_ms+(uint64_t)j->jobs[i].interval_sec*1000; j->jobs[i].run_count++;
     }

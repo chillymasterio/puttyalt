@@ -5,7 +5,8 @@
 typedef struct { int command; char param[OS_PARAM]; int terminated; } OscParse2;
 void oscparse2_init(OscParse2 *o) { if(o) memset(o,0,sizeof(*o)); }
 int oscparse2_parse(OscParse2 *o, const char *data, int len) {
-    if(!o||!data) return -1; memset(o,0,sizeof(*o));
+    if(!o||!data) return -1;
+    memset(o,0,sizeof(*o));
     /* data is content between ESC] and ST/BEL */
     int i=0; o->command=0;
     while (i<len && data[i]>='0' && data[i]<='9') { o->command=o->command*10+(data[i]-'0'); i++; }

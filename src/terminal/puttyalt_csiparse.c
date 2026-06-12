@@ -3,7 +3,8 @@
 #define CSI_MAX_PARAMS 16
 typedef struct { int params[CSI_MAX_PARAMS]; int nparams; char intermediate; char final; int private_marker; } CsiParse;
 int csiparse(const char *seq, int len, CsiParse *out) {
-    if(!seq||!out||len<1) return -1; memset(out,0,sizeof(*out));
+    if(!seq||!out||len<1) return -1;
+    memset(out,0,sizeof(*out));
     int i=0;
     if (seq[0]=='?'||seq[0]=='<'||seq[0]=='='||seq[0]=='>') { out->private_marker=seq[0]; i=1; }
     int cur=0, have=0;
@@ -20,5 +21,6 @@ int csiparse(const char *seq, int len, CsiParse *out) {
     return -1; /* incomplete */
 }
 int csiparse_param(const CsiParse *c, int idx, int fallback) {
-    if(!c||idx<0||idx>=c->nparams) return fallback; return c->params[idx];
+    if(!c||idx<0||idx>=c->nparams) return fallback;
+    return c->params[idx];
 }

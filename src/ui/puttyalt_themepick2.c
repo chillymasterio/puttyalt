@@ -12,11 +12,13 @@ int themepick2_add(ThemePick2 *t, const char *name, unsigned int bg, unsigned in
     return t->n++;
 }
 int themepick2_select(ThemePick2 *t, int idx) {
-    if(!t||idx<0||idx>=t->n) return -1; t->selected=idx; t->t[idx].use_count++; return 0;
+    if(!t||idx<0||idx>=t->n) return -1;
+    t->selected=idx; t->t[idx].use_count++; return 0;
 }
 void themepick2_toggle_favorite(ThemePick2 *t, int idx) { if(t&&idx>=0&&idx<t->n) t->t[idx].favorite^=1; }
 int themepick2_ordered(const ThemePick2 *t, int *out_idx, int cap) {
-    if(!t) return -1; int n=0;
+    if(!t) return -1;
+    int n=0;
     /* favorites first, then by use count */
     int used[TP_MAX]; memset(used,0,sizeof(used));
     for (int k=0;k<cap && k<t->n;k++) {

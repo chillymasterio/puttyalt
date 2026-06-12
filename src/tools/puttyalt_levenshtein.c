@@ -3,7 +3,8 @@
 int levenshtein(const char *a, const char *b) {
     if(!a||!b) return -1;
     int la=(int)strlen(a), lb=(int)strlen(b);
-    if (la==0) return lb; if (lb==0) return la;
+    if (la==0) return lb;
+    if (lb==0) return la;
     if (la>127||lb>127) return -1;
     int prev[128], cur[128];
     for (int j=0;j<=lb;j++) prev[j]=j;

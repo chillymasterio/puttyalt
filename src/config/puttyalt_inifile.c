@@ -9,7 +9,8 @@ typedef struct { char section[IF_SEC]; char key[IF_KEY]; char value[IF_VAL]; } i
 typedef struct { if_entry e[IF_MAX]; int n; } IniFile;
 void inifile_init(IniFile *f) { if(f) memset(f,0,sizeof(*f)); }
 int inifile_parse(IniFile *f, const char *text) {
-    if(!f||!text) return -1; f->n=0;
+    if(!f||!text) return -1;
+    f->n=0;
     char section[IF_SEC]="default"; const char *line=text;
     while (*line && f->n<IF_MAX) {
         const char *nl=strchr(line,'\n'); int ll=nl?(int)(nl-line):(int)strlen(line);

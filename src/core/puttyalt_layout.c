@@ -69,7 +69,8 @@ int layout_add_pane(LayoutMgr *lm, PaneType type, int x, int y, int w, int h)
 int layout_remove_pane(LayoutMgr *lm, int index)
 {
     if (index < 0 || index >= lm->current_count) return -1;
-    if (lm->current_count == 1) return -1; /* keep at least one */
+    if (lm->current_count == 1) return -1;
+    /* keep at least one */
     for (int i = index; i < lm->current_count - 1; i++)
         lm->current[i] = lm->current[i + 1];
     lm->current_count--;

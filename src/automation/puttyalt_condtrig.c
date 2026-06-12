@@ -13,7 +13,8 @@ int condtrig_add(CondTrig *c, const char *pattern, int action_id, int cooldown_m
     r->cooldown_ms=cooldown_ms; r->enabled=1; return c->n++;
 }
 int condtrig_feed(CondTrig *c, const char *line, uint64_t now_ms, int *out_actions, int cap) {
-    if(!c||!line) return -1; int fired=0;
+    if(!c||!line) return -1;
+    int fired=0;
     for (int i=0;i<c->n;i++) {
         ct_rule *r=&c->r[i];
         if (!r->enabled) continue;

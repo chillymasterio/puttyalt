@@ -12,7 +12,8 @@ int proxyhop_add(ProxyHop *p, const char *host, int port, int type) {
     ph_hop *h=&p->hops[p->n++]; snprintf(h->host,PH_HOST,"%s",host); h->port=port; h->type=type; return 0;
 }
 int proxyhop_describe(const ProxyHop *p, char *out, int outlen) {
-    if(!p||!out) return -1; int pos=0;
+    if(!p||!out) return -1;
+    int pos=0;
     static const char *tn[]={"socks5","http","ssh"};
     for (int i=0;i<p->n && pos<outlen;i++)
         pos+=snprintf(out+pos,outlen-pos,"%s%s://%s:%d",i?" -> ":"",p->hops[i].type<=PH_SSH?tn[p->hops[i].type]:"?",p->hops[i].host,p->hops[i].port);

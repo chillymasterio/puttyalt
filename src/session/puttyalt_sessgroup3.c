@@ -15,7 +15,8 @@ int sessgroup3_create(SessGroup3 *s, const char *name, int parent, unsigned int 
     return s->n++;
 }
 int sessgroup3_reorder(SessGroup3 *s, int idx, int new_order) {
-    if(!s||idx<0||idx>=s->n) return -1; s->g[idx].order=new_order; return 0;
+    if(!s||idx<0||idx>=s->n) return -1;
+    s->g[idx].order=new_order; return 0;
 }
 int sessgroup3_move(SessGroup3 *s, int idx, int new_parent) {
     if(!s||idx<0||idx>=s->n) return -1;

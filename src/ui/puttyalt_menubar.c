@@ -16,7 +16,8 @@ int menubar_add_separator(MenuBar *m, int parent) {
     m->items[m->n].parent=parent; m->items[m->n].separator=1; return m->n++;
 }
 int menubar_children(const MenuBar *m, int parent, int *out_idx, int cap) {
-    if(!m) return -1; int n=0;
+    if(!m) return -1;
+    int n=0;
     for (int i=0;i<m->n && n<cap;i++) if (m->items[i].parent==parent) out_idx[n++]=i;
     return n;
 }

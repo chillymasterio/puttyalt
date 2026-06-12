@@ -9,7 +9,8 @@ int glob_match(const char *pattern, const char *str) {
             while (*str) { if (glob_match(pattern,str)) return 1; str++; }
             return glob_match(pattern,str);
         } else if (*pattern=='?') {
-            if (!*str) return 0; pattern++; str++;
+            if (!*str) return 0;
+            pattern++; str++;
         } else if (*pattern=='[') {
             pattern++; int neg=0, matched=0;
             if (*pattern=='!'||*pattern=='^') { neg=1; pattern++; }
@@ -19,9 +20,11 @@ int glob_match(const char *pattern, const char *str) {
                 } else { if (*str==*pattern) matched=1; pattern++; }
             }
             if (*pattern==']') pattern++;
-            if (matched==neg || !*str) return 0; str++;
+            if (matched==neg || !*str) return 0;
+            str++;
         } else {
-            if (*pattern!=*str) return 0; pattern++; str++;
+            if (*pattern!=*str) return 0;
+            pattern++; str++;
         }
     }
     return *str==0;

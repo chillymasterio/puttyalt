@@ -4,7 +4,8 @@
 enum sr_source { SR_LITERAL=0, SR_ENV=1, SR_VAULT=2, SR_FILE=3, SR_KEYCHAIN=4 };
 typedef struct { int source; char ref[160]; } SecretRef;
 int secretref_parse(const char *str, SecretRef *out) {
-    if(!str||!out) return -1; memset(out,0,sizeof(*out));
+    if(!str||!out) return -1;
+    memset(out,0,sizeof(*out));
     if (!strncmp(str,"env:",4)) { out->source=SR_ENV; snprintf(out->ref,160,"%s",str+4); }
     else if (!strncmp(str,"vault:",6)) { out->source=SR_VAULT; snprintf(out->ref,160,"%s",str+6); }
     else if (!strncmp(str,"file:",5)) { out->source=SR_FILE; snprintf(out->ref,160,"%s",str+5); }

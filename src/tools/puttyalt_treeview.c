@@ -21,7 +21,8 @@ int treeview_is_visible(const TreeView *t, int idx) {
     return 1;
 }
 int treeview_flatten(const TreeView *t, int *out_idx, int cap) {
-    if(!t) return -1; int n=0;
+    if(!t) return -1;
+    int n=0;
     for (int i=0;i<t->count && n<cap;i++) if (treeview_is_visible(t,i)) out_idx[n++]=i;
     return n;
 }

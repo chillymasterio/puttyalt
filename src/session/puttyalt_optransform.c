@@ -141,7 +141,8 @@ int otbuf_apply_remote(ot_buf *b, ot_op op)
     if (!b) return -1;
     if (op.rev < 0 || op.rev > b->rev) return -1;
     behind = b->rev - op.rev;
-    if (behind > OT_HIST_CAP) return -1;        /* history overrun */
+    if (behind > OT_HIST_CAP) return -1;
+    /* history overrun */
     start = b->hcount - behind;
     if (start < 0) return -1;
     for (i = start; i < b->hcount; i++)

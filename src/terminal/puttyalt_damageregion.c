@@ -70,8 +70,10 @@ int damageregion_add(damageregion_compositor *c, int32_t x, int32_t y,
                      int32_t w, int32_t h, uint64_t now_ms) {
     if (!c) return -1;
     c->last_ms = now_ms;
-    if (w <= 0 || h <= 0) return 0;       /* empty rect: nothing to do */
-    if (c->overflowed) return 0;          /* already full damage */
+    if (w <= 0 || h <= 0) return 0;
+    /* empty rect: nothing to do */
+    if (c->overflowed) return 0;
+    /* already full damage */
     if (c->count >= DAMAGEREGION_MAX_RECTS)
         return damageregion_full_damage(c, now_ms);
     c->rects[c->count].x = x; c->rects[c->count].y = y;

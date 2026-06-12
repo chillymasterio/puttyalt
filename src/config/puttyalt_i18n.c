@@ -7,7 +7,8 @@
 typedef struct { char key[I18N_KEY]; char value[I18N_VAL]; } i18n_entry;
 typedef struct { i18n_entry entries[I18N_MAX]; int n; char locale[16]; } I18n;
 void i18n_init(I18n *i, const char *locale) {
-    if(!i) return; memset(i,0,sizeof(*i)); snprintf(i->locale,16,"%s",locale?locale:"en");
+    if(!i) return;
+    memset(i,0,sizeof(*i)); snprintf(i->locale,16,"%s",locale?locale:"en");
 }
 int i18n_set(I18n *i, const char *key, const char *value) {
     if(!i||!key) return -1;

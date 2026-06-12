@@ -7,7 +7,8 @@ enum lb_strategy { LB_ROUND_ROBIN=0, LB_LEAST_CONN=1, LB_WEIGHTED=2, LB_LATENCY=
 typedef struct { char host[LB_HOST]; int weight; int active_conns; int latency_ms; int healthy; } lb_endpoint;
 typedef struct { lb_endpoint e[LB_MAX]; int n; int strategy; int rr_index; } LoadBalance;
 void loadbalance_init(LoadBalance *l, int strategy) {
-    if(!l) return; memset(l,0,sizeof(*l)); l->strategy=strategy;
+    if(!l) return;
+    memset(l,0,sizeof(*l)); l->strategy=strategy;
 }
 int loadbalance_add(LoadBalance *l, const char *host, int weight) {
     if(!l||l->n>=LB_MAX||!host) return -1;
@@ -15,7 +16,8 @@ int loadbalance_add(LoadBalance *l, const char *host, int weight) {
     return l->n++;
 }
 void loadbalance_update(LoadBalance *l, int idx, int healthy, int latency_ms) {
-    if(!l||idx<0||idx>=l->n) return; l->e[idx].healthy=healthy?1:0; if(healthy) l->e[idx].latency_ms=latency_ms;
+    if(!l||idx<0||idx>=l->n) return;
+    l->e[idx].healthy=healthy?1:0; if(healthy) l->e[idx].latency_ms=latency_ms;
 }
 int loadbalance_select(LoadBalance *l) {
     if(!l||l->n==0) return -1;

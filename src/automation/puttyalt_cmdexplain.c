@@ -3,7 +3,8 @@
 #include <stdio.h>
 enum ce_flag { CE_SAFE=0, CE_PIPE=1, CE_REDIR=2, CE_SUDO=4, CE_DANGER=8, CE_NETWORK=16 };
 int cmdexplain_classify(const char *cmd) {
-    if(!cmd) return CE_SAFE; int f=CE_SAFE;
+    if(!cmd) return CE_SAFE;
+    int f=CE_SAFE;
     if (strstr(cmd,"|")) f|=CE_PIPE;
     if (strstr(cmd,">")||strstr(cmd,">>")) f|=CE_REDIR;
     if (!strncmp(cmd,"sudo ",5)||strstr(cmd," sudo ")) f|=CE_SUDO;
@@ -12,7 +13,8 @@ int cmdexplain_classify(const char *cmd) {
     return f;
 }
 int cmdexplain_describe(const char *cmd, char *buf, int buflen) {
-    if(!cmd||!buf) return -1; int f=cmdexplain_classify(cmd); int pos=0;
+    if(!cmd||!buf) return -1;
+    int f=cmdexplain_classify(cmd); int pos=0;
     if (f&CE_DANGER) pos+=snprintf(buf+pos,buflen-pos,"[DANGER] ");
     if (f&CE_SUDO) pos+=snprintf(buf+pos,buflen-pos,"elevated ");
     if (f&CE_NETWORK) pos+=snprintf(buf+pos,buflen-pos,"network ");

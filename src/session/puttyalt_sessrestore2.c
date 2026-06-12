@@ -6,7 +6,8 @@
 typedef struct { char session_name[SR_NAME]; int window_x, window_y, window_w, window_h; int tab_index; int restored; } sr_entry;
 typedef struct { sr_entry entries[SR_MAX]; int n; int enabled; } SessRestore2;
 void sessrestore2_init(SessRestore2 *s, int enabled) {
-    if(!s) return; memset(s,0,sizeof(*s)); s->enabled=enabled?1:0;
+    if(!s) return;
+    memset(s,0,sizeof(*s)); s->enabled=enabled?1:0;
 }
 int sessrestore2_save(SessRestore2 *s, const char *name, int x, int y, int w, int h, int tab) {
     if(!s||s->n>=SR_MAX||!name) return -1;
@@ -25,7 +26,8 @@ int sessrestore2_get_geometry(const SessRestore2 *s, int idx, int *x, int *y, in
     return 0;
 }
 int sessrestore2_serialize(const SessRestore2 *s, char *out, int outlen) {
-    if(!s||!out) return -1; int pos=0;
+    if(!s||!out) return -1;
+    int pos=0;
     for (int i=0;i<s->n && pos<outlen;i++)
         pos+=snprintf(out+pos,outlen-pos,"%s|%d,%d,%d,%d|%d\n",s->entries[i].session_name,
             s->entries[i].window_x,s->entries[i].window_y,s->entries[i].window_w,s->entries[i].window_h,s->entries[i].tab_index);

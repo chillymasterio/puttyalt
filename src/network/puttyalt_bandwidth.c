@@ -125,7 +125,8 @@ int bw_check_limit(const BWMonitor *bw, int session_id, int is_tx)
     const BWSession *s = bw_find_session_const(bw, session_id);
     if (!s) return 1;
     int limit = is_tx ? s->limit_tx : s->limit_rx;
-    if (limit <= 0) return 1; /* unlimited */
+    if (limit <= 0) return 1;
+    /* unlimited */
     long rate = is_tx ? bw_get_tx_rate(bw, session_id) : bw_get_rx_rate(bw, session_id);
     return rate < limit;
 }

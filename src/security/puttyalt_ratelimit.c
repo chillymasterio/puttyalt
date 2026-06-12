@@ -49,9 +49,11 @@ void rl_refill(RateLimiter *rl)
 
 int rl_try_acquire(RateLimiter *rl, const char *name, int tokens)
 {
-    if (!rl->global_enabled) return 1; /* pass-through */
+    if (!rl->global_enabled) return 1;
+    /* pass-through */
     int idx = rl_find(rl, name);
-    if (idx < 0) return 1; /* no bucket = allow */
+    if (idx < 0) return 1;
+    /* no bucket = allow */
 
     rl_refill(rl);
 

@@ -13,7 +13,8 @@ int wordcomplete_learn(WordComplete *w, const char *word) {
     snprintf(w->words[w->n].word,WC_WORD,"%s",word); w->words[w->n].freq=1; w->n++; return 0;
 }
 int wordcomplete_learn_line(WordComplete *w, const char *line) {
-    if(!w||!line) return -1; int n=0; char word[WC_WORD]; int wl=0;
+    if(!w||!line) return -1;
+    int n=0; char word[WC_WORD]; int wl=0;
     for (const char *p=line; ;p++) {
         char c=*p;
         if ((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||c=='_'||c=='-') { if(wl<WC_WORD-1) word[wl++]=c; }
@@ -23,7 +24,8 @@ int wordcomplete_learn_line(WordComplete *w, const char *line) {
     return n;
 }
 int wordcomplete_suggest(const WordComplete *w, const char *prefix, char *out, int outlen) {
-    if(!w||!prefix) return -1; int pl=(int)strlen(prefix); if(pl==0) return -1;
+    if(!w||!prefix) return -1;
+    int pl=(int)strlen(prefix); if(pl==0) return -1;
     int best=-1;
     for (int i=0;i<w->n;i++) if (strncmp(w->words[i].word,prefix,pl)==0 && (int)strlen(w->words[i].word)>pl) {
         if (best<0||w->words[i].freq>w->words[best].freq) best=i;

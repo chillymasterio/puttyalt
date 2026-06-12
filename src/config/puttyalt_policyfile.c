@@ -8,7 +8,8 @@ typedef struct { char key[PF_KEY]; char value[PF_VAL]; int locked; } pf_entry;
 typedef struct { pf_entry e[PF_MAX]; int n; } PolicyFile;
 void policyfile_init(PolicyFile *p) { if(p) memset(p,0,sizeof(*p)); }
 int policyfile_parse(PolicyFile *p, const char *text) {
-    if(!p||!text) return -1; p->n=0;
+    if(!p||!text) return -1;
+    p->n=0;
     const char *line=text;
     while (*line && p->n<PF_MAX) {
         const char *nl=strchr(line,'\n'); int linelen = nl?(int)(nl-line):(int)strlen(line);

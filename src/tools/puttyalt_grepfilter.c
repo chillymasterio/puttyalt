@@ -6,10 +6,12 @@
 typedef struct { char inc[GF_MAX][GF_PAT]; int ninc; char exc[GF_MAX][GF_PAT]; int nexc; int case_insens; } GrepFilter;
 void grepfilter_init(GrepFilter *g) { if(g) memset(g,0,sizeof(*g)); }
 int grepfilter_add_include(GrepFilter *g, const char *pat) {
-    if(!g||g->ninc>=GF_MAX||!pat) return -1; snprintf(g->inc[g->ninc++],GF_PAT,"%s",pat); return 0;
+    if(!g||g->ninc>=GF_MAX||!pat) return -1;
+    snprintf(g->inc[g->ninc++],GF_PAT,"%s",pat); return 0;
 }
 int grepfilter_add_exclude(GrepFilter *g, const char *pat) {
-    if(!g||g->nexc>=GF_MAX||!pat) return -1; snprintf(g->exc[g->nexc++],GF_PAT,"%s",pat); return 0;
+    if(!g||g->nexc>=GF_MAX||!pat) return -1;
+    snprintf(g->exc[g->nexc++],GF_PAT,"%s",pat); return 0;
 }
 static int gf_contains(const char *hay, const char *needle, int ci) {
     if (!ci) return strstr(hay,needle)!=NULL;

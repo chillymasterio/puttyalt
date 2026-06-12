@@ -6,7 +6,8 @@ enum mfa_method { MFA_NONE=0, MFA_TOTP=1, MFA_PUSH=2, MFA_WEBAUTHN=3, MFA_BACKUP
 enum mfa_state { MFA_IDLE=0, MFA_CHALLENGED, MFA_VERIFYING, MFA_PASSED, MFA_FAILED, MFA_EXPIRED };
 typedef struct { int method; int state; int attempts; int max_attempts; uint64_t challenge_ms; int timeout_ms; } MfaFlow;
 void mfaflow_init(MfaFlow *m, int timeout_ms) {
-    if(!m) return; memset(m,0,sizeof(*m)); m->max_attempts=3; m->timeout_ms=timeout_ms>0?timeout_ms:120000;
+    if(!m) return;
+    memset(m,0,sizeof(*m)); m->max_attempts=3; m->timeout_ms=timeout_ms>0?timeout_ms:120000;
 }
 int mfaflow_challenge(MfaFlow *m, int method, uint64_t now_ms) {
     if(!m||m->state==MFA_VERIFYING) return -1;

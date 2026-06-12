@@ -27,11 +27,13 @@ int settingstore_get_int(const SettingStore *s, const char *key, int def) {
     const char *v=settingstore_get(s,key,0); return v?atoi(v):def;
 }
 int settingstore_serialize(const SettingStore *s, char *out, int outlen) {
-    if(!s||!out) return -1; int pos=0;
+    if(!s||!out) return -1;
+    int pos=0;
     for (int i=0;i<s->n && pos<outlen;i++) pos+=snprintf(out+pos,outlen-pos,"%s=%s\n",s->s[i].key,s->s[i].value);
     return pos;
 }
 void settingstore_mark_saved(SettingStore *s) {
-    if(!s) return; for(int i=0;i<s->n;i++) s->s[i].dirty=0; s->dirty_count=0;
+    if(!s) return;
+    for(int i=0;i<s->n;i++) s->s[i].dirty=0; s->dirty_count=0;
 }
 int settingstore_dirty_count(const SettingStore *s) { return s?s->dirty_count:-1; }

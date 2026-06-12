@@ -3,7 +3,8 @@
 enum cs_shape { CS_BLOCK=0, CS_UNDERLINE=1, CS_BAR=2 };
 typedef struct { int shape; int blink; int visible; unsigned int color; int color_set; } CursorShape;
 void cursorshape_init(CursorShape *c) {
-    if(!c) return; memset(c,0,sizeof(*c)); c->shape=CS_BLOCK; c->blink=1; c->visible=1;
+    if(!c) return;
+    memset(c,0,sizeof(*c)); c->shape=CS_BLOCK; c->blink=1; c->visible=1;
 }
 int cursorshape_decscusr(CursorShape *c, int param) {
     if(!c) return -1;

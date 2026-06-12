@@ -11,10 +11,12 @@ int breadcrumb2_push(Breadcrumb2 *b, const char *label, int node_id) {
     bc_seg *s=&b->segs[b->n++]; snprintf(s->label,BC_SEG,"%s",label); s->node_id=node_id; return 0;
 }
 int breadcrumb2_pop_to(Breadcrumb2 *b, int seg_idx) {
-    if(!b||seg_idx<0||seg_idx>=b->n) return -1; b->n=seg_idx+1; return b->segs[seg_idx].node_id;
+    if(!b||seg_idx<0||seg_idx>=b->n) return -1;
+    b->n=seg_idx+1; return b->segs[seg_idx].node_id;
 }
 int breadcrumb2_layout(Breadcrumb2 *b, int start_x, int sep_width) {
-    if(!b) return 0; int x=start_x;
+    if(!b) return 0;
+    int x=start_x;
     for (int i=0;i<b->n;i++) {
         if (i>0) x+=sep_width;
         b->segs[i].x_start=x; x+=(int)strlen(b->segs[i].label); b->segs[i].x_end=x;
@@ -27,7 +29,8 @@ int breadcrumb2_hit(const Breadcrumb2 *b, int x) {
     return -1;
 }
 int breadcrumb2_render(const Breadcrumb2 *b, char *out, int outlen) {
-    if(!b||!out) return -1; int pos=0;
+    if(!b||!out) return -1;
+    int pos=0;
     for (int i=0;i<b->n && pos<outlen;i++) pos+=snprintf(out+pos,outlen-pos,"%s%s",i?" > ":"",b->segs[i].label);
     return pos;
 }

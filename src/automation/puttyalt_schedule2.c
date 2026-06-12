@@ -16,7 +16,8 @@ static int sc_done_mask(const Schedule2 *s) {
     int m=0; for(int i=0;i<s->n;i++) if(s->tasks[i].done) m|=(1<<i); return m;
 }
 int schedule2_next(Schedule2 *s, uint64_t now_ms) {
-    if(!s) return -1; int done=sc_done_mask(s); int best=-1;
+    if(!s) return -1;
+    int done=sc_done_mask(s); int best=-1;
     for (int i=0;i<s->n;i++) {
         sc_task *t=&s->tasks[i];
         if (t->done || t->running) continue;
@@ -28,8 +29,10 @@ int schedule2_next(Schedule2 *s, uint64_t now_ms) {
     return best;
 }
 int schedule2_complete(Schedule2 *s, int idx) {
-    if(!s||idx<0||idx>=s->n) return -1; s->tasks[idx].done=1; s->tasks[idx].running=0; return 0;
+    if(!s||idx<0||idx>=s->n) return -1;
+    s->tasks[idx].done=1; s->tasks[idx].running=0; return 0;
 }
 int schedule2_pending(const Schedule2 *s) {
-    if(!s) return -1; int n=0; for(int i=0;i<s->n;i++) if(!s->tasks[i].done)n++; return n;
+    if(!s) return -1;
+    int n=0; for(int i=0;i<s->n;i++) if(!s->tasks[i].done)n++; return n;
 }

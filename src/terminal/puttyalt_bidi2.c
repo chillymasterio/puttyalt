@@ -14,7 +14,8 @@ int bidi2_base_dir(const uint32_t *cps, int n) {
     return BD_LTR;
 }
 int bidi2_segment(const uint32_t *cps, int n, int *run_starts, int *run_dirs, int cap) {
-    if(!cps||!run_starts||!run_dirs) return -1; int runs=0;
+    if(!cps||!run_starts||!run_dirs) return -1;
+    int runs=0;
     int cur_dir=-1;
     for (int i=0;i<n;i++) {
         int d=bidi2_char_dir(cps[i]);

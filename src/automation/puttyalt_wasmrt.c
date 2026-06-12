@@ -8,7 +8,8 @@ enum wr_state { WR_UNLOADED=0, WR_LOADED, WR_INSTANTIATED, WR_RUNNING, WR_TRAPPE
 typedef struct { char name[WR_NAME]; int state; uint32_t mem_pages; uint32_t fuel; int import_mask; } wr_module;
 typedef struct { wr_module m[WR_MAX]; int n; uint32_t max_pages; uint32_t fuel_budget; } WasmRt;
 void wasmrt_init(WasmRt *w, uint32_t max_pages, uint32_t fuel_budget) {
-    if(!w) return; memset(w,0,sizeof(*w)); w->max_pages=max_pages?max_pages:256; w->fuel_budget=fuel_budget?fuel_budget:1000000;
+    if(!w) return;
+    memset(w,0,sizeof(*w)); w->max_pages=max_pages?max_pages:256; w->fuel_budget=fuel_budget?fuel_budget:1000000;
 }
 int wasmrt_load(WasmRt *w, const char *name, uint32_t mem_pages, int import_mask) {
     if(!w||w->n>=WR_MAX||!name) return -1;

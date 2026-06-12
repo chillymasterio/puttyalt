@@ -15,11 +15,13 @@ int sshcompress_negotiate(SshCompress *c, const char *client_csv, const char *se
 int sshcompress_active(const SshCompress *c) {
     if(!c) return 0;
     if (c->algo==SC_NONE) return 0;
-    if (c->delayed && !c->authenticated) return 0; /* delayed comp waits for auth */
+    if (c->delayed && !c->authenticated) return 0;
+    /* delayed comp waits for auth */
     return 1;
 }
 void sshcompress_account(SshCompress *c, uint64_t raw, uint64_t compressed) {
-    if(!c) return; c->raw_bytes+=raw; c->compressed_bytes+=compressed;
+    if(!c) return;
+    c->raw_bytes+=raw; c->compressed_bytes+=compressed;
 }
 int sshcompress_ratio_pct(const SshCompress *c) {
     if(!c||c->raw_bytes==0) return 100;

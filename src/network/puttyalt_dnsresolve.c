@@ -7,7 +7,8 @@ enum dr_type { DR_A=1, DR_AAAA=28, DR_CNAME=5 };
 typedef struct { int type; char value[64]; int ttl; } dr_record;
 typedef struct { char hostname[128]; dr_record records[DR_MAX]; int n; int resolved; } DnsResolve;
 void dnsresolve_init(DnsResolve *d, const char *hostname) {
-    if(!d) return; memset(d,0,sizeof(*d)); snprintf(d->hostname,128,"%s",hostname?hostname:"");
+    if(!d) return;
+    memset(d,0,sizeof(*d)); snprintf(d->hostname,128,"%s",hostname?hostname:"");
 }
 int dnsresolve_add(DnsResolve *d, int type, const char *value, int ttl) {
     if(!d||d->n>=DR_MAX||!value) return -1;
@@ -22,7 +23,8 @@ const char *dnsresolve_first_ip(const DnsResolve *d, int prefer_v6) {
     return 0;
 }
 int dnsresolve_min_ttl(const DnsResolve *d) {
-    if(!d||d->n==0) return 0; int m=d->records[0].ttl;
+    if(!d||d->n==0) return 0;
+    int m=d->records[0].ttl;
     for (int i=1;i<d->n;i++) if (d->records[i].ttl<m) m=d->records[i].ttl;
     return m;
 }

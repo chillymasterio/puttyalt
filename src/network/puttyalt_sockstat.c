@@ -15,5 +15,6 @@ void sockstat_sample_rtt(SockStat *s, int rtt_ms) {
 }
 void sockstat_set_cwnd(SockStat *s, int cwnd) { if(s) s->cwnd=cwnd; }
 int sockstat_loss_permille(const SockStat *s) {
-    if(!s||s->tx==0) return 0; return (int)((s->retrans*1000)/(s->tx? (s->tx/1460+1):1));
+    if(!s||s->tx==0) return 0;
+    return (int)((s->retrans*1000)/(s->tx? (s->tx/1460+1):1));
 }

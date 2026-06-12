@@ -13,10 +13,12 @@ static perfprof_entry *perfprof_find(PerfProf *p, const char *name) {
     perfprof_entry *e=&p->entries[p->n++]; snprintf(e->name,PF_NAME,"%s",name); return e;
 }
 void perfprof_enter(PerfProf *p, const char *name, uint64_t now_us) {
-    if(!p) return; perfprof_entry *e=perfprof_find(p,name); if(e) e->start_us=now_us;
+    if(!p) return;
+    perfprof_entry *e=perfprof_find(p,name); if(e) e->start_us=now_us;
 }
 void perfprof_exit(PerfProf *p, const char *name, uint64_t now_us) {
-    if(!p) return; perfprof_entry *e=perfprof_find(p,name); if(!e) return;
+    if(!p) return;
+    perfprof_entry *e=perfprof_find(p,name); if(!e) return;
     uint64_t dur=now_us-e->start_us; e->call_count++; e->total_us+=dur;
     if (dur>e->max_us) e->max_us=dur;
 }
@@ -27,7 +29,8 @@ uint64_t perfprof_avg_us(const PerfProf *p, const char *name) {
     return 0;
 }
 int perfprof_report(const PerfProf *p, char *out, int outlen) {
-    if(!p||!out) return -1; int pos=0;
+    if(!p||!out) return -1;
+    int pos=0;
     for (int i=0;i<p->n && pos<outlen;i++)
         pos+=snprintf(out+pos,outlen-pos,"%s: %llu calls, avg %lluus, max %lluus\n",
             p->entries[i].name,(unsigned long long)p->entries[i].call_count,

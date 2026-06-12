@@ -5,7 +5,8 @@
 typedef struct { uint64_t size; uint32_t uid, gid; uint32_t permissions; uint64_t atime, mtime; int is_dir, is_link; } SftpAttr;
 void sftpattr_init(SftpAttr *a) { if(a) memset(a,0,sizeof(*a)); }
 void sftpattr_set_perms(SftpAttr *a, uint32_t perms) {
-    if(!a) return; a->permissions=perms;
+    if(!a) return;
+    a->permissions=perms;
     a->is_dir = (perms & 0040000)?1:0;
     a->is_link = ((perms & 0170000)==0120000)?1:0;
 }

@@ -19,7 +19,8 @@ int luaapi_find(const LuaApi *l, const char *name) {
 int luaapi_call(LuaApi *l, const char *name, int provided_args) {
     if(!l||!name) return -1;
     int idx=luaapi_find(l,name); if(idx<0) return -1; /* unknown function */
-    if (provided_args != l->funcs[idx].arg_count) return -2; /* arg count mismatch */
+    if (provided_args != l->funcs[idx].arg_count) return -2;
+    /* arg count mismatch */
     l->funcs[idx].call_count++;
     return l->funcs[idx].returns;
 }

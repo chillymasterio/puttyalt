@@ -13,7 +13,8 @@ void x11fwd_init(X11ForwardConfig *cfg)
 
 int x11fwd_start(X11ForwardConfig *cfg)
 {
-    if (cfg->enabled) return 0; /* already active */
+    if (cfg->enabled) return 0;
+    /* already active */
     cfg->enabled = 1;
     return 0;
 }

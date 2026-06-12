@@ -14,14 +14,17 @@ int sesstimeline_add(SessTimeline *t, uint64_t ts, int kind, const char *label) 
     st_event *e=&t->events[t->n++]; e->ts=ts; e->kind=kind; snprintf(e->label,ST_LABEL,"%s",label?label:""); return 0;
 }
 int sesstimeline_in_range(const SessTimeline *t, uint64_t from, uint64_t to, int *out_idx, int cap) {
-    if(!t) return -1; int n=0;
+    if(!t) return -1;
+    int n=0;
     for (int i=0;i<t->n && n<cap;i++) if (t->events[i].ts>=from && t->events[i].ts<=to) out_idx[n++]=i;
     return n;
 }
 int sesstimeline_count_kind(const SessTimeline *t, int kind) {
-    if(!t) return -1; int n=0; for(int i=0;i<t->n;i++) if(t->events[i].kind==kind)n++; return n;
+    if(!t) return -1;
+    int n=0; for(int i=0;i<t->n;i++) if(t->events[i].kind==kind)n++; return n;
 }
 uint64_t sesstimeline_duration(const SessTimeline *t) {
-    if(!t||t->n<2) return 0; return t->events[t->n-1].ts - t->events[0].ts;
+    if(!t||t->n<2) return 0;
+    return t->events[t->n-1].ts - t->events[0].ts;
 }
 int sesstimeline_count(const SessTimeline *t) { return t?t->n:-1; }

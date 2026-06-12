@@ -61,7 +61,8 @@ int reflowsched_set_viewport(int32_t lo, int32_t hi) {
 int reflowsched_mark_dirty(int32_t lo, int32_t hi) {
     if (!reflowsched_g.ready || lo < 0 || hi < lo) return -1;
     if (hi > reflowsched_g.total_lines - 1) hi = reflowsched_g.total_lines - 1;
-    if (lo > hi) return 0;                                  /* nothing to do */
+    if (lo > hi) return 0;
+    /* nothing to do */
     if (reflowsched_g.count >= REFLOWSCHED_MAX_RANGES) {    /* coalesce all */
         for (int32_t i = 1; i < reflowsched_g.count; i++) {
             if (reflowsched_g.ranges[i].lo < reflowsched_g.ranges[0].lo)

@@ -49,7 +49,8 @@ int approval_deny(ApprovalManager *am, int idx, const char *approver)
 
 int approval_check(const ApprovalManager *am, const char *host, int port)
 {
-    if (!am->enabled) return 1;  /* approved by default when disabled */
+    if (!am->enabled) return 1;
+    /* approved by default when disabled */
     long now = (long)time(NULL);
     for (int i = am->count - 1; i >= 0; i--) {
         const ApprovalRequest *r = &am->requests[i];

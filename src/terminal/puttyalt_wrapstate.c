@@ -2,7 +2,8 @@
 #include <string.h>
 typedef struct { int autowrap; int pending_wrap; int cursor_col; int cols; int reverse_wrap; } WrapState;
 void wrapstate_init(WrapState *w, int cols) {
-    if(!w) return; memset(w,0,sizeof(*w)); w->autowrap=1; w->cols=cols>0?cols:80;
+    if(!w) return;
+    memset(w,0,sizeof(*w)); w->autowrap=1; w->cols=cols>0?cols:80;
 }
 void wrapstate_set_autowrap(WrapState *w, int on) { if(w) w->autowrap=on?1:0; }
 /* Returns 1 if a wrap (newline) should occur before printing. */

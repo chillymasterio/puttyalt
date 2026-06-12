@@ -21,7 +21,8 @@ static int rx_match_here(const char *re, const char *text) {
     if (re[0]=='$' && re[1]=='\0') return *text=='\0';
     if (re[0]=='[') {
         const char *re_end; int m=rx_match_class(re,*text,&re_end);
-        if (re_end[0]=='*') return rx_match_star(-2,re,text); /* approx */
+        if (re_end[0]=='*') return rx_match_star(-2,re,text);
+        /* approx */
         if (*text && m) return rx_match_here(re_end,text+1);
         return 0;
     }

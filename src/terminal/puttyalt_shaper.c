@@ -10,7 +10,8 @@ int shaper_add_ligature(Shaper *s, const uint32_t *seq, int seqlen, uint32_t gly
     sh_lig *l=&s->ligs[s->n++]; for(int i=0;i<seqlen;i++) l->seq[i]=seq[i]; l->seqlen=seqlen; l->glyph=glyph; return 0;
 }
 int shaper_shape(const Shaper *s, const uint32_t *cps, int n, uint32_t *out, int cap) {
-    if(!s||!cps||!out) return -1; int o=0, i=0;
+    if(!s||!cps||!out) return -1;
+    int o=0, i=0;
     while (i<n && o<cap) {
         int matched=0;
         if (s->enabled) for (int k=0;k<s->n;k++) {

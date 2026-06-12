@@ -20,7 +20,8 @@ int sftpqueue_next(SftpQueue *q) {
     return -1;
 }
 int sftpqueue_progress(SftpQueue *q, int idx, uint64_t done) {
-    if(!q||idx<0||idx>=q->n) return -1; q->j[idx].done=done;
+    if(!q||idx<0||idx>=q->n) return -1;
+    q->j[idx].done=done;
     if (done>=q->j[idx].total && q->j[idx].total>0) q->j[idx].state=SQ_DONE;
     return 0;
 }
@@ -30,7 +31,8 @@ int sftpqueue_fail(SftpQueue *q, int idx) {
     q->j[idx].state=SQ_PENDING; return 0;
 }
 int sftpqueue_overall_pct(const SftpQueue *q) {
-    if(!q||q->n==0) return 0; uint64_t t=0,d=0;
+    if(!q||q->n==0) return 0;
+    uint64_t t=0,d=0;
     for (int i=0;i<q->n;i++) { t+=q->j[i].total; d+=q->j[i].done; }
     return t? (int)((d*100)/t):0;
 }

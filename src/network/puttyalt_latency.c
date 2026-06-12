@@ -103,12 +103,16 @@ int latency_quality(const LatencyTracker *lt)
     double loss_pct = (lt->count > 0) ?
         (100.0 * lt->loss_count / lt->count) : 0;
 
-    if (loss_pct > 10.0) return 4;       /* critical */
+    if (loss_pct > 10.0) return 4;
+    /* critical */
     if (lt->avg_ms > 500.0) return 4;
-    if (loss_pct > 5.0) return 3;        /* poor */
+    if (loss_pct > 5.0) return 3;
+    /* poor */
     if (lt->avg_ms > 200.0) return 3;
-    if (lt->jitter_ms > 100.0) return 2; /* fair */
+    if (lt->jitter_ms > 100.0) return 2;
+    /* fair */
     if (lt->avg_ms > 100.0) return 2;
-    if (lt->avg_ms > 50.0) return 1;     /* good */
+    if (lt->avg_ms > 50.0) return 1;
+    /* good */
     return 0;                             /* excellent */
 }

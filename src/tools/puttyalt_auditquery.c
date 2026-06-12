@@ -15,17 +15,20 @@ int auditquery_log(AuditQuery *a, const char *user, const char *action, int seve
     e->severity=severity; e->ts=ts; return 0;
 }
 int auditquery_by_user(const AuditQuery *a, const char *user, int *out_idx, int cap) {
-    if(!a||!user) return -1; int n=0;
+    if(!a||!user) return -1;
+    int n=0;
     for (int i=0;i<a->n && n<cap;i++) if (strcmp(a->e[i].user,user)==0) out_idx[n++]=i;
     return n;
 }
 int auditquery_by_timerange(const AuditQuery *a, uint64_t from, uint64_t to, int *out_idx, int cap) {
-    if(!a) return -1; int n=0;
+    if(!a) return -1;
+    int n=0;
     for (int i=0;i<a->n && n<cap;i++) if (a->e[i].ts>=from && a->e[i].ts<=to) out_idx[n++]=i;
     return n;
 }
 int auditquery_high_severity(const AuditQuery *a, int min_sev, int *out_idx, int cap) {
-    if(!a) return -1; int n=0;
+    if(!a) return -1;
+    int n=0;
     for (int i=0;i<a->n && n<cap;i++) if (a->e[i].severity>=min_sev) out_idx[n++]=i;
     return n;
 }

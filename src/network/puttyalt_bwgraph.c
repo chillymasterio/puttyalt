@@ -12,13 +12,16 @@ void bwgraph_sample(BwGraph *b, uint32_t up_bps, uint32_t down_bps) {
     if (down_bps>b->peak_down) b->peak_down=down_bps;
 }
 uint32_t bwgraph_avg_up(const BwGraph *b) {
-    if(!b||b->count==0) return 0; uint64_t s=0; for(int i=0;i<b->count;i++) s+=b->up[i]; return (uint32_t)(s/b->count);
+    if(!b||b->count==0) return 0;
+    uint64_t s=0; for(int i=0;i<b->count;i++) s+=b->up[i]; return (uint32_t)(s/b->count);
 }
 uint32_t bwgraph_avg_down(const BwGraph *b) {
-    if(!b||b->count==0) return 0; uint64_t s=0; for(int i=0;i<b->count;i++) s+=b->down[i]; return (uint32_t)(s/b->count);
+    if(!b||b->count==0) return 0;
+    uint64_t s=0; for(int i=0;i<b->count;i++) s+=b->down[i]; return (uint32_t)(s/b->count);
 }
 int bwgraph_normalized(const BwGraph *b, int down, int *out, int cap) {
-    if(!b) return -1; uint32_t peak = down?b->peak_down:b->peak_up; if(peak==0) peak=1;
+    if(!b) return -1;
+    uint32_t peak = down?b->peak_down:b->peak_up; if(peak==0) peak=1;
     int n=b->count<cap?b->count:cap;
     for (int i=0;i<n;i++) {
         int idx=(b->head - b->count + i + BG_SAMPLES)%BG_SAMPLES;

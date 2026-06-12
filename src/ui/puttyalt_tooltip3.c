@@ -14,7 +14,8 @@ void tooltip3_set_key_hint(Tooltip3 *t, const char *hint) { if(t) snprintf(t->ke
 void tooltip3_show(Tooltip3 *t, int x, int y) { if(t){ t->x=x; t->y=y; t->visible=1; } }
 void tooltip3_hide(Tooltip3 *t) { if(t) t->visible=0; }
 int tooltip3_width(const Tooltip3 *t) {
-    if(!t) return 0; int w=0;
+    if(!t) return 0;
+    int w=0;
     for (int i=0;i<t->n;i++) { int l=(int)strlen(t->lines[i]); if(l>w)w=l; }
     int kl=(int)strlen(t->key_hint); if(kl>w)w=kl;
     return w;

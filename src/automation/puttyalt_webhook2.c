@@ -13,14 +13,16 @@ int webhook2_register(Webhook2 *w, const char *url, int event_mask, int max_retr
     return w->n++;
 }
 int webhook2_matching(const Webhook2 *w, int event, int *out_idx, int cap) {
-    if(!w) return -1; int n=0;
+    if(!w) return -1;
+    int n=0;
     for (int i=0;i<w->n && n<cap;i++) if (w->e[i].event_mask & (1<<event)) out_idx[n++]=i;
     return n;
 }
 int webhook2_delivery_result(Webhook2 *w, int idx, int success) {
     if(!w||idx<0||idx>=w->n) return -1;
     if (success) { w->e[idx].delivered++; w->e[idx].retries=0; return 0; }
-    if (++w->e[idx].retries>=w->e[idx].max_retries) return -1; /* give up */
+    if (++w->e[idx].retries>=w->e[idx].max_retries) return -1;
+    /* give up */
     return 1; /* retry */
 }
 uint32_t webhook2_sign(const char *payload, uint32_t secret) {

@@ -6,10 +6,12 @@
 typedef struct { char names[PC_MAX][PC_NAME]; int n; } PathComplete;
 void pathcomplete_init(PathComplete *p) { if(p) memset(p,0,sizeof(*p)); }
 int pathcomplete_add(PathComplete *p, const char *name) {
-    if(!p||p->n>=PC_MAX||!name) return -1; snprintf(p->names[p->n++],PC_NAME,"%s",name); return 0;
+    if(!p||p->n>=PC_MAX||!name) return -1;
+    snprintf(p->names[p->n++],PC_NAME,"%s",name); return 0;
 }
 int pathcomplete_match(const PathComplete *p, const char *prefix, char *out, int outlen) {
-    if(!p||!prefix) return -1; int pl=(int)strlen(prefix), matches=0, first=-1;
+    if(!p||!prefix) return -1;
+    int pl=(int)strlen(prefix), matches=0, first=-1;
     for (int i=0;i<p->n;i++) if (strncmp(p->names[i],prefix,pl)==0) { if(first<0)first=i; matches++; }
     if (matches==0) return 0;
     if (matches==1) { if(out) snprintf(out,outlen,"%s",p->names[first]); return 1; }

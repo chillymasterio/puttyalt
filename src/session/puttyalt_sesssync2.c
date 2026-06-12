@@ -8,7 +8,8 @@
 typedef struct { char key[SY_KEY]; char val[SY_VAL]; uint64_t timestamp; char origin[24]; } sy_reg;
 typedef struct { sy_reg r[SY_MAX]; int n; char node_id[24]; } SessSync2;
 void sesssync2_init(SessSync2 *s, const char *node_id) {
-    if(!s) return; memset(s,0,sizeof(*s)); snprintf(s->node_id,24,"%s",node_id?node_id:"");
+    if(!s) return;
+    memset(s,0,sizeof(*s)); snprintf(s->node_id,24,"%s",node_id?node_id:"");
 }
 int sesssync2_set(SessSync2 *s, const char *key, const char *val, uint64_t ts) {
     if(!s||!key) return -1;

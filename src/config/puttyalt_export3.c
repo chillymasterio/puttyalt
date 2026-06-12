@@ -13,7 +13,8 @@ int export3_add(Export3 *e, const char *section, const char *key, const char *va
     snprintf(it->key,EX_KEY,"%s",key?key:""); snprintf(it->value,EX_VAL,"%s",value?value:""); return 0;
 }
 int export3_serialize(const Export3 *e, char *out, int outlen) {
-    if(!e||!out) return -1; int pos=0;
+    if(!e||!out) return -1;
+    int pos=0;
     pos+=snprintf(out+pos,outlen-pos,"# PuttyAlt Export v%d\n",e->version);
     char cur[32]="";
     for (int i=0;i<e->n && pos<outlen;i++) {

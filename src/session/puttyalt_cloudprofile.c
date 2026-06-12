@@ -6,7 +6,8 @@
 #define CP_NAME 64
 typedef struct { char device_id[CP_NAME]; uint64_t revision; uint64_t synced_rev; char dirty[CP_MAX_DIRTY][CP_NAME]; int ndirty; int enabled; } CloudProfile;
 void cloudprofile_init(CloudProfile *p, const char *device_id) {
-    if(!p) return; memset(p,0,sizeof(*p)); snprintf(p->device_id,CP_NAME,"%s",device_id?device_id:"");
+    if(!p) return;
+    memset(p,0,sizeof(*p)); snprintf(p->device_id,CP_NAME,"%s",device_id?device_id:"");
 }
 void cloudprofile_set_enabled(CloudProfile *p, int on) { if(p) p->enabled=on?1:0; }
 int cloudprofile_mark_dirty(CloudProfile *p, const char *key) {
@@ -17,6 +18,7 @@ int cloudprofile_mark_dirty(CloudProfile *p, const char *key) {
 }
 int cloudprofile_needs_push(const CloudProfile *p) { return (p && p->enabled && p->revision>p->synced_rev)?1:0; }
 int cloudprofile_mark_synced(CloudProfile *p, uint64_t remote_rev) {
-    if(!p) return -1; p->synced_rev=remote_rev>p->revision?remote_rev:p->revision; p->revision=p->synced_rev; p->ndirty=0; return 0;
+    if(!p) return -1;
+    p->synced_rev=remote_rev>p->revision?remote_rev:p->revision; p->revision=p->synced_rev; p->ndirty=0; return 0;
 }
 int cloudprofile_dirty_count(const CloudProfile *p) { return p?p->ndirty:-1; }

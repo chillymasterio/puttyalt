@@ -29,7 +29,8 @@ int hostkey2_trust(HostKey2 *h, const char *host, const char *fp) {
     return -1;
 }
 int hostkey2_revoke(HostKey2 *h, const char *host) {
-    if(!h||!host) return -1; int n=0;
+    if(!h||!host) return -1;
+    int n=0;
     for (int i=0;i<h->n;i++) if (strcmp(h->e[i].host,host)==0) { h->e[i].trust=HK_REVOKED; n++; }
     return n;
 }

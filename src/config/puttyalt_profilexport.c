@@ -14,7 +14,8 @@ int profilexport_add(ProfileExport *p, const char *section, const char *key, con
     snprintf(p->r[p->n].val,PE_V,"%s",val?val:""); p->n++; return 0;
 }
 int profilexport_write(const ProfileExport *p, char *buf, int buflen) {
-    if(!p||!buf) return -1; int pos=0; char cur[PE_K]=""; 
+    if(!p||!buf) return -1;
+    int pos=0; char cur[PE_K]=""; 
     for (int i=0;i<p->n && pos<buflen;i++) {
         if (strcmp(cur,p->r[i].section)!=0) { snprintf(cur,PE_K,"%s",p->r[i].section); pos+=snprintf(buf+pos,buflen-pos,"[%s]\n",cur); }
         pos+=snprintf(buf+pos,buflen-pos,"%s=%s\n",p->r[i].key,p->r[i].val);

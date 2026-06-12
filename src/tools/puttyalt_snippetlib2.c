@@ -14,16 +14,19 @@ int snippetlib2_add(SnippetLib2 *l, const char *name, const char *body, const ch
     snprintf(s->tags,SL_TAGS,"%s",tags?tags:""); return 0;
 }
 int snippetlib2_by_tag(const SnippetLib2 *l, const char *tag, int *out_idx, int cap) {
-    if(!l||!tag) return -1; int n=0;
+    if(!l||!tag) return -1;
+    int n=0;
     for (int i=0;i<l->n && n<cap;i++) if (strstr(l->s[i].tags,tag)) out_idx[n++]=i;
     return n;
 }
 int snippetlib2_search(const SnippetLib2 *l, const char *query, int *out_idx, int cap) {
-    if(!l||!query) return -1; int n=0;
+    if(!l||!query) return -1;
+    int n=0;
     for (int i=0;i<l->n && n<cap;i++) if (strstr(l->s[i].name,query)||strstr(l->s[i].body,query)||strstr(l->s[i].tags,query)) out_idx[n++]=i;
     return n;
 }
 const char *snippetlib2_body(SnippetLib2 *l, int idx) {
-    if(!l||idx<0||idx>=l->n) return 0; l->s[idx].use_count++; return l->s[idx].body;
+    if(!l||idx<0||idx>=l->n) return 0;
+    l->s[idx].use_count++; return l->s[idx].body;
 }
 int snippetlib2_count(const SnippetLib2 *l) { return l?l->n:-1; }

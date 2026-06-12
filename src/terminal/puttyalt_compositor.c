@@ -38,7 +38,8 @@ int compositor_damage_rect(const Compositor *c, int *x, int *y, int *w, int *h) 
 }
 void compositor_clear_damage(Compositor *c) { if(c){ c->has_damage=0; for(int i=0;i<c->n;i++) c->l[i].dirty=0; } }
 int compositor_topmost_at(const Compositor *c, int px, int py) {
-    if(!c) return -1; int best=-1, bestz=-1;
+    if(!c) return -1;
+    int best=-1, bestz=-1;
     for (int i=0;i<c->n;i++) {
         co_layer *l=&c->l[i];
         if (l->visible && px>=l->x && px<l->x+l->w && py>=l->y && py<l->y+l->h && l->z>bestz) { bestz=l->z; best=l->id; }

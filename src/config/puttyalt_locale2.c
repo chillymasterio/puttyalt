@@ -3,7 +3,8 @@
 #include <stdio.h>
 typedef struct { char decimal_sep; char thousands_sep; int date_order; char currency[8]; } Locale2;
 void locale2_init(Locale2 *l, const char *locale) {
-    if(!l) return; memset(l,0,sizeof(*l));
+    if(!l) return;
+    memset(l,0,sizeof(*l));
     if (locale && (!strncmp(locale,"de",2)||!strncmp(locale,"fr",2)||!strncmp(locale,"ru",2))) {
         l->decimal_sep=','; l->thousands_sep='.'; l->date_order=1; /* DMY */
     } else if (locale && !strncmp(locale,"en_US",5)) {

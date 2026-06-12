@@ -18,7 +18,8 @@ int sessbatch_deselect(SessBatch *b, int session_id) {
     return -1;
 }
 int sessbatch_apply(SessBatch *b, int op) {
-    if(!b||b->n==0) return -1; b->last_op=op; b->affected=b->n; return b->n;
+    if(!b||b->n==0) return -1;
+    b->last_op=op; b->affected=b->n; return b->n;
 }
 void sessbatch_clear(SessBatch *b) { if(b){ b->n=0; b->last_op=SB_NONE; } }
 int sessbatch_selected_count(const SessBatch *b) { return b?b->n:-1; }

@@ -13,12 +13,14 @@ int bookmark2_add(Bookmark2 *b, const char *name, const char *target, int folder
 }
 void bookmark2_toggle_favorite(Bookmark2 *b, int idx) { if(b&&idx>=0&&idx<b->n) b->e[idx].favorite^=1; }
 int bookmark2_in_folder(const Bookmark2 *b, int folder, int *out_idx, int cap) {
-    if(!b) return -1; int n=0;
+    if(!b) return -1;
+    int n=0;
     for (int i=0;i<b->n && n<cap;i++) if (b->e[i].folder==folder) out_idx[n++]=i;
     return n;
 }
 int bookmark2_favorites(const Bookmark2 *b, int *out_idx, int cap) {
-    if(!b) return -1; int n=0;
+    if(!b) return -1;
+    int n=0;
     for (int i=0;i<b->n && n<cap;i++) if (b->e[i].favorite) out_idx[n++]=i;
     return n;
 }

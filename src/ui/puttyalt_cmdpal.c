@@ -27,7 +27,8 @@ static int fuzzy_match(const char *query, const char *text)
         }
     }
 
-    if (query[qi]) return 0;  /* didn't match all chars */
+    if (query[qi]) return 0;
+    /* didn't match all chars */
     if (first_match == 0) score += 10;  /* prefix match bonus */
     return score;
 }

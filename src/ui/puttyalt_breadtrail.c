@@ -12,7 +12,8 @@ int breadtrail_push(BreadTrail *b, const char *seg) {
 int breadtrail_pop(BreadTrail *b) { if(!b||b->depth==0) return -1; b->depth--; return 0; }
 int breadtrail_to(BreadTrail *b, int depth) { if(!b||depth<0||depth>b->depth) return -1; b->depth=depth; return 0; }
 int breadtrail_render(const BreadTrail *b, char *buf, int buflen) {
-    if(!b||!buf) return -1; int pos=0;
+    if(!b||!buf) return -1;
+    int pos=0;
     for (int i=0;i<b->depth && pos<buflen;i++) pos+=snprintf(buf+pos,buflen-pos,"%s%s",i?" > ":"",b->seg[i]);
     return pos;
 }

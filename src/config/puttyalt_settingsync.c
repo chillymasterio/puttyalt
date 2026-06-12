@@ -16,8 +16,10 @@ int settingsync_decide(const SettingSync *s) {
     return SS_NOOP;
 }
 int settingsync_resolve_push(SettingSync *s) {
-    if(!s) return -1; s->base_rev=s->local_rev; s->remote_rev=s->local_rev; s->local_dirty=0; return 0;
+    if(!s) return -1;
+    s->base_rev=s->local_rev; s->remote_rev=s->local_rev; s->local_dirty=0; return 0;
 }
 int settingsync_resolve_pull(SettingSync *s) {
-    if(!s) return -1; s->base_rev=s->remote_rev; s->local_rev=s->remote_rev; s->local_dirty=0; return 0;
+    if(!s) return -1;
+    s->base_rev=s->remote_rev; s->local_rev=s->remote_rev; s->local_dirty=0; return 0;
 }

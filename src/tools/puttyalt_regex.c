@@ -6,7 +6,8 @@ int regex_glob_match(const char *pattern, const char *str) {
         if (*pattern == '*') { pattern++; if (!*pattern) return 1;
             while (*str) { if (regex_glob_match(pattern, str)) return 1; str++; } return 0; }
         if (*pattern == '?') { pattern++; str++; continue; }
-        if (*pattern != *str) return 0; pattern++; str++;
+        if (*pattern != *str) return 0;
+        pattern++; str++;
     }
     while (*pattern == '*') pattern++;
     return !*pattern && !*str;

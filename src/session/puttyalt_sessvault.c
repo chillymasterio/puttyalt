@@ -7,7 +7,8 @@
 typedef struct { char session[SV_NAME]; int vault_key_id; uint64_t unlocked_until; int locked; } sv_binding;
 typedef struct { sv_binding b[SV_MAX]; int n; int default_ttl_ms; } SessVault;
 void sessvault_init(SessVault *s, int default_ttl_ms) {
-    if(!s) return; memset(s,0,sizeof(*s)); s->default_ttl_ms=default_ttl_ms>0?default_ttl_ms:900000;
+    if(!s) return;
+    memset(s,0,sizeof(*s)); s->default_ttl_ms=default_ttl_ms>0?default_ttl_ms:900000;
 }
 int sessvault_bind(SessVault *s, const char *session, int vault_key_id) {
     if(!s||s->n>=SV_MAX||!session) return -1;

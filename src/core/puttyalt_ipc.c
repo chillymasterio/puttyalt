@@ -57,7 +57,8 @@ int ipc_server_poll(IPCServer *srv, IPCMessage *msg)
     if (!srv->running) return -1;
 
     int client = accept(srv->fd, NULL, NULL);
-    if (client < 0) return 0; /* no pending connections */
+    if (client < 0) return 0;
+    /* no pending connections */
 
     int n = read(client, msg, sizeof(IPCMessage));
     close(client);

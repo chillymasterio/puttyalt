@@ -5,7 +5,8 @@ enum ws_opcode { WS_CONT=0x0, WS_TEXT=0x1, WS_BINARY=0x2, WS_CLOSE=0x8, WS_PING=
 typedef struct { int connected; uint32_t mask_key; uint64_t bytes_sent, bytes_recv; } WsClient;
 void wsclient_init(WsClient *w, uint32_t mask_key) { if(w){ memset(w,0,sizeof(*w)); w->mask_key=mask_key; } }
 int wsclient_encode(WsClient *w, int opcode, const unsigned char *payload, int len, unsigned char *out, int outlen) {
-    if(!w||!out) return -1; int pos=0;
+    if(!w||!out) return -1;
+    int pos=0;
     out[pos++]=0x80|(opcode&0x0F); /* FIN + opcode */
     if (len<126) out[pos++]=0x80|len; /* MASK + len */
     else if (len<65536) { out[pos++]=0x80|126; out[pos++]=(len>>8)&0xFF; out[pos++]=len&0xFF; }

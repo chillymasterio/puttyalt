@@ -11,12 +11,14 @@ int textwrap_next_break(const char *text, int start, int width) {
     return limit;
 }
 int textwrap_line_count(const char *text, int width) {
-    if(!text||width<=0) return 0; int lines=0, pos=0, len=(int)strlen(text);
+    if(!text||width<=0) return 0;
+    int lines=0, pos=0, len=(int)strlen(text);
     while (pos<len) { pos=textwrap_next_break(text,pos,width); while(text[pos]==' ')pos++; lines++; }
     return lines>0?lines:1;
 }
 int textwrap_get_line(const char *text, int width, int line_idx, char *out, int outlen) {
-    if(!text||!out) return -1; int pos=0, len=(int)strlen(text), cur=0;
+    if(!text||!out) return -1;
+    int pos=0, len=(int)strlen(text), cur=0;
     while (pos<len) {
         int brk=textwrap_next_break(text,pos,width);
         if (cur==line_idx) {

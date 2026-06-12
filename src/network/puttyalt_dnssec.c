@@ -4,7 +4,8 @@
 enum ds_status { DS_INSECURE=0, DS_SECURE=1, DS_BOGUS=2, DS_INDETERMINATE=3 };
 typedef struct { char domain[160]; int status; int has_rrsig; int has_ds; int chain_depth; } DnsSec;
 void dnssec_init(DnsSec *d, const char *domain) {
-    if(!d) return; memset(d,0,sizeof(*d)); snprintf(d->domain,160,"%s",domain?domain:"");
+    if(!d) return;
+    memset(d,0,sizeof(*d)); snprintf(d->domain,160,"%s",domain?domain:"");
     d->status=DS_INDETERMINATE;
 }
 void dnssec_set_records(DnsSec *d, int has_rrsig, int has_ds) { if(d){ d->has_rrsig=has_rrsig?1:0; d->has_ds=has_ds?1:0; } }

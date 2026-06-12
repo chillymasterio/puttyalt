@@ -35,7 +35,8 @@ int kvstore_remove(KvStore *s, const char *key) {
     return -1;
 }
 int kvstore_serialize(const KvStore *s, char *buf, int buflen) {
-    if(!s||!buf) return -1; int pos=0;
+    if(!s||!buf) return -1;
+    int pos=0;
     for (int i=0;i<s->n && pos<buflen;i++) pos+=snprintf(buf+pos,buflen-pos,"%s=%s\n",s->p[i].k,s->p[i].v);
     return pos;
 }

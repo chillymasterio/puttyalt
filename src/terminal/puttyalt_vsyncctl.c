@@ -81,7 +81,8 @@ int vsyncctl_should_present(uint64_t now_ms)
 {
     uint64_t elapsed;
     if (!g_vsyncctl.initialized) return -1;
-    if (!g_vsyncctl.have_last) return 1;          /* first frame */
+    if (!g_vsyncctl.have_last) return 1;
+    /* first frame */
     if (now_ms <= g_vsyncctl.last_present_ms) return 0;
     elapsed = now_ms - g_vsyncctl.last_present_ms;
     /* Immediate (or tearing override) presents as soon as any time passed. */

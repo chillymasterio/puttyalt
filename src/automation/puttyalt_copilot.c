@@ -8,7 +8,8 @@ enum cp_role { CP_USER=0, CP_ASSISTANT=1, CP_SYSTEM=2 };
 typedef struct { int role; char text[CP_TEXT]; uint64_t ts; } cp_turn;
 typedef struct { cp_turn turns[CP_TURNS]; int n; int max_context; int total_tokens; } Copilot;
 void copilot_init(Copilot *c, int max_context) {
-    if(!c) return; memset(c,0,sizeof(*c)); c->max_context=max_context>0?max_context:8;
+    if(!c) return;
+    memset(c,0,sizeof(*c)); c->max_context=max_context>0?max_context:8;
 }
 int copilot_add_turn(Copilot *c, int role, const char *text, uint64_t now_ms) {
     if(!c||!text) return -1;
@@ -18,7 +19,8 @@ int copilot_add_turn(Copilot *c, int role, const char *text, uint64_t now_ms) {
     return 0;
 }
 int copilot_build_context(const Copilot *c, char *out, int outlen) {
-    if(!c||!out) return -1; int pos=0;
+    if(!c||!out) return -1;
+    int pos=0;
     int start = c->n - c->max_context; if (start<0) start=0;
     for (int i=start;i<c->n && pos<outlen;i++) {
         const char *r = c->turns[i].role==CP_USER?"user":(c->turns[i].role==CP_ASSISTANT?"assistant":"system");

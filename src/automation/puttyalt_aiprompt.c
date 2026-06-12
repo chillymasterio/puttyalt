@@ -5,7 +5,8 @@
 #define AP_LINE 256
 typedef struct { char lines[AP_MAX_CTX][AP_LINE]; int n; char cwd[256]; char last_error[256]; int max_tokens; } AiPrompt;
 void aiprompt_init(AiPrompt *a, int max_tokens) {
-    if(!a) return; memset(a,0,sizeof(*a)); a->max_tokens=max_tokens>0?max_tokens:2048;
+    if(!a) return;
+    memset(a,0,sizeof(*a)); a->max_tokens=max_tokens>0?max_tokens:2048;
 }
 void aiprompt_set_cwd(AiPrompt *a, const char *cwd) { if(a) snprintf(a->cwd,256,"%s",cwd?cwd:""); }
 void aiprompt_set_error(AiPrompt *a, const char *err) { if(a) snprintf(a->last_error,256,"%s",err?err:""); }
@@ -15,7 +16,8 @@ int aiprompt_add_context(AiPrompt *a, const char *line) {
     snprintf(a->lines[a->n++],AP_LINE,"%s",line); return 0;
 }
 int aiprompt_build(const AiPrompt *a, const char *query, char *out, int outlen) {
-    if(!a||!out) return -1; int pos=0;
+    if(!a||!out) return -1;
+    int pos=0;
     pos+=snprintf(out+pos,outlen-pos,"# context\ncwd: %s\n",a->cwd);
     if (a->last_error[0]) pos+=snprintf(out+pos,outlen-pos,"last_error: %s\n",a->last_error);
     pos+=snprintf(out+pos,outlen-pos,"recent:\n");

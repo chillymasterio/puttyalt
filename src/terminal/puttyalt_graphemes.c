@@ -13,16 +13,23 @@ int graphemes_class(uint32_t cp) {
 /* Returns 1 if there's a grapheme break between cp1 and cp2. */
 int graphemes_is_break(uint32_t cp1, uint32_t cp2) {
     int a=graphemes_class(cp1), b=graphemes_class(cp2);
-    if (a==GB_CR && b==GB_LF) return 0;                 /* GB3 */
-    if (a==GB_CONTROL||a==GB_CR||a==GB_LF) return 1;     /* GB4 */
-    if (b==GB_CONTROL||b==GB_CR||b==GB_LF) return 1;     /* GB5 */
-    if (b==GB_EXTEND||b==GB_ZWJ) return 0;               /* GB9 */
-    if (a==GB_REGIONAL && b==GB_REGIONAL) return 0;      /* GB12/13 (simplified) */
-    if (a==GB_ZWJ) return 0;                             /* GB11 (simplified) */
+    if (a==GB_CR && b==GB_LF) return 0;
+    /* GB3 */
+    if (a==GB_CONTROL||a==GB_CR||a==GB_LF) return 1;
+    /* GB4 */
+    if (b==GB_CONTROL||b==GB_CR||b==GB_LF) return 1;
+    /* GB5 */
+    if (b==GB_EXTEND||b==GB_ZWJ) return 0;
+    /* GB9 */
+    if (a==GB_REGIONAL && b==GB_REGIONAL) return 0;
+    /* GB12/13 (simplified) */
+    if (a==GB_ZWJ) return 0;
+    /* GB11 (simplified) */
     return 1;                                            /* GB999 */
 }
 int graphemes_count(const uint32_t *cps, int n) {
-    if (n<=0) return 0; int count=1;
+    if (n<=0) return 0;
+    int count=1;
     for (int i=1;i<n;i++) if (graphemes_is_break(cps[i-1],cps[i])) count++;
     return count;
 }

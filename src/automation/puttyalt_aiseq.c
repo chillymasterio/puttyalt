@@ -16,12 +16,14 @@ int aiseq_current(const AiSeq *a, char *out, int outlen) {
     if (out) snprintf(out,outlen,"%s",a->s[a->cursor].cmd); return a->cursor;
 }
 int aiseq_needs_confirm(const AiSeq *a) {
-    if(!a||a->cursor>=a->n) return 0; return a->s[a->cursor].needs_confirm;
+    if(!a||a->cursor>=a->n) return 0;
+    return a->s[a->cursor].needs_confirm;
 }
 int aiseq_advance(AiSeq *a, int result) {
     if(!a||a->cursor>=a->n) return -1;
     a->s[a->cursor].state = result?AS_DONE:AS_FAILED;
-    if (!result) return -1; /* halt on failure */
+    if (!result) return -1;
+    /* halt on failure */
     a->cursor++; return a->cursor<a->n ? 0 : 1; /* 1 = sequence complete */
 }
 void aiseq_skip(AiSeq *a) { if(a&&a->cursor<a->n){ a->s[a->cursor].state=AS_SKIPPED; a->cursor++; } }

@@ -4,7 +4,8 @@
 enum oc_op { OC_NONE=0, OC_SET=1, OC_QUERY=2 };
 typedef struct { int op; char selection; char b64[1024]; int b64_len; } OscClip;
 int oscclip_parse(const char *seq, int len, OscClip *out) {
-    if(!seq||!out||len<5) return -1; memset(out,0,sizeof(*out));
+    if(!seq||!out||len<5) return -1;
+    memset(out,0,sizeof(*out));
     /* expect: 52;<selection>;<base64-or-?> */
     if (strncmp(seq,"52;",3)!=0) return -1;
     const char *p=seq+3;

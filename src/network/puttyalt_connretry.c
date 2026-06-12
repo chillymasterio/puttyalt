@@ -3,7 +3,8 @@
 #include <stdint.h>
 typedef struct { int base_ms, max_ms, attempt, max_attempts; uint32_t seed; } ConnRetry;
 void connretry_init(ConnRetry *r, int base_ms, int max_ms, int max_attempts) {
-    if(!r) return; memset(r,0,sizeof(*r));
+    if(!r) return;
+    memset(r,0,sizeof(*r));
     r->base_ms=base_ms>0?base_ms:500; r->max_ms=max_ms>0?max_ms:30000;
     r->max_attempts=max_attempts>0?max_attempts:10; r->seed=0x12345;
 }

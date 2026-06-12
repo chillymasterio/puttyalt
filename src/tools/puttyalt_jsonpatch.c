@@ -19,7 +19,8 @@ int jsonpatch_delete(JsonPatch *j, const char *key) {
     return jsonpatch_set(j,key,0);
 }
 int jsonpatch_apply(const JsonPatch *j, char *out, int outlen) {
-    if(!j||!out) return -1; int pos=0; out[pos++]='{'; int first=1;
+    if(!j||!out) return -1;
+    int pos=0; out[pos++]='{'; int first=1;
     for (int i=0;i<j->n && pos<outlen-2;i++) {
         if (j->fields[i].deleted) continue;
         if (!first) out[pos++]=',';

@@ -17,8 +17,10 @@ int base64_encode(const unsigned char *in, int inlen, char *out, int outlen) {
     out[o] = 0; return o;
 }
 static int b64val(char c) {
-    if (c>='A'&&c<='Z') return c-'A'; if (c>='a'&&c<='z') return c-'a'+26;
-    if (c>='0'&&c<='9') return c-'0'+52; if (c=='+') return 62; if (c=='/') return 63; return -1;
+    if (c>='A'&&c<='Z') return c-'A';
+    if (c>='a'&&c<='z') return c-'a'+26;
+    if (c>='0'&&c<='9') return c-'0'+52;
+    if (c=='+') return 62; if (c=='/') return 63; return -1;
 }
 int base64_decode(const char *in, int inlen, unsigned char *out, int outlen) {
     int o = 0;

@@ -17,7 +17,8 @@ int predict_record(Predict *p, const char *cmd) {
     snprintf(p->last,PR_CMD,"%s",cmd); return 0;
 }
 int predict_next(const Predict *p, const char *cmd, char *out, int outlen) {
-    if(!p||!cmd) return -1; int best=-1, bc=0;
+    if(!p||!cmd) return -1;
+    int best=-1, bc=0;
     for (int i=0;i<p->n;i++) if (strcmp(p->edges[i].from,cmd)==0 && p->edges[i].count>bc) { bc=p->edges[i].count; best=i; }
     if (best<0) return -1;
     snprintf(out,outlen,"%s",p->edges[best].to); return bc;

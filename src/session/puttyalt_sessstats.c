@@ -11,7 +11,8 @@ void sessstats_error(SessStats *s) { if(s) s->errors++; }
 void sessstats_set_duration(SessStats *s, uint64_t sec) { if(s) s->duration_sec=sec; }
 uint64_t sessstats_total_bytes(const SessStats *s) { return s?(s->bytes_in+s->bytes_out):0; }
 uint64_t sessstats_avg_throughput(const SessStats *s) {
-    if(!s||s->duration_sec==0) return 0; return (s->bytes_in+s->bytes_out)/s->duration_sec;
+    if(!s||s->duration_sec==0) return 0;
+    return (s->bytes_in+s->bytes_out)/s->duration_sec;
 }
 void sessstats_merge(SessStats *dst, const SessStats *src) {
     if(!dst||!src) return;

@@ -3,7 +3,8 @@
 #include <stdint.h>
 typedef struct { int attempt; int max_attempts; int base_ms; int max_ms; uint32_t seed; int enabled; } Reconnect3;
 void reconnect3_init(Reconnect3 *r, int max_attempts, int base_ms, int max_ms) {
-    if(!r) return; memset(r,0,sizeof(*r)); r->max_attempts=max_attempts>0?max_attempts:10;
+    if(!r) return;
+    memset(r,0,sizeof(*r)); r->max_attempts=max_attempts>0?max_attempts:10;
     r->base_ms=base_ms>0?base_ms:500; r->max_ms=max_ms>0?max_ms:60000; r->seed=0x9E3779B9; r->enabled=1;
 }
 int reconnect3_next_delay(Reconnect3 *r) {

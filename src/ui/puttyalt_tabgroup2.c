@@ -21,7 +21,8 @@ int tabgroup2_group_of(const TabGroup2 *t, int tab_id) {
     return -1;
 }
 int tabgroup2_visible_tabs(const TabGroup2 *t, int *out, int cap) {
-    if(!t) return -1; int n=0;
+    if(!t) return -1;
+    int n=0;
     for (int g=0;g<t->n;g++) if (!t->g[g].collapsed) for (int i=0;i<t->g[g].ntabs && n<cap;i++) out[n++]=t->g[g].tab_ids[i];
     return n;
 }

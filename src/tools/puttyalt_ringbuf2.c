@@ -4,7 +4,8 @@
 typedef struct { unsigned char data[RB_SIZE]; int head, tail, count; unsigned long overflow; } RingBuf2;
 void ringbuf2_init(RingBuf2 *r) { if(r) memset(r,0,sizeof(*r)); }
 int ringbuf2_write(RingBuf2 *r, const unsigned char *src, int len) {
-    if(!r||!src) return -1; int written=0;
+    if(!r||!src) return -1;
+    int written=0;
     for (int i=0;i<len;i++) {
         if (r->count>=RB_SIZE) { r->overflow++; r->tail=(r->tail+1)%RB_SIZE; r->count--; }
         r->data[r->head]=src[i]; r->head=(r->head+1)%RB_SIZE; r->count++; written++;
@@ -12,7 +13,8 @@ int ringbuf2_write(RingBuf2 *r, const unsigned char *src, int len) {
     return written;
 }
 int ringbuf2_read(RingBuf2 *r, unsigned char *dst, int max) {
-    if(!r||!dst) return -1; int n=0;
+    if(!r||!dst) return -1;
+    int n=0;
     while (r->count>0 && n<max) { dst[n++]=r->data[r->tail]; r->tail=(r->tail+1)%RB_SIZE; r->count--; }
     return n;
 }

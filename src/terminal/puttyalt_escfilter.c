@@ -1,7 +1,8 @@
 /* puttyalt_escfilter.c - Escape sequence filter (strip/sanitize control codes). */
 #include <string.h>
 int escfilter_strip_all(const char *in, char *out, int outlen) {
-    if(!in||!out) return -1; int o=0;
+    if(!in||!out) return -1;
+    int o=0;
     for (const char *p=in; *p && o<outlen-1; ) {
         if (*p=='\x1b') {
             p++;

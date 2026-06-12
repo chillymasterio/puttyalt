@@ -5,7 +5,8 @@
 typedef struct { uint32_t weak; uint32_t strong; int block_idx; } rs_sig;
 typedef struct { rs_sig sigs[256]; int n; int block_size; } Rsync;
 void rsync_init(Rsync *r, int block_size) {
-    if(!r) return; memset(r,0,sizeof(*r)); r->block_size=block_size>0?block_size:RS_BLOCK;
+    if(!r) return;
+    memset(r,0,sizeof(*r)); r->block_size=block_size>0?block_size:RS_BLOCK;
 }
 uint32_t rsync_weak_checksum(const unsigned char *data, int len) {
     uint32_t a=0, b=0;

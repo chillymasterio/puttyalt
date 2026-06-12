@@ -9,7 +9,8 @@ static void gb_move_gap(GapBuffer *b, int pos) {
     else if (pos>b->gap_start) { int n=pos-b->gap_start; memmove(b->data+b->gap_start,b->data+b->gap_end,n); b->gap_start+=n; b->gap_end+=n; }
 }
 int buffer_insert(GapBuffer *b, int pos, char c) {
-    if(!b||b->gap_start==b->gap_end) return -1; /* full */
+    if(!b||b->gap_start==b->gap_end) return -1;
+    /* full */
     if (pos<0||pos>buffer_length(b)) return -1;
     gb_move_gap(b,pos); b->data[b->gap_start++]=c; return 0;
 }
@@ -22,6 +23,7 @@ char buffer_at(const GapBuffer *b, int pos) {
     return pos<b->gap_start ? b->data[pos] : b->data[pos+(b->gap_end-b->gap_start)];
 }
 int buffer_to_string(const GapBuffer *b, char *out, int outlen) {
-    if(!b||!out) return -1; int len=buffer_length(b), o=0;
+    if(!b||!out) return -1;
+    int len=buffer_length(b), o=0;
     for (int i=0;i<len && o<outlen-1;i++) out[o++]=buffer_at(b,i); out[o]=0; return o;
 }

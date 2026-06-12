@@ -72,7 +72,8 @@ int panezoom_toggle(PaneZoomState *z, int pane_id, int x, int y, int w, int h) {
         for (i = 0; i < PANEZOOM_MAX; i++) {
             if (!z->entries[i].used) { slot = i; break; }
         }
-        if (slot < 0) return -1;        /* storage full */
+        if (slot < 0) return -1;
+        /* storage full */
         z->count++;
     }
 

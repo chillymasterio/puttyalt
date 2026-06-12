@@ -13,7 +13,8 @@ int palettecmd_add(PaletteCmd *p, const char *label, const char *category, const
     snprintf(c->keybind,16,"%s",keybind?keybind:""); c->action_id=action_id; return 0;
 }
 int palettecmd_by_category(const PaletteCmd *p, const char *category, int *out_ids, int cap) {
-    if(!p||!category) return -1; int n=0;
+    if(!p||!category) return -1;
+    int n=0;
     for (int i=0;i<p->n && n<cap;i++) if (strcmp(p->c[i].category,category)==0) out_ids[n++]=p->c[i].action_id;
     return n;
 }

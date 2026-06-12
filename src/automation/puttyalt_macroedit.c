@@ -6,7 +6,8 @@
 typedef struct { char data[ME_DATA]; int delay_ms; int type; } me_step;
 typedef struct { me_step steps[ME_MAX]; int n; char name[48]; } MacroEdit;
 void macroedit_init(MacroEdit *m, const char *name) {
-    if(!m) return; memset(m,0,sizeof(*m)); snprintf(m->name,48,"%s",name?name:"");
+    if(!m) return;
+    memset(m,0,sizeof(*m)); snprintf(m->name,48,"%s",name?name:"");
 }
 int macroedit_insert(MacroEdit *m, int pos, const char *data, int delay_ms, int type) {
     if(!m||m->n>=ME_MAX||pos<0||pos>m->n) return -1;
@@ -26,6 +27,7 @@ int macroedit_move(MacroEdit *m, int from, int to) {
     m->steps[to]=tmp; return 0;
 }
 int macroedit_duration(const MacroEdit *m) {
-    if(!m) return 0; int d=0; for(int i=0;i<m->n;i++) d+=m->steps[i].delay_ms; return d;
+    if(!m) return 0;
+    int d=0; for(int i=0;i<m->n;i++) d+=m->steps[i].delay_ms; return d;
 }
 int macroedit_count(const MacroEdit *m) { return m?m->n:-1; }

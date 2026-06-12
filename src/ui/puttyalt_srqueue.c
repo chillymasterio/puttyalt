@@ -24,6 +24,7 @@ int srq_next(SRQueue *a, char *buf, int buflen, int *out_priority) {
     a->head=(a->head+1)%SRQ_MAX_MSGS; a->count--; return 0;
 }
 void srq_set_focus(SRQueue *a, int role, const char *label) {
-    if(!a) return; a->focus_role=role; snprintf(a->focus_label,128,"%s",label?label:"");
+    if(!a) return;
+    a->focus_role=role; snprintf(a->focus_label,128,"%s",label?label:"");
 }
 int srq_pending(const SRQueue *a) { return a?a->count:-1; }

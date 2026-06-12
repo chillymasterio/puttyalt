@@ -3,7 +3,8 @@
 #include <stdint.h>
 typedef struct { int base_interval_sec; int current_interval_sec; uint64_t last_sent_ms; uint64_t last_recv_ms; int missed; int max_missed; int dead; } KeepAlive3;
 void keepalive3_init(KeepAlive3 *k, int interval_sec, int max_missed, uint64_t now_ms) {
-    if(!k) return; memset(k,0,sizeof(*k));
+    if(!k) return;
+    memset(k,0,sizeof(*k));
     k->base_interval_sec = interval_sec>0?interval_sec:30; k->current_interval_sec=k->base_interval_sec;
     k->max_missed = max_missed>0?max_missed:3; k->last_recv_ms=now_ms;
 }
@@ -13,7 +14,8 @@ int keepalive3_due(const KeepAlive3 *k, uint64_t now_ms) {
 }
 void keepalive3_sent(KeepAlive3 *k, uint64_t now_ms) { if(k){ k->last_sent_ms=now_ms; k->missed++; } }
 void keepalive3_recv(KeepAlive3 *k, uint64_t now_ms) {
-    if(!k) return; k->last_recv_ms=now_ms; k->missed=0; k->dead=0;
+    if(!k) return;
+    k->last_recv_ms=now_ms; k->missed=0; k->dead=0;
     /* connection healthy -> can relax interval slightly */
     if (k->current_interval_sec < k->base_interval_sec*2) k->current_interval_sec++;
 }

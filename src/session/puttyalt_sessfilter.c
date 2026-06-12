@@ -22,7 +22,8 @@ static int sf_fuzzy(const char *needle, const char *hay) {
     return 1;
 }
 int sessfilter_match(const SessFilter *f, const char *query, int *out_idx, int cap) {
-    if(!f||!query) return -1; int n=0;
+    if(!f||!query) return -1;
+    int n=0;
     for (int i=0;i<f->n && n<cap;i++) {
         if (sf_fuzzy(query,f->s[i].name)||sf_fuzzy(query,f->s[i].host)||sf_fuzzy(query,f->s[i].tags)) out_idx[n++]=i;
     }

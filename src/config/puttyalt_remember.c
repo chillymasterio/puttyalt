@@ -12,11 +12,13 @@ static rm_entry *rm_find(Remember *r, const char *host) {
     rm_entry *e=&r->e[r->n++]; snprintf(e->host,RM_HOST,"%s",host); return e;
 }
 int remember_save(Remember *r, const char *host, int port, const char *user, int scheme) {
-    if(!r||!host) return -1; rm_entry *e=rm_find(r,host); if(!e) return -1;
+    if(!r||!host) return -1;
+    rm_entry *e=rm_find(r,host); if(!e) return -1;
     e->port=port; snprintf(e->user,48,"%s",user?user:""); e->color_scheme=scheme; return 0;
 }
 int remember_window(Remember *r, const char *host, int w, int h) {
-    if(!r||!host) return -1; rm_entry *e=rm_find(r,host); if(!e) return -1;
+    if(!r||!host) return -1;
+    rm_entry *e=rm_find(r,host); if(!e) return -1;
     e->last_window_w=w; e->last_window_h=h; return 0;
 }
 int remember_recall(const Remember *r, const char *host, int *port, char *user, int userlen, int *scheme) {

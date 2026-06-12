@@ -28,5 +28,6 @@ int alertrule_eval(AlertRule *a, int idx, double value, uint64_t now_ms) {
 }
 int alertrule_state(const AlertRule *a, int idx) { return (a&&idx>=0&&idx<a->n)?a->r[idx].state:-1; }
 int alertrule_firing_count(const AlertRule *a) {
-    if(!a) return -1; int n=0; for(int i=0;i<a->n;i++) if(a->r[i].state==AR_FIRING)n++; return n;
+    if(!a) return -1;
+    int n=0; for(int i=0;i<a->n;i++) if(a->r[i].state==AR_FIRING)n++; return n;
 }

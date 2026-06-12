@@ -16,7 +16,8 @@ static int pl_done_mask(const Pipeline2 *p) {
     int m=0; for (int i=0;i<p->n;i++) if (p->s[i].state==PL_OK) m|=(1<<i); return m;
 }
 int pipeline2_next_ready(Pipeline2 *p) {
-    if(!p) return -1; int done=pl_done_mask(p);
+    if(!p) return -1;
+    int done=pl_done_mask(p);
     for (int i=0;i<p->n;i++) if (p->s[i].state==PL_WAIT && (p->s[i].deps_mask & done)==p->s[i].deps_mask) {
         p->s[i].state=PL_RUN; return i;
     }
@@ -29,6 +30,7 @@ int pipeline2_complete(Pipeline2 *p, int idx, int success) {
     return 0;
 }
 int pipeline2_all_done(const Pipeline2 *p) {
-    if(!p) return -1; for(int i=0;i<p->n;i++) if(p->s[i].state==PL_WAIT||p->s[i].state==PL_RUN||p->s[i].state==PL_READY) return 0; return 1;
+    if(!p) return -1;
+    for(int i=0;i<p->n;i++) if(p->s[i].state==PL_WAIT||p->s[i].state==PL_RUN||p->s[i].state==PL_READY) return 0; return 1;
 }
 int pipeline2_failures(const Pipeline2 *p) { if(!p) return -1; int n=0; for(int i=0;i<p->n;i++) if(p->s[i].state==PL_FAIL)n++; return n; }

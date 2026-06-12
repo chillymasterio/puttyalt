@@ -55,7 +55,8 @@ int hyperlinx_parse(hyperlinx_state *s, const char *payload, uint64_t now_ms)
     if (!s || !payload) return -1;
 
     sep = strchr(payload, ';');
-    if (!sep) return -1;              /* OSC 8 needs params ; uri */
+    if (!sep) return -1;
+    /* OSC 8 needs params ; uri */
     uri = sep + 1;
 
     plen = (size_t)(sep - payload);

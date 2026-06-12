@@ -12,6 +12,7 @@ int altscreen_leave(AltScreen *a, int *out_cx, int *out_cy) {
 }
 void altscreen_save_cursor(AltScreen *a, int cx, int cy) { if(a){ a->saved_cx=cx; a->saved_cy=cy; } }
 int altscreen_restore_cursor(const AltScreen *a, int *cx, int *cy) {
-    if(!a) return -1; if(cx)*cx=a->saved_cx; if(cy)*cy=a->saved_cy; return 0;
+    if(!a) return -1;
+    if(cx)*cx=a->saved_cx; if(cy)*cy=a->saved_cy; return 0;
 }
 int altscreen_is_active(const AltScreen *a) { return a?a->alt_active:-1; }

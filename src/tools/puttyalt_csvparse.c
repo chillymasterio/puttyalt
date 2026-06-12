@@ -4,7 +4,8 @@
 #define CSV_FIELD 128
 typedef struct { char fields[CSV_MAX_FIELDS][CSV_FIELD]; int nfields; } CsvRow;
 int csvparse_row(const char *line, CsvRow *out) {
-    if(!line||!out) return -1; out->nfields=0;
+    if(!line||!out) return -1;
+    out->nfields=0;
     const char *p=line; int fi=0, ci=0; int in_quotes=0;
     while (*p && fi<CSV_MAX_FIELDS) {
         char c=*p;
@@ -23,5 +24,6 @@ int csvparse_row(const char *line, CsvRow *out) {
     return out->nfields;
 }
 const char *csvparse_field(const CsvRow *r, int idx) {
-    if(!r||idx<0||idx>=r->nfields) return 0; return r->fields[idx];
+    if(!r||idx<0||idx>=r->nfields) return 0;
+    return r->fields[idx];
 }

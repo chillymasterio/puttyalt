@@ -7,7 +7,8 @@ enum tp_state { TP_QUEUED=0, TP_RUNNING=1, TP_DONE=2, TP_FAILED=3 };
 typedef struct { char desc[TP_DESC]; int priority; int state; } tp_task;
 typedef struct { tp_task tasks[TP_MAX]; int n; int max_concurrent; int running; int completed; } TaskPool;
 void taskpool_init(TaskPool *t, int max_concurrent) {
-    if(!t) return; memset(t,0,sizeof(*t)); t->max_concurrent=max_concurrent>0?max_concurrent:4;
+    if(!t) return;
+    memset(t,0,sizeof(*t)); t->max_concurrent=max_concurrent>0?max_concurrent:4;
 }
 int taskpool_submit(TaskPool *t, const char *desc, int priority) {
     if(!t||t->n>=TP_MAX) return -1;
@@ -28,6 +29,7 @@ int taskpool_complete(TaskPool *t, int idx, int success) {
     t->tasks[idx].state=success?TP_DONE:TP_FAILED; t->running--; t->completed++; return 0;
 }
 int taskpool_queued(const TaskPool *t) {
-    if(!t) return -1; int n=0; for(int i=0;i<t->n;i++) if(t->tasks[i].state==TP_QUEUED)n++; return n;
+    if(!t) return -1;
+    int n=0; for(int i=0;i<t->n;i++) if(t->tasks[i].state==TP_QUEUED)n++; return n;
 }
 int taskpool_running(const TaskPool *t) { return t?t->running:-1; }

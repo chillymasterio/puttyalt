@@ -2,7 +2,8 @@
 #include <string.h>
 typedef struct { int cols, rows; int cell_w, cell_h; int gap; int total_w, total_h; } SessGrid;
 void sessgrid_init(SessGrid *g, int total_w, int total_h, int gap) {
-    if(!g) return; memset(g,0,sizeof(*g)); g->total_w=total_w; g->total_h=total_h; g->gap=gap;
+    if(!g) return;
+    memset(g,0,sizeof(*g)); g->total_w=total_w; g->total_h=total_h; g->gap=gap;
 }
 int sessgrid_layout(SessGrid *g, int n_items) {
     if(!g||n_items<=0) return -1;

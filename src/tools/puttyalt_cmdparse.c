@@ -5,7 +5,8 @@
 typedef struct { char tokens[CP_MAX_TOK][CP_TOK]; int n; int has_pipe; int has_redirect; } CmdParse;
 void cmdparse_init(CmdParse *c) { if(c) memset(c,0,sizeof(*c)); }
 int cmdparse_tokenize(CmdParse *c, const char *cmd) {
-    if(!c||!cmd) return -1; c->n=0; c->has_pipe=0; c->has_redirect=0;
+    if(!c||!cmd) return -1;
+    c->n=0; c->has_pipe=0; c->has_redirect=0;
     const char *p=cmd; int ti=0; int in_quote=0; char qc=0;
     while (*p && c->n<CP_MAX_TOK) {
         char ch=*p;

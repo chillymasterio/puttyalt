@@ -19,15 +19,18 @@ int settingui_set(SettingUI *s, const char *name, const char *value) {
     return -1;
 }
 int settingui_by_category(const SettingUI *s, const char *cat, int *out_idx, int cap) {
-    if(!s||!cat) return -1; int n=0;
+    if(!s||!cat) return -1;
+    int n=0;
     for (int i=0;i<s->n && n<cap;i++) if (strcmp(s->f[i].category,cat)==0) out_idx[n++]=i;
     return n;
 }
 int settingui_search(const SettingUI *s, const char *query, int *out_idx, int cap) {
-    if(!s||!query) return -1; int n=0;
+    if(!s||!query) return -1;
+    int n=0;
     for (int i=0;i<s->n && n<cap;i++) if (strstr(s->f[i].name,query)) out_idx[n++]=i;
     return n;
 }
 int settingui_modified_count(const SettingUI *s) {
-    if(!s) return -1; int n=0; for(int i=0;i<s->n;i++) if(s->f[i].modified)n++; return n;
+    if(!s) return -1;
+    int n=0; for(int i=0;i<s->n;i++) if(s->f[i].modified)n++; return n;
 }

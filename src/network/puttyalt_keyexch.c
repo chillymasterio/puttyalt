@@ -6,7 +6,8 @@
 typedef struct { char algos[KX_MAX][KX_NAME]; int n; } KeyExch;
 void keyexch_init(KeyExch *k) { if(k) memset(k,0,sizeof(*k)); }
 int keyexch_add(KeyExch *k, const char *algo) {
-    if(!k||k->n>=KX_MAX||!algo) return -1; snprintf(k->algos[k->n++],KX_NAME,"%s",algo); return 0;
+    if(!k||k->n>=KX_MAX||!algo) return -1;
+    snprintf(k->algos[k->n++],KX_NAME,"%s",algo); return 0;
 }
 int keyexch_negotiate(const KeyExch *client, const char *server_csv, char *out, int outlen) {
     if(!client||!server_csv) return -1;

@@ -13,7 +13,8 @@ int pqkem_offer(PqKem *p, int kem, const char *name, int classical_bits, int pq_
     e->classical_bits=classical_bits; e->pq_level=pq_level; return 0;
 }
 int pqkem_negotiate(PqKem *p) {
-    if(!p) return -1; int best=-1, blevel=-1;
+    if(!p) return -1;
+    int best=-1, blevel=-1;
     for (int i=0;i<p->n;i++) if (p->e[i].pq_level>blevel) { blevel=p->e[i].pq_level; best=i; }
     p->selected=best; return best;
 }

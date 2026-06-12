@@ -17,8 +17,10 @@ int certpin_verify(const CertPin *c, const char *host, const char *presented_has
     for (int i=0;i<c->n;i++) if (strcmp(c->pins[i].host,host)==0) {
         have_pins=1; if (strcmp(c->pins[i].pin,presented_hash)==0) match=1;
     }
-    if (!have_pins) return 1; /* no pins for host = pass-through */
-    if (match) return 0; /* pinned & matches */
+    if (!have_pins) return 1;
+    /* no pins for host = pass-through */
+    if (match) return 0;
+    /* pinned & matches */
     return c->enforce ? -1 : 1; /* mismatch: block if enforcing, else allow+report */
 }
 int certpin_host_pinned(const CertPin *c, const char *host) {

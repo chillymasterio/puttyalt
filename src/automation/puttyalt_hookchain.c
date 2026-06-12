@@ -13,7 +13,8 @@ int hookchain_register(HookChain *h, int event, const char *command, int priorit
     return 0;
 }
 int hookchain_fire(const HookChain *h, int event, int *out_indices, int cap) {
-    if(!h) return -1; int n=0;
+    if(!h) return -1;
+    int n=0;
     /* collect matching enabled hooks */
     int idx[HC_MAX], cnt=0;
     for (int i=0;i<h->n;i++) if (h->h[i].event==event && h->h[i].enabled) idx[cnt++]=i;

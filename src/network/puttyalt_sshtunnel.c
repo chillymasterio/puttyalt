@@ -25,6 +25,7 @@ int sshtunnel_should_restart(SshTunnel *s, int idx, uint64_t now_ms) {
     return 0;
 }
 int sshtunnel_up_count(const SshTunnel *s) {
-    if(!s) return -1; int n=0; for(int i=0;i<s->n;i++) if(s->t[i].state==STT_UP)n++; return n;
+    if(!s) return -1;
+    int n=0; for(int i=0;i<s->n;i++) if(s->t[i].state==STT_UP)n++; return n;
 }
 int ssttunnel_count(const SshTunnel *s) { return s?s->n:-1; }

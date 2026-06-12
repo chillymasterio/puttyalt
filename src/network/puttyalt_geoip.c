@@ -25,7 +25,8 @@ int geoip_lookup(const GeoIp *g, const char *ip, char *country, int clen, char *
     return -1;
 }
 int geoip_best_region(const GeoIp *g) {
-    if(!g||g->n==0) return -1; int best=0;
+    if(!g||g->n==0) return -1;
+    int best=0;
     for (int i=1;i<g->n;i++) if (g->e[i].avg_latency<g->e[best].avg_latency) best=i;
     return best;
 }

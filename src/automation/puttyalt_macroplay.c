@@ -12,11 +12,13 @@ int macroplay_record_step(MacroPlay *m, const char *data, int delay_ms) {
     mp_step *s=&m->steps[m->n++]; snprintf(s->data,MP_DATA,"%s",data); s->delay_ms=delay_ms; return 0;
 }
 int macroplay_start(MacroPlay *m, int loop, uint64_t now_ms) {
-    if(!m||m->n==0) return -1; m->cursor=0; m->loop=loop?1:0; m->playing=1; m->next_at=now_ms; return 0;
+    if(!m||m->n==0) return -1;
+    m->cursor=0; m->loop=loop?1:0; m->playing=1; m->next_at=now_ms; return 0;
 }
 int macroplay_tick(MacroPlay *m, uint64_t now_ms, char *out, int outlen) {
     if(!m||!m->playing||m->cursor>=m->n) return -1;
-    if (now_ms < m->next_at) return 0; /* waiting */
+    if (now_ms < m->next_at) return 0;
+    /* waiting */
     mp_step *s=&m->steps[m->cursor];
     if (out) snprintf(out,outlen,"%s",s->data);
     m->cursor++;

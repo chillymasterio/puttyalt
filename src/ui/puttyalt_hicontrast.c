@@ -8,7 +8,8 @@ static double hc_lum(unsigned int c) {
     return 0.2126*((c>>16&0xFF)/255.0)+0.7152*((c>>8&0xFF)/255.0)+0.0722*((c&0xFF)/255.0);
 }
 void hicontrast_init(HiContrast *h, int min_ratio_x10) {
-    if(!h) return; memset(h,0,sizeof(*h));
+    if(!h) return;
+    memset(h,0,sizeof(*h));
     h->min_ratio_x10 = min_ratio_x10>0?min_ratio_x10:45; /* 4.5:1 default */
     h->fg=0xFFFFFF; h->bg=0x000000; h->accent=0xFFFF00;
 }
