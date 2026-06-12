@@ -774,6 +774,42 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_spinner.c
 )
 
+# v3.9.0 JSON/text diff, validation, layout, caching, protocol
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_conditionchk.c
+    src/automation/puttyalt_eventbus2.c
+    src/automation/puttyalt_jobqueue2.c
+    src/automation/puttyalt_pipeexec.c
+    src/automation/puttyalt_taskdep.c
+    src/config/puttyalt_optparse.c
+    src/config/puttyalt_themevar.c
+    src/config/puttyalt_validate3.c
+    src/network/puttyalt_addrpool.c
+    src/network/puttyalt_connpool3.c
+    src/network/puttyalt_dnscache2.c
+    src/network/puttyalt_tlsverify.c
+    src/security/puttyalt_pwpolicy.c
+    src/session/puttyalt_sessbookmark.c
+    src/session/puttyalt_sesstemplate2.c
+    src/terminal/puttyalt_charmap.c
+    src/terminal/puttyalt_inputmode.c
+    src/terminal/puttyalt_scrollregion2.c
+    src/terminal/puttyalt_termresize.c
+    src/tools/puttyalt_cache2.c
+    src/tools/puttyalt_jsonpatch.c
+    src/tools/puttyalt_logfmt.c
+    src/tools/puttyalt_pathutil.c
+    src/tools/puttyalt_retrytimer.c
+    src/tools/puttyalt_strutil.c
+    src/tools/puttyalt_textdiff.c
+    src/tools/puttyalt_timeparse.c
+    src/ui/puttyalt_grid.c
+    src/ui/puttyalt_menubar.c
+    src/ui/puttyalt_panel.c
+    src/ui/puttyalt_progressring.c
+    src/ui/puttyalt_statuswidget.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
