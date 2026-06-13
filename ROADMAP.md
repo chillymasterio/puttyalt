@@ -774,3 +774,53 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Quality
 - [x] **Warning cleanup** — 474 -> 101 across-tree (-78%)
+
+## v3.10.0 (In Progress) — Data Structures, Codecs & Safety
+*Focus: core data structures, encoding, automation safety, UI primitives.*
+
+### Data structures & codecs
+- [x] **Ring queue** — fixed-capacity FIFO
+- [x] **Bit set** — popcount + union
+- [x] **base64url** — RFC 4648 URL-safe
+- [x] **Key fingerprint** — SHA256 base64 / MD5 hex
+- [x] **CSV writer** — proper escaping
+- [x] **Tokenizer** — custom delimiters
+- [x] **Number formatting** — ordinal/roman/percent
+- [x] **Humanize** — count/duration/relative time
+
+### Terminal
+- [x] **Cell diff tracker** — minimal screen updates
+- [x] **Terminal mode flags** — DECSET handling
+- [x] **OSC status** — title/icon/working-dir
+- [x] **Scroll animation** — ease-out interpolation
+
+### Networking
+- [x] **Keepalive v4** — RTT-adaptive intervals
+- [x] **Proxy auth** — basic/digest/NTLM
+- [x] **MTU discovery** — path probing
+- [x] **DoH client** — DNS-over-HTTPS
+
+### Automation safety
+- [x] **Flow control** — if/while/break state
+- [x] **Loop guard** — runaway protection
+- [x] **Workflow validation** — cycle/orphan detection
+- [x] **Retry policy** — circuit breaker
+- [x] **Script context** — variables + return
+
+### Sessions & config
+- [x] **Session history** — command dedup + search
+- [x] **MRU v2** — frequency weighting
+- [x] **Session groups v4** — color tags + counts
+- [x] **Env expansion** — $VAR / ${VAR}
+- [x] **Setting validation** — type coercion
+- [x] **Profile diff** — added/changed/removed
+- [x] **Certificate expiry** — monitoring + warnings
+
+### UI primitives
+- [x] **Tree list** — expand/collapse + indent
+- [x] **Toast manager** — stacking + auto-dismiss
+- [x] **Tab context menu** — per-tab actions
+- [x] **Splitter bar** — drag handling
+
+### Quality
+- [x] **Warning cleanup** — 101 -> 52 (-90% across session)
