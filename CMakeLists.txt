@@ -810,6 +810,42 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_statuswidget.c
 )
 
+# v3.10.0 data structures, codecs, automation safety, UI primitives
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_flowctl.c
+    src/automation/puttyalt_loopguard.c
+    src/automation/puttyalt_retrpolicy.c
+    src/automation/puttyalt_scriptctx.c
+    src/automation/puttyalt_workflowval.c
+    src/config/puttyalt_envexpand.c
+    src/config/puttyalt_profilediff.c
+    src/config/puttyalt_settingvalidate.c
+    src/network/puttyalt_dohclient.c
+    src/network/puttyalt_keepalive4.c
+    src/network/puttyalt_mtu2.c
+    src/network/puttyalt_proxyauth.c
+    src/security/puttyalt_certexpiry.c
+    src/security/puttyalt_keyfp2.c
+    src/session/puttyalt_sessgroup4.c
+    src/session/puttyalt_sesshistory.c
+    src/session/puttyalt_sessmru2.c
+    src/terminal/puttyalt_celldiff.c
+    src/terminal/puttyalt_oscstatus.c
+    src/terminal/puttyalt_scrollanim.c
+    src/terminal/puttyalt_termmode.c
+    src/tools/puttyalt_base64url.c
+    src/tools/puttyalt_bitset.c
+    src/tools/puttyalt_csvwrite.c
+    src/tools/puttyalt_humanize.c
+    src/tools/puttyalt_numfmt.c
+    src/tools/puttyalt_ringqueue.c
+    src/tools/puttyalt_tokenizer.c
+    src/ui/puttyalt_splitbar.c
+    src/ui/puttyalt_tabcontext.c
+    src/ui/puttyalt_toastmgr.c
+    src/ui/puttyalt_treelist.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
