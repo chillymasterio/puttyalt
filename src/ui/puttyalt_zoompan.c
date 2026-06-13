@@ -8,7 +8,8 @@ void zoompan_init(ZoomPan *z, int vw, int vh) {
 void zoompan_zoom_at(ZoomPan *z, float factor, int cx, int cy) {
     if(!z) return;
     float nz=z->zoom*factor;
-    if (nz<z->min_z) nz=z->min_z; if (nz>z->max_z) nz=z->max_z;
+    if (nz<z->min_z) nz=z->min_z;
+    if (nz>z->max_z) nz=z->max_z;
     z->pan_x = cx - (cx - z->pan_x)*(nz/z->zoom);
     z->pan_y = cy - (cy - z->pan_y)*(nz/z->zoom);
     z->zoom=nz;

@@ -19,7 +19,8 @@ int yamlparse_get(const char *yaml, const char *key, char *out, int outlen) {
             int l=(int)strlen(out); while(l>0&&(out[l-1]==' '||out[l-1]=='\r'))out[--l]=0;
             return l;
         }
-        if(!nl) break; line=nl+1;
+        if(!nl) break;
+        line=nl+1;
     }
     return -1;
 }

@@ -23,7 +23,8 @@ int policyfile_parse(PolicyFile *p, const char *text) {
                 memcpy(e->value,eq+1,vl); e->value[vl]=0; e->locked=locked;
             }
         }
-        if (!nl) break; line=nl+1;
+        if (!nl) break;
+        line=nl+1;
     }
     return p->n;
 }

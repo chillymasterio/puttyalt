@@ -13,7 +13,8 @@ int aiseq_add(AiSeq *a, const char *cmd, int needs_confirm) {
 }
 int aiseq_current(const AiSeq *a, char *out, int outlen) {
     if(!a||a->cursor>=a->n) return -1;
-    if (out) snprintf(out,outlen,"%s",a->s[a->cursor].cmd); return a->cursor;
+    if (out) snprintf(out,outlen,"%s",a->s[a->cursor].cmd);
+    return a->cursor;
 }
 int aiseq_needs_confirm(const AiSeq *a) {
     if(!a||a->cursor>=a->n) return 0;

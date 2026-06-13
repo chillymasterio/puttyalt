@@ -22,7 +22,8 @@ int base32_decode(const char *in, unsigned char *out, int outlen) {
     if(!in||!out) return -1;
     int o=0; int bits=0; unsigned long buf=0;
     for (const char *p=in; *p; p++) {
-        if (*p=='=') break; int v=b32_val(*p); if (v<0) continue;
+        if (*p=='=') break;
+        int v=b32_val(*p); if (v<0) continue;
         buf=(buf<<5)|v; bits+=5;
         if (bits>=8 && o<outlen) { out[o++]=(buf>>(bits-8))&0xFF; bits-=8; }
     }

@@ -21,8 +21,10 @@ int sessrestore2_next(SessRestore2 *s) {
 }
 int sessrestore2_get_geometry(const SessRestore2 *s, int idx, int *x, int *y, int *w, int *h) {
     if(!s||idx<0||idx>=s->n) return -1;
-    if(x)*x=s->entries[idx].window_x; if(y)*y=s->entries[idx].window_y;
-    if(w)*w=s->entries[idx].window_w; if(h)*h=s->entries[idx].window_h;
+    if(x) *x=s->entries[idx].window_x;
+    if(y)*y=s->entries[idx].window_y;
+    if(w) *w=s->entries[idx].window_w;
+    if(h)*h=s->entries[idx].window_h;
     return 0;
 }
 int sessrestore2_serialize(const SessRestore2 *s, char *out, int outlen) {

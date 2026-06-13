@@ -10,7 +10,8 @@ void searchpanel_set_query(SearchPanel *s, const char *q) { if(s){ snprintf(s->q
 int searchpanel_add_result(SearchPanel *s, int line) {
     if(!s||s->nresults>=SP_RESULTS) return -1;
     s->results[s->nresults++]=line;
-    if (s->current<0) s->current=0; return 0;
+    if (s->current<0) s->current=0;
+    return 0;
 }
 int searchpanel_next(SearchPanel *s) {
     if(!s||s->nresults==0) return -1;

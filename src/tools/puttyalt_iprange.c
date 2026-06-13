@@ -25,9 +25,13 @@ int iprange_in_range(const char *ip, const char *low, const char *high) {
 }
 int iprange_is_private(const char *ip) {
     uint32_t v=ipr_parse(ip);
-    if ((v&0xFF000000u)==0x0A000000u) return 1; /* 10.0.0.0/8 */
-    if ((v&0xFFF00000u)==0xAC100000u) return 1; /* 172.16.0.0/12 */
-    if ((v&0xFFFF0000u)==0xC0A80000u) return 1; /* 192.168.0.0/16 */
-    if ((v&0xFF000000u)==0x7F000000u) return 1; /* 127.0.0.0/8 */
+    if ((v&0xFF000000u)==0x0A000000u) return 1;
+    /* 10.0.0.0/8 */
+    if ((v&0xFFF00000u)==0xAC100000u) return 1;
+    /* 172.16.0.0/12 */
+    if ((v&0xFFFF0000u)==0xC0A80000u) return 1;
+    /* 192.168.0.0/16 */
+    if ((v&0xFF000000u)==0x7F000000u) return 1;
+    /* 127.0.0.0/8 */
     return 0;
 }

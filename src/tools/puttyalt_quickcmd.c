@@ -7,7 +7,8 @@ int quickcmd_add(const char *name, const char *cmd, const char *hotkey) {
     if (g_cmd_count >= MAX_QUICK) return -1;
     QuickCmd *q = &g_cmds[g_cmd_count]; memset(q, 0, sizeof(*q));
     snprintf(q->name, 64, "%s", name); snprintf(q->command, 512, "%s", cmd);
-    if (hotkey) snprintf(q->hotkey, 32, "%s", hotkey); return g_cmd_count++;
+    if (hotkey) snprintf(q->hotkey, 32, "%s", hotkey);
+    return g_cmd_count++;
 }
 const char *quickcmd_get(const char *name) {
     for (int i = 0; i < g_cmd_count; i++) if (strcmp(g_cmds[i].name, name) == 0) return g_cmds[i].command;

@@ -15,5 +15,6 @@ int diffview_row_op(const DiffView *d, int idx) { return (d&&idx>=0&&idx<d->n)?d
 int diffview_changed_count(const DiffView *d) { return d?(d->additions+d->deletions):-1; }
 int diffview_summary(const DiffView *d, int *adds, int *dels) {
     if(!d) return -1;
-    if(adds)*adds=d->additions; if(dels)*dels=d->deletions; return d->n;
+    if(adds) *adds=d->additions;
+    if(dels)*dels=d->deletions; return d->n;
 }

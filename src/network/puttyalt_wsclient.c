@@ -8,7 +8,8 @@ int wsclient_encode(WsClient *w, int opcode, const unsigned char *payload, int l
     if(!w||!out) return -1;
     int pos=0;
     out[pos++]=0x80|(opcode&0x0F); /* FIN + opcode */
-    if (len<126) out[pos++]=0x80|len; /* MASK + len */
+    if (len<126) out[pos++]=0x80|len;
+    /* MASK + len */
     else if (len<65536) { out[pos++]=0x80|126; out[pos++]=(len>>8)&0xFF; out[pos++]=len&0xFF; }
     else return -1;
     unsigned char mask[4]={(w->mask_key>>24)&0xFF,(w->mask_key>>16)&0xFF,(w->mask_key>>8)&0xFF,w->mask_key&0xFF};
@@ -24,7 +25,8 @@ int wsclient_decode_header(const unsigned char *data, int len, int *opcode, int 
     if (plen==126) { if(len<4)return -1; plen=(data[2]<<8)|data[3]; hl=4; }
     else if (plen==127) return -1; /* 64-bit not supported here */
     if (masked) hl+=4;
-    if(payload_len)*payload_len=plen; if(header_len)*header_len=hl;
+    if(payload_len) *payload_len=plen;
+    if(header_len)*header_len=hl;
     return 0;
 }
 int wsclient_is_control(int opcode) { return (opcode&0x08)?1:0; }

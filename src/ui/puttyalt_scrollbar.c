@@ -22,7 +22,8 @@ int scrollbar_pos_from_y(const Scrollbar *s, int y) {
     if(!s||s->track_height<=s->thumb_h) return 0;
     int max_pos=s->total-s->visible; if(max_pos<0) max_pos=0;
     int p = y * max_pos / (s->track_height - s->thumb_h);
-    if (p<0) p=0; if (p>max_pos) p=max_pos;
+    if (p<0) p=0;
+    if (p>max_pos) p=max_pos;
     return p;
 }
 int scrollbar_needed(const Scrollbar *s) { return (s&&s->total>s->visible)?1:0; }

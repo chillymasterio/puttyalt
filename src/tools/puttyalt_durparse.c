@@ -13,7 +13,8 @@ long long durparse_ms(const char *s) {
             total+=num*mult; num=0;
         }
     }
-    if (num>0) total+=num*1000LL; /* bare number = seconds */
+    if (num>0) total+=num*1000LL;
+    /* bare number = seconds */
     return seen?total:-1;
 }
 int durparse_format(long long ms, char *buf, int buflen) {

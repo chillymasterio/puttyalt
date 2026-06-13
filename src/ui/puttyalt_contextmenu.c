@@ -8,7 +8,8 @@ int contextmenu_add(const char *label, const char *action, const char *shortcut)
     if (g_item_count >= MAX_MENU_ITEMS) return -1;
     MenuItem *m = &g_items[g_item_count]; memset(m, 0, sizeof(*m));
     snprintf(m->label, 64, "%s", label); snprintf(m->action, 64, "%s", action);
-    if (shortcut) snprintf(m->shortcut, 32, "%s", shortcut); m->enabled = 1;
+    if (shortcut) snprintf(m->shortcut, 32, "%s", shortcut);
+    m->enabled = 1;
     return g_item_count++;
 }
 int contextmenu_add_separator(void) {

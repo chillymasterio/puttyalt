@@ -64,7 +64,8 @@ float cmdsug_score(CmdSuggestRanker *r, const CmdCandidate *c, const char *prefi
     float fr = (float)c->freq / (float)(c->freq + 4u); /* saturating freq */
     float aff = cmdsug_affinity(c->cmd, prefix);
     float score = r->w_recency * rec + r->w_freq * fr + r->w_affinity * aff;
-    if (c->context_match) score += 0.15f;              /* context bonus */
+    if (c->context_match) score += 0.15f;
+    /* context bonus */
     return score > 1.0f ? 1.0f : score;
 }
 
@@ -78,7 +79,8 @@ int cmdsug_rank(CmdSuggestRanker *r, const char *prefix, const CmdCandidate *can
         int pos = written;
         for (j = 0; j < written; j++)
             if (s > out[j].score) { pos = j; break; }
-        if (pos >= outcap) continue;                   /* below the cut */
+        if (pos >= outcap) continue;
+        /* below the cut */
         int last = (written < outcap) ? written : outcap - 1;
         for (j = last; j > pos; j--) out[j] = out[j - 1];
         snprintf(out[pos].cmd, CMDSUG_CMDLEN, "%s", cands[i].cmd);

@@ -28,7 +28,8 @@ int sesspin_ordered(const SessPin *s, int *out_idx, int cap) {
         int best=-1;
         for (int i=0;i<s->n;i++) if (!used[i] && s->sessions[i].pinned) { if(best<0||s->sessions[i].pin_order<s->sessions[best].pin_order) best=i; }
         if (best<0) for (int i=0;i<s->n;i++) if (!used[i]) { best=i; break; }
-        if (best<0) break; used[best]=1; out_idx[n++]=best;
+        if (best<0) break;
+        used[best]=1; out_idx[n++]=best;
     }
     return n;
 }

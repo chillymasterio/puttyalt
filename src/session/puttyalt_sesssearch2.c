@@ -13,7 +13,8 @@ int sesssearch2_add(SessSearch2 *s, const char *name, const char *host, const ch
 int sesssearch2_score(const SessSearch2 *s, int idx, const char *query) {
     if(!s||idx<0||idx>=s->n||!query) return 0;
     const ss_sess *e=&s->sessions[idx]; int score=0;
-    if (strstr(e->name,query)) score+=100; /* name match = highest */
+    if (strstr(e->name,query)) score+=100;
+    /* name match = highest */
     if (strstr(e->host,query)) score+=50;
     if (strstr(e->tags,query)) score+=30;
     if (strstr(e->notes,query)) score+=10;
@@ -27,7 +28,8 @@ int sesssearch2_rank(const SessSearch2 *s, const char *query, int *out_idx, int 
     for (int k=0;k<cap;k++) {
         int best=-1;
         for (int i=0;i<s->n;i++) if (!used[i] && scores[i]>0 && (best<0||scores[i]>scores[best])) best=i;
-        if (best<0) break; used[best]=1; out_idx[n++]=best;
+        if (best<0) break;
+        used[best]=1; out_idx[n++]=best;
     }
     return n;
 }

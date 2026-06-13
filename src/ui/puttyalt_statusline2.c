@@ -15,7 +15,8 @@ int statusline2_render(const StatusLine2 *s, char *buf, int buflen) {
     if(!s||!buf) return -1;
     int pos=0;
     for (int i=0;i<s->n && pos<buflen;i++) {
-        if (s->powerline && i>0) pos+=snprintf(buf+pos,buflen-pos,"\xee\x82\xb0"); /* powerline separator */
+        if (s->powerline && i>0) pos+=snprintf(buf+pos,buflen-pos,"\xee\x82\xb0");
+        /* powerline separator */
         pos+=snprintf(buf+pos,buflen-pos," %s ",s->segs[i].text);
     }
     return pos;

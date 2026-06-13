@@ -13,7 +13,8 @@ int fuzzy2_score(const char *needle, const char *haystack) {
                 if (first_match<0) first_match=hi;
                 score += 10;
                 if (consecutive) score += 5;
-                if (hi==0 || haystack[hi-1]=='/'||haystack[hi-1]=='_'||haystack[hi-1]==' '||haystack[hi-1]=='-') score += 8; /* word boundary */
+                if (hi==0 || haystack[hi-1]=='/'||haystack[hi-1]=='_'||haystack[hi-1]==' '||haystack[hi-1]=='-') score += 8;
+                /* word boundary */
                 consecutive=1; h++; hi++; found=1; break;
             } else consecutive=0;
         }

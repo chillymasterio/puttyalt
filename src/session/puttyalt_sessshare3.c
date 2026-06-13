@@ -18,7 +18,8 @@ int sessshare3_validate(SessShare3 *s, const char *token, int required_scope, ui
     for (int i=0;i<s->n;i++) if (strcmp(s->links[i].token,token)==0) {
         if (s->links[i].revoked) return -1;
         if (s->links[i].expires_ms>0 && now_ms>=s->links[i].expires_ms) return -1;
-        if ((s->links[i].scope & required_scope) != required_scope) return -2; /* insufficient scope */
+        if ((s->links[i].scope & required_scope) != required_scope) return -2;
+        /* insufficient scope */
         s->links[i].uses++; return s->links[i].session_id;
     }
     return -1;

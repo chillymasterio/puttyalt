@@ -17,7 +17,8 @@ int radialmenu_add(RadialMenu *r, const char *label, int action_id) {
 static int rm_octant(int dx, int dy) {
     int adx=dx<0?-dx:dx, ady=dy<0?-dy:dy;
     int oct;
-    if (dx>=0 && dy<0) oct = adx>ady?0:1;       /* upper right */
+    if (dx>=0 && dy<0) oct = adx>ady?0:1;
+    /* upper right */
     else if (dx<0 && dy<0) oct = ady>adx?2:3;   /* upper left */
     else if (dx<0 && dy>=0) oct = adx<ady?4:5;  /* lower left */
     else oct = ady>adx?6:7;                      /* lower right */

@@ -76,7 +76,8 @@ int hyperlinx_parse(hyperlinx_state *s, const char *payload, uint64_t now_ms)
 
     s->open = 1;
     s->opened_ms = now_ms;
-    if (++s->serial == 0) s->serial = 1;   /* never reuse 0 */
+    if (++s->serial == 0) s->serial = 1;
+    /* never reuse 0 */
     return 0;
 }
 

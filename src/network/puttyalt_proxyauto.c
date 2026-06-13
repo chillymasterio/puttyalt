@@ -20,7 +20,8 @@ int proxyauto_resolve(const ProxyAuto *p, const char *host, char *out, int outle
     if(!p||!host) return -1;
     for (int i=0;i<p->n;i++) if (pa_glob(p->r[i].pattern,host)) {
         if (p->r[i].direct) { if(out)snprintf(out,outlen,"DIRECT"); return 1; }
-        if (out) snprintf(out,outlen,"%s",p->r[i].proxy); return 0;
+        if (out) snprintf(out,outlen,"%s",p->r[i].proxy);
+        return 0;
     }
     if (out) snprintf(out,outlen,"%s",p->default_proxy[0]?p->default_proxy:"DIRECT");
     return p->default_proxy[0]?0:1;

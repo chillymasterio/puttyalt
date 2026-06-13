@@ -14,7 +14,8 @@ void screenbuf_mark_range(ScreenBuf *s, int from, int to) {
 void screenbuf_mark_all(ScreenBuf *s) { if(s) s->all_dirty=1; }
 int screenbuf_is_dirty(const ScreenBuf *s, int row) {
     if(!s) return 1;
-    if(s->all_dirty) return 1; return (row>=0&&row<s->rows)?s->dirty[row]:0;
+    if(s->all_dirty) return 1;
+    return (row>=0&&row<s->rows)?s->dirty[row]:0;
 }
 int screenbuf_dirty_count(const ScreenBuf *s) {
     if(!s) return -1;

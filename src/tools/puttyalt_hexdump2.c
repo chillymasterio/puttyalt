@@ -19,5 +19,6 @@ int hexdump2_line(const unsigned char *data, int len, int offset, int width, cha
     return pos;
 }
 int hexdump2_lines_needed(int total, int width) {
-    if(width<=0)width=16; return (total+width-1)/width;
+    if(width<=0) width=16;
+    return (total+width-1)/width;
 }

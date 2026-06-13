@@ -16,7 +16,8 @@ int glob_match(const char *pattern, const char *str) {
             if (*pattern=='!'||*pattern=='^') { neg=1; pattern++; }
             while (*pattern && *pattern!=']') {
                 if (pattern[1]=='-' && pattern[2]!=']') {
-                    if (*str>=pattern[0] && *str<=pattern[2]) matched=1; pattern+=3;
+                    if (*str>=pattern[0] && *str<=pattern[2]) matched=1;
+                    pattern+=3;
                 } else { if (*str==*pattern) matched=1; pattern++; }
             }
             if (*pattern==']') pattern++;

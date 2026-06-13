@@ -29,7 +29,8 @@ int themepick2_ordered(const ThemePick2 *t, int *out_idx, int cap) {
             int bb=t->t[best].favorite*1000 + t->t[best].use_count;
             if (bi>bb) best=i;
         }
-        if (best<0) break; used[best]=1; out_idx[n++]=best;
+        if (best<0) break;
+        used[best]=1; out_idx[n++]=best;
     }
     return n;
 }

@@ -14,7 +14,8 @@ static int cd_parse(const char *blob, cd_kv *out, int cap) {
             const char *ve=nl?nl:eq+strlen(eq); int vl=(int)(ve-(eq+1)); if(vl>=CD_VAL)vl=CD_VAL-1; if(vl<0)vl=0;
             memcpy(out[n].val,eq+1,vl); out[n].val[vl]=0; n++;
         }
-        if(!nl) break; p=nl+1;
+        if(!nl) break;
+        p=nl+1;
     }
     return n;
 }

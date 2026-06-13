@@ -91,7 +91,8 @@ int32_t reflowsched_tick(uint64_t now_ms) {
             int32_t inview = (r->lo <= reflowsched_g.view_hi &&
                               r->hi >= reflowsched_g.view_lo);
             int32_t span, take;
-            if (pass == 0 && !inview) continue;             /* viewport first */
+            if (pass == 0 && !inview) continue;
+            /* viewport first */
             if (pass == 1 && inview) continue;
             span = r->hi - r->lo + 1;
             take = span < remaining ? span : remaining;

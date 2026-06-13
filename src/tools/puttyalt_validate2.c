@@ -9,7 +9,8 @@ int validate2_hostname(const char *host) {
         if (*p=='.') { if(label_len==0) return 0; label_len=0; }
         else if ((*p>='a'&&*p<='z')||(*p>='A'&&*p<='Z')||(*p>='0'&&*p<='9')||*p=='-') {
             if (++label_len>63) return 0;
-            if (*p=='-' && (label_len==1||p[1]=='.'||p[1]==0)) return 0; /* no leading/trailing hyphen */
+            if (*p=='-' && (label_len==1||p[1]=='.'||p[1]==0)) return 0;
+            /* no leading/trailing hyphen */
         } else return 0;
     }
     return label_len>0;

@@ -49,7 +49,8 @@ int osdetect_from_prompt(OSDetectResult *r, const char *prompt)
         r->detected_os = OS_LINUX;
         snprintf(r->distro, sizeof(r->distro), "Debian");
     }
-    if (strstr(prompt, "#")) r->has_sudo = 0; /* root prompt */
+    if (strstr(prompt, "#")) r->has_sudo = 0;
+    /* root prompt */
     else if (strstr(prompt, "$")) r->has_sudo = 1;
     return r->detected_os;
 }

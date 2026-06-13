@@ -36,7 +36,8 @@ int cmdpalette2_search(CmdPalette2 *p, const char *query, int *out_ids, int cap)
     for (int k=0;k<cap && k<p->n;k++) {
         int best=-1;
         for (int i=0;i<p->n;i++) if (!used[i] && p->items[i].score>=0 && (best<0||p->items[i].score>p->items[best].score)) best=i;
-        if (best<0) break; used[best]=1; out_ids[nm++]=p->items[best].action_id;
+        if (best<0) break;
+        used[best]=1; out_ids[nm++]=p->items[best].action_id;
     }
     return nm;
 }

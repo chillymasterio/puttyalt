@@ -12,7 +12,8 @@ int themeval_check(const char *json, char *err, int errlen) {
     if(!json) return -1;
     static const char *req[]={"\"background\"","\"foreground\"","\"cursor\"",NULL};
     for (int i=0;req[i];i++) if (!strstr(json,req[i])) {
-        if (err) snprintf(err,errlen,"missing key %s",req[i]); return -1;
+        if (err) snprintf(err,errlen,"missing key %s",req[i]);
+        return -1;
     }
     return 0;
 }

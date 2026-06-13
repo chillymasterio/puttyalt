@@ -13,8 +13,10 @@ int compositor_add_layer(Compositor *c, int id, int z, int x, int y, int w, int 
 static void co_mark(Compositor *c, int x, int y, int w, int h) {
     if (!c->has_damage) { c->dmg_x0=x; c->dmg_y0=y; c->dmg_x1=x+w; c->dmg_y1=y+h; c->has_damage=1; }
     else {
-        if (x<c->dmg_x0) c->dmg_x0=x; if (y<c->dmg_y0) c->dmg_y0=y;
-        if (x+w>c->dmg_x1) c->dmg_x1=x+w; if (y+h>c->dmg_y1) c->dmg_y1=y+h;
+        if (x<c->dmg_x0) c->dmg_x0=x;
+        if (y<c->dmg_y0) c->dmg_y0=y;
+        if (x+w>c->dmg_x1) c->dmg_x1=x+w;
+        if (y+h>c->dmg_y1) c->dmg_y1=y+h;
     }
 }
 int compositor_move_layer(Compositor *c, int id, int nx, int ny) {
@@ -33,7 +35,8 @@ int compositor_set_opacity(Compositor *c, int id, int opacity) {
 }
 int compositor_damage_rect(const Compositor *c, int *x, int *y, int *w, int *h) {
     if(!c||!c->has_damage) return 0;
-    if(x)*x=c->dmg_x0; if(y)*y=c->dmg_y0; if(w)*w=c->dmg_x1-c->dmg_x0; if(h)*h=c->dmg_y1-c->dmg_y0;
+    if(x) *x=c->dmg_x0;
+    if(y)*y=c->dmg_y0; if(w)*w=c->dmg_x1-c->dmg_x0; if(h)*h=c->dmg_y1-c->dmg_y0;
     return 1;
 }
 void compositor_clear_damage(Compositor *c) { if(c){ c->has_damage=0; for(int i=0;i<c->n;i++) c->l[i].dirty=0; } }

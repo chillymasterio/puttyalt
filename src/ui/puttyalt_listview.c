@@ -12,7 +12,8 @@ void listview_init(ListView *l, int viewport_rows) {
 int listview_add(ListView *l, const char *text, int id) {
     if(!l||l->n>=LV_MAX) return -1;
     snprintf(l->items[l->n].text,LV_TEXT,"%s",text?text:""); l->items[l->n].id=id; l->items[l->n].visible=1;
-    if (l->cursor<0) l->cursor=0; return l->n++;
+    if (l->cursor<0) l->cursor=0;
+    return l->n++;
 }
 void listview_filter(ListView *l, const char *query) {
     if(!l) return;

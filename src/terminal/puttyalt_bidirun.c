@@ -86,7 +86,8 @@ int bidirun_segment(bidirun_ctx_t *ctx, const char *utf8, size_t len) {
         int n = bidi_utf8_next((const uint8_t *)utf8 + i, len - i, &cp);
         if (n <= 0) break;
         bidi_dir_t d = bidi_classify(cp);
-        if (d == BIDI_DIR_NEUTRAL) d = ctx->base_dir; /* neutrals take base dir */
+        if (d == BIDI_DIR_NEUTRAL) d = ctx->base_dir;
+        /* neutrals take base dir */
         if (d != cur) {
             if (cur != BIDI_DIR_NEUTRAL) {
                 if (ctx->count >= BIDIRUN_MAX_RUNS) return -1;

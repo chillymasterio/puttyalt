@@ -57,7 +57,8 @@ int vaultring_unlock(vaultring *v, const char *passphrase)
     uint32_t d;
     if (!v || !passphrase) return -1;
     d = vaultring_derive(passphrase);
-    if (v->check == 0u) v->check = d;        /* first unlock sets check */
+    if (v->check == 0u) v->check = d;
+    /* first unlock sets check */
     if (v->check != d) { v->last_error = VAULTRING_ERR_INVAL; return -1; }
     v->locked = 0;
     v->last_error = VAULTRING_OK;

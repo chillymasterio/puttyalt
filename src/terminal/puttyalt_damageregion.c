@@ -112,7 +112,8 @@ int damageregion_clip(damageregion_compositor *c) {
         if (r.y < 0) r.y = 0;
         if (x1 > c->fb_w) x1 = c->fb_w;
         if (y1 > c->fb_h) y1 = c->fb_h;
-        if (x1 <= r.x || y1 <= r.y) continue;   /* fully outside */
+        if (x1 <= r.x || y1 <= r.y) continue;
+        /* fully outside */
         r.w = x1 - r.x; r.h = y1 - r.y;
         c->rects[out++] = r;
     }

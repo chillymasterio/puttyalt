@@ -19,7 +19,8 @@ int wasmrt_load(WasmRt *w, const char *name, uint32_t mem_pages, int import_mask
 }
 int wasmrt_instantiate(WasmRt *w, int idx, int granted_imports) {
     if(!w||idx<0||idx>=w->n||w->m[idx].state!=WR_LOADED) return -1;
-    if ((w->m[idx].import_mask & ~granted_imports) != 0) return -1; /* requests ungranted import */
+    if ((w->m[idx].import_mask & ~granted_imports) != 0) return -1;
+    /* requests ungranted import */
     w->m[idx].state=WR_INSTANTIATED; return 0;
 }
 int wasmrt_consume_fuel(WasmRt *w, int idx, uint32_t amount) {

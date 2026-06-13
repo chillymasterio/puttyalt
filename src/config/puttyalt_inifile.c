@@ -29,7 +29,8 @@ int inifile_parse(IniFile *f, const char *text) {
                 while(vl>0&&(e->value[vl-1]==' '||e->value[vl-1]=='\r'))e->value[--vl]=0;
             }
         }
-        if(!nl) break; line=nl+1;
+        if(!nl) break;
+        line=nl+1;
     }
     return f->n;
 }

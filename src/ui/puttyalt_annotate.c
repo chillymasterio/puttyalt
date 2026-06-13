@@ -75,7 +75,8 @@ uint32_t annot_add(AnnotOverlay *o, AnnotKind kind, int row, int col,
     Annotation *a = &o->items[o->count++];
     memset(a, 0, sizeof(*a));
     a->id = o->next_id++;
-    if (o->next_id == 0) o->next_id = 1;   /* skip the sentinel on wrap */
+    if (o->next_id == 0) o->next_id = 1;
+    /* skip the sentinel on wrap */
     a->kind = kind;
     a->row = row;
     a->col = col;

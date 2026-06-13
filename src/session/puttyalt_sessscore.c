@@ -21,7 +21,8 @@ int sessscore_compute(SessScore *s) {
         int ratio = (int)((s->uptime_sec*100)/s->total_sec);
         if (ratio<50) score-=20; else if (ratio<80) score-=10;
     }
-    if (score<0) score=0; if (score>100) score=100;
+    if (score<0) score=0;
+    if (score>100) score=100;
     s->score=score; return score;
 }
 const char *sessscore_grade(const SessScore *s) {
@@ -29,5 +30,6 @@ const char *sessscore_grade(const SessScore *s) {
     if (s->score>=90) return "A";
     if (s->score>=75) return "B";
     if (s->score>=60) return "C";
-    if (s->score>=40) return "D"; return "F";
+    if (s->score>=40) return "D";
+    return "F";
 }

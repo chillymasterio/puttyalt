@@ -132,8 +132,10 @@ static int se_locate(const char *blob, SyncEnvHeader *hdr,
     const char *p; int rc = syncenv_parse_header(blob, hdr);
     if (rc != SYNCENV_OK) return rc;
     p = blob;
-    if (!(p = strchr(p, ':')) || !(p = strchr(p+1, ':'))) return SYNCENV_ERR_FORMAT; /* ver,plen */
-    if (!(p = strchr(p+1, ':')) || !(p = strchr(p+1, ':'))) return SYNCENV_ERR_FORMAT; /* nonce */
+    if (!(p = strchr(p, ':')) || !(p = strchr(p+1, ':'))) return SYNCENV_ERR_FORMAT;
+    /* ver,plen */
+    if (!(p = strchr(p+1, ':')) || !(p = strchr(p+1, ':'))) return SYNCENV_ERR_FORMAT;
+    /* nonce */
     *ct = p + 1;
     if (!(p = strchr(*ct, ':'))) return SYNCENV_ERR_FORMAT;
     *mac = p + 1;

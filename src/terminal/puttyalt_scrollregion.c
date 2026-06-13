@@ -7,7 +7,8 @@ void scrollregion_init(ScrollRegion *s, int rows) {
 }
 int scrollregion_set(ScrollRegion *s, int top, int bottom) {
     if(!s) return -1;
-    if (top<0) top=0; if (bottom>=s->rows) bottom=s->rows-1;
+    if (top<0) top=0;
+    if (bottom>=s->rows) bottom=s->rows-1;
     if (top>=bottom) return -1;
     s->top=top; s->bottom=bottom; return 0;
 }

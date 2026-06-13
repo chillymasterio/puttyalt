@@ -24,8 +24,10 @@ int syntax_token_at(const Syntax *s, const char *line, int pos, int *end) {
     if (c>='0'&&c<='9') { int e=pos; while((line[e]>='0'&&line[e]<='9')||line[e]=='.')e++; if(end)*end=e; return SY_NUMBER; }
     if ((c>='a'&&c<='z')||(c>='A'&&c<='Z')||c=='_') {
         int e=pos; while((line[e]>='a'&&line[e]<='z')||(line[e]>='A'&&line[e]<='Z')||(line[e]>='0'&&line[e]<='9')||line[e]=='_')e++;
-        if(end)*end=e; return sy_is_keyword(s,line+pos,e-pos)?SY_KEYWORD:SY_PLAIN;
+        if(end) *end=e;
+        return sy_is_keyword(s,line+pos,e-pos)?SY_KEYWORD:SY_PLAIN;
     }
     if (strchr("+-*/=<>!&|",c)) { if(end)*end=pos+1; return SY_OPERATOR; }
-    if(end)*end=pos+1; return SY_PLAIN;
+    if(end) *end=pos+1;
+    return SY_PLAIN;
 }

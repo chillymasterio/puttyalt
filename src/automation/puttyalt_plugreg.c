@@ -71,7 +71,8 @@ int pregistry_add(PRegistry *r, const PMManifest *m, const PGGrantSet *gs)
     /* Plugin API v2 only */
     if (m->name[0] == '\0') return -1;
     if (r->count >= PREG_MAX) return -1;
-    if (pregistry_find(r, m->name) >= 0) return -1;   /* names are unique */
+    if (pregistry_find(r, m->name) >= 0) return -1;
+    /* names are unique */
 
     for (i = 0; i < PREG_MAX; i++) {
         if (r->entries[i].state == PREG_STATE_FREE) {

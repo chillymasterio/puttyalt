@@ -2,7 +2,8 @@
 #include <stdint.h>
 int charwidth(uint32_t cp) {
     if (cp==0) return 0;
-    if (cp<32 || (cp>=0x7f && cp<0xa0)) return -1; /* control */
+    if (cp<32 || (cp>=0x7f && cp<0xa0)) return -1;
+    /* control */
     /* combining marks */
     if ((cp>=0x300 && cp<=0x36f)||(cp>=0x1ab0&&cp<=0x1aff)||(cp>=0x20d0&&cp<=0x20ff)) return 0;
     /* zero-width */

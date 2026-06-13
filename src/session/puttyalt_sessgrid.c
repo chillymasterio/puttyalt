@@ -20,7 +20,8 @@ int sessgrid_cell_rect(const SessGrid *g, int index, int *x, int *y, int *w, int
     int col=index%g->cols, row=index/g->cols;
     if (x) *x=g->gap+col*(g->cell_w+g->gap);
     if (y) *y=g->gap+row*(g->cell_h+g->gap);
-    if (w) *w=g->cell_w; if (h) *h=g->cell_h;
+    if (w) *w=g->cell_w;
+    if (h) *h=g->cell_h;
     return 0;
 }
 int sessgrid_hit(const SessGrid *g, int px, int py) {

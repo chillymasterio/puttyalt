@@ -5,7 +5,8 @@ typedef struct { int files; int additions; int deletions; int hunks; } DiffStat;
 void diffstat_init(DiffStat *d) { if(d) memset(d,0,sizeof(*d)); }
 int diffstat_process_line(DiffStat *d, const char *line) {
     if(!d||!line) return -1;
-    if (!strncmp(line,"+++",3)||!strncmp(line,"---",3)) return 0; /* file headers */
+    if (!strncmp(line,"+++",3)||!strncmp(line,"---",3)) return 0;
+    /* file headers */
     if (!strncmp(line,"diff ",5)) { d->files++; return 0; }
     if (!strncmp(line,"@@",2)) { d->hunks++; return 0; }
     if (line[0]=='+') { d->additions++; return 1; }

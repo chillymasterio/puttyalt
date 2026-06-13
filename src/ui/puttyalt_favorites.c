@@ -20,7 +20,8 @@ int favs_load(FavoriteStore *fs, const char *path)
             sscanf(line, "[%127[^]]", cur->name);
         } else if (cur) {
             char *eq = strchr(line, '=');
-            if (!eq) continue; *eq = '\0';
+            if (!eq) continue;
+            *eq = '\0';
             char *val = eq + 1;
             if (strcmp(line, "host") == 0) snprintf(cur->host, sizeof(cur->host), "%s", val);
             else if (strcmp(line, "port") == 0) cur->port = atoi(val);

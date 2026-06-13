@@ -106,7 +106,8 @@ char *smartpaste_sanitize(SmartPaste *sp, const char *text, int len, int *out_le
     if (!buf) return NULL;
     int j = 0;
     for (int i = 0; i < len; i++) {
-        if (text[i] == '\r') continue; /* strip CR */
+        if (text[i] == '\r') continue;
+        /* strip CR */
         buf[j++] = text[i];
     }
     /* strip trailing newline if enabled */

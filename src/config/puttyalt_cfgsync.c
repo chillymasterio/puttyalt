@@ -54,7 +54,8 @@ int cfgsync_import(CfgSyncState *cs, const char *path)
     buf[n] = '\0';
     fclose(f);
 
-    if (!strstr(buf, "\"version\"")) return -2;  /* invalid format */
+    if (!strstr(buf, "\"version\"")) return -2;
+    /* invalid format */
 
     snprintf(cs->import_path, sizeof(cs->import_path), "%s", path);
     cs->last_import = (long)time(NULL);

@@ -24,11 +24,13 @@ int sftpmirror_diff(SftpMirror *m, char *upload, int ulen, char *del, int dlen) 
     for (int i=0;i<m->nl;i++) {
         sm_file *r=sm_find(m->remote,m->nr,m->local[i].path);
         if (!r || r->mtime<m->local[i].mtime || r->size!=m->local[i].size) {
-            if (upload && up<ulen) up+=snprintf(upload+up,ulen-up,"%s\n",m->local[i].path); changes++;
+            if (upload && up<ulen) up+=snprintf(upload+up,ulen-up,"%s\n",m->local[i].path);
+            changes++;
         }
     }
     for (int i=0;i<m->nr;i++) if (!sm_find(m->local,m->nl,m->remote[i].path)) {
-        if (del && dl<dlen) dl+=snprintf(del+dl,dlen-dl,"%s\n",m->remote[i].path); changes++;
+        if (del && dl<dlen) dl+=snprintf(del+dl,dlen-dl,"%s\n",m->remote[i].path);
+        changes++;
     }
     return changes;
 }

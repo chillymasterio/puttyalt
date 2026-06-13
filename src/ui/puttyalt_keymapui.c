@@ -19,7 +19,8 @@ int keymapui_find_conflict(const KeymapUi *k, const char *keys, int context) {
 }
 int keymapui_rebind(KeymapUi *k, int idx, const char *new_keys) {
     if(!k||idx<0||idx>=k->n||!new_keys) return -1;
-    if (keymapui_find_conflict(k,new_keys,k->b[idx].context)>=0) return -2; /* conflict */
+    if (keymapui_find_conflict(k,new_keys,k->b[idx].context)>=0) return -2;
+    /* conflict */
     snprintf(k->b[idx].keys,KU_KEY,"%s",new_keys); return 0;
 }
 const char *keymapui_action_for(const KeymapUi *k, const char *keys, int context) {

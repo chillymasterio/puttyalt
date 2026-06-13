@@ -21,7 +21,8 @@ int statusseg_layout(StatusSeg *s) {
         used=0; for (int i=0;i<s->n;i++) if (s->seg[i].visible) used+=(int)strlen(s->seg[i].text)+1;
         if (used<=s->width) break;
         int lowest=-1; for (int i=0;i<s->n;i++) if (s->seg[i].visible && (lowest<0||s->seg[i].priority<s->seg[lowest].priority)) lowest=i;
-        if (lowest<0) break; s->seg[lowest].visible=0;
+        if (lowest<0) break;
+        s->seg[lowest].visible=0;
     } while (++guard<SS_MAX);
     return used;
 }

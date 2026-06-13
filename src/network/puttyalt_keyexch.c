@@ -20,7 +20,8 @@ int keyexch_negotiate(const KeyExch *client, const char *server_csv, char *out, 
             char before = (p==server_csv)?',':*(p-1);
             char after = p[strlen(needle)];
             if ((before==','||p==server_csv) && (after==','||after==0)) {
-                if (out) snprintf(out,outlen,"%s",client->algos[i]); return 0;
+                if (out) snprintf(out,outlen,"%s",client->algos[i]);
+                return 0;
             }
             p+=strlen(needle);
         }

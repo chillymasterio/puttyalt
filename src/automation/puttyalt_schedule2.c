@@ -22,7 +22,8 @@ int schedule2_next(Schedule2 *s, uint64_t now_ms) {
         sc_task *t=&s->tasks[i];
         if (t->done || t->running) continue;
         if (now_ms < t->run_at_ms) continue;
-        if ((t->dep_mask & done) != t->dep_mask) continue; /* deps not satisfied */
+        if ((t->dep_mask & done) != t->dep_mask) continue;
+        /* deps not satisfied */
         if (best<0 || t->priority>s->tasks[best].priority) best=i;
     }
     if (best>=0) s->tasks[best].running=1;

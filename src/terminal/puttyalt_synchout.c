@@ -7,7 +7,8 @@ void synchout_init(SynchOut *s, int timeout_ms) {
 }
 int synchout_begin(SynchOut *s, uint64_t now_ms) {
     if(!s) return -1;
-    if (s->active) return 1; /* already in sync block */
+    if (s->active) return 1;
+    /* already in sync block */
     s->active=1; s->begin_ms=now_ms; return 0;
 }
 int synchout_end(SynchOut *s) {

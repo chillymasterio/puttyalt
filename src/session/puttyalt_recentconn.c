@@ -28,7 +28,8 @@ int recentconn_top(const RecentConn *r, int by_freq, int *out_idx, int cap) {
             long bb = by_freq ? r->e[best].count : (long)r->e[best].last_ms;
             if (bi>bb) best=i;
         }
-        if (best<0) break; used[best]=1; out_idx[n++]=best;
+        if (best<0) break;
+        used[best]=1; out_idx[n++]=best;
     }
     return n;
 }

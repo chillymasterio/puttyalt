@@ -23,7 +23,8 @@ int schemaval_check(const SchemaVal *s, const char *name, const char *value, cha
             if (v<f->min || v>f->max) { if(err) snprintf(err,errlen,"%s out of range [%d,%d]",name,f->min,f->max); return -1; }
         } else if (f->type==SVT_BOOL) {
             if (strcmp(value,"0")&&strcmp(value,"1")&&strcmp(value,"true")&&strcmp(value,"false")) {
-                if(err) snprintf(err,errlen,"%s must be boolean",name); return -1;
+                if(err) snprintf(err,errlen,"%s must be boolean",name);
+                return -1;
             }
         } else if (f->type==SVT_STRING) {
             int len=(int)strlen(value);
@@ -31,6 +32,7 @@ int schemaval_check(const SchemaVal *s, const char *name, const char *value, cha
         }
         return 0;
     }
-    if(err) snprintf(err,errlen,"unknown field %s",name); return -1;
+    if(err) snprintf(err,errlen,"unknown field %s",name);
+    return -1;
 }
 int schemaval_field_count(const SchemaVal *s) { return s?s->n:-1; }

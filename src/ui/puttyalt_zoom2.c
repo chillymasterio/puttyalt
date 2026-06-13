@@ -8,11 +8,13 @@ void zoom2_init(Zoom2 *z, int base_font, int dpi_scale) {
 }
 int zoom2_in(Zoom2 *z) {
     if(!z) return -1;
-    if(z->current_font<z->max_font) z->current_font++; return z->current_font;
+    if(z->current_font<z->max_font) z->current_font++;
+    return z->current_font;
 }
 int zoom2_out(Zoom2 *z) {
     if(!z) return -1;
-    if(z->current_font>z->min_font) z->current_font--; return z->current_font;
+    if(z->current_font>z->min_font) z->current_font--;
+    return z->current_font;
 }
 void zoom2_reset(Zoom2 *z) { if(z) z->current_font=z->base_font; }
 int zoom2_effective_size(const Zoom2 *z) {

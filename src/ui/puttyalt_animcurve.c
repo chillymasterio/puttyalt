@@ -2,7 +2,8 @@
 enum ac_easing { AC_LINEAR=0, AC_EASE_IN=1, AC_EASE_OUT=2, AC_EASE_IN_OUT=3, AC_BOUNCE=4, AC_ELASTIC=5 };
 /* t in 0..1000 (fixed point), returns 0..1000. */
 int animcurve_eval(int easing, int t) {
-    if (t<0) t=0; if (t>1000) t=1000;
+    if (t<0) t=0;
+    if (t>1000) t=1000;
     double x=t/1000.0, y;
     switch(easing) {
         case AC_EASE_IN:     y=x*x; break;

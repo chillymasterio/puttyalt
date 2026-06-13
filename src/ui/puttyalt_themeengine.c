@@ -22,11 +22,13 @@ uint32_t themeengine_derive_hover(uint32_t base, int dark) {
     int r=(base>>16)&0xFF, g=(base>>8)&0xFF, b=base&0xFF;
     int d = dark? 24 : -24;
     r+=d; g+=d; b+=d;
-    if(r<0)r=0; if(r>255)r=255; if(g<0)g=0; if(g>255)g=255; if(b<0)b=0; if(b>255)b=255;
+    if(r<0) r=0;
+    if(r>255)r=255; if(g<0)g=0; if(g>255)g=255; if(b<0)b=0; if(b>255)b=255;
     return (uint32_t)((r<<16)|(g<<8)|b);
 }
 uint32_t themeengine_mix(uint32_t a, uint32_t b, int t_x100) {
-    if(t_x100<0)t_x100=0; if(t_x100>100)t_x100=100;
+    if(t_x100<0) t_x100=0;
+    if(t_x100>100)t_x100=100;
     int ra=(a>>16)&0xFF, ga=(a>>8)&0xFF, ba=a&0xFF;
     int rb=(b>>16)&0xFF, gb=(b>>8)&0xFF, bb=b&0xFF;
     int r=(ra*(100-t_x100)+rb*t_x100)/100;

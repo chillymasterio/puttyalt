@@ -13,7 +13,8 @@ int wasmhost_register(WasmHost *h, const char *name, int cap_required) {
 int wasmhost_call(WasmHost *h, const char *name) {
     if(!h||!name) return -1;
     for (int i=0;i<h->n;i++) if (strcmp(h->f[i].name,name)==0) {
-        if ((h->f[i].cap_required & ~h->granted_caps) != 0) return -2; /* permission denied */
+        if ((h->f[i].cap_required & ~h->granted_caps) != 0) return -2;
+        /* permission denied */
         h->f[i].call_count++; return 0;
     }
     return -1; /* unknown host function */

@@ -14,7 +14,8 @@ int wrapstate_advance(WrapState *w) {
     }
     w->cursor_col++;
     if (w->cursor_col >= w->cols) {
-        if (w->autowrap) w->pending_wrap=1; /* defer wrap (VT100 behavior) */
+        if (w->autowrap) w->pending_wrap=1;
+        /* defer wrap (VT100 behavior) */
         else w->cursor_col=w->cols-1; /* clamp at margin */
     }
     return 0;
