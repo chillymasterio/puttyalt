@@ -3,7 +3,7 @@
  * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
  */
 #include <stddef.h>
-int glob_match(const char *pat, const char *str) {
+int glob2_match(const char *pat, const char *str) {
     if (!pat || !str) return 0;
     const char *star = NULL, *ss = NULL;
     while (*str) {
