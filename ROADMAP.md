@@ -824,3 +824,51 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Quality
 - [x] **Warning cleanup** — 101 -> 52 (-90% across session)
+
+## v3.11.0 (In Progress) — Text Processing, Parsing & Codecs
+*Focus: string utilities, parsers, encoders, terminal and UI helpers.*
+
+### Text & string
+- [x] **Trim/pad** — ltrim/rtrim/trim helpers
+- [x] **Slugify** — label to URL slug
+- [x] **Word wrap** — greedy column wrapping
+- [x] **Levenshtein ratio** — similarity 0..100
+- [x] **CSV parse** — quoted-field record parser
+- [x] **Columnize** — aligned multi-column layout
+
+### Codecs & checksums
+- [x] **Base32** — RFC 4648 encode/decode
+- [x] **URL encode** — percent-encode/decode
+- [x] **RLE** — run-length encode/decode
+- [x] **Checksum8** — XOR / additive / Fletcher-16
+- [x] **Shell quote** — POSIX-safe argument quoting
+
+### Networking
+- [x] **CIDR v4** — parse + range matching
+- [x] **MAC address** — parse/format/multicast
+- [x] **Port range** — "22,80,8000-8010" spec parser
+
+### Terminal
+- [x] **SGR parse** — color/attr escape parsing
+- [x] **Tab stops** — DECST tracking
+- [x] **Char width** — East-Asian/combining width
+- [x] **Cursor save** — DECSC save/restore stack
+
+### Security
+- [x] **Password entropy** — bits estimate + label
+- [x] **Host key fingerprint** — MD5 colon-hex format
+
+### Config & sessions
+- [x] **INI writer** — section/key serializer
+- [x] **Glob v2** — *?[set] matcher
+- [x] **Keymap parse** — "Ctrl+Shift+P" chords
+- [x] **Tag index** — session-by-tag lookup
+- [x] **Export HTML** — session log to HTML
+
+### Automation & UI
+- [x] **Template engine** — {{var}} rendering
+- [x] **Cooldown gate** — per-key debounce
+- [x] **Rate limit v2** — token bucket
+- [x] **Progress bar** — text progress rendering
+- [x] **Spinner** — animation frames
+- [x] **Time format** — durations and timestamps
