@@ -1,24 +1,23 @@
-/* puttyalt_ratelimit2.c - Sliding-window rate limiter for automation actions. */
-#include <stdint.h>
-#define RL_WINDOW 32
-typedef struct { uint64_t timestamps[RL_WINDOW]; int head, count; int limit; int window_ms; int rejected; } RateLimit2;
-void ratelimit2_init(RateLimit2 *r, int limit, int window_ms) {
-    if(!r) return;
-    for(int i=0;i<RL_WINDOW;i++) r->timestamps[i]=0;
-    r->head=0; r->count=0; r->limit=limit>0&&limit<=RL_WINDOW?limit:RL_WINDOW; r->window_ms=window_ms>0?window_ms:1000; r->rejected=0;
+/* puttyalt_ratelimit2.c - Token-bucket rate limiter.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
+#include <stddef.h>
+typedef struct { double tokens; double rate; double cap; long last; } RateBucket;
+void rl2_init(RateBucket *b, double rate, double cap) {
+    if (!b) return;
+    b->rate = rate > 0 ? rate : 1; b->cap = cap > 0 ? cap : 1;
+    b->tokens = b->cap; b->last = 0;
 }
-static void rl_evict(RateLimit2 *r, uint64_t now_ms) {
-    while (r->count>0) {
-        int oldest=(r->head - r->count + RL_WINDOW)%RL_WINDOW;
-        if ((now_ms - r->timestamps[oldest]) > (uint64_t)r->window_ms) r->count--;
-        else break;
+/* Refill based on elapsed time and try to consume `cost`. now in seconds. */
+int rl2_allow(RateBucket *b, long now, double cost) {
+    if (!b) return 0;
+    double elapsed = (double)(now - b->last);
+    if (elapsed > 0) {
+        b->tokens += elapsed * b->rate;
+        if (b->tokens > b->cap) b->tokens = b->cap;
+        b->last = now;
     }
+    if (b->tokens >= cost) { b->tokens -= cost; return 1; }
+    return 0;
 }
-int ratelimit2_allow(RateLimit2 *r, uint64_t now_ms) {
-    if(!r) return 0;
-    rl_evict(r,now_ms);
-    if (r->count>=r->limit) { r->rejected++; return 0; }
-    r->timestamps[r->head]=now_ms; r->head=(r->head+1)%RL_WINDOW; r->count++; return 1;
-}
-int ratelimit2_current(const RateLimit2 *r) { return r?r->count:-1; }
-int ratelimit2_rejected(const RateLimit2 *r) { return r?r->rejected:-1; }
