@@ -846,6 +846,41 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_treelist.c
 )
 
+# v3.11.0 text processing, parsing, codecs, terminal & UI utilities
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_cooldown.c
+    src/automation/puttyalt_ratelimit2.c
+    src/automation/puttyalt_tmplengine.c
+    src/config/puttyalt_glob2.c
+    src/config/puttyalt_iniwrite.c
+    src/config/puttyalt_keymapparse.c
+    src/network/puttyalt_cidr4.c
+    src/network/puttyalt_macaddr.c
+    src/network/puttyalt_portrange.c
+    src/network/puttyalt_urlencode.c
+    src/security/puttyalt_hostkeyfmt.c
+    src/security/puttyalt_pwentropy.c
+    src/session/puttyalt_exporthtml.c
+    src/session/puttyalt_tagindex.c
+    src/terminal/puttyalt_charwidth.c
+    src/terminal/puttyalt_cursorsave.c
+    src/terminal/puttyalt_sgrparse.c
+    src/terminal/puttyalt_tabstops.c
+    src/tools/puttyalt_base32hex.c
+    src/tools/puttyalt_checksum8.c
+    src/tools/puttyalt_columnize.c
+    src/tools/puttyalt_csvparse.c
+    src/tools/puttyalt_levenratio.c
+    src/tools/puttyalt_rle.c
+    src/tools/puttyalt_shquote.c
+    src/tools/puttyalt_slugify.c
+    src/tools/puttyalt_strtrim2.c
+    src/tools/puttyalt_timefmt.c
+    src/tools/puttyalt_wordwrap2.c
+    src/ui/puttyalt_progressbar.c
+    src/ui/puttyalt_spinner.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
