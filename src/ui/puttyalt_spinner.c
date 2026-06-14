@@ -1,21 +1,18 @@
-/* puttyalt_spinner.c - Loading spinner animation (frame cycling). */
-#include <stdint.h>
-static const char *SPIN_DOTS[]={"\xe2\xa0\x8b","\xe2\xa0\x99","\xe2\xa0\xb9","\xe2\xa0\xb8","\xe2\xa0\xbc","\xe2\xa0\xb4","\xe2\xa0\xa6","\xe2\xa0\xa7","\xe2\xa0\x87","\xe2\xa0\x8f"};
-static const char *SPIN_LINE[]={"|","/","-","\\"};
-typedef struct { int frame; int style; uint64_t last_ms; int interval_ms; } Spinner;
-void spinner_init(Spinner *s, int style, int interval_ms) {
-    if(!s) return;
-    s->frame=0; s->style=style; s->last_ms=0; s->interval_ms=interval_ms>0?interval_ms:80;
+/* puttyalt_spinner.c - Cycle spinner animation frames.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
+#include <stddef.h>
+static const char *SPIN_FRAMES[] = { "|", "/", "-", "\\" };
+typedef struct { int frame; } Spinner;
+void spin_init(Spinner *s) { if (s) s->frame = 0; }
+const char *spin_next(Spinner *s) {
+    if (!s) return "";
+    const char *f = SPIN_FRAMES[s->frame & 3];
+    s->frame = (s->frame + 1) & 3;
+    return f;
 }
-const char *spinner_tick(Spinner *s, uint64_t now_ms) {
-    if(!s) return "";
-    if (now_ms-s->last_ms>=(uint64_t)s->interval_ms) {
-        int max = s->style==0 ? 10 : 4;
-        s->frame=(s->frame+1)%max; s->last_ms=now_ms;
-    }
-    return s->style==0 ? SPIN_DOTS[s->frame] : SPIN_LINE[s->frame];
-}
-const char *spinner_current(const Spinner *s) {
-    if(!s) return "";
-    return s->style==0 ? SPIN_DOTS[s->frame] : SPIN_LINE[s->frame];
+const char *spin_dots(int tick) {
+    static const char *d[] = { ".  ", ".. ", "...", " ..", "  .", "   " };
+    return d[((tick % 6) + 6) % 6];
 }
