@@ -1,19 +1,19 @@
-/* puttyalt_timefmt.c - Timestamp formatting (relative, ISO, custom). */
+/* puttyalt_timefmt.c - Format durations and timestamps.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
 #include <stdio.h>
-int timefmt_relative(long seconds_ago, char *out, int outlen) {
-    if(!out) return -1;
-    if (seconds_ago<0) seconds_ago=0;
-    if (seconds_ago<60) return snprintf(out,outlen,"%lds ago",seconds_ago);
-    if (seconds_ago<3600) return snprintf(out,outlen,"%ldm ago",seconds_ago/60);
-    if (seconds_ago<86400) return snprintf(out,outlen,"%ldh ago",seconds_ago/3600);
-    if (seconds_ago<2592000) return snprintf(out,outlen,"%ldd ago",seconds_ago/86400);
-    return snprintf(out,outlen,"%ldmo ago",seconds_ago/2592000);
+int tfmt_hms(long seconds, char *out, int outlen) {
+    if (!out) return -1;
+    if (seconds < 0) seconds = 0;
+    long h = seconds / 3600, m = (seconds % 3600) / 60, s = seconds % 60;
+    return snprintf(out, outlen, "%02ld:%02ld:%02ld", h, m, s);
 }
-int timefmt_iso(long y, int mo, int d, int h, int mi, int s, char *out, int outlen) {
-    return snprintf(out,outlen,"%04ld-%02d-%02dT%02d:%02d:%02d",y,mo,d,h,mi,s);
+int tfmt_clock(int hour, int min, int sec, char *out, int outlen) {
+    return snprintf(out, outlen, "%02d:%02d:%02d", hour % 24, min % 60, sec % 60);
 }
-int timefmt_clock(int total_sec, char *out, int outlen) {
-    int h=total_sec/3600, m=(total_sec%3600)/60, s=total_sec%60;
-    if (h>0) return snprintf(out,outlen,"%d:%02d:%02d",h,m,s);
-    return snprintf(out,outlen,"%d:%02d",m,s);
+int tfmt_compact(long seconds, char *out, int outlen) {
+    if (seconds < 60) return snprintf(out, outlen, "%lds", seconds);
+    if (seconds < 3600) return snprintf(out, outlen, "%ldm%lds", seconds/60, seconds%60);
+    return snprintf(out, outlen, "%ldh%ldm", seconds/3600, (seconds%3600)/60);
 }
