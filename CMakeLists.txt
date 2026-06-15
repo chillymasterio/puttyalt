@@ -881,6 +881,40 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_spinner.c
 )
 
+# v3.12.0 numeric, data structures, scheduling & rendering helpers
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_backoff.c
+    src/automation/puttyalt_jobqueue.c
+    src/automation/puttyalt_scheduler2.c
+    src/automation/puttyalt_statemachine2.c
+    src/config/puttyalt_colorparse.c
+    src/config/puttyalt_envfile.c
+    src/config/puttyalt_unitparse.c
+    src/network/puttyalt_bandwidth.c
+    src/network/puttyalt_dnscache2.c
+    src/network/puttyalt_httprange.c
+    src/network/puttyalt_ipv6fmt.c
+    src/security/puttyalt_redact.c
+    src/security/puttyalt_totpwin.c
+    src/session/puttyalt_recentfiles.c
+    src/session/puttyalt_sortsess.c
+    src/terminal/puttyalt_blinktimer.c
+    src/terminal/puttyalt_linewrap2.c
+    src/terminal/puttyalt_palette256.c
+    src/tools/puttyalt_bitfield.c
+    src/tools/puttyalt_crc16.c
+    src/tools/puttyalt_fixedpoint.c
+    src/tools/puttyalt_interval.c
+    src/tools/puttyalt_lrucache.c
+    src/tools/puttyalt_minheap.c
+    src/tools/puttyalt_movavg.c
+    src/tools/puttyalt_quantize.c
+    src/tools/puttyalt_statacc.c
+    src/tools/puttyalt_varint.c
+    src/ui/puttyalt_menutree.c
+    src/ui/puttyalt_scrollbar2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
