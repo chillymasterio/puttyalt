@@ -1,25 +1,33 @@
-/* puttyalt_palette256.c - xterm 256-color palette to RGB resolver. */
+/* puttyalt_palette256.c - Map 256-color index to RGB.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
 #include <stdint.h>
-uint32_t palette256_rgb(int idx) {
-    if (idx<0||idx>255) return 0;
-    static const int basic[16]={0x000000,0x800000,0x008000,0x808000,0x000080,0x800080,0x008080,0xc0c0c0,
-        0x808080,0xff0000,0x00ff00,0xffff00,0x0000ff,0xff00ff,0x00ffff,0xffffff};
-    if (idx<16) return (uint32_t)basic[idx];
-    if (idx<232) {
-        int c=idx-16, r=c/36, g=(c/6)%6, b=c%6;
-        int rv=r?r*40+55:0, gv=g?g*40+55:0, bv=b?b*40+55:0;
-        return (uint32_t)((rv<<16)|(gv<<8)|bv);
+void pal_to_rgb(int idx, uint8_t *r, uint8_t *g, uint8_t *b) {
+    if (idx < 0) idx = 0;
+    if (idx > 255) idx = 255;
+    if (idx < 16) {
+        static const uint8_t basic[16][3] = {
+            {0,0,0},{128,0,0},{0,128,0},{128,128,0},{0,0,128},{128,0,128},{0,128,128},{192,192,192},
+            {128,128,128},{255,0,0},{0,255,0},{255,255,0},{0,0,255},{255,0,255},{0,255,255},{255,255,255}
+        };
+        *r=basic[idx][0]; *g=basic[idx][1]; *b=basic[idx][2];
+    } else if (idx < 232) {
+        int c = idx - 16;
+        int ri = c / 36, gi = (c % 36) / 6, bi = c % 6;
+        static const uint8_t lvl[6] = {0,95,135,175,215,255};
+        *r=lvl[ri]; *g=lvl[gi]; *b=lvl[bi];
+    } else {
+        uint8_t v = (uint8_t)(8 + (idx - 232) * 10);
+        *r=*g=*b=v;
     }
-    int gray=(idx-232)*10+8;
-    return (uint32_t)((gray<<16)|(gray<<8)|gray);
 }
-int palette256_nearest(uint32_t rgb) {
-    int best=0, bestd=1<<30;
+int pal_nearest(uint8_t r, uint8_t g, uint8_t b) {
+    int best=0; long bd=1L<<30;
     for (int i=0;i<256;i++) {
-        uint32_t c=palette256_rgb(i);
-        int dr=((c>>16)&0xFF)-((rgb>>16)&0xFF), dg=((c>>8)&0xFF)-((rgb>>8)&0xFF), db=(c&0xFF)-(rgb&0xFF);
-        int d=dr*dr+dg*dg+db*db;
-        if (d<bestd) { bestd=d; best=i; }
+        uint8_t pr,pg,pb; pal_to_rgb(i,&pr,&pg,&pb);
+        long d=(long)(pr-r)*(pr-r)+(long)(pg-g)*(pg-g)+(long)(pb-b)*(pb-b);
+        if (d<bd){bd=d;best=i;}
     }
     return best;
 }
