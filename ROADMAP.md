@@ -872,3 +872,50 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Progress bar** — text progress rendering
 - [x] **Spinner** — animation frames
 - [x] **Time format** — durations and timestamps
+
+## v3.12.0 (In Progress) — Numeric, Data Structures & Scheduling
+*Focus: math accumulators, containers, scheduling, rendering math.*
+
+### Numeric & math
+- [x] **Stat accumulator** — streaming mean/variance/stddev
+- [x] **Fixed-point** — 16.16 arithmetic
+- [x] **Moving average** — windowed mean + EMA
+- [x] **Quantizer** — histogram binning
+- [x] **CRC-16/CCITT** — checksum + streaming update
+- [x] **Varint** — LEB128 codec
+
+### Data structures
+- [x] **Min-heap** — binary heap of ints
+- [x] **LRU cache** — fixed-size eviction
+- [x] **Bit field** — set/test/popcount
+- [x] **Interval** — overlap/union/merge
+- [x] **Job queue** — FIFO with status tracking
+
+### Scheduling & automation
+- [x] **Scheduler v2** — earliest-deadline-first
+- [x] **Backoff** — exponential with jitter
+- [x] **State machine v2** — transition table
+
+### Networking
+- [x] **Bandwidth meter** — throughput + bit-rate format
+- [x] **DNS cache v2** — TTL resolution cache
+- [x] **HTTP range** — Range header build/parse
+- [x] **IPv6 format** — compress/expand addresses
+
+### Terminal & UI
+- [x] **Palette 256** — index to RGB + nearest
+- [x] **Line wrap v2** — soft-wrap reflow math
+- [x] **Blink timer** — cursor blink phase
+- [x] **Menu tree** — hierarchical menu model
+- [x] **Scrollbar v2** — thumb geometry
+
+### Security & config
+- [x] **TOTP window** — time-step validation
+- [x] **Redact** — secret masking in logs
+- [x] **Env file** — .env KEY=VALUE parser
+- [x] **Unit parse** — human sizes/durations
+- [x] **Color parse** — #RRGGBB / rgb()
+
+### Sessions
+- [x] **Session sort** — by name/recent/rating
+- [x] **Recent files** — MRU file tracker
