@@ -919,3 +919,45 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 ### Sessions
 - [x] **Session sort** — by name/recent/rating
 - [x] **Recent files** — MRU file tracker
+
+## v3.13.0 (In Progress) — Protocol Parsers & Terminal Sequences
+*Focus: wire-protocol parsing, escape-sequence handling, auth safety.*
+
+### Protocol parsing
+- [x] **SSH banner** — version-exchange parser
+- [x] **HTTP status** — code reason/class/retryable
+- [x] **Cookie jar** — Set-Cookie parse + store
+- [x] **WebSocket frame** — header encode/decode
+- [x] **Proxy URL** — scheme/auth/host/port parse
+- [x] **JSON Pointer** — RFC 6901 path resolution
+- [x] **TOML value** — scalar value parser
+
+### Terminal sequences
+- [x] **CSI parse v2** — control-sequence params
+- [x] **OSC parse** — title/hyperlink/clipboard
+- [x] **DEC special graphics** — box-drawing map
+- [x] **Mouse events** — SGR encode/decode
+- [x] **ANSI length** — visible width + strip
+
+### Security & auth
+- [x] **JWT decode** — segment split/inspect
+- [x] **Cert subject** — X.509 DN field extract
+- [x] **Auth limiter** — lockout after failures
+- [x] **Redact** (see also v3.12.0)
+
+### Automation
+- [x] **Expect parser** — send/expect rules
+- [x] **Cron field** — schedule field matcher
+- [x] **Macro record** — keystroke record/replay
+- [x] **Trigger match** — output-line rules
+
+### Tools & UI
+- [x] **Diff hunk** — unified-diff headers
+- [x] **SemVer** — parse + compare
+- [x] **Number base** — base 2-36 conversion
+- [x] **KV store** — in-memory string store
+- [x] **Hex view** — hex+ASCII dump rows
+- [x] **Dialog fit** — centered geometry
+- [x] **Text field** — single-line edit model
+- [x] **Session filter** — key:value predicates
+- [x] **Path normalize** — collapse . / .. segments
