@@ -915,6 +915,38 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_scrollbar2.c
 )
 
+# v3.13.0 protocol parsers, terminal sequences & auth safety
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_cronfield.c
+    src/automation/puttyalt_exparser.c
+    src/automation/puttyalt_macrorec.c
+    src/automation/puttyalt_triggermatch.c
+    src/config/puttyalt_jsonptr.c
+    src/config/puttyalt_pathnorm.c
+    src/config/puttyalt_tomlval.c
+    src/network/puttyalt_cookiejar.c
+    src/network/puttyalt_httpstatus.c
+    src/network/puttyalt_proxyparse.c
+    src/network/puttyalt_sshver.c
+    src/network/puttyalt_wsframe2.c
+    src/security/puttyalt_certsubject.c
+    src/security/puttyalt_jwtdecode.c
+    src/security/puttyalt_ratelimitauth.c
+    src/session/puttyalt_sessfilter.c
+    src/terminal/puttyalt_csiparse2.c
+    src/terminal/puttyalt_dec_special.c
+    src/terminal/puttyalt_mouseev.c
+    src/terminal/puttyalt_oscparse.c
+    src/tools/puttyalt_ansilen.c
+    src/tools/puttyalt_diffhunk.c
+    src/tools/puttyalt_hexview.c
+    src/tools/puttyalt_kvstore.c
+    src/tools/puttyalt_numbase.c
+    src/tools/puttyalt_semver.c
+    src/ui/puttyalt_dialogfit.c
+    src/ui/puttyalt_textfield.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
