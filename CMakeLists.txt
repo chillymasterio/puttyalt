@@ -947,6 +947,36 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_textfield.c
 )
 
+# v3.14.0 rendering, layout, codecs & statistics helpers
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_debounce2.c
+    src/automation/puttyalt_pipeline2.c
+    src/automation/puttyalt_watchdog2.c
+    src/config/puttyalt_mergeconf.c
+    src/network/puttyalt_etag.c
+    src/network/puttyalt_ftpcode.c
+    src/network/puttyalt_retryafter.c
+    src/security/puttyalt_permcheck.c
+    src/session/puttyalt_sessclone.c
+    src/terminal/puttyalt_damage.c
+    src/terminal/puttyalt_gridcopy.c
+    src/terminal/puttyalt_reflow2.c
+    src/terminal/puttyalt_selspan.c
+    src/tools/puttyalt_ascii85.c
+    src/tools/puttyalt_fuzzyscore.c
+    src/tools/puttyalt_jsonesc.c
+    src/tools/puttyalt_percentile.c
+    src/tools/puttyalt_rndname.c
+    src/tools/puttyalt_sparkline2.c
+    src/tools/puttyalt_strsplit2.c
+    src/tools/puttyalt_timeparse.c
+    src/ui/puttyalt_anchorpos.c
+    src/ui/puttyalt_badge.c
+    src/ui/puttyalt_flexbox.c
+    src/ui/puttyalt_layoutgrid.c
+    src/ui/puttyalt_tooltip.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
