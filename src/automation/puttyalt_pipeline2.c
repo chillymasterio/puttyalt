@@ -1,36 +1,28 @@
-/* puttyalt_pipeline2.c - Pipeline v2: DAG of command stages with dependency gating. */
+/* puttyalt_pipeline2.c - Chain command stages with status.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
 #include <string.h>
-#include <stdio.h>
-#define PL_MAX 24
-#define PL_CMD 160
-enum pl_state { PL_WAIT=0, PL_READY, PL_RUN, PL_OK, PL_FAIL };
-typedef struct { char cmd[PL_CMD]; int deps_mask; int state; } pl_stage;
-typedef struct { pl_stage s[PL_MAX]; int n; } Pipeline2;
-void pipeline2_init(Pipeline2 *p) { if(p) memset(p,0,sizeof(*p)); }
-int pipeline2_add(Pipeline2 *p, const char *cmd, int deps_mask) {
-    if(!p||p->n>=PL_MAX) return -1;
-    snprintf(p->s[p->n].cmd,PL_CMD,"%s",cmd?cmd:""); p->s[p->n].deps_mask=deps_mask; p->s[p->n].state=PL_WAIT;
-    return p->n++;
-}
-static int pl_done_mask(const Pipeline2 *p) {
-    int m=0; for (int i=0;i<p->n;i++) if (p->s[i].state==PL_OK) m|=(1<<i); return m;
-}
-int pipeline2_next_ready(Pipeline2 *p) {
-    if(!p) return -1;
-    int done=pl_done_mask(p);
-    for (int i=0;i<p->n;i++) if (p->s[i].state==PL_WAIT && (p->s[i].deps_mask & done)==p->s[i].deps_mask) {
-        p->s[i].state=PL_RUN; return i;
-    }
-    return -1;
-}
-int pipeline2_complete(Pipeline2 *p, int idx, int success) {
-    if(!p||idx<0||idx>=p->n) return -1;
-    p->s[idx].state = success?PL_OK:PL_FAIL;
-    if (!success) { for (int i=0;i<p->n;i++) if ((p->s[i].deps_mask&(1<<idx)) && p->s[i].state==PL_WAIT) p->s[i].state=PL_FAIL; }
+#define PL_MAX 16
+#define PL_LEN 64
+typedef struct { char cmd[PL_MAX][PL_LEN]; int status[PL_MAX]; int n; int cur; } Pipeline2;
+void pl2_init(Pipeline2 *p) { if (p) { p->n = 0; p->cur = 0; } }
+int pl2_add(Pipeline2 *p, const char *cmd) {
+    if (!p || p->n >= PL_MAX || !cmd) return -1;
+    strncpy(p->cmd[p->n], cmd, PL_LEN-1); p->cmd[p->n][PL_LEN-1] = 0;
+    p->status[p->n] = -1;
+    p->n++;
     return 0;
 }
-int pipeline2_all_done(const Pipeline2 *p) {
-    if(!p) return -1;
-    for(int i=0;i<p->n;i++) if(p->s[i].state==PL_WAIT||p->s[i].state==PL_RUN||p->s[i].state==PL_READY) return 0; return 1;
+/* Advance: mark current stage with exit code, move to next if ok. */
+int pl2_step(Pipeline2 *p, int exit_code) {
+    if (!p || p->cur >= p->n) return -1;
+    p->status[p->cur] = exit_code;
+    if (exit_code != 0) return -1; /* halt on failure */
+    p->cur++;
+    return p->cur < p->n ? 0 : 1; /* 1 = pipeline complete */
 }
-int pipeline2_failures(const Pipeline2 *p) { if(!p) return -1; int n=0; for(int i=0;i<p->n;i++) if(p->s[i].state==PL_FAIL)n++; return n; }
+const char *pl2_current(const Pipeline2 *p) {
+    if (!p || p->cur >= p->n) return 0;
+    return p->cmd[p->cur];
+}
