@@ -961,3 +961,47 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Text field** — single-line edit model
 - [x] **Session filter** — key:value predicates
 - [x] **Path normalize** — collapse . / .. segments
+
+## v3.14.0 (In Progress) — Rendering, Layout & Statistics
+*Focus: redraw tracking, layout math, codecs, statistical helpers.*
+
+### Rendering & terminal
+- [x] **Damage map** — dirty-row redraw tracking
+- [x] **Selection span** — normalize/contains math
+- [x] **Reflow v2** — scrollback segment reflow
+- [x] **Grid copy/scroll** — rectangular region scroll
+
+### Layout & UI
+- [x] **Layout grid** — uniform gapped cells
+- [x] **Flexbox** — weighted space distribution
+- [x] **Anchor position** — corner/center anchoring
+- [x] **Tooltip** — on-screen placement
+- [x] **Badge** — notification count format
+- [x] **Sparkline v2** — unicode tier mapping
+
+### Codecs & text
+- [x] **JSON escape** — string escape/unescape
+- [x] **String split v2** — delimiter splitting
+- [x] **Ascii85** — encode/decode
+- [x] **Random name** — deterministic readable ids
+- [x] **Time parse** — ISO-8601 + epoch day
+
+### Statistics
+- [x] **Percentile** — interpolated p50/p90/p99
+- [x] **Fuzzy score** — subsequence match scoring
+
+### Networking
+- [x] **ETag** — generate + If-None-Match compare
+- [x] **Retry-After** — header value parsing
+- [x] **FTP codes** — reply classification
+
+### Automation & config
+- [x] **Pipeline v2** — staged command chains
+- [x] **Watchdog v2** — heartbeat timeout
+- [x] **Debounce v2** — quiet-period debounce
+- [x] **Merge config** — layered overrides
+- [x] **Session clone** — config clone with overrides
+- [x] **Permission check** — access-control bits
+
+### Quality
+- [x] **Warning cleanup** — eliminated all misleading-indentation (51 -> 25)
