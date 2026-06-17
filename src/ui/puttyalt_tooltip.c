@@ -1,54 +1,17 @@
-#include "puttyalt_tooltip.h"
-#include <string.h>
-#include <stdio.h>
-
-void tooltip_init(Tooltip *tt)
-{
-    memset(tt, 0, sizeof(*tt));
-}
-
-void tooltip_set(Tooltip *tt, const char *text, int x, int y)
-{
-    if (!text || !text[0]) { tooltip_hide(tt); return; }
-    if (strcmp(tt->text, text) == 0 && tt->active) return;
-
-    snprintf(tt->text, sizeof(tt->text), "%s", text);
-    tt->x = x;
-    tt->y = y;
-    tt->active = 1;
-    tt->visible = 0;
-    tt->hover_start = 0;  /* set on next update */
-    tt->opacity = 0.0f;
-    /* Estimate size: 7px per char width, 20px height */
-    tt->width = (int)strlen(text) * 7 + 16;
-    tt->height = 24;
-}
-
-void tooltip_hide(Tooltip *tt)
-{
-    tt->active = 0;
-    tt->visible = 0;
-    tt->opacity = 0.0f;
-}
-
-void tooltip_update(Tooltip *tt, long now_ms)
-{
-    if (!tt->active) return;
-
-    if (tt->hover_start == 0) tt->hover_start = now_ms;
-
-    long elapsed = now_ms - tt->hover_start;
-    if (elapsed >= TOOLTIP_DELAY_MS) {
-        tt->visible = 1;
-        long fade_elapsed = elapsed - TOOLTIP_DELAY_MS;
-        if (fade_elapsed < TOOLTIP_FADE_MS)
-            tt->opacity = (float)fade_elapsed / (float)TOOLTIP_FADE_MS;
-        else
-            tt->opacity = 1.0f;
-    }
-}
-
-int tooltip_should_show(const Tooltip *tt)
-{
-    return tt->visible && tt->opacity > 0.01f;
+/* puttyalt_tooltip.c - Position tooltips to stay on screen.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
+#include <stddef.h>
+typedef struct { int x, y; } TipPos;
+/* Place a tooltip near (mx,my), flipping to stay within the screen. */
+TipPos ttp_place(int mx, int my, int tip_w, int tip_h, int screen_w, int screen_h, int offset) {
+    TipPos p;
+    p.x = mx + offset;
+    p.y = my + offset;
+    if (p.x + tip_w > screen_w) p.x = mx - tip_w - offset;
+    if (p.y + tip_h > screen_h) p.y = my - tip_h - offset;
+    if (p.x < 0) p.x = 0;
+    if (p.y < 0) p.y = 0;
+    return p;
 }
