@@ -1,17 +1,22 @@
+/* puttyalt_sessclone.c - Clone session config with overrides.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
 #include <string.h>
-#include <stdio.h>
-typedef struct { char host[256]; int port; char user[64]; char keyfile[256]; char label[32]; int color_scheme; int font_size; } SessionConfig;
-int sessclone_copy(const SessionConfig *src, SessionConfig *dst) {
-    memcpy(dst, src, sizeof(SessionConfig)); return 0;
+typedef struct {
+    char name[48]; char host[64]; int port;
+    char user[32]; char keyfile[128]; int color;
+} SessionCfg;
+void scl_copy(const SessionCfg *src, SessionCfg *dst) { if (src && dst) *dst = *src; }
+int scl_clone_named(const SessionCfg *src, const char *new_name, SessionCfg *dst) {
+    if (!src || !dst || !new_name) return -1;
+    *dst = *src;
+    strncpy(dst->name, new_name, sizeof(dst->name)-1);
+    dst->name[sizeof(dst->name)-1] = 0;
+    return 0;
 }
-int sessclone_diff(const SessionConfig *a, const SessionConfig *b, char *out, int outlen) {
-    int pos = 0;
-    if (strcmp(a->host, b->host) != 0) pos += snprintf(out+pos, outlen-pos, "host: %s -> %s\n", a->host, b->host);
-    if (a->port != b->port) pos += snprintf(out+pos, outlen-pos, "port: %d -> %d\n", a->port, b->port);
-    if (strcmp(a->user, b->user) != 0) pos += snprintf(out+pos, outlen-pos, "user: %s -> %s\n", a->user, b->user);
-    if (a->font_size != b->font_size) pos += snprintf(out+pos, outlen-pos, "font: %d -> %d\n", a->font_size, b->font_size);
-    return pos;
-}
-int sessclone_template(const SessionConfig *tmpl, const char *new_host, SessionConfig *out) {
-    memcpy(out, tmpl, sizeof(SessionConfig)); snprintf(out->host, 256, "%s", new_host); return 0;
+int scl_differs(const SessionCfg *a, const SessionCfg *b) {
+    if (!a || !b) return 1;
+    return strcmp(a->host,b->host) || a->port != b->port ||
+           strcmp(a->user,b->user) || strcmp(a->keyfile,b->keyfile);
 }
