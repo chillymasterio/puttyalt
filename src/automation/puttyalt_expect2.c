@@ -30,7 +30,8 @@ int expect2_feed(Expect2 *e, const char *data, char *out_send, int outlen) {
 }
 int expect2_all_matched(const Expect2 *e) {
     if(!e) return 0;
-    for(int i=0;i<e->n;i++) if(!e->rules[i].matched) return 0; return 1;
+    for(int i=0;i<e->n;i++) if(!e->rules[i].matched) return 0;
+    return 1;
 }
 void expect2_reset(Expect2 *e) { if(e){ e->buflen=0; e->buffer[0]=0; for(int i=0;i<e->n;i++) e->rules[i].matched=0; } }
 int expect2_rule_count(const Expect2 *e) { return e?e->n:-1; }

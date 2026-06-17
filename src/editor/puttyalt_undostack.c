@@ -22,12 +22,16 @@ int undostack_undo(UndoStack *u, int *op, int *pos, char *text, int textlen) {
     if(!u||u->cursor==0) return -1;
     u->cursor--; us_entry *e=&u->entries[u->cursor];
     if(op) *op=e->op;
-    if(pos)*pos=e->pos; if(text)snprintf(text,textlen,"%s",e->prev); return 0;
+    if(pos)*pos=e->pos;
+    if(text)snprintf(text,textlen,"%s",e->prev);
+    return 0;
 }
 int undostack_redo(UndoStack *u, int *op, int *pos, char *text, int textlen) {
     if(!u||u->cursor>=u->n) return -1;
     us_entry *e=&u->entries[u->cursor]; u->cursor++;
     if(op) *op=e->op;
-    if(pos)*pos=e->pos; if(text)snprintf(text,textlen,"%s",e->text); return 0;
+    if(pos)*pos=e->pos;
+    if(text)snprintf(text,textlen,"%s",e->text);
+    return 0;
 }
 int undostack_count(const UndoStack *u) { return u?u->n:-1; }

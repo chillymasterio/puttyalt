@@ -25,7 +25,8 @@ int remember_recall(const Remember *r, const char *host, int *port, char *user, 
     if(!r||!host) return -1;
     for (int i=0;i<r->n;i++) if (strcmp(r->e[i].host,host)==0) {
         if(port) *port=r->e[i].port;
-        if(user)snprintf(user,userlen,"%s",r->e[i].user); if(scheme)*scheme=r->e[i].color_scheme;
+        if(user)snprintf(user,userlen,"%s",r->e[i].user);
+        if(scheme)*scheme=r->e[i].color_scheme;
         return 0;
     }
     return -1;

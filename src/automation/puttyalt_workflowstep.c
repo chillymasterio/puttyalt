@@ -36,6 +36,7 @@ int workflowstep_complete(WorkflowStep *w, int idx, int exit_code) {
 }
 int workflowstep_done(const WorkflowStep *w) {
     if(!w) return -1;
-    for(int i=0;i<w->n;i++) if(w->h[i].state==WS_PENDING||w->h[i].state==WS_RUNNING) return 0; return 1;
+    for(int i=0;i<w->n;i++) if(w->h[i].state==WS_PENDING||w->h[i].state==WS_RUNNING) return 0;
+    return 1;
 }
 int workflowstep_failures(const WorkflowStep *w) { if(!w) return -1; int n=0; for(int i=0;i<w->n;i++) if(w->h[i].state==WS_FAIL)n++; return n; }

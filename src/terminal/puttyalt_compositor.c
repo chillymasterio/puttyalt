@@ -36,7 +36,9 @@ int compositor_set_opacity(Compositor *c, int id, int opacity) {
 int compositor_damage_rect(const Compositor *c, int *x, int *y, int *w, int *h) {
     if(!c||!c->has_damage) return 0;
     if(x) *x=c->dmg_x0;
-    if(y)*y=c->dmg_y0; if(w)*w=c->dmg_x1-c->dmg_x0; if(h)*h=c->dmg_y1-c->dmg_y0;
+    if(y)*y=c->dmg_y0;
+    if(w)*w=c->dmg_x1-c->dmg_x0;
+    if(h)*h=c->dmg_y1-c->dmg_y0;
     return 1;
 }
 void compositor_clear_damage(Compositor *c) { if(c){ c->has_damage=0; for(int i=0;i<c->n;i++) c->l[i].dirty=0; } }

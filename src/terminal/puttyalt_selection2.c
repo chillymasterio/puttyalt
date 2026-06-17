@@ -13,7 +13,10 @@ int selection2_normalized(const Selection2 *s, int *r0, int *c0, int *r1, int *c
     int ar=s->anchor_row, ac=s->anchor_col, er=s->end_row, ec=s->end_col;
     if (ar>er || (ar==er && ac>ec)) { int t; t=ar;ar=er;er=t; t=ac;ac=ec;ec=t; }
     if(r0) *r0=ar;
-    if(c0)*c0=ac; if(r1)*r1=er; if(c1)*c1=ec; return 0;
+    if(c0)*c0=ac;
+    if(r1)*r1=er;
+    if(c1)*c1=ec;
+    return 0;
 }
 int selection2_contains(const Selection2 *s, int row, int col) {
     if(!s||!s->active) return 0;

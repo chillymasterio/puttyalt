@@ -22,7 +22,8 @@ int notifcenter2_mark_read(NotifCenter2 *n, int idx) {
 }
 void notifcenter2_mark_all_read(NotifCenter2 *n) {
     if(!n) return;
-    for(int i=0;i<n->n;i++) n->items[i].read=1; n->unread=0;
+    for(int i=0;i<n->n;i++) n->items[i].read=1;
+    n->unread=0;
 }
 int notifcenter2_group_count(const NotifCenter2 *n, const char *group) {
     if(!n||!group) return -1;

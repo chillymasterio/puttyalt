@@ -32,7 +32,9 @@ int glob_match(const char *pattern, const char *str) {
 }
 int glob_match_ci(const char *pattern, const char *str) {
     char lp[256], ls[256]; int i;
-    for(i=0;pattern[i]&&i<255;i++) lp[i]=(pattern[i]>='A'&&pattern[i]<='Z')?pattern[i]+32:pattern[i]; lp[i]=0;
-    for(i=0;str[i]&&i<255;i++) ls[i]=(str[i]>='A'&&str[i]<='Z')?str[i]+32:str[i]; ls[i]=0;
+    for(i=0;pattern[i]&&i<255;i++) lp[i]=(pattern[i]>='A'&&pattern[i]<='Z')?pattern[i]+32:pattern[i];
+    lp[i]=0;
+    for(i=0;str[i]&&i<255;i++) ls[i]=(str[i]>='A'&&str[i]<='Z')?str[i]+32:str[i];
+    ls[i]=0;
     return glob_match(lp,ls);
 }

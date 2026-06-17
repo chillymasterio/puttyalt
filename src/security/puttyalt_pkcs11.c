@@ -16,7 +16,8 @@ int pkcs11_add_slot(Pkcs11 *p, int slot_id, const char *label, int has_token) {
 }
 int pkcs11_find_token(const Pkcs11 *p) {
     if(!p) return -1;
-    for(int i=0;i<p->n;i++) if(p->slots[i].has_token) return i; return -1;
+    for(int i=0;i<p->n;i++) if(p->slots[i].has_token) return i;
+    return -1;
 }
 void pkcs11_set_keys(Pkcs11 *p, int idx, int key_count, int login_required) {
     if(!p||idx<0||idx>=p->n) return;

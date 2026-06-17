@@ -20,7 +20,8 @@ static int cd_parse(const char *blob, cd_kv *out, int cap) {
     return n;
 }
 static const char *cd_get(cd_kv *kv, int n, const char *key) {
-    for(int i=0;i<n;i++) if(strcmp(kv[i].key,key)==0) return kv[i].val; return 0;
+    for(int i=0;i<n;i++) if(strcmp(kv[i].key,key)==0) return kv[i].val;
+    return 0;
 }
 int configdiff_merge(const char *base, const char *local, const char *remote, char *out, int outlen) {
     cd_kv b[CD_MAX], l[CD_MAX], r[CD_MAX];

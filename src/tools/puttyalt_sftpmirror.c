@@ -16,7 +16,8 @@ int sftpmirror_add_remote(SftpMirror *m, const char *path, uint64_t mtime, uint6
     sm_file *f=&m->remote[m->nr++]; snprintf(f->path,SM_PATH,"%s",path); f->mtime=mtime; f->size=size; return 0;
 }
 static sm_file *sm_find(sm_file *arr, int n, const char *path) {
-    for (int i=0;i<n;i++) if (strcmp(arr[i].path,path)==0) return &arr[i]; return NULL;
+    for (int i=0;i<n;i++) if (strcmp(arr[i].path,path)==0) return &arr[i];
+    return NULL;
 }
 int sftpmirror_diff(SftpMirror *m, char *upload, int ulen, char *del, int dlen) {
     if(!m) return -1;

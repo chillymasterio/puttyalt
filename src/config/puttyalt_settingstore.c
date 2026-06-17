@@ -34,6 +34,7 @@ int settingstore_serialize(const SettingStore *s, char *out, int outlen) {
 }
 void settingstore_mark_saved(SettingStore *s) {
     if(!s) return;
-    for(int i=0;i<s->n;i++) s->s[i].dirty=0; s->dirty_count=0;
+    for(int i=0;i<s->n;i++) s->s[i].dirty=0;
+    s->dirty_count=0;
 }
 int settingstore_dirty_count(const SettingStore *s) { return s?s->dirty_count:-1; }

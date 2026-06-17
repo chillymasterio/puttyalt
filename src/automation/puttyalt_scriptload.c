@@ -24,7 +24,8 @@ int scriptload_next(ScriptLoad *s) {
 }
 int scriptload_all_loaded(const ScriptLoad *s) {
     if(!s) return 0;
-    for(int i=0;i<s->n;i++) if(!s->scripts[i].loaded) return 0; return 1;
+    for(int i=0;i<s->n;i++) if(!s->scripts[i].loaded) return 0;
+    return 1;
 }
 int scriptload_has_cycle(ScriptLoad *s) {
     if(!s) return 0;

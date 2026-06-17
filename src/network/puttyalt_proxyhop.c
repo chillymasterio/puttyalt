@@ -24,5 +24,6 @@ int proxyhop_get(const ProxyHop *p, int idx, char *host, int hostlen, int *port,
     if(!p||idx<0||idx>=p->n) return -1;
     if (host) snprintf(host,hostlen,"%s",p->hops[idx].host);
     if (port) *port=p->hops[idx].port;
-    if (type) *type=p->hops[idx].type; return 0;
+    if (type) *type=p->hops[idx].type;
+    return 0;
 }

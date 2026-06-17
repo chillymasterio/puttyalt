@@ -25,5 +25,7 @@ char buffer_at(const GapBuffer *b, int pos) {
 int buffer_to_string(const GapBuffer *b, char *out, int outlen) {
     if(!b||!out) return -1;
     int len=buffer_length(b), o=0;
-    for (int i=0;i<len && o<outlen-1;i++) out[o++]=buffer_at(b,i); out[o]=0; return o;
+    for (int i=0;i<len && o<outlen-1;i++) out[o++]=buffer_at(b,i);
+    out[o]=0;
+    return o;
 }

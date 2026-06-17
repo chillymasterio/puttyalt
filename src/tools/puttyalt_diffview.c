@@ -16,5 +16,6 @@ int diffview_changed_count(const DiffView *d) { return d?(d->additions+d->deleti
 int diffview_summary(const DiffView *d, int *adds, int *dels) {
     if(!d) return -1;
     if(adds) *adds=d->additions;
-    if(dels)*dels=d->deletions; return d->n;
+    if(dels)*dels=d->deletions;
+    return d->n;
 }

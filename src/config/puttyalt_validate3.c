@@ -29,7 +29,8 @@ int validate3_check(Validate3 *v, const char *name, const char *value) {
 }
 int validate3_all_valid(const Validate3 *v) {
     if(!v) return 0;
-    for(int i=0;i<v->n;i++) if(!v->fields[i].valid) return 0; return 1;
+    for(int i=0;i<v->n;i++) if(!v->fields[i].valid) return 0;
+    return 1;
 }
 const char *validate3_error(const Validate3 *v, const char *name) {
     if(!v||!name) return 0;

@@ -22,6 +22,7 @@ int authmethod_mark_result(AuthMethod *a, int success) {
 }
 int authmethod_succeeded(const AuthMethod *a) {
     if(!a) return -1;
-    for(int i=0;i<a->n;i++) if(a->m[i].succeeded) return a->m[i].method; return AM_NONE;
+    for(int i=0;i<a->n;i++) if(a->m[i].succeeded) return a->m[i].method;
+    return AM_NONE;
 }
 int authmethod_count(const AuthMethod *a) { return a?a->n:-1; }

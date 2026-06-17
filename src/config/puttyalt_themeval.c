@@ -19,7 +19,9 @@ int themeval_check(const char *json, char *err, int errlen) {
 }
 int themeval_validate_color(const char *hex) { return tv_is_hex_color(hex)?0:-1; }
 int themeval_count_colors(const char *json) {
-    if(!json) return 0; int n=0; for (const char *p=json;(p=strchr(p,'#'));p++) {
+    if(!json) return 0;
+    int n=0;
+    for (const char *p=json;(p=strchr(p,'#'));p++) {
         char tmp[10]; int k=0; const char *q=p; while (*q && k<9 && *q!='"' && *q!=',') tmp[k++]=*q++; tmp[k]=0;
         if (tv_is_hex_color(tmp)) n++;
     }
