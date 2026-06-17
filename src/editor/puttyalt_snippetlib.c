@@ -58,7 +58,6 @@ void snippetlib_sort_by_usage(SnippetLibrary *sl)
 int snippetlib_search(SnippetLibrary *sl, const char *query, int *results, int max)
 {
     int n = 0;
-    int qlen = (int)strlen(query);
     for (int i = 0; i < sl->count && n < max; i++) {
         /* simple substring match on name, command, category */
         if (strstr(sl->items[i].name, query) ||

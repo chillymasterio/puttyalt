@@ -16,7 +16,7 @@ int animcurve_eval(int easing, int t) {
             else { x-=0.955; y=7.5625*x*x+0.984; }
             break;
         }
-        case AC_ELASTIC: { double p=0.3; y = x==0?0:(x==1?1:1+ (x<1?-1:1)); if(x>0&&x<1){ double s=p/4; y=1; /* simplified */ } break; }
+        case AC_ELASTIC: { y = x==0?0:(x==1?1:1+ (x<1?-1:1)); if(x>0&&x<1){ y=1; /* simplified */ } break; }
         default: y=x; break;
     }
     int r=(int)(y*1000+0.5); if(r<0)r=0; if(r>1000)r=1000; return r;

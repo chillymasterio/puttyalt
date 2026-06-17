@@ -41,7 +41,6 @@ int cronview_parse(CronViewer *cv, const char *text)
         int sched_end = 0;
         for (int f = 0; f < 5 && *tok; f++) {
             while (*tok == ' ' || *tok == '\t') tok++;
-            char *start = tok;
             while (*tok && *tok != ' ' && *tok != '\t') tok++;
             fields++;
             sched_end = (int)(tok - trimmed);

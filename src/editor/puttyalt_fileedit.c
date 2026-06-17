@@ -163,7 +163,6 @@ char *fileedit_serialize(FileEditor *fe, int *out_len)
 
 int fileedit_find(FileEditor *fe, const char *needle, int *rline, int *rcol)
 {
-    int nlen = (int)strlen(needle);
     for (int i = fe->cursor_line; i < fe->line_count; i++) {
         int start = (i == fe->cursor_line) ? fe->cursor_col + 1 : 0;
         const char *found = strstr(fe->lines[i] + start, needle);
