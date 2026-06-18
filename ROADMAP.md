@@ -1005,3 +1005,43 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Quality
 - [x] **Warning cleanup** — eliminated all misleading-indentation (51 -> 25)
+
+## v3.15.0 (In Progress) — Compression, Codecs & Bit I/O
+*Focus: compression primitives, encoders, bit-level I/O, protocol parsing.*
+
+### Compression & checksums
+- [x] **LZ77** — sliding-window longest match
+- [x] **Huffman lengths** — canonical code lengths
+- [x] **Delta encode** — successive-delta + zigzag
+- [x] **Adler-32** — checksum + streaming update
+
+### Bit & byte I/O
+- [x] **Bit reader** — MSB-first bit extraction
+- [x] **Bit writer** — MSB-first bit packing
+- [x] **Hex codec** — hex string encode/decode
+
+### Protocol parsing
+- [x] **Chunked decode** — HTTP chunk sizes
+- [x] **Content-Type** — mime/charset/boundary
+- [x] **Query params** — URL query-string parse
+- [x] **TLS version** — protocol classification
+
+### Terminal
+- [x] **Scroll region** — DECSTBM management
+- [x] **Unicode fold** — ASCII/Latin-1 case folding
+
+### Config & sessions
+- [x] **Dot path** — dotted-key navigation
+- [x] **Defaults** — default + override resolution
+- [x] **Session stats** — usage aggregation
+
+### Automation & UI
+- [x] **Conditional** — comparison evaluation
+- [x] **Throttle v2** — N-per-window limiting
+- [x] **List view v2** — selection + scroll
+- [x] **Status format** — status-bar segments
+
+### Tools
+- [x] **Roman numerals** — to/from conversion
+- [x] **EMA v2** — exponential moving average
+- [x] **Salt generator** — deterministic stretch
