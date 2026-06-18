@@ -977,6 +977,33 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tooltip.c
 )
 
+# v3.15.0 compression, codecs, bit I/O & protocol parsing
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_conditional.c
+    src/automation/puttyalt_throttle2.c
+    src/config/puttyalt_defaults.c
+    src/config/puttyalt_dotpath.c
+    src/network/puttyalt_chunked.c
+    src/network/puttyalt_contenttype.c
+    src/network/puttyalt_qparams.c
+    src/security/puttyalt_saltgen.c
+    src/security/puttyalt_tlsver.c
+    src/session/puttyalt_sesstats.c
+    src/terminal/puttyalt_scrollregion.c
+    src/terminal/puttyalt_unicodefold.c
+    src/tools/puttyalt_adler32.c
+    src/tools/puttyalt_bitreader.c
+    src/tools/puttyalt_bitwriter.c
+    src/tools/puttyalt_deltaenc.c
+    src/tools/puttyalt_ema2.c
+    src/tools/puttyalt_hexcodec.c
+    src/tools/puttyalt_hufflen.c
+    src/tools/puttyalt_lz77.c
+    src/tools/puttyalt_romanfmt.c
+    src/ui/puttyalt_listview2.c
+    src/ui/puttyalt_statusfmt.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
