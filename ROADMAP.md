@@ -1045,3 +1045,40 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Roman numerals** — to/from conversion
 - [x] **EMA v2** — exponential moving average
 - [x] **Salt generator** — deterministic stretch
+
+## v3.16.0 (In Progress) — Geometry, Graphics & Containers
+*Focus: 2D math, color/graphics helpers, core containers, networking math.*
+
+### Geometry & graphics
+- [x] **Rect ops** — intersect/union/contains
+- [x] **Easing** — quad/cubic interpolation
+- [x] **Color mix** — blend/lighten/contrast
+- [x] **Vec2** — 2D integer vector math
+- [x] **Bresenham line** — point generation
+- [x] **Clamp/remap** — range mapping + wrap
+- [x] **Box drawing** — frame glyph selection
+- [x] **Gradient** — color gradient fill
+
+### Containers
+- [x] **Circular buffer** — ring byte buffer
+- [x] **Int stack** — bounded LIFO
+- [x] **Event counter** — per-category counts
+
+### Networking
+- [x] **Subnet** — netmask/network/broadcast
+- [x] **TCP state** — connection state names
+- [x] **Keepalive calc** — adaptive intervals
+
+### Automation & config
+- [x] **Retry table** — per-key retry tracking
+- [x] **Sequence runner** — indexed step runner
+- [x] **Schema check** — value validation
+
+### Sessions & UI
+- [x] **Quick connect** — user@host:port parse
+- [x] **Tab strip** — ordering + active tab
+- [x] **Table format** — aligned text tables
+
+### Security & tools
+- [x] **Fingerprint compare** — normalized compare
+- [x] **Base58** — Bitcoin-alphabet encode

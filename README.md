@@ -9,7 +9,7 @@
 ![Version](https://img.shields.io/badge/version-3.0.0-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
-![Modules](https://img.shields.io/badge/895+%20modules-D29922?style=flat-square)
+![Modules](https://img.shields.io/badge/915+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/38%20tests%20passing-3FB950?style=flat-square)
 
 **[Download v3.0.0](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
@@ -112,6 +112,7 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
+| **3.16.0** (in progress) | Rect ops, easing, color mix, vec2, Bresenham line, clamp/remap, box drawing, gradient, circular buffer, int stack, subnet calc, TCP state, retry table, sequence runner, quick connect, tab strip, table format, base58, 22 modules |
 | **3.15.0** (in progress) | LZ77, Huffman lengths, delta+zigzag, Adler-32, bit reader/writer, hex codec, chunked decode, Content-Type, query params, TLS version, scroll region, dot path, throttle v2, list view v2, roman numerals, EMA v2, 23 modules |
 | **3.14.0** (in progress) | Damage map, selection span, reflow v2, layout grid, flexbox, anchor/tooltip, JSON escape, ascii85, time parse, percentile, fuzzy score, ETag, FTP codes, pipeline v2, watchdog v2, merge config, misleading-indentation cleanup (51->25), 26 modules |
 | **3.13.0** (in progress) | SSH banner parse, HTTP status, cookie jar, WebSocket frame, proxy URL, JSON Pointer, TOML value, CSI v2, OSC parse, DEC graphics, SGR mouse, JWT decode, cert subject, auth lockout, expect parser, cron field, macro record, semver, hex view, 28 modules |
@@ -142,7 +143,7 @@ tests/             9 suites (108 assertions, all passing)
 ```
 Fast.       — Native C99, no runtime, no VM, no framework overhead.
 Focused.    — SSH done right. Not a general terminal pretending to do SSH.
-Modular.    — 895+ modules organized by function. Extend what you need.
+Modular.    — 915+ modules organized by function. Extend what you need.
 Private.    — Zero telemetry. No cloud. Your keys stay on your machine.
 ```
 
@@ -160,7 +161,7 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**895+ modules | 1340+ commits | 95,000+ lines of C99**
+**915+ modules | 1365+ commits | 97,000+ lines of C99**
 
 Built with care. No bloat. No compromise.
 
