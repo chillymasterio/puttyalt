@@ -1004,6 +1004,32 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_statusfmt.c
 )
 
+# v3.16.0 geometry, graphics math, containers & networking
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_eventcounter.c
+    src/automation/puttyalt_retrytable.c
+    src/automation/puttyalt_seqrunner.c
+    src/config/puttyalt_schemacheck.c
+    src/network/puttyalt_keepalivecalc.c
+    src/network/puttyalt_subnet.c
+    src/network/puttyalt_tcpstate.c
+    src/security/puttyalt_fingerprintcmp.c
+    src/session/puttyalt_quickconnect.c
+    src/terminal/puttyalt_boxdraw.c
+    src/terminal/puttyalt_gradient.c
+    src/tools/puttyalt_base58.c
+    src/tools/puttyalt_circbuf.c
+    src/tools/puttyalt_clamp2.c
+    src/tools/puttyalt_line2.c
+    src/tools/puttyalt_stack2.c
+    src/tools/puttyalt_tablefmt.c
+    src/tools/puttyalt_vec2.c
+    src/ui/puttyalt_colormix.c
+    src/ui/puttyalt_easing.c
+    src/ui/puttyalt_rectops.c
+    src/ui/puttyalt_tabstrip.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
