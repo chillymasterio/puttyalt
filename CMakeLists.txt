@@ -1030,6 +1030,31 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tabstrip.c
 )
 
+# v3.17.0 string algorithms, search, parsing & trie
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_argparse2.c
+    src/automation/puttyalt_tokenstream.c
+    src/automation/puttyalt_varscope.c
+    src/config/puttyalt_inheritchain.c
+    src/network/puttyalt_useragent.c
+    src/security/puttyalt_passpolicy2.c
+    src/session/puttyalt_sessmatch.c
+    src/terminal/puttyalt_wrapcursor.c
+    src/tools/puttyalt_boyermoore.c
+    src/tools/puttyalt_gridmap.c
+    src/tools/puttyalt_kmp.c
+    src/tools/puttyalt_longestcommon.c
+    src/tools/puttyalt_numparse2.c
+    src/tools/puttyalt_soundex.c
+    src/tools/puttyalt_strmetric.c
+    src/tools/puttyalt_strreplace2.c
+    src/tools/puttyalt_titlecase.c
+    src/tools/puttyalt_trie2.c
+    src/tools/puttyalt_wordcount.c
+    src/ui/puttyalt_breadcrumb.c
+    src/ui/puttyalt_keyhint.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
