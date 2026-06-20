@@ -1082,3 +1082,40 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 ### Security & tools
 - [x] **Fingerprint compare** — normalized compare
 - [x] **Base58** — Bitcoin-alphabet encode
+
+## v3.17.0 (In Progress) — String Algorithms & Search
+*Focus: substring search, string metrics, tokenizing, autocomplete.*
+
+### Search algorithms
+- [x] **KMP** — Knuth-Morris-Pratt search
+- [x] **Boyer-Moore** — Horspool search + count
+- [x] **LCS** — longest common subsequence/substring
+- [x] **Trie** — prefix trie for autocomplete
+
+### String metrics & transforms
+- [x] **String metrics** — Jaro + Hamming
+- [x] **Soundex** — phonetic encoding
+- [x] **Replace** — replace-all + count
+- [x] **Title case** — title/snake conversion
+- [x] **Word count** — chars/words/lines
+
+### Parsing & tokenizing
+- [x] **Arg parse v2** — flags + positionals
+- [x] **Token stream** — script lexer
+- [x] **Number parse v2** — signed + percent
+- [x] **User-Agent** — build/parse/bot detect
+
+### Config & automation
+- [x] **Inherit chain** — config inheritance
+- [x] **Variable scope** — scoped resolution
+- [x] **Schema check** (see v3.16.0)
+
+### Sessions, UI & terminal
+- [x] **Session match** — fuzzy quick-switch
+- [x] **Key hints** — shortcut hint bars
+- [x] **Breadcrumb** — navigation trails
+- [x] **Wrap cursor** — deferred line-end wrap
+- [x] **Grid map** — 2D coordinate mapping
+
+### Security
+- [x] **Password policy v2** — composition rules
