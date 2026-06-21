@@ -1055,6 +1055,30 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_keyhint.c
 )
 
+# v3.18.0 HTTP/DNS/SOCKS protocols, terminal attrs & safety
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_guardrail.c
+    src/automation/puttyalt_scriptloop.c
+    src/automation/puttyalt_statetrack.c
+    src/config/puttyalt_profilemerge.c
+    src/config/puttyalt_wildcardmatch.c
+    src/network/puttyalt_dnsname.c
+    src/network/puttyalt_httphdr.c
+    src/network/puttyalt_ipclass.c
+    src/network/puttyalt_mimetype.c
+    src/network/puttyalt_requestline.c
+    src/network/puttyalt_socks5.c
+    src/security/puttyalt_sessionkey.c
+    src/session/puttyalt_conntimer.c
+    src/terminal/puttyalt_altbuffer.c
+    src/terminal/puttyalt_cellattr.c
+    src/terminal/puttyalt_vtparam.c
+    src/tools/puttyalt_ipv4sort.c
+    src/tools/puttyalt_ratio2.c
+    src/ui/puttyalt_contextmenu2.c
+    src/ui/puttyalt_notifstack.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
