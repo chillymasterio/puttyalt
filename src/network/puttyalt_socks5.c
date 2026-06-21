@@ -1,30 +1,28 @@
-/* puttyalt_socks5.c - SOCKS5 handshake state machine + request builder. */
+/* puttyalt_socks5.c - Build SOCKS5 handshake/request packets.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
 #include <string.h>
 #include <stdint.h>
-enum s5_state { S5_INIT=0, S5_AUTH_SENT=1, S5_AUTH_OK=2, S5_REQUEST_SENT=3, S5_CONNECTED=4, S5_FAILED=5 };
-typedef struct { int state; int auth_method; int needs_auth; } Socks5;
-void socks5_init(Socks5 *s, int needs_auth) { if(s){ memset(s,0,sizeof(*s)); s->needs_auth=needs_auth?1:0; } }
-int socks5_build_greeting(const Socks5 *s, unsigned char *out, int outlen) {
-    if(!s||!out||outlen<4) return -1;
-    out[0]=0x05; /* version */
-    if (s->needs_auth) { out[1]=0x02; out[2]=0x00; out[3]=0x02; return 4; }
-    out[1]=0x01; out[2]=0x00; return 3;
+/* Build a SOCKS5 greeting (no-auth). Returns length. */
+int sk5_greeting(uint8_t *out, int cap) {
+    if (!out || cap < 3) return -1;
+    out[0] = 0x05; out[1] = 0x01; out[2] = 0x00;
+    return 3;
 }
-int socks5_build_connect(Socks5 *s, const char *host, int port, unsigned char *out, int outlen) {
-    if(!s||!host||!out) return -1;
-    int hl=(int)strlen(host); if (hl>255 || outlen<7+hl) return -1;
-    int p=0;
-    out[p++]=0x05; out[p++]=0x01; out[p++]=0x00; out[p++]=0x03; /* domain name */
-    out[p++]=(unsigned char)hl;
-    memcpy(out+p,host,hl); p+=hl;
-    out[p++]=(port>>8)&0xFF; out[p++]=port&0xFF;
-    s->state=S5_REQUEST_SENT;
-    return p;
+/* Build a CONNECT request to a domain:port. */
+int sk5_connect_domain(const char *host, int port, uint8_t *out, int cap) {
+    if (!host || !out) return -1;
+    int hl = (int)strlen(host);
+    if (hl > 255 || cap < hl + 7) return -1;
+    int o = 0;
+    out[o++] = 0x05; out[o++] = 0x01; out[o++] = 0x00; out[o++] = 0x03;
+    out[o++] = (uint8_t)hl;
+    memcpy(out + o, host, hl); o += hl;
+    out[o++] = (uint8_t)((port >> 8) & 0xFF);
+    out[o++] = (uint8_t)(port & 0xFF);
+    return o;
 }
-int socks5_parse_reply(Socks5 *s, const unsigned char *data, int len) {
-    if(!s||!data||len<2) return -1;
-    if (data[0]!=0x05) { s->state=S5_FAILED; return -1; }
-    if (data[1]==0x00) { s->state=S5_CONNECTED; return 0; }
-    s->state=S5_FAILED; return -(int)data[1]; /* error code */
+int sk5_reply_ok(const uint8_t *resp, int n) {
+    return n >= 2 && resp[0] == 0x05 && resp[1] == 0x00;
 }
-int socks5_state(const Socks5 *s) { return s?s->state:-1; }
