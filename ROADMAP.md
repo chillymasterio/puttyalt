@@ -1119,3 +1119,37 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Security
 - [x] **Password policy v2** — composition rules
+
+## v3.18.0 (In Progress) — Protocols, Terminal Attributes & Safety
+*Focus: HTTP/DNS/SOCKS handling, cell attributes, command safety.*
+
+### Networking & protocols
+- [x] **HTTP headers** — parse/store/lookup
+- [x] **Request line** — method/path/version + status
+- [x] **SOCKS5** — greeting/connect packet build
+- [x] **DNS name** — label encode/decode
+- [x] **IP class** — private/loopback/multicast scope
+- [x] **MIME type** — extension guessing
+- [x] **User-Agent** (see v3.17.0)
+
+### Terminal
+- [x] **Cell attributes** — pack/unpack fg/bg/flags
+- [x] **VT params** — parse + default values
+- [x] **Alt buffer** — alternate-screen switching
+
+### Automation & safety
+- [x] **State track** — named flags/counters
+- [x] **Guardrail** — dangerous-command blocking
+- [x] **Script loop** — bounded loop control
+- [x] **Session key** — derive + rotate
+
+### Config & sessions
+- [x] **Profile merge** — field-precedence merge
+- [x] **Wildcard match** — hostname patterns
+- [x] **Connection timer** — per-session durations
+
+### UI & tools
+- [x] **Context menu v2** — build + navigate
+- [x] **Notification stack** — toast expiry
+- [x] **IPv4 sort** — sort + dedup
+- [x] **Ratio** — reduce + format fractions
