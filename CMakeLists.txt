@@ -1079,6 +1079,30 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_notifstack.c
 )
 
+# v3.19.0 sessions, config, scheduling, audit & UI state
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_dryrun.c
+    src/automation/puttyalt_jobgraph.c
+    src/automation/puttyalt_retrybudget.c
+    src/automation/puttyalt_schedrule.c
+    src/config/puttyalt_backuprotate.c
+    src/config/puttyalt_configlint.c
+    src/config/puttyalt_themeparse2.c
+    src/network/puttyalt_latencystat.c
+    src/security/puttyalt_auditline.c
+    src/session/puttyalt_bookmarktree.c
+    src/session/puttyalt_favorites2.c
+    src/session/puttyalt_sessexport.c
+    src/terminal/puttyalt_scrollbackidx.c
+    src/tools/puttyalt_csvquote.c
+    src/tools/puttyalt_listdedup.c
+    src/tools/puttyalt_prettybytes.c
+    src/tools/puttyalt_timeago2.c
+    src/ui/puttyalt_colorpick.c
+    src/ui/puttyalt_panelresize.c
+    src/ui/puttyalt_searchbar2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
