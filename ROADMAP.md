@@ -1153,3 +1153,39 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Notification stack** — toast expiry
 - [x] **IPv4 sort** — sort + dedup
 - [x] **Ratio** — reduce + format fractions
+
+## v3.19.0 (In Progress) — Sessions, Scheduling & Audit
+*Focus: bookmarks, scheduling, job graphs, audit chains, UI state.*
+
+### Sessions & bookmarks
+- [x] **Bookmark tree** — hierarchical folders
+- [x] **Session export** — OpenSSH config format
+- [x] **Favorites v2** — usage-ranked favorites
+- [x] **Connection timer** (see v3.18.0)
+
+### Scheduling & jobs
+- [x] **Schedule rule** — daily/weekly/interval
+- [x] **Job graph** — topological dependency order
+- [x] **Retry budget** — windowed retry limit
+- [x] **Dry run** — track apply vs simulate
+
+### Config & themes
+- [x] **Config lint** — common-mistake detection
+- [x] **Backup rotate** — numbered backups
+- [x] **Theme parse v2** — color definitions
+
+### Security & networking
+- [x] **Audit line** — tamper-evident chain hash
+- [x] **Latency stat** — avg/max/jitter tracking
+
+### UI & terminal
+- [x] **Search bar v2** — incremental search state
+- [x] **Panel resize** — constrained divider drag
+- [x] **Scrollback index** — fast line access
+- [x] **Color picker** — HSV/RGB conversion
+
+### Tools
+- [x] **Pretty bytes** — human-readable sizes
+- [x] **List dedup** — order-preserving dedup
+- [x] **Time ago v2** — relative descriptions
+- [x] **CSV quote** — field escaping
