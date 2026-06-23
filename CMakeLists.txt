@@ -1103,6 +1103,28 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_searchbar2.c
 )
 
+# v3.20.0 numeric algorithms, hashing, RNG & quantization
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_exprcalc.c
+    src/config/puttyalt_durationcfg.c
+    src/network/puttyalt_httpdate.c
+    src/network/puttyalt_ipv6class.c
+    src/security/puttyalt_otpwindow.c
+    src/session/puttyalt_sessiontag2.c
+    src/terminal/puttyalt_colorquant.c
+    src/terminal/puttyalt_graphemes.c
+    src/tools/puttyalt_fnvhash.c
+    src/tools/puttyalt_gcdlcm.c
+    src/tools/puttyalt_isqrt.c
+    src/tools/puttyalt_mathutil.c
+    src/tools/puttyalt_modexp.c
+    src/tools/puttyalt_murmur.c
+    src/tools/puttyalt_primes.c
+    src/tools/puttyalt_xorshift.c
+    src/ui/puttyalt_sortindicator.c
+    src/ui/puttyalt_virtualscroll.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
