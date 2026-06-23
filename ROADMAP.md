@@ -1189,3 +1189,38 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **List dedup** — order-preserving dedup
 - [x] **Time ago v2** — relative descriptions
 - [x] **CSV quote** — field escaping
+
+## v3.20.0 (In Progress) — Numeric Algorithms & Hashing
+*Focus: integer math, hashing, PRNG, color quantization.*
+
+### Integer math
+- [x] **Integer sqrt** — isqrt + power-of-2 checks
+- [x] **Primes** — primality + next-prime + factors
+- [x] **GCD/LCM** — including extended GCD
+- [x] **Modular exp** — powmod + mulmod
+- [x] **Math util** — factorial/fibonacci/binomial
+
+### Hashing & PRNG
+- [x] **FNV-1a** — 32/64-bit hash
+- [x] **MurmurHash3** — 32-bit hash
+- [x] **Xorshift** — fast PRNG + bounded/double
+
+### Networking
+- [x] **IPv6 class** — scope classification
+- [x] **HTTP date** — IMF-fixdate format/parse
+
+### Terminal & rendering
+- [x] **Color quantize** — truecolor to 256/16
+- [x] **Graphemes** — cluster boundary detection
+
+### Config & automation
+- [x] **Duration config** — compound "1h30m" parse
+- [x] **Expression calc** — integer arithmetic eval
+
+### UI & sessions
+- [x] **Sort indicator** — column/direction state
+- [x] **Virtual scroll** — windowed list math
+- [x] **Session tags v2** — colored labels
+
+### Security
+- [x] **OTP window** — HOTP counter verification
