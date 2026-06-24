@@ -1224,3 +1224,32 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Security
 - [x] **OTP window** — HOTP counter verification
+
+## v3.21.0 (In Progress) — Text Encoding & Internationalization
+*Focus: Unicode codecs, transliteration, i18n, message catalogs.*
+
+### Unicode codecs
+- [x] **UTF-8 codec** — encode/decode/strlen
+- [x] **UTF-16 codec** — surrogate pair handling
+- [x] **BOM** — byte-order-mark detect/strip
+- [x] **Latin-1** — ASCII transliteration
+
+### i18n & localization
+- [x] **Plural** — English + Slavic plural rules
+- [x] **Message catalog** — key/value translations
+- [x] **Number locale** — digit grouping
+- [x] **i18n format** — {n} placeholder interpolation
+
+### Text transforms
+- [x] **Case convert** — upper/lower/swap
+- [x] **HTML entities** — encode/decode
+- [x] **Text align** — left/right/center
+
+### Networking & security
+- [x] **Punycode** — IDNA ACE detection
+- [x] **Unicode safe** — bidi/zero-width detection
+
+### UI, config & sessions
+- [x] **Char picker** — special-char categories
+- [x] **Keyboard layout** — shift/unshift mapping
+- [x] **History search** — filtered command search
