@@ -1125,6 +1125,26 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_virtualscroll.c
 )
 
+# v3.21.0 text encoding, Unicode codecs & i18n
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_i18nfmt.c
+    src/config/puttyalt_keyboardlayout.c
+    src/config/puttyalt_msgcatalog.c
+    src/config/puttyalt_plural.c
+    src/network/puttyalt_punycode.c
+    src/security/puttyalt_unicodesafe.c
+    src/session/puttyalt_historysearch.c
+    src/terminal/puttyalt_bom.c
+    src/terminal/puttyalt_utf16codec.c
+    src/terminal/puttyalt_utf8codec.c
+    src/tools/puttyalt_caseconv.c
+    src/tools/puttyalt_htmlentity.c
+    src/tools/puttyalt_latin1conv.c
+    src/tools/puttyalt_numlocale.c
+    src/ui/puttyalt_charpicker.c
+    src/ui/puttyalt_textalign.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
