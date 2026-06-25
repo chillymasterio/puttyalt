@@ -1,26 +1,28 @@
-/* puttyalt_actionqueue.c - Action queue with undo support. */
+/* puttyalt_actionqueue.c - Queue and dedupe pending actions.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
 #include <string.h>
-#include <stdio.h>
-#define AQ_MAX 64
-#define AQ_DESC 64
-typedef struct { int action_id; char desc[AQ_DESC]; int undoable; int executed; } aq_action;
-typedef struct { aq_action actions[AQ_MAX]; int n; int cursor; } ActionQueue;
-void actionqueue_init(ActionQueue *a) { if(a) memset(a,0,sizeof(*a)); }
-int actionqueue_push(ActionQueue *a, int action_id, const char *desc, int undoable) {
-    if(!a) return -1;
-    a->n=a->cursor; /* truncate redo */
-    if (a->n>=AQ_MAX) { memmove(&a->actions[0],&a->actions[1],sizeof(aq_action)*(AQ_MAX-1)); a->n--; }
-    aq_action *act=&a->actions[a->n++]; act->action_id=action_id; snprintf(act->desc,AQ_DESC,"%s",desc?desc:"");
-    act->undoable=undoable?1:0; act->executed=1; a->cursor=a->n; return 0;
+#define AQ_CAP 64
+typedef struct { char action[48]; int priority; } AqItem;
+typedef struct { AqItem items[AQ_CAP]; int n; } ActionQueue;
+void aq2_init(ActionQueue *q) { if (q) q->n = 0; }
+/* Enqueue, skipping if an identical action is already pending. */
+int aq2_enqueue(ActionQueue *q, const char *action, int priority) {
+    if (!q || !action || q->n >= AQ_CAP) return -1;
+    for (int i = 0; i < q->n; i++) if (strcmp(q->items[i].action, action) == 0) return 1; /* dup */
+    strncpy(q->items[q->n].action, action, 47); q->items[q->n].action[47] = 0;
+    q->items[q->n].priority = priority;
+    q->n++;
+    return 0;
 }
-int actionqueue_can_undo(const ActionQueue *a) { return (a&&a->cursor>0&&a->actions[a->cursor-1].undoable)?1:0; }
-int actionqueue_undo(ActionQueue *a) {
-    if(!a||a->cursor==0) return -1;
-    if (!a->actions[a->cursor-1].undoable) return -1;
-    a->cursor--; return a->actions[a->cursor].action_id;
+/* Dequeue the highest-priority action. */
+int aq2_dequeue(ActionQueue *q, char *out, int outlen) {
+    if (!q || q->n == 0 || !out) return -1;
+    int best = 0;
+    for (int i = 1; i < q->n; i++) if (q->items[i].priority > q->items[best].priority) best = i;
+    strncpy(out, q->items[best].action, outlen-1); out[outlen-1] = 0;
+    for (int i = best; i < q->n - 1; i++) q->items[i] = q->items[i+1];
+    q->n--;
+    return 0;
 }
-int actionqueue_redo(ActionQueue *a) {
-    if(!a||a->cursor>=a->n) return -1;
-    return a->actions[a->cursor++].action_id;
-}
-int actionqueue_count(const ActionQueue *a) { return a?a->n:-1; }
