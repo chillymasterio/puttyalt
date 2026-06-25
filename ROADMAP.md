@@ -1253,3 +1253,32 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Char picker** — special-char categories
 - [x] **Keyboard layout** — shift/unshift mapping
 - [x] **History search** — filtered command search
+
+## v3.22.0 (In Progress) — Data Structures II
+*Focus: maps, queues, sets, allocators, sliding windows.*
+
+### Maps & sets
+- [x] **Hash map v2** — open-addressing string map
+- [x] **Sorted set** — binary-search insert
+- [x] **Range set** — integer range membership
+- [x] **Bloom filter** — probabilistic membership
+- [x] **Union-find** — disjoint set with path compression
+
+### Queues & lists
+- [x] **Deque v2** — double-ended queue
+- [x] **Priority queue** — explicit-priority heap
+- [x] **Linked list v2** — array-backed list
+- [x] **Action queue** — dedup + priority dequeue
+
+### Allocators & windows
+- [x] **Object pool** — fixed-slot allocator
+- [x] **Session pool** — connection-slot reuse
+- [x] **Sliding window** — sequence-number tracking
+
+### State & UI
+- [x] **FSM v2** — named-state machine
+- [x] **Tree model** — expandable tree
+
+### Terminal & config
+- [x] **Grapheme width** — run width + fit
+- [x] **Layered config** — priority-layer resolution
