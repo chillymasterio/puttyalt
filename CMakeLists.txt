@@ -1145,6 +1145,26 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_textalign.c
 )
 
+# v3.22.0 containers, hash maps, queues & set structures
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_actionqueue.c
+    src/automation/puttyalt_fsm2.c
+    src/config/puttyalt_layeredconfig.c
+    src/network/puttyalt_slidingwindow.c
+    src/session/puttyalt_sessionpool.c
+    src/terminal/puttyalt_graphemewidth.c
+    src/tools/puttyalt_bloomfilter.c
+    src/tools/puttyalt_deque2.c
+    src/tools/puttyalt_hashmap2.c
+    src/tools/puttyalt_linkedlist2.c
+    src/tools/puttyalt_objpool.c
+    src/tools/puttyalt_priorityq.c
+    src/tools/puttyalt_rangeset.c
+    src/tools/puttyalt_sortedset.c
+    src/tools/puttyalt_unionfind.c
+    src/ui/puttyalt_treemodel.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
