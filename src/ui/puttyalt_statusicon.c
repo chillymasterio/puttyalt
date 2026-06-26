@@ -1,22 +1,32 @@
-/* puttyalt_statusicon.c - Connection status icon state machine (idle/connecting/up/err). */
-#include <string.h>
-enum si_state { SI_IDLE=0, SI_CONNECTING=1, SI_CONNECTED=2, SI_RECONNECTING=3, SI_ERROR=4, SI_DISCONNECTED=5 };
-typedef struct { int state; int blink_phase; int latency_ms; int signal_bars; } StatusIcon;
-void statusicon_init(StatusIcon *s) { if(s) memset(s,0,sizeof(*s)); }
-void statusicon_set_state(StatusIcon *s, int state) { if(s){ s->state=state; s->blink_phase=0; } }
-void statusicon_update_latency(StatusIcon *s, int latency_ms) {
-    if(!s) return;
-    s->latency_ms=latency_ms;
-    if (latency_ms<50) s->signal_bars=4; else if (latency_ms<150) s->signal_bars=3;
-    else if (latency_ms<400) s->signal_bars=2; else s->signal_bars=1;
+/* puttyalt_statusicon.c - Map connection state to status icons.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
+#include <stddef.h>
+enum { ST_DISCONNECTED, ST_CONNECTING, ST_CONNECTED, ST_ERROR, ST_IDLE };
+const char *si3_icon(int state) {
+    switch (state) {
+        case ST_CONNECTED: return "*";
+        case ST_CONNECTING: return "~";
+        case ST_ERROR: return "!";
+        case ST_IDLE: return "-";
+        default: return "o";
+    }
 }
-int statusicon_should_blink(const StatusIcon *s) {
-    if(!s) return 0;
-    return (s->state==SI_CONNECTING||s->state==SI_RECONNECTING)?1:0;
+const char *si3_label(int state) {
+    switch (state) {
+        case ST_CONNECTED: return "Connected";
+        case ST_CONNECTING: return "Connecting";
+        case ST_ERROR: return "Error";
+        case ST_IDLE: return "Idle";
+        default: return "Disconnected";
+    }
 }
-void statusicon_tick(StatusIcon *s) { if(s&&statusicon_should_blink(s)) s->blink_phase^=1; }
-int statusicon_glyph(const StatusIcon *s) {
-    if(!s) return 0;
-    switch(s->state) { case SI_CONNECTED: return s->signal_bars; case SI_ERROR: return -1; default: return 0; }
+int si3_color(int state) {
+    switch (state) {
+        case ST_CONNECTED: return 0x3FB950;
+        case ST_CONNECTING: return 0xD29922;
+        case ST_ERROR: return 0xF85149;
+        default: return 0x8B949E;
+    }
 }
-int statusicon_state(const StatusIcon *s) { return s?s->state:-1; }
