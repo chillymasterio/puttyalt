@@ -9,7 +9,7 @@
 ![Version](https://img.shields.io/badge/version-3.0.0-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
-![Modules](https://img.shields.io/badge/1025+%20modules-D29922?style=flat-square)
+![Modules](https://img.shields.io/badge/1040+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/38%20tests%20passing-3FB950?style=flat-square)
 
 **[Download v3.0.0](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
@@ -112,6 +112,7 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
+| **3.23.0** (in progress) | TCP congestion window, port knocking, GeoIP lookup, HTTP cache freshness, Basic/Bearer auth, API rate-limit tracking, decorrelated retry jitter, SSH channel multiplexing, tunnel map, WebSocket masking, webhook payloads, proxy config, escape filter, connection history, 15 modules |
 | **3.22.0** (in progress) | Hash map v2 (open addressing), sorted set, range set, bloom filter, union-find, deque v2, priority queue, array linked list, object pool, sliding window, FSM v2, tree model, grapheme width, layered config, action queue, 16 modules |
 | **3.21.0** (in progress) | UTF-8/UTF-16 codecs, BOM detection, Latin-1 transliteration, plural rules (EN/Slavic), message catalog, number grouping, HTML entities, text alignment, Punycode/IDNA, Trojan-source bidi detection, keyboard layout, history search, 16 modules |
 | **3.20.0** (in progress) | Integer sqrt, primality/factors, extended GCD, modular exp, FNV-1a, MurmurHash3, xorshift PRNG, IPv6 classification, HTTP date, color quantization (truecolor->256/16), grapheme clusters, expression calculator, virtual scroll, HOTP window, 18 modules |
@@ -149,7 +150,7 @@ tests/             9 suites (108 assertions, all passing)
 ```
 Fast.       — Native C99, no runtime, no VM, no framework overhead.
 Focused.    — SSH done right. Not a general terminal pretending to do SSH.
-Modular.    — 1025+ modules organized by function. Extend what you need.
+Modular.    — 1040+ modules organized by function. Extend what you need.
 Private.    — Zero telemetry. No cloud. Your keys stay on your machine.
 ```
 
@@ -167,7 +168,7 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**1025+ modules | 1490+ commits | 109,000+ lines of C99**
+**1040+ modules | 1510+ commits | 111,000+ lines of C99**
 
 Built with care. No bloat. No compromise.
 

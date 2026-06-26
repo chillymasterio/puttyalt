@@ -1282,3 +1282,32 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 ### Terminal & config
 - [x] **Grapheme width** — run width + fit
 - [x] **Layered config** — priority-layer resolution
+
+## v3.23.0 (In Progress) — Transport, HTTP & Multiplexing
+*Focus: congestion control, HTTP caching/auth, SSH channels, rate limits.*
+
+### Transport
+- [x] **TCP window** — congestion window estimation
+- [x] **Sliding window** (see v3.22.0)
+- [x] **Port knock** — knock-sequence validation
+- [x] **GeoIP** — IP-range region lookup
+
+### HTTP
+- [x] **HTTP cache** — Cache-Control freshness
+- [x] **HTTP auth v2** — Basic + Bearer headers
+- [x] **API rate limit** — header tracking + backoff
+- [x] **Retry jitter** — decorrelated/full jitter
+
+### SSH & tunnels
+- [x] **SSH channels** — multiplexing window tracking
+- [x] **Tunnel map** — local/remote forward mapping
+- [x] **WebSocket mask** — payload masking
+
+### Automation, config & security
+- [x] **Webhook format** — JSON event payloads
+- [x] **Proxy config** — env parse + no_proxy
+- [x] **Escape filter** — strip unsafe OSC sequences
+
+### Sessions & UI
+- [x] **Connection history** — per-host success rate
+- [x] **Status icon** — state to icon/color
