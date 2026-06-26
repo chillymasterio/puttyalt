@@ -1165,6 +1165,25 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_treemodel.c
 )
 
+# v3.23.0 transport, HTTP, SSH multiplexing & rate limiting
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_apiratelimit.c
+    src/automation/puttyalt_webhookfmt.c
+    src/config/puttyalt_proxyconfig.c
+    src/network/puttyalt_geoipcalc.c
+    src/network/puttyalt_httpauth2.c
+    src/network/puttyalt_httpcache.c
+    src/network/puttyalt_portknock.c
+    src/network/puttyalt_sshchannel.c
+    src/network/puttyalt_tcpwin.c
+    src/network/puttyalt_tunnelmap.c
+    src/network/puttyalt_wsmask.c
+    src/session/puttyalt_connhistory.c
+    src/terminal/puttyalt_escfilter.c
+    src/tools/puttyalt_retryjitter.c
+    src/ui/puttyalt_statusicon.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
