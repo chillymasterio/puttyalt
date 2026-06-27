@@ -1311,3 +1311,31 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 ### Sessions & UI
 - [x] **Connection history** — per-host success rate
 - [x] **Status icon** — state to icon/color
+
+## v3.24.0 (In Progress) — Rendering & Animation
+*Focus: redraw coalescing, glyph caching, frame pacing, animation.*
+
+### Rendering pipeline
+- [x] **Dirty rect** — redraw region coalescing
+- [x] **Glyph cache** — LRU rasterization cache
+- [x] **Frame pacer** — target-FPS budget
+- [x] **Cursor shape** — DECSCUSR handling
+- [x] **Sixel parse** — graphics dimension scan
+
+### Animation & motion
+- [x] **Anim frame** — frame-based interpolation
+- [x] **Blink state** — blink attribute timing
+- [x] **Scroll momentum** — kinetic scrolling
+
+### Terminal text
+- [x] **Wrap log** — continuation markers
+- [x] **Tab expand** — tabs to spaces + visual col
+
+### UI
+- [x] **Focus ring** — traversal order
+- [x] **Minimap** — scrollbar overview mapping
+- [x] **Font config** — font spec parse/format
+
+### Automation & sessions
+- [x] **Output match** — expectation tracking
+- [x] **Replay buffer** — session output buffering
