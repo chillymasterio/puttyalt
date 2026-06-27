@@ -1184,6 +1184,25 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_statusicon.c
 )
 
+# v3.24.0 rendering, glyph cache, frame pacing & animation
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_outputmatch.c
+    src/config/puttyalt_fontconfig.c
+    src/session/puttyalt_replaybuffer.c
+    src/terminal/puttyalt_blinkstate.c
+    src/terminal/puttyalt_cursorshape.c
+    src/terminal/puttyalt_dirtyrect.c
+    src/terminal/puttyalt_framepacer.c
+    src/terminal/puttyalt_glyphcache.c
+    src/terminal/puttyalt_sixelparse.c
+    src/terminal/puttyalt_tabexpand.c
+    src/terminal/puttyalt_wraplog.c
+    src/ui/puttyalt_animframe.c
+    src/ui/puttyalt_focusring.c
+    src/ui/puttyalt_minimap.c
+    src/ui/puttyalt_scrollmomentum.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
