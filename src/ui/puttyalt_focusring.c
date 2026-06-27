@@ -1,40 +1,24 @@
-#include "puttyalt_focusring.h"
-#include "puttyalt_design.h"
-
-void focus_ring_init(FocusRing *fr)
-{
-    fr->current = FOCUS_TERMINAL;
-    fr->previous = FOCUS_NONE;
-    fr->ring_visible = 1;
-    fr->ring_width = 2;
-    fr->ring_color = DS_BORDER_FOCUS;
-    fr->animate = 1;
-    fr->opacity = 1.0f;
+/* puttyalt_focusring.c - Manage focus traversal order.
+ * Self-contained PuttyAlt module (MinGW/Windows target).
+ * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
+ */
+#include <stddef.h>
+#define FR_MAX 32
+typedef struct { int widgets[FR_MAX]; int n; int focused; } FocusRing;
+void fr3_init(FocusRing *f) { if (f) { f->n = 0; f->focused = -1; } }
+int fr3_add(FocusRing *f, int widget_id) {
+    if (!f || f->n >= FR_MAX) return -1;
+    f->widgets[f->n] = widget_id;
+    if (f->focused < 0) f->focused = 0;
+    return f->n++;
 }
-
-void focus_ring_set(FocusRing *fr, FocusTarget target)
-{
-    fr->previous = fr->current;
-    fr->current = target;
+void fr3_next(FocusRing *f) { if (f && f->n) f->focused = (f->focused + 1) % f->n; }
+void fr3_prev(FocusRing *f) { if (f && f->n) f->focused = (f->focused - 1 + f->n) % f->n; }
+int fr3_current(const FocusRing *f) {
+    return (f && f->focused >= 0 && f->focused < f->n) ? f->widgets[f->focused] : -1;
 }
-
-void focus_ring_cycle(FocusRing *fr)
-{
-    fr->previous = fr->current;
-    switch (fr->current) {
-    case FOCUS_TERMINAL: fr->current = FOCUS_SIDEBAR; break;
-    case FOCUS_SIDEBAR: fr->current = FOCUS_TABBAR; break;
-    case FOCUS_TABBAR: fr->current = FOCUS_TERMINAL; break;
-    default: fr->current = FOCUS_TERMINAL; break;
-    }
-}
-
-FocusTarget focus_ring_get(const FocusRing *fr)
-{
-    return fr->current;
-}
-
-int focus_ring_should_draw(const FocusRing *fr, FocusTarget panel)
-{
-    return fr->ring_visible && fr->current == panel;
+int fr3_focus_widget(FocusRing *f, int widget_id) {
+    if (!f) return -1;
+    for (int i = 0; i < f->n; i++) if (f->widgets[i] == widget_id) { f->focused = i; return 0; }
+    return -1;
 }
