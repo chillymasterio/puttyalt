@@ -1203,6 +1203,24 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_scrollmomentum.c
 )
 
+# v3.25.0 crypto primitives, secrets & access control
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_sandboxpolicy.c
+    src/config/puttyalt_secretstore2.c
+    src/network/puttyalt_tlscipher.c
+    src/security/puttyalt_certvalid.c
+    src/security/puttyalt_constanteq.c
+    src/security/puttyalt_hmacutil.c
+    src/security/puttyalt_keyderive.c
+    src/security/puttyalt_nonce.c
+    src/security/puttyalt_permbits.c
+    src/security/puttyalt_pwstrength2.c
+    src/security/puttyalt_secretmask.c
+    src/security/puttyalt_sha256core.c
+    src/session/puttyalt_credcache.c
+    src/ui/puttyalt_lockindicator.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
