@@ -1339,3 +1339,30 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 ### Automation & sessions
 - [x] **Output match** — expectation tracking
 - [x] **Replay buffer** — session output buffering
+
+## v3.25.0 (In Progress) — Cryptography & Access Control
+*Focus: hashing cores, key derivation, secret handling, sandbox policy.*
+
+### Cryptographic primitives
+- [x] **SHA-256 core** — block transform
+- [x] **HMAC util** — ipad/opad key padding
+- [x] **Key derive** — iterated KDF mixing
+- [x] **Constant-time eq** — timing-safe compare
+- [x] **Nonce** — generate + replay tracking
+
+### Secrets & passwords
+- [x] **Password strength v2** — variety + sequence scoring
+- [x] **Secret mask** — sensitive key/value masking
+- [x] **Secret store v2** — keystream obfuscation
+- [x] **Credential cache** — TTL-expiring cache
+
+### Certificates & TLS
+- [x] **Cert validity** — date-window checks
+- [x] **TLS cipher** — suite strength rating
+
+### Access control
+- [x] **Permission bits** — rwx format/parse/octal
+- [x] **Sandbox policy** — capability grants
+
+### UI
+- [x] **Lock indicator** — caps/num/scroll state
