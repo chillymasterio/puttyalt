@@ -3,6 +3,7 @@
  * Compile: x86_64-w64-mingw32-gcc -c -Wall -std=c99
  */
 #include <stdio.h>
+#include <string.h>
 int hr_build(long start, long end, char *out, int outlen) {
     if (!out) return -1;
     if (end < 0) return snprintf(out, outlen, "bytes=%ld-", start);
@@ -16,7 +17,7 @@ int hr_parse(const char *hdr, long *start, long *end) {
 }
 /* Parse "Content-Range: bytes 0-99/200" total size. */
 long hr_total(const char *hdr) {
-    const char *slash = hdr ? __builtin_strchr(hdr, '/') : 0;
+    const char *slash = hdr ? strchr(hdr, '/') : 0;
     if (!slash) return -1;
     long t = -1;
     if (sscanf(slash + 1, "%ld", &t) == 1) return t;

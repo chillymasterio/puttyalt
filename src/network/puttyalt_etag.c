@@ -4,6 +4,7 @@
  */
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 /* Compute a weak ETag from content length + a 32-bit hash. */
 uint32_t et_hash(const unsigned char *data, int n) {
     uint32_t h = 2166136261u;
@@ -19,5 +20,5 @@ int et_matches(const char *etag, const char *if_none_match) {
     if (if_none_match[0] == 'W' && if_none_match[1] == '/') if_none_match += 2;
     if (etag[0] == 'W' && etag[1] == '/') etag += 2;
     if (if_none_match[0] == '*' ) return 1;
-    return __builtin_strcmp(etag, if_none_match) == 0;
+    return strcmp(etag, if_none_match) == 0;
 }
