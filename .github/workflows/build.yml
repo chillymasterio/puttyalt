@@ -29,7 +29,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Configure
-      run: mkdir build && cd build && cmake .. -G "Visual Studio 17 2022" -A x64
+      # Let CMake auto-select the newest Visual Studio generator present on the
+      # runner image (windows-latest tracks the current VS release). Pinning a
+      # specific "-G Visual Studio NN" breaks whenever the image rolls forward,
+      # so we only request the x64 platform and leave the generator to CMake.
+      run: mkdir build && cd build && cmake .. -A x64
     - name: Build
       run: cmake --build build --config Release
     - name: Stage exe
