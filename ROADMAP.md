@@ -1366,3 +1366,29 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### UI
 - [x] **Lock indicator** — caps/num/scroll state
+
+## v3.26.0 (In Progress) — Workflow, Scheduling & Config
+*Focus: DAG validation, cron timing, config diffing, builders.*
+
+### Workflow & scheduling
+- [x] **Workflow DAG** — cycle detection
+- [x] **Cron next** — next fire-time computation
+- [x] **Task timer** — execution time measurement
+- [x] **Step retry** — per-step retry limits
+- [x] **Script error** — error tracking/formatting
+
+### Config & environment
+- [x] **YAML scalar** — typed value parsing
+- [x] **Config watch** — change detection
+- [x] **Setting diff v2** — change counting
+- [x] **Env merge** — variable set merging
+
+### UI & tools
+- [x] **Command palette v2** — fuzzy filter/rank
+- [x] **Quick switch v2** — MRU ordering
+- [x] **Condition chain** — AND/OR evaluation
+- [x] **String builder** — growable buffer
+- [x] **CSV reader** — streaming row reader
+
+### Sessions
+- [x] **Session notes** — attach + search
