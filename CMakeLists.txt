@@ -1221,6 +1221,25 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_lockindicator.c
 )
 
+# v3.26.0 workflow DAG, scheduling, config diffing & builders
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_conditionchain.c
+    src/automation/puttyalt_cronnext.c
+    src/automation/puttyalt_scripterror.c
+    src/automation/puttyalt_stepretry.c
+    src/automation/puttyalt_tasktimer.c
+    src/automation/puttyalt_workflowdag.c
+    src/config/puttyalt_configwatch.c
+    src/config/puttyalt_envmerge.c
+    src/config/puttyalt_settingdiff2.c
+    src/config/puttyalt_yamlscalar.c
+    src/session/puttyalt_sessionnotes.c
+    src/tools/puttyalt_csvreader.c
+    src/tools/puttyalt_stringbuilder.c
+    src/ui/puttyalt_commandpalette2.c
+    src/ui/puttyalt_quickswitch2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
