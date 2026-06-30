@@ -1392,3 +1392,53 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 
 ### Sessions
 - [x] **Session notes** — attach + search
+
+## v3.27.0 (In Progress) — Observability & Text Utilities
+*Focus: metrics, logging, diagnostics, text formatting, networking helpers.*
+
+### Metrics & diagnostics
+- [x] **Histogram v2** — bucketed percentiles
+- [x] **Counter v2** — monotonic + rate
+- [x] **Gauge v2** — min/max tracking
+- [x] **Stopwatch v2** — lap timing
+- [x] **Metric aggregate** — windowed avg/min/max
+- [x] **Health check** — component states
+- [x] **Moving median** — approximate median
+
+### Logging
+- [x] **Logfmt** — key=value structured logs
+- [x] **Log level** — parse/filter levels
+- [x] **Ring log** — recent-line buffer
+- [x] **Alert dedup** — windowed suppression
+
+### Text utilities
+- [x] **Text indent** — indent/dedent blocks
+- [x] **String repeat** — repeat/reverse
+- [x] **Truncate v2** — ellipsis + middle
+- [x] **Wrap text v2** — line-count estimation
+
+### Networking
+- [x] **URL build** — component assembly
+- [x] **Host/port** — split/join (IPv6 aware)
+- [x] **IPv4 increment** — address iteration
+- [x] **HTTP method** — safe/idempotent/body
+- [x] **Status category** — code classification
+
+### Terminal
+- [x] **Bell control** — rate limiting
+- [x] **Title stack** — XTPUSHTITLE save/restore
+- [x] **OSC 52 build** — clipboard sequences
+- [x] **Mode toggle** — DEC private mode tracking
+- [x] **Cursor report** — CPR parse/build
+
+### UI, config, sessions & security
+- [x] **Match highlight** — fuzzy match positions
+- [x] **Tab title** — truncated titles
+- [x] **Key chord v2** — parse/format
+- [x] **Bool text** — boolean parsing
+- [x] **Path join** — join/basename/extension
+- [x] **List parse v2** — delimited lists
+- [x] **PIN generator** — generate + weakness check
+- [x] **Token bucket v2** — security throttling
+- [x] **Session rate** — quality scoring
+- [x] **Reconnect v2** — attempt scheduling
