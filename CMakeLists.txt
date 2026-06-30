@@ -1240,6 +1240,45 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_quickswitch2.c
 )
 
+# v3.27.0 metrics, logging, diagnostics & text utilities
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_alertdedup.c
+    src/automation/puttyalt_healthcheck.c
+    src/automation/puttyalt_metricagg.c
+    src/config/puttyalt_booltext.c
+    src/config/puttyalt_listparse2.c
+    src/config/puttyalt_pathjoin.c
+    src/network/puttyalt_hostport.c
+    src/network/puttyalt_ipv4inc.c
+    src/network/puttyalt_methodtable.c
+    src/network/puttyalt_statusemoji.c
+    src/network/puttyalt_urlbuild.c
+    src/security/puttyalt_pingen.c
+    src/security/puttyalt_tokenbucket2.c
+    src/session/puttyalt_reconnect2.c
+    src/session/puttyalt_sessionrate.c
+    src/terminal/puttyalt_bellctl.c
+    src/terminal/puttyalt_cursorreport.c
+    src/terminal/puttyalt_modetoggle.c
+    src/terminal/puttyalt_osc52build.c
+    src/terminal/puttyalt_titlestack.c
+    src/tools/puttyalt_counter2.c
+    src/tools/puttyalt_gauge2.c
+    src/tools/puttyalt_histogram2.c
+    src/tools/puttyalt_logfmt2.c
+    src/tools/puttyalt_loglevel2.c
+    src/tools/puttyalt_movingmedian.c
+    src/tools/puttyalt_ringlog.c
+    src/tools/puttyalt_stopwatch2.c
+    src/tools/puttyalt_strrepeat.c
+    src/tools/puttyalt_textindent.c
+    src/tools/puttyalt_truncate2.c
+    src/tools/puttyalt_wraptext2.c
+    src/ui/puttyalt_keychord2.c
+    src/ui/puttyalt_matchhighlight.c
+    src/ui/puttyalt_tabtitle.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
