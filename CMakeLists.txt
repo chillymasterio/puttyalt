@@ -1279,6 +1279,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tabtitle.c
 )
 
+# v3.28.0 angle math, geometry & misc utilities
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_jitterbo.c
+    src/config/puttyalt_csvschema.c
+    src/network/puttyalt_portname.c
+    src/security/puttyalt_hashcmp.c
+    src/terminal/puttyalt_scrollmark.c
+    src/tools/puttyalt_anglecvt.c
+    src/tools/puttyalt_basexx.c
+    src/tools/puttyalt_lerpset.c
+    src/tools/puttyalt_roundto.c
+    src/ui/puttyalt_statusflash.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
