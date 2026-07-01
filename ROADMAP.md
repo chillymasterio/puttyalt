@@ -1442,3 +1442,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **Token bucket v2** — security throttling
 - [x] **Session rate** — quality scoring
 - [x] **Reconnect v2** — attempt scheduling
+
+## v3.28.0 (In Progress) — Math & Geometry Utilities
+- [x] **anglecvt** — Angle unit conversions (deg/rad/grad)
+- [x] **basexx** — Convert integers to arbitrary base strings
+- [x] **lerpset** — Interpolation helpers (linear/smooth/step)
+- [x] **roundto** — Round numbers to steps and significant digits
+- [x] **portname** — Well-known port to service name
+- [x] **scrollmark** — Track scroll position markers
+- [x] **statusflash** — Timed status message flashing
+- [x] **csvschema** — Validate CSV rows against a column schema
+- [x] **jitterbo** — Exponential backoff with proportional jitter
+- [x] **hashcmp** — Compare hash digests safely
