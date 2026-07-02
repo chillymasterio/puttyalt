@@ -1293,6 +1293,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_statusflash.c
 )
 
+# v3.29.0 encoding, parsing & input handling
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_envsubst.c
+    src/config/puttyalt_kvparse2.c
+    src/network/puttyalt_urihost.c
+    src/security/puttyalt_tokenmask.c
+    src/session/puttyalt_idlewatch.c
+    src/terminal/puttyalt_c0names.c
+    src/tools/puttyalt_base16.c
+    src/tools/puttyalt_csvrow.c
+    src/tools/puttyalt_quotedprint.c
+    src/ui/puttyalt_inputmask.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
