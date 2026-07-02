@@ -1454,3 +1454,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **csvschema** — Validate CSV rows against a column schema
 - [x] **jitterbo** — Exponential backoff with proportional jitter
 - [x] **hashcmp** — Compare hash digests safely
+
+## v3.29.0 (In Progress) — Encoding & Parsing
+- [x] **base16** — Uppercase/lowercase hex with grouping
+- [x] **quotedprint** — Quoted-Printable encode/decode
+- [x] **csvrow** — Build a CSV row from fields with escaping
+- [x] **kvparse2** — Parse key=value with comment/section support
+- [x] **urihost** — Extract host/port/path from a URI
+- [x] **c0names** — Names for C0 control characters
+- [x] **inputmask** — Apply input masks to text fields
+- [x] **envsubst** — Substitute $VAR references in strings
+- [x] **tokenmask** — Mask tokens showing only edges
+- [x] **idlewatch** — Track session idle time and warnings
