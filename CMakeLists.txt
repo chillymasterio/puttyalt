@@ -1307,6 +1307,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_inputmask.c
 )
 
+# v3.30.0 containers, grids & dependency ordering
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_depresolve.c
+    src/network/puttyalt_cidrlist.c
+    src/security/puttyalt_attemptlog.c
+    src/terminal/puttyalt_gridregion.c
+    src/tools/puttyalt_circindex.c
+    src/tools/puttyalt_fifo2.c
+    src/tools/puttyalt_multimap.c
+    src/tools/puttyalt_runlength2.c
+    src/tools/puttyalt_weightedpick.c
+    src/ui/puttyalt_gridnav.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
