@@ -1466,3 +1466,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **envsubst** — Substitute $VAR references in strings
 - [x] **tokenmask** — Mask tokens showing only edges
 - [x] **idlewatch** — Track session idle time and warnings
+
+## v3.30.0 (In Progress) — Data Structures & Grids
+- [x] **fifo2** — Byte FIFO with peek
+- [x] **multimap** — Map keys to multiple integer values
+- [x] **weightedpick** — Weighted random selection (deterministic)
+- [x] **circindex** — Circular index arithmetic helpers
+- [x] **runlength2** — Run-length aggregate over a stream
+- [x] **cidrlist** — Match an IP against multiple CIDRs
+- [x] **gridregion** — Rectangular cell-region operations
+- [x] **gridnav** — Grid navigation with wrapping
+- [x] **depresolve** — Resolve a linear dependency order
+- [x] **attemptlog** — Log and rate authentication attempts
