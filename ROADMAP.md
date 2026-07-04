@@ -1478,3 +1478,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **gridnav** — Grid navigation with wrapping
 - [x] **depresolve** — Resolve a linear dependency order
 - [x] **attemptlog** — Log and rate authentication attempts
+
+## v3.31.0 (In Progress) — String & Text Utilities
+- [x] **strpad** — Pad and center strings
+- [x] **strcount** — Count occurrences and characters
+- [x] **strstrip** — Strip characters from string ends
+- [x] **strcase2** — snake_case / camelCase / kebab conversions
+- [x] **commonprefix** — Longest common prefix/suffix
+- [x] **strfind2** — Find nth occurrence and last match
+- [x] **globlist** — Match paths against glob include/exclude lists
+- [x] **abbreviate** — Abbreviate long paths and names
+- [x] **varinterp** — Interpolate ${var} with defaults
+- [x] **inputsan** — Sanitize input by removing control bytes
