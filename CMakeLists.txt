@@ -1321,6 +1321,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_gridnav.c
 )
 
+# v3.31.0 string manipulation & text utilities
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_varinterp.c
+    src/config/puttyalt_globlist.c
+    src/security/puttyalt_inputsan.c
+    src/tools/puttyalt_commonprefix.c
+    src/tools/puttyalt_strcase2.c
+    src/tools/puttyalt_strcount.c
+    src/tools/puttyalt_strfind2.c
+    src/tools/puttyalt_strpad.c
+    src/tools/puttyalt_strstrip.c
+    src/ui/puttyalt_abbreviate.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
