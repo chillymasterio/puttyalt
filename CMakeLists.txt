@@ -1335,6 +1335,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_abbreviate.c
 )
 
+# v3.32.0 networking, protocols & access control
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_cmdparse2.c
+    src/network/puttyalt_connpool2.c
+    src/network/puttyalt_dnstype.c
+    src/network/puttyalt_httpverb.c
+    src/network/puttyalt_ratewindow.c
+    src/network/puttyalt_tlsalert.c
+    src/security/puttyalt_ipallow.c
+    src/session/puttyalt_hostkey2.c
+    src/terminal/puttyalt_dcsparse.c
+    src/ui/puttyalt_toastqueue.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
