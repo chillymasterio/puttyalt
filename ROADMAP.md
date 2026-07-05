@@ -1490,3 +1490,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **abbreviate** — Abbreviate long paths and names
 - [x] **varinterp** — Interpolate ${var} with defaults
 - [x] **inputsan** — Sanitize input by removing control bytes
+
+## v3.32.0 (In Progress) — Networking & Protocols
+- [x] **dnstype** — DNS record type names and codes
+- [x] **httpverb** — HTTP verb properties table
+- [x] **ratewindow** — Sliding-window request rate meter
+- [x] **connpool2** — Connection pool slot manager
+- [x] **tlsalert** — TLS alert code descriptions
+- [x] **dcsparse** — Parse DCS (device control string) prefixes
+- [x] **toastqueue** — Toast notification queue with priority
+- [x] **cmdparse2** — Split a command line respecting quotes
+- [x] **ipallow** — IP allow/deny list evaluation
+- [x] **hostkey2** — Track and compare known host keys
