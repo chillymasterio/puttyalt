@@ -1502,3 +1502,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **cmdparse2** — Split a command line respecting quotes
 - [x] **ipallow** — IP allow/deny list evaluation
 - [x] **hostkey2** — Track and compare known host keys
+
+## v3.33.0 (In Progress) — Time & Scheduling
+- [x] **calendar2** — Calendar math: leap year, days, weekday
+- [x] **timespan2** — Duration arithmetic and breakdown
+- [x] **tzoffset** — Timezone offset formatting
+- [x] **uptimefmt** — Format uptime durations compactly
+- [x] **interval2** — Fire actions on fixed intervals
+- [x] **timewheel** — Hashed timer wheel for timeouts
+- [x] **timeout2** — Track per-operation timeouts
+- [x] **clockdisp** — Format clock displays 12/24h
+- [x] **timepattern** — Format time using pattern tokens
+- [x] **durstat** — Aggregate session durations
