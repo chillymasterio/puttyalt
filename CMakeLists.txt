@@ -1349,6 +1349,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_toastqueue.c
 )
 
+# v3.33.0 time, scheduling & interval management
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_interval2.c
+    src/automation/puttyalt_timewheel.c
+    src/config/puttyalt_timepattern.c
+    src/network/puttyalt_timeout2.c
+    src/session/puttyalt_durstat.c
+    src/tools/puttyalt_calendar2.c
+    src/tools/puttyalt_timespan2.c
+    src/tools/puttyalt_tzoffset.c
+    src/tools/puttyalt_uptimefmt.c
+    src/ui/puttyalt_clockdisp.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
