@@ -1514,3 +1514,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **clockdisp** — Format clock displays 12/24h
 - [x] **timepattern** — Format time using pattern tokens
 - [x] **durstat** — Aggregate session durations
+
+## v3.34.0 (In Progress) — Hashing & Checksums
+- [x] **djb2hash** — DJB2 string hash
+- [x] **sdbmhash** — SDBM string hash
+- [x] **crc32b** — CRC-32 (bitwise) checksum
+- [x] **xxlite** — Lightweight non-cryptographic hash
+- [x] **pearson** — Pearson hashing
+- [x] **hmacutil2** — HMAC block preparation for any hash
+- [x] **checksum16** — 16-bit checksums (BSD/Internet)
+- [x] **consistenthash** — Consistent hashing ring
+- [x] **hashset2** — Open-addressing integer hash set
+- [x] **confhash** — Hash config content for change detection
