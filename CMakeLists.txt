@@ -1363,6 +1363,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_clockdisp.c
 )
 
+# v3.34.0 hashing, checksums & hash structures
+list(APPEND PUTTYALT_SOURCES
+    src/config/puttyalt_confhash.c
+    src/network/puttyalt_consistenthash.c
+    src/security/puttyalt_checksum16.c
+    src/security/puttyalt_hmacutil2.c
+    src/tools/puttyalt_crc32b.c
+    src/tools/puttyalt_djb2hash.c
+    src/tools/puttyalt_hashset2.c
+    src/tools/puttyalt_pearson.c
+    src/tools/puttyalt_sdbmhash.c
+    src/tools/puttyalt_xxlite.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
