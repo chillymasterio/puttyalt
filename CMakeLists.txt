@@ -1377,6 +1377,20 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_xxlite.c
 )
 
+# v3.35.0 terminal rendering, cells & layout
+list(APPEND PUTTYALT_SOURCES
+    src/terminal/puttyalt_attrrun.c
+    src/terminal/puttyalt_cellbuf.c
+    src/terminal/puttyalt_charset3.c
+    src/terminal/puttyalt_margins2.c
+    src/terminal/puttyalt_palettemap2.c
+    src/terminal/puttyalt_rewrap2.c
+    src/terminal/puttyalt_scrollview.c
+    src/terminal/puttyalt_underline2.c
+    src/ui/puttyalt_rulerbar.c
+    src/ui/puttyalt_splitlayout.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
