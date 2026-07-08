@@ -1526,3 +1526,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **consistenthash** — Consistent hashing ring
 - [x] **hashset2** — Open-addressing integer hash set
 - [x] **confhash** — Hash config content for change detection
+
+## v3.35.0 (In Progress) — Terminal Rendering
+- [x] **cellbuf** — Terminal cell buffer with attributes
+- [x] **attrrun** — Group cells into attribute runs
+- [x] **scrollview** — Scroll viewport over content
+- [x] **rewrap2** — Recompute wrap offsets on resize
+- [x] **palettemap2** — Map indexed colors through a remap table
+- [x] **underline2** — Underline style codes (SGR 4:x)
+- [x] **rulerbar** — Column ruler rendering
+- [x] **splitlayout** — Two-pane split layout math
+- [x] **margins2** — Horizontal/vertical margin regions
+- [x] **charset3** — G0/G1 charset designation tracking
