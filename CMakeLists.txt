@@ -1391,6 +1391,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_splitlayout.c
 )
 
+# v3.36.0 config parsing, JSON/YAML/TOML & typed getters
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_ruleeval.c
+    src/config/puttyalt_flagset.c
+    src/config/puttyalt_inimerge2.c
+    src/config/puttyalt_jsonarr.c
+    src/config/puttyalt_jsonval.c
+    src/config/puttyalt_pathexpand2.c
+    src/config/puttyalt_typedget.c
+    src/config/puttyalt_yamllist.c
+    src/tools/puttyalt_queryenc.c
+    src/tools/puttyalt_tomlarr.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
