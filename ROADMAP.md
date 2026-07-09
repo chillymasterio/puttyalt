@@ -1538,3 +1538,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **splitlayout** — Two-pane split layout math
 - [x] **margins2** — Horizontal/vertical margin regions
 - [x] **charset3** — G0/G1 charset designation tracking
+
+## v3.36.0 (In Progress) — Config & Parsing
+- [x] **jsonval** — Detect JSON value types
+- [x] **jsonarr** — Iterate top-level JSON array elements
+- [x] **yamllist** — Parse simple YAML list items
+- [x] **inimerge2** — Merge two INI key sets with override
+- [x] **flagset** — Named boolean flag set with bitmask
+- [x] **ruleeval** — Evaluate simple field-based rules
+- [x] **tomlarr** — Parse TOML inline arrays
+- [x] **pathexpand2** — Expand ~ and env-style path prefixes
+- [x] **typedget** — Typed getters over string config values
+- [x] **queryenc** — Encode key-value pairs as query string
