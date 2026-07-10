@@ -1405,6 +1405,20 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_tomlarr.c
 )
 
+# v3.37.0 automation, state machines & session grouping
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_cronmatch2.c
+    src/automation/puttyalt_eventbus3.c
+    src/automation/puttyalt_pipeline3.c
+    src/automation/puttyalt_statemap2.c
+    src/security/puttyalt_vault3.c
+    src/session/puttyalt_bookmark3.c
+    src/session/puttyalt_mru4.c
+    src/session/puttyalt_tabgroup2.c
+    src/session/puttyalt_workspace3.c
+    src/ui/puttyalt_palette4.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
