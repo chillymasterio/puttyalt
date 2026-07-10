@@ -1550,3 +1550,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **pathexpand2** — Expand ~ and env-style path prefixes
 - [x] **typedget** — Typed getters over string config values
 - [x] **queryenc** — Encode key-value pairs as query string
+
+## v3.37.0 (In Progress) — Automation & Sessions
+- [x] **pipeline3** — Multi-stage pipeline with status
+- [x] **statemap2** — Map events to state transitions by name
+- [x] **eventbus3** — Topic-based event subscriber registry
+- [x] **cronmatch2** — Match time against cron minute/hour fields
+- [x] **tabgroup2** — Group tabs by color label
+- [x] **workspace3** — Workspace session grouping
+- [x] **bookmark3** — Session bookmarks with quick access keys
+- [x] **palette4** — Command palette with recent-first ranking
+- [x] **vault3** — In-memory secret vault with lookup
+- [x] **mru4** — Most-recently-used ordering list
