@@ -1562,3 +1562,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **palette4** — Command palette with recent-first ranking
 - [x] **vault3** — In-memory secret vault with lookup
 - [x] **mru4** — Most-recently-used ordering list
+
+## v3.38.0 (In Progress) — UI Widgets
+- [x] **checkbox** — Checkbox widget state
+- [x] **radiogroup** — Radio button group selection
+- [x] **slider** — Slider widget with range and step
+- [x] **dropdown3** — Dropdown selection with open state
+- [x] **tabbar3** — Tab bar with active/scroll state
+- [x] **modal3** — Modal dialog focus/result state
+- [x] **tooltip3** — Tooltip delay and placement state
+- [x] **gaugewidget** — Circular/bar gauge percentage widget
+- [x] **listbox2** — Listbox with multi-select
+- [x] **stepper** — Numeric stepper widget
