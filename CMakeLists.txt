@@ -1419,6 +1419,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_palette4.c
 )
 
+# v3.38.0 UI widgets: checkbox, slider, dropdown, listbox
+list(APPEND PUTTYALT_SOURCES
+    src/ui/puttyalt_checkbox.c
+    src/ui/puttyalt_dropdown3.c
+    src/ui/puttyalt_gaugewidget.c
+    src/ui/puttyalt_listbox2.c
+    src/ui/puttyalt_modal3.c
+    src/ui/puttyalt_radiogroup.c
+    src/ui/puttyalt_slider.c
+    src/ui/puttyalt_stepper.c
+    src/ui/puttyalt_tabbar3.c
+    src/ui/puttyalt_tooltip3.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
