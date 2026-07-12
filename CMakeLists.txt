@@ -1433,6 +1433,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tooltip3.c
 )
 
+# v3.39.0 networking, transfer progress & DNS caching
+list(APPEND PUTTYALT_SOURCES
+    src/network/puttyalt_bandwidth3.c
+    src/network/puttyalt_dnscache3.c
+    src/network/puttyalt_httpretry.c
+    src/network/puttyalt_iprange2.c
+    src/network/puttyalt_keepalive5.c
+    src/network/puttyalt_mtu3.c
+    src/network/puttyalt_proxychain.c
+    src/network/puttyalt_scpprog.c
+    src/network/puttyalt_sftppath.c
+    src/network/puttyalt_urlmatch2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
