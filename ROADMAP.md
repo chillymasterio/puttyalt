@@ -1574,3 +1574,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **gaugewidget** — Circular/bar gauge percentage widget
 - [x] **listbox2** — Listbox with multi-select
 - [x] **stepper** — Numeric stepper widget
+
+## v3.39.0 (In Progress) — Networking & Transfer
+- [x] **scpprog** — SCP transfer progress + ETA
+- [x] **sftppath** — Normalize SFTP remote paths
+- [x] **bandwidth3** — Rolling bandwidth estimate
+- [x] **urlmatch2** — Match URLs against wildcard patterns
+- [x] **iprange2** — IPv4 range membership by bounds
+- [x] **httpretry** — HTTP retry decision from status
+- [x] **dnscache3** — DNS cache with negative caching
+- [x] **proxychain** — Ordered proxy hop chain
+- [x] **keepalive5** — Adaptive keepalive with failure tracking
+- [x] **mtu3** — Path MTU discovery estimation
