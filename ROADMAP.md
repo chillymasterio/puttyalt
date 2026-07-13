@@ -1586,3 +1586,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **proxychain** — Ordered proxy hop chain
 - [x] **keepalive5** — Adaptive keepalive with failure tracking
 - [x] **mtu3** — Path MTU discovery estimation
+
+## v3.40.0 (In Progress) — Text Formatting
+- [x] **numwords** — Convert small integers to English words
+- [x] **ordinal2** — Ordinal suffixes (1st, 2nd, 3rd)
+- [x] **asciibox** — Draw ASCII boxes around text
+- [x] **wordwrap3** — Wrap words with hyphenation-free breaks
+- [x] **textstat** — Compute text statistics
+- [x] **slug2** — URL slug with max length
+- [x] **tabletext** — Render a two-column key/value table
+- [x] **pluralize2** — Pluralize English nouns
+- [x] **initials** — Extract initials from a name
+- [x] **camelsplit** — Split camelCase into words
