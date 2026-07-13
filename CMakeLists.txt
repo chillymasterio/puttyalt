@@ -1447,6 +1447,20 @@ list(APPEND PUTTYALT_SOURCES
     src/network/puttyalt_urlmatch2.c
 )
 
+# v3.40.0 text formatting, words & tables
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_asciibox.c
+    src/tools/puttyalt_camelsplit.c
+    src/tools/puttyalt_initials.c
+    src/tools/puttyalt_numwords.c
+    src/tools/puttyalt_ordinal2.c
+    src/tools/puttyalt_pluralize2.c
+    src/tools/puttyalt_slug2.c
+    src/tools/puttyalt_tabletext.c
+    src/tools/puttyalt_textstat.c
+    src/tools/puttyalt_wordwrap3.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
