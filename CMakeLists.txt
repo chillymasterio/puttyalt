@@ -1461,6 +1461,20 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_wordwrap3.c
 )
 
+# v3.41.0 sorting, searching & array algorithms
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_binsearch2.c
+    src/tools/puttyalt_bitcount.c
+    src/tools/puttyalt_dedupe2.c
+    src/tools/puttyalt_mergesort2.c
+    src/tools/puttyalt_prefixsum.c
+    src/tools/puttyalt_quicksort2.c
+    src/tools/puttyalt_rotate2.c
+    src/tools/puttyalt_runstat.c
+    src/tools/puttyalt_shuffle2.c
+    src/tools/puttyalt_topk.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
