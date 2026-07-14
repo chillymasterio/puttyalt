@@ -1598,3 +1598,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **pluralize2** — Pluralize English nouns
 - [x] **initials** — Extract initials from a name
 - [x] **camelsplit** — Split camelCase into words
+
+## v3.41.0 (In Progress) — Algorithms
+- [x] **quicksort2** — In-place quicksort of ints
+- [x] **binsearch2** — Binary search variants
+- [x] **mergesort2** — Bottom-up merge sort of ints
+- [x] **shuffle2** — Deterministic Fisher-Yates shuffle
+- [x] **topk** — Track top-K largest values
+- [x] **prefixsum** — Prefix sum array and range queries
+- [x] **dedupe2** — Remove adjacent duplicates in sorted array
+- [x] **rotate2** — Rotate arrays left/right
+- [x] **runstat** — Running statistics (Welford)
+- [x] **bitcount** — Bit manipulation utilities
