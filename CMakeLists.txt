@@ -1475,6 +1475,20 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_topk.c
 )
 
+# v3.42.0 security: tokens, roles, rate limits & sanitization
+list(APPEND PUTTYALT_SOURCES
+    src/security/puttyalt_audit2.c
+    src/security/puttyalt_base64chk.c
+    src/security/puttyalt_csrf.c
+    src/security/puttyalt_htmlsan.c
+    src/security/puttyalt_keyfp3.c
+    src/security/puttyalt_otpuri.c
+    src/security/puttyalt_permrole.c
+    src/security/puttyalt_pwbreach.c
+    src/security/puttyalt_ratelimit3.c
+    src/security/puttyalt_sesstoken.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
