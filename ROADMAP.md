@@ -1610,3 +1610,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **rotate2** — Rotate arrays left/right
 - [x] **runstat** — Running statistics (Welford)
 - [x] **bitcount** — Bit manipulation utilities
+
+## v3.42.0 (In Progress) — Security
+- [x] **base64chk** — Validate base64 strings
+- [x] **otpuri** — Build otpauth:// provisioning URIs
+- [x] **csrf** — CSRF token generation and check
+- [x] **ratelimit3** — Fixed-window rate limiter
+- [x] **sesstoken** — Session token lifecycle
+- [x] **permrole** — Role-based permission checks
+- [x] **audit2** — Append-only audit chain with hash links
+- [x] **htmlsan** — Sanitize HTML by escaping dangerous chars
+- [x] **pwbreach** — Check password against common-pattern heuristics
+- [x] **keyfp3** — Format SSH key fingerprints (SHA256/MD5)
