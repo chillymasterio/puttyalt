@@ -1285,7 +1285,7 @@ list(APPEND PUTTYALT_SOURCES
     src/config/puttyalt_csvschema.c
     src/network/puttyalt_portname.c
     src/security/puttyalt_hashcmp.c
-    src/terminal/puttyalt_scrollmark.c
+    src/terminal/puttyalt_scrollmarks2.c
     src/tools/puttyalt_anglecvt.c
     src/tools/puttyalt_basexx.c
     src/tools/puttyalt_lerpset.c
@@ -1338,7 +1338,7 @@ list(APPEND PUTTYALT_SOURCES
 # v3.32.0 networking, protocols & access control
 list(APPEND PUTTYALT_SOURCES
     src/automation/puttyalt_cmdparse2.c
-    src/network/puttyalt_connpool2.c
+    src/network/puttyalt_connslots.c
     src/network/puttyalt_dnstype.c
     src/network/puttyalt_httpverb.c
     src/network/puttyalt_ratewindow.c
@@ -1346,7 +1346,7 @@ list(APPEND PUTTYALT_SOURCES
     src/security/puttyalt_ipallow.c
     src/session/puttyalt_hostkey2.c
     src/terminal/puttyalt_dcsparse.c
-    src/ui/puttyalt_toastqueue.c
+    src/ui/puttyalt_toastqueue2.c
 )
 
 # v3.33.0 time, scheduling & interval management
@@ -1388,7 +1388,6 @@ list(APPEND PUTTYALT_SOURCES
     src/terminal/puttyalt_scrollview.c
     src/terminal/puttyalt_underline2.c
     src/ui/puttyalt_rulerbar.c
-    src/ui/puttyalt_splitlayout.c
 )
 
 # v3.36.0 config parsing, JSON/YAML/TOML & typed getters
@@ -1430,7 +1429,7 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_slider.c
     src/ui/puttyalt_stepper.c
     src/ui/puttyalt_tabbar3.c
-    src/ui/puttyalt_tooltip3.c
+    src/ui/puttyalt_tooltipdelay.c
 )
 
 # v3.39.0 networking, transfer progress & DNS caching
@@ -1441,7 +1440,7 @@ list(APPEND PUTTYALT_SOURCES
     src/network/puttyalt_iprange2.c
     src/network/puttyalt_keepalive5.c
     src/network/puttyalt_mtu3.c
-    src/network/puttyalt_proxychain.c
+    src/network/puttyalt_proxyhops.c
     src/network/puttyalt_scpprog.c
     src/network/puttyalt_sftppath.c
     src/network/puttyalt_urlmatch2.c
@@ -1477,7 +1476,7 @@ list(APPEND PUTTYALT_SOURCES
 
 # v3.42.0 security: tokens, roles, rate limits & sanitization
 list(APPEND PUTTYALT_SOURCES
-    src/security/puttyalt_audit2.c
+    src/security/puttyalt_auditchain2.c
     src/security/puttyalt_base64chk.c
     src/security/puttyalt_csrf.c
     src/security/puttyalt_htmlsan.c
