@@ -1622,3 +1622,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **htmlsan** — Sanitize HTML by escaping dangerous chars
 - [x] **pwbreach** — Check password against common-pattern heuristics
 - [x] **keyfp3** — Format SSH key fingerprints (SHA256/MD5)
+
+## v3.43.0 (In Progress) — Terminal Input
+- [x] **keyseqenc** — Encode special keys to escape sequences
+- [x] **pastefilter2** — Filter bracketed-paste control content
+- [x] **mousemode2** — Mouse tracking mode state
+- [x] **focusevent2** — Focus in/out event tracking
+- [x] **keyname2** — Key name lookup and normalization
+- [x] **inputprofile** — Input handling profile settings
+- [x] **hintbar2** — Contextual hint bar builder
+- [x] **keymacro2** — Record and expand key macros
+- [x] **chordfmt** — Format modifier+key chords
+- [x] **resizeev2** — Debounce terminal resize events
