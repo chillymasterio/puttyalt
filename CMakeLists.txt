@@ -1488,6 +1488,20 @@ list(APPEND PUTTYALT_SOURCES
     src/security/puttyalt_sesstoken.c
 )
 
+# v3.43.0 terminal input, key sequences & mouse modes
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_keymacro2.c
+    src/config/puttyalt_inputprofile.c
+    src/terminal/puttyalt_focusevent2.c
+    src/terminal/puttyalt_keyname2.c
+    src/terminal/puttyalt_keyseqenc.c
+    src/terminal/puttyalt_mousemode2.c
+    src/terminal/puttyalt_pastefilter2.c
+    src/terminal/puttyalt_resizeev2.c
+    src/tools/puttyalt_chordfmt.c
+    src/ui/puttyalt_hintbar2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
