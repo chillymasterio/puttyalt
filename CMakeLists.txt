@@ -1502,6 +1502,20 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_hintbar2.c
 )
 
+# v3.44.0 logging, tracing & diagnostics
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_logroute.c
+    src/network/puttyalt_netstat2.c
+    src/session/puttyalt_sesslog2.c
+    src/tools/puttyalt_errctx.c
+    src/tools/puttyalt_hexdump3.c
+    src/tools/puttyalt_logfilter2.c
+    src/tools/puttyalt_logring2.c
+    src/tools/puttyalt_metriccnt.c
+    src/tools/puttyalt_perfmark.c
+    src/tools/puttyalt_tracespan.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
