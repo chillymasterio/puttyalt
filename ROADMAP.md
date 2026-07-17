@@ -1634,3 +1634,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **keymacro2** — Record and expand key macros
 - [x] **chordfmt** — Format modifier+key chords
 - [x] **resizeev2** — Debounce terminal resize events
+
+## v3.44.0 (In Progress) — Logging & Diagnostics
+- [x] **logring2** — Ring buffer of structured log entries
+- [x] **logfilter2** — Filter log lines by level and pattern
+- [x] **tracespan** — Trace span timing and nesting
+- [x] **metriccnt** — Named metric counters
+- [x] **errctx** — Error context stack for diagnostics
+- [x] **hexdump3** — Format a compact hex dump line
+- [x] **logroute** — Route log entries to handlers by level
+- [x] **netstat2** — Aggregate per-connection network stats
+- [x] **sesslog2** — Per-session activity log summary
+- [x] **perfmark** — Named performance marks and measures
