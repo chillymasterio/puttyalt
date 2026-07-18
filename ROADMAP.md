@@ -1646,3 +1646,15 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **netstat2** — Aggregate per-connection network stats
 - [x] **sesslog2** — Per-session activity log summary
 - [x] **perfmark** — Named performance marks and measures
+
+## v3.45.0 (In Progress) — Utilities & Conversions
+- [x] **uuid4** — Generate UUID v4 strings (deterministic)
+- [x] **nanoid** — Generate short URL-safe IDs
+- [x] **rgbhsl** — RGB to HSL conversion
+- [x] **tempconv** — Temperature unit conversions
+- [x] **dataunit** — Data size unit conversions
+- [x] **distconv** — Distance unit conversions
+- [x] **percent2** — Percentage and ratio calculations
+- [x] **moneyfmt** — Format currency amounts
+- [x] **dice** — Deterministic dice/random ranges
+- [x] **hexcolor** — Parse and build hex color strings
