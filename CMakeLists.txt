@@ -1516,6 +1516,20 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_tracespan.c
 )
 
+# v3.45.0 unit conversions, IDs & color utilities
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_dataunit.c
+    src/tools/puttyalt_dice.c
+    src/tools/puttyalt_distconv.c
+    src/tools/puttyalt_hexcolor.c
+    src/tools/puttyalt_moneyfmt.c
+    src/tools/puttyalt_nanoid.c
+    src/tools/puttyalt_percent2.c
+    src/tools/puttyalt_rgbhsl.c
+    src/tools/puttyalt_tempconv.c
+    src/tools/puttyalt_uuid4.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
