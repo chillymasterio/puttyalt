@@ -1530,6 +1530,19 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_uuid4.c
 )
 
+# v3.46.0 integration: versions, connection strings & summaries
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_taskchain.c
+    src/config/puttyalt_connstring.c
+    src/config/puttyalt_migrate2.c
+    src/security/puttyalt_auditsummary.c
+    src/tools/puttyalt_changelogp.c
+    src/tools/puttyalt_summarystat.c
+    src/tools/puttyalt_versioncmp.c
+    src/ui/puttyalt_aboutbox.c
+    src/ui/puttyalt_welcomecard.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
