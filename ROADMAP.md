@@ -1658,3 +1658,14 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **moneyfmt** — Format currency amounts
 - [x] **dice** — Deterministic dice/random ranges
 - [x] **hexcolor** — Parse and build hex color strings
+
+## v3.46.0 (In Progress) — Integration Helpers
+- [x] **versioncmp** — Compare dotted version strings
+- [x] **connstring** — Build/parse connection strings
+- [x] **changelogp** — Parse changelog version headers
+- [x] **aboutbox** — Format application about information
+- [x] **taskchain** — Chain tasks with success/failure branches
+- [x] **auditsummary** — Summarize audit events by category
+- [x] **summarystat** — Five-number summary of a dataset
+- [x] **migrate2** — Config version migration steps
+- [x] **welcomecard** — Format a welcome/summary card
