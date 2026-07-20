@@ -1543,6 +1543,18 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_welcomecard.c
 )
 
+# v3.47.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_ellipsize3.c
+    src/tools/puttyalt_wraptext3.c
+    src/tools/puttyalt_pad2.c
+    src/tools/puttyalt_titleize.c
+    src/tools/puttyalt_shortnum.c
+    src/tools/puttyalt_quotestr.c
+    src/tools/puttyalt_hashline.c
+    src/ui/puttyalt_cellalign.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
