@@ -1669,3 +1669,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **summarystat** — Five-number summary of a dataset
 - [x] **migrate2** — Config version migration steps
 - [x] **welcomecard** — Format a welcome/summary card
+
+## v3.47.0 (In Progress) — Text & formatting utilities
+- [x] **ellipsize3** — Ellipsize a UTF-8 aware string to a byte budget
+- [x] **wraptext3** — Word-wrap paragraphs to column width with soft breaks
+- [x] **pad2** — Pad a string left/right/center to a width
+- [x] **titleize** — Title-case a phrase, respecting small words
+- [x] **shortnum** — Format large integers as 1.2K / 3.4M / 5.6B
+- [x] **quotestr** — Quote a string with escapes for logs
+- [x] **hashline** — Emit a repeated hash-line separator
+- [x] **cellalign** — Compute pixel offset for aligned cell text
