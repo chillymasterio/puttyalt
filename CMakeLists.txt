@@ -1555,6 +1555,18 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_cellalign.c
 )
 
+# v3.48.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_isodate2.c
+    src/tools/puttyalt_monthname.c
+    src/tools/puttyalt_weekday2.c
+    src/tools/puttyalt_durbucket.c
+    src/tools/puttyalt_interval3.c
+    src/automation/puttyalt_cronslot.c
+    src/session/puttyalt_sessuptime.c
+    src/network/puttyalt_backoff3.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
