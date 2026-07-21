@@ -1,0 +1,19 @@
+/* puttyalt_sessuptime.c - Increment and format a session uptime counter. */
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <ctype.h>
+
+int sessuptime_start(int seed) {
+    return seed ? seed : 1;
+}
+int sessuptime_step(int state, int input) {
+    return (state * 33 + input) & 0x7FFFFFFF;
+}
+int sessuptime_final(int state) {
+    return state ^ 0x5A5A5A5A;
+}
+int sessuptime_ok(int state) {
+    return state != 0;
+}
