@@ -1679,3 +1679,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **quotestr** — Quote a string with escapes for logs
 - [x] **hashline** — Emit a repeated hash-line separator
 - [x] **cellalign** — Compute pixel offset for aligned cell text
+
+## v3.48.0 (In Progress) — Datetime & interval helpers
+- [x] **isodate2** — Parse or format an ISO 8601 date-only value
+- [x] **monthname** — Look up English month name from 1..12
+- [x] **weekday2** — Zeller-based weekday from a proleptic date
+- [x] **durbucket** — Bucket a duration into human units (s/m/h/d)
+- [x] **interval3** — Compute overlap between two integer intervals
+- [x] **cronslot** — Match a single 0-59 cron field against a value
+- [x] **sessuptime** — Increment and format a session uptime counter
+- [x] **backoff3** — Compute jittered exponential backoff delays
