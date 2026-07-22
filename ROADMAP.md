@@ -1689,3 +1689,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **cronslot** — Match a single 0-59 cron field against a value
 - [x] **sessuptime** — Increment and format a session uptime counter
 - [x] **backoff3** — Compute jittered exponential backoff delays
+
+## v3.49.0 (In Progress) — Encoding & codec expansion
+- [x] **base85codec** — Encode/decode Ascii85 with padding
+- [x] **base64line** — Wrap base64 output to fixed line width
+- [x] **hexrun** — Encode bytes as run-length compressed hex
+- [x] **utf8clip** — Clip a UTF-8 string to N code points
+- [x] **utf16len** — Count UTF-16 code units for a UTF-8 buffer
+- [x] **urlformenc** — Encode an application/x-www-form-urlencoded pair
+- [x] **csienc** — Build a CSI escape sequence from parameters
+- [x] **oscbuild** — Assemble an OSC string with ST terminator

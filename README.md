@@ -114,6 +114,7 @@ tests/             9 suites (108 assertions, all passing)
 |---------|-----------|
 | **3.47.0** (in progress) | UTF-8 ellipsize, word-wrap, pad/title/short-number/quote helpers, hash-line separator, cell alignment, 8 modules |
 | **3.48.0** (in progress) | ISO 8601 date, month/weekday lookup, duration buckets, interval overlap, cron slot match, session uptime, jittered backoff, 8 modules |
+| **3.49.0** (in progress) | Ascii85, wrapped base64, run-length hex, UTF-8 clip / UTF-16 length, form-urlencode, CSI encoder, OSC builder, 8 modules |
 | **3.27.0** (in progress) | Histogram percentiles, rate counters, gauges, stopwatch laps, logfmt, ring log, alert dedup, health checks, moving median, text indent/truncate, URL build, host:port (IPv6), HTTP method classification, bell control, title stack, OSC 52 clipboard, PIN generator, token bucket, session quality scoring, 35 modules |
 | **3.26.0** (in progress) | Workflow DAG cycle detection, cron next-fire, task timing, per-step retry, YAML scalar parse, config-change watch, setting diff v2, env merge, command palette v2 (fuzzy), MRU quick-switch, condition chains, string builder, streaming CSV reader, session notes, 15 modules |
 | **3.25.0** (in progress) | SHA-256 block transform, HMAC padding, iterated KDF, constant-time compare, nonce replay tracking, password strength v2, secret masking, secret store, credential cache, cert validity window, TLS cipher rating, permission bits, sandbox capability policy, 14 modules |
