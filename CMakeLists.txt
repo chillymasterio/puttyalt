@@ -1567,6 +1567,18 @@ list(APPEND PUTTYALT_SOURCES
     src/network/puttyalt_backoff3.c
 )
 
+# v3.49.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_base85codec.c
+    src/tools/puttyalt_base64line.c
+    src/tools/puttyalt_hexrun.c
+    src/tools/puttyalt_utf8clip.c
+    src/tools/puttyalt_utf16len.c
+    src/tools/puttyalt_urlformenc.c
+    src/terminal/puttyalt_csienc.c
+    src/terminal/puttyalt_oscbuild.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
