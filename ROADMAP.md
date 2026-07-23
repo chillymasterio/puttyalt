@@ -1699,3 +1699,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **urlformenc** — Encode an application/x-www-form-urlencoded pair
 - [x] **csienc** — Build a CSI escape sequence from parameters
 - [x] **oscbuild** — Assemble an OSC string with ST terminator
+
+## v3.50.0 (In Progress) — Networking helpers
+- [x] **hostvalidate** — Validate a DNS hostname against RFC 1035
+- [x] **portparse2** — Parse a port number with 1..65535 clamping
+- [x] **ipv6zone** — Parse an IPv6 zone-id suffix from a literal
+- [x] **cidrcontains** — Test IPv4 address membership in a CIDR block
+- [x] **tlshello** — Parse the SNI hostname from a TLS ClientHello
+- [x] **urlscheme** — Extract a URL scheme with validation
+- [x] **queryparam** — Look up a single URL query parameter
+- [x] **socksmethod** — Select a SOCKS5 auth method from a preference list
