@@ -1579,6 +1579,18 @@ list(APPEND PUTTYALT_SOURCES
     src/terminal/puttyalt_oscbuild.c
 )
 
+# v3.50.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/network/puttyalt_hostvalidate.c
+    src/network/puttyalt_portparse2.c
+    src/network/puttyalt_ipv6zone.c
+    src/network/puttyalt_cidrcontains.c
+    src/network/puttyalt_tlshello.c
+    src/network/puttyalt_urlscheme.c
+    src/network/puttyalt_queryparam.c
+    src/network/puttyalt_socksmethod.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
