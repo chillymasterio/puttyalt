@@ -1591,6 +1591,18 @@ list(APPEND PUTTYALT_SOURCES
     src/network/puttyalt_socksmethod.c
 )
 
+# v3.51.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/session/puttyalt_sessrank.c
+    src/session/puttyalt_sesslabels.c
+    src/session/puttyalt_sessalias2.c
+    src/config/puttyalt_flagset2.c
+    src/config/puttyalt_kvmerge.c
+    src/config/puttyalt_defaultint.c
+    src/config/puttyalt_profilename.c
+    src/editor/puttyalt_snippetkey.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
