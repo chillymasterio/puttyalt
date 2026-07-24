@@ -1709,3 +1709,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **urlscheme** — Extract a URL scheme with validation
 - [x] **queryparam** — Look up a single URL query parameter
 - [x] **socksmethod** — Select a SOCKS5 auth method from a preference list
+
+## v3.51.0 (In Progress) — Session & config polish
+- [x] **sessrank** — Rank sessions by a composite score
+- [x] **sesslabels** — Merge, deduplicate and sort session labels
+- [x] **sessalias2** — Resolve a session alias with cycle detection
+- [x] **flagset2** — Parse space or comma separated flag names
+- [x] **kvmerge** — Merge two key/value maps preferring the second
+- [x] **defaultint** — Read an integer setting with default and clamp
+- [x] **profilename** — Sanitize a profile name for filesystem use
+- [x] **snippetkey** — Compute the trigger key for a stored snippet
