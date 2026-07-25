@@ -1603,6 +1603,18 @@ list(APPEND PUTTYALT_SOURCES
     src/editor/puttyalt_snippetkey.c
 )
 
+# v3.52.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/terminal/puttyalt_sgrbuild.c
+    src/terminal/puttyalt_cursorpos.c
+    src/terminal/puttyalt_damagelist2.c
+    src/terminal/puttyalt_scrollhint.c
+    src/terminal/puttyalt_keyparse2.c
+    src/terminal/puttyalt_focusevent3.c
+    src/terminal/puttyalt_titleparse.c
+    src/ui/puttyalt_panelabel.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
