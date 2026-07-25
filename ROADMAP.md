@@ -1719,3 +1719,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **defaultint** — Read an integer setting with default and clamp
 - [x] **profilename** — Sanitize a profile name for filesystem use
 - [x] **snippetkey** — Compute the trigger key for a stored snippet
+
+## v3.52.0 (In Progress) — Terminal enhancements
+- [x] **sgrbuild** — Build an SGR escape from attribute flags
+- [x] **cursorpos** — Serialize a cursor position report (CPR)
+- [x] **damagelist2** — Coalesce a list of dirty terminal rows
+- [x] **scrollhint** — Compute scrollbar thumb geometry
+- [x] **keyparse2** — Parse a bracketed paste terminator sequence
+- [x] **focusevent3** — Detect terminal focus in/out escape sequences
+- [x] **titleparse** — Parse an OSC 0/1/2 window-title payload
+- [x] **panelabel** — Compute the display label for a pane
