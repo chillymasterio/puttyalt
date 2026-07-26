@@ -1729,3 +1729,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **focusevent3** — Detect terminal focus in/out escape sequences
 - [x] **titleparse** — Parse an OSC 0/1/2 window-title payload
 - [x] **panelabel** — Compute the display label for a pane
+
+## v3.53.0 (In Progress) — Automation & scheduling
+- [x] **retrytable2** — Per-key exponential retry table with cap
+- [x] **cronmatch3** — Match a full cron expression against wall time
+- [x] **jobsig** — Deterministic signature for a scheduled job
+- [x] **phaseguard** — Prevent re-entrance into a workflow phase
+- [x] **ratewindow2** — Fixed-window rate limiter with reset counter
+- [x] **quietperiod** — Suppress duplicate alerts inside a quiet window
+- [x] **taskpause** — Pause/resume flag with elapsed accumulator
+- [x] **taskprogress** — Format 'N/M done (P%)' progress strings
