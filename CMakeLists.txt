@@ -1615,6 +1615,18 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_panelabel.c
 )
 
+# v3.53.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/automation/puttyalt_retrytable2.c
+    src/automation/puttyalt_cronmatch3.c
+    src/automation/puttyalt_jobsig.c
+    src/automation/puttyalt_phaseguard.c
+    src/automation/puttyalt_ratewindow2.c
+    src/automation/puttyalt_quietperiod.c
+    src/automation/puttyalt_taskpause.c
+    src/tools/puttyalt_taskprogress.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
