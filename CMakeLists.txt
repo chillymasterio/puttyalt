@@ -1627,6 +1627,18 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_taskprogress.c
 )
 
+# v3.54.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/security/puttyalt_keyzeroize.c
+    src/security/puttyalt_pwresetflow.c
+    src/security/puttyalt_sessionpin.c
+    src/security/puttyalt_tlsprofile.c
+    src/security/puttyalt_secretspan.c
+    src/security/puttyalt_credlease.c
+    src/security/puttyalt_hmackey.c
+    src/security/puttyalt_tokenverify2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
