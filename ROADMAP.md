@@ -1739,3 +1739,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **quietperiod** — Suppress duplicate alerts inside a quiet window
 - [x] **taskpause** — Pause/resume flag with elapsed accumulator
 - [x] **taskprogress** — Format 'N/M done (P%)' progress strings
+
+## v3.54.0 (In Progress) — Security & credentials
+- [x] **keyzeroize** — Constant-time zero of a secret buffer
+- [x] **pwresetflow** — State machine for a password reset flow
+- [x] **sessionpin** — Verify a 4-8 digit session PIN with lockout
+- [x] **tlsprofile** — Score a TLS cipher suite by policy tier
+- [x] **secretspan** — Locate and redact secrets in a text run
+- [x] **credlease** — Time-limited credential lease with renew
+- [x] **hmackey** — Derive an HMAC-SHA256 key from a passphrase seed
+- [x] **tokenverify2** — Verify a signed token's exp/nbf/aud claims
