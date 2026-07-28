@@ -1749,3 +1749,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **credlease** — Time-limited credential lease with renew
 - [x] **hmackey** — Derive an HMAC-SHA256 key from a passphrase seed
 - [x] **tokenverify2** — Verify a signed token's exp/nbf/aud claims
+
+## v3.55.0 (In Progress) — Collections & data structures
+- [x] **bitset2** — Fixed-capacity bit set with popcount
+- [x] **smallmap** — Small linear-probed string->int map
+- [x] **ringbufu32** — Ring buffer specialized for uint32_t samples
+- [x] **orderedset** — Insertion-order preserving string set
+- [x] **medianwin** — Sliding-window median over integers
+- [x] **counter3** — Named counter registry with reset
+- [x] **topN** — Maintain the top-N largest floats seen
+- [x] **runkeeper** — Track longest run of equal values in a stream
