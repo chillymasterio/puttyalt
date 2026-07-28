@@ -1639,6 +1639,18 @@ list(APPEND PUTTYALT_SOURCES
     src/security/puttyalt_tokenverify2.c
 )
 
+# v3.55.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_bitset2.c
+    src/tools/puttyalt_smallmap.c
+    src/tools/puttyalt_ringbufu32.c
+    src/tools/puttyalt_orderedset.c
+    src/tools/puttyalt_medianwin.c
+    src/tools/puttyalt_counter3.c
+    src/tools/puttyalt_topN.c
+    src/tools/puttyalt_runkeeper.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
