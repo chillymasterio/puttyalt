@@ -1651,6 +1651,18 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_runkeeper.c
 )
 
+# v3.56.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/ui/puttyalt_checkboxgroup.c
+    src/ui/puttyalt_sliderint.c
+    src/ui/puttyalt_colorbar.c
+    src/ui/puttyalt_chipbar.c
+    src/ui/puttyalt_notifystack2.c
+    src/ui/puttyalt_sidebarhint.c
+    src/ui/puttyalt_quickpick.c
+    src/ui/puttyalt_tabhoverpreview.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
