@@ -1759,3 +1759,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **counter3** — Named counter registry with reset
 - [x] **topN** — Maintain the top-N largest floats seen
 - [x] **runkeeper** — Track longest run of equal values in a stream
+
+## v3.56.0 (In Progress) — UI widgets
+- [x] **checkboxgroup** — Multi-checkbox with select-all logic
+- [x] **sliderint** — Integer slider with clamp and step
+- [x] **colorbar** — Render a horizontal color legend
+- [x] **chipbar** — Layout inline chip labels with wrap
+- [x] **notifystack2** — Vertical stack of transient notifications
+- [x] **sidebarhint** — Sidebar hint text with fade-out timing
+- [x] **quickpick** — Type-ahead pick list from an item vector
+- [x] **tabhoverpreview** — Compute tab hover-preview placement rectangle
