@@ -1663,6 +1663,18 @@ list(APPEND PUTTYALT_SOURCES
     src/ui/puttyalt_tabhoverpreview.c
 )
 
+# v3.57.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_logsampler.c
+    src/tools/puttyalt_logfields.c
+    src/tools/puttyalt_hexdump4.c
+    src/tools/puttyalt_errctx2.c
+    src/tools/puttyalt_tracespan2.c
+    src/tools/puttyalt_metricline.c
+    src/tools/puttyalt_loglevel3.c
+    src/core/puttyalt_panicprint.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
