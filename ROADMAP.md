@@ -1769,3 +1769,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **sidebarhint** — Sidebar hint text with fade-out timing
 - [x] **quickpick** — Type-ahead pick list from an item vector
 - [x] **tabhoverpreview** — Compute tab hover-preview placement rectangle
+
+## v3.57.0 (In Progress) — Logging & diagnostics
+- [x] **logsampler** — Head+tail reservoir sampler for a log stream
+- [x] **logfields** — Emit logfmt key=value fields with quoting
+- [x] **hexdump4** — Hex dump with configurable group and ruler
+- [x] **errctx2** — Attach a short error context chain to codes
+- [x] **tracespan2** — Start/stop a span and format a duration line
+- [x] **metricline** — Emit a single Prometheus text metric line
+- [x] **loglevel3** — Parse case-insensitive log level names
+- [x] **panicprint** — Print a stack-lite panic message to stderr
