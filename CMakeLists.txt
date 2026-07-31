@@ -1675,6 +1675,18 @@ list(APPEND PUTTYALT_SOURCES
     src/core/puttyalt_panicprint.c
 )
 
+# v3.58.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/config/puttyalt_csvcol2.c
+    src/config/puttyalt_iniquote.c
+    src/config/puttyalt_tomlkey.c
+    src/config/puttyalt_yamlmap.c
+    src/config/puttyalt_jsonstr.c
+    src/tools/puttyalt_semver2.c
+    src/tools/puttyalt_argmatch.c
+    src/tools/puttyalt_hostportparse.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
