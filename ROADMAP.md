@@ -1779,3 +1779,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **metricline** — Emit a single Prometheus text metric line
 - [x] **loglevel3** — Parse case-insensitive log level names
 - [x] **panicprint** — Print a stack-lite panic message to stderr
+
+## v3.58.0 (In Progress) — Parsers & validators
+- [x] **csvcol2** — Extract a single column from a CSV row
+- [x] **iniquote** — Un-quote an INI value with backslash escapes
+- [x] **tomlkey** — Split a dotted TOML key into segments
+- [x] **yamlmap** — Parse a flat YAML mapping into key/value pairs
+- [x] **jsonstr** — Extract and unescape a JSON string token
+- [x] **semver2** — Compare two semantic version strings
+- [x] **argmatch** — Match an argument against a set of choices
+- [x] **hostportparse** — Split host:port with IPv6 bracket handling
