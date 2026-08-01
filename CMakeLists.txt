@@ -1687,6 +1687,18 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_hostportparse.c
 )
 
+# v3.59.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_clamp3.c
+    src/tools/puttyalt_lerp2.c
+    src/tools/puttyalt_gcd3.c
+    src/tools/puttyalt_isqrt2.c
+    src/security/puttyalt_hashcombine.c
+    src/security/puttyalt_crc16x25.c
+    src/security/puttyalt_fletcher32.c
+    src/security/puttyalt_modpow2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
