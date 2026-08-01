@@ -1789,3 +1789,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **semver2** — Compare two semantic version strings
 - [x] **argmatch** — Match an argument against a set of choices
 - [x] **hostportparse** — Split host:port with IPv6 bracket handling
+
+## v3.59.0 (In Progress) — Math & hashing
+- [x] **clamp3** — Clamp integer to inclusive range
+- [x] **lerp2** — Linear interpolation between two doubles
+- [x] **gcd3** — Greatest common divisor by binary algorithm
+- [x] **isqrt2** — Integer square root by Newton iteration
+- [x] **hashcombine** — Combine two 32-bit hashes with mix constants
+- [x] **crc16x25** — Compute the CRC-16/X.25 checksum
+- [x] **fletcher32** — Compute the Fletcher-32 checksum
+- [x] **modpow2** — Modular exponentiation for small integers
