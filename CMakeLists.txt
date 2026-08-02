@@ -1699,6 +1699,18 @@ list(APPEND PUTTYALT_SOURCES
     src/security/puttyalt_modpow2.c
 )
 
+# v3.60.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_pathext.c
+    src/tools/puttyalt_pathnorm2.c
+    src/tools/puttyalt_pathjoin2.c
+    src/tools/puttyalt_pathrel.c
+    src/tools/puttyalt_fnmatchlite.c
+    src/tools/puttyalt_safefname.c
+    src/tools/puttyalt_tempname.c
+    src/tools/puttyalt_backupname.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
