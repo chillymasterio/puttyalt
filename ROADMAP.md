@@ -1799,3 +1799,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **crc16x25** — Compute the CRC-16/X.25 checksum
 - [x] **fletcher32** — Compute the Fletcher-32 checksum
 - [x] **modpow2** — Modular exponentiation for small integers
+
+## v3.60.0 (In Progress) — Path & filesystem helpers
+- [x] **pathext** — Extract the extension from a file path
+- [x] **pathnorm2** — Normalize a POSIX path (collapse . and ..)
+- [x] **pathjoin2** — Join path segments with a single separator
+- [x] **pathrel** — Compute a relative path between two absolutes
+- [x] **fnmatchlite** — Glob match with * and ? only
+- [x] **safefname** — Sanitize a filename for portable use
+- [x] **tempname** — Build a temp file name using a seed
+- [x] **backupname** — Append a rotation index to a backup filename
