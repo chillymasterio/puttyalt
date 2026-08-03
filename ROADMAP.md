@@ -1809,3 +1809,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **safefname** — Sanitize a filename for portable use
 - [x] **tempname** — Build a temp file name using a seed
 - [x] **backupname** — Append a rotation index to a backup filename
+
+## v3.61.0 (In Progress) — DNS & URL
+- [x] **dnsclass** — Classify a hostname as loopback/private/public
+- [x] **dnslabel** — Validate a single DNS label per RFC 1035
+- [x] **urljoin** — Resolve a relative URL against a base URL
+- [x] **urlnorm2** — Normalize a URL (lowercase host, remove default port)
+- [x] **ipv4parse2** — Parse a dotted-quad IPv4 address
+- [x] **ipv4tostr** — Format a 32-bit IPv4 address as dotted quad
+- [x] **portservice** — Look up a well-known service name for a port
+- [x] **connlabel** — Build a display label for a connection endpoint
