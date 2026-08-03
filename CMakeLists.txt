@@ -1711,6 +1711,18 @@ list(APPEND PUTTYALT_SOURCES
     src/tools/puttyalt_backupname.c
 )
 
+# v3.61.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/network/puttyalt_dnsclass.c
+    src/network/puttyalt_dnslabel.c
+    src/network/puttyalt_urljoin.c
+    src/network/puttyalt_urlnorm2.c
+    src/network/puttyalt_ipv4parse2.c
+    src/network/puttyalt_ipv4tostr.c
+    src/network/puttyalt_portservice.c
+    src/network/puttyalt_connlabel.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
