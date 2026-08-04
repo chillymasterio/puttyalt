@@ -1723,6 +1723,18 @@ list(APPEND PUTTYALT_SOURCES
     src/network/puttyalt_connlabel.c
 )
 
+# v3.62.0 modules
+list(APPEND PUTTYALT_SOURCES
+    src/tools/puttyalt_versionfmt.c
+    src/tools/puttyalt_changelogentry.c
+    src/tools/puttyalt_creditsline.c
+    src/ui/puttyalt_aboutversion.c
+    src/core/puttyalt_buildinfo.c
+    src/core/puttyalt_featureflag2.c
+    src/session/puttyalt_sessexport3.c
+    src/session/puttyalt_sessimport2.c
+)
+
 # Wire all feature-module source lists into the library target.
 # (Previously these lists were appended but never compiled into puttyalt,
 #  so modules like ctxmenu were missing from the GUI link.)
