@@ -1,5 +1,28 @@
 # Changelog
 
+## [3.62.0] — 2026-08-04
+
+### Added — 16 minor releases (v3.47.0 … v3.62.0), 128 new modules
+Sixteen daily-cadence minor bumps landed since v3.46.0. Highlights per line:
+- **3.47.0** text & formatting utilities (ellipsize, wrap, pad, title, short-number, quote, hash-line, cell align)
+- **3.48.0** datetime & interval helpers (ISO date, month/weekday, duration buckets, interval overlap, cron slot, backoff)
+- **3.49.0** encoding & codec expansion (Ascii85, wrapped base64, hex-runs, UTF-8/16, form-urlencode, CSI/OSC builders)
+- **3.50.0** networking helpers (hostname/port validators, IPv6 zone, CIDR contains, TLS SNI, URL scheme/query, SOCKS5)
+- **3.51.0** session & config polish (session rank, label dedup, alias cycle, flag-set, KV merge, profile-name, snippet key)
+- **3.52.0** terminal enhancements (SGR/CPR builders, damage coalesce, scrollbar geometry, paste/focus decoders)
+- **3.53.0** automation & scheduling (retry table, full cron match, job signature, phase guard, rate-window, quiet-period)
+- **3.54.0** security & credentials (constant-time zero, PW reset FSM, session PIN, cipher scorer, secret span, HMAC key)
+- **3.55.0** collections & data structures (bit set, small map, uint32 ring, ordered set, sliding-median, counter, top-N)
+- **3.56.0** UI widgets (checkbox-group, integer slider, color bar, chip bar, notif stack, sidebar hint, quick-pick, tab hover)
+- **3.57.0** logging & diagnostics (log sampler, logfmt fields, hex-dump v4, error context, trace spans, metric line)
+- **3.58.0** parsers & validators (CSV col, INI unquote, TOML key, YAML map, JSON string, semver compare, host:port)
+- **3.59.0** math & hashing (clamp, lerp, binary GCD, isqrt, hash-combine, CRC-16/X.25, Fletcher-32, small modexp)
+- **3.60.0** path & filesystem helpers (extension, normalize, join, relative, glob-lite, safe filename, temp/backup names)
+- **3.61.0** DNS & URL (hostname class, DNS label, URL join/normalize, IPv4 parse/format, service names)
+- **3.62.0** release prep & polish (semver formatter, changelog entry, credits line, About banner, feature-flag registry)
+
+Total tree now: **1420+ modules**, ~130,000 LOC of C99. See ROADMAP.md for per-module lists.
+
 ## [2.0.0] — 2025-05-27
 
 ### Changed — Modern UI Rewrite
