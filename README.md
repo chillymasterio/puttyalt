@@ -6,10 +6,10 @@
 
 **PuTTY was built in 1999. Your workflow has changed. Your tools should too.**
 
-![Version](https://img.shields.io/badge/version-3.0.0-58A6FF?style=flat-square)
+![Version](https://img.shields.io/badge/version-3.62.0-58A6FF?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-3FB950?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20x64-0D1117?style=flat-square&logo=windows&logoColor=white)
-![Modules](https://img.shields.io/badge/1120+%20modules-D29922?style=flat-square)
+![Modules](https://img.shields.io/badge/1420+%20modules-D29922?style=flat-square)
 ![Tests](https://img.shields.io/badge/38%20tests%20passing-3FB950?style=flat-square)
 
 **[Download v3.0.0](https://github.com/chillymasterio/puttyalt/releases/download/v3.0.0/puttyalt.msi)** | [Changelog](CHANGELOG.md) | [Roadmap](ROADMAP.md)
@@ -112,22 +112,22 @@ tests/             9 suites (108 assertions, all passing)
 
 | Version | Highlights |
 |---------|-----------|
-| **3.47.0** (in progress) | UTF-8 ellipsize, word-wrap, pad/title/short-number/quote helpers, hash-line separator, cell alignment, 8 modules |
-| **3.48.0** (in progress) | ISO 8601 date, month/weekday lookup, duration buckets, interval overlap, cron slot match, session uptime, jittered backoff, 8 modules |
-| **3.49.0** (in progress) | Ascii85, wrapped base64, run-length hex, UTF-8 clip / UTF-16 length, form-urlencode, CSI encoder, OSC builder, 8 modules |
-| **3.50.0** (in progress) | Hostname validator, port clamp parser, IPv6 zone-id, CIDR contains, TLS ClientHello SNI, URL scheme, query param, SOCKS5 auth pick, 8 modules |
-| **3.51.0** (in progress) | Session ranking, label dedup, alias cycle detection, flag-set parser, KV merge, default-int clamp, profile-name sanitizer, snippet key hash, 8 modules |
-| **3.52.0** (in progress) | SGR/CPR builders, dirty-row coalescer, scrollbar geometry, bracketed-paste terminator, focus event decoder, OSC title parser, pane label, 8 modules |
-| **3.53.0** (in progress) | Retry table, full cron matcher, job signature, phase re-entrance guard, fixed-window rate limit, quiet-period alert dedup, task pause/resume, progress formatter, 8 modules |
-| **3.54.0** (in progress) | Constant-time zeroize, password reset FSM, session PIN with lockout, TLS cipher scorer, secret span redactor, credential lease, HMAC key derive, signed-token verify, 8 modules |
-| **3.55.0** (in progress) | Bit set, small string map, uint32 ring buffer, ordered set, sliding-window median, named counter registry, top-N floats, longest-run tracker, 8 modules |
-| **3.56.0** (in progress) | Checkbox-group, integer slider, color bar, chip bar, notification stack, sidebar hint fade, quick-pick, tab hover preview, 8 modules |
-| **3.57.0** (in progress) | Log sampler, logfmt fields, hex dump v4, error context chain, trace spans, Prometheus metric line, log level parser, panic printer, 8 modules |
-| **3.58.0** (in progress) | CSV column extractor, INI unquote, TOML dotted key, YAML flat map, JSON string unescape, semver compare, arg-choice matcher, host:port splitter, 8 modules |
-| **3.59.0** (in progress) | Clamp, lerp, binary GCD, integer sqrt, hash-combine, CRC-16/X.25, Fletcher-32, small modular exp, 8 modules |
-| **3.60.0** (in progress) | Extension extractor, POSIX path normalize, path join, relative path, glob-lite, portable filename sanitizer, temp/backup name builders, 8 modules |
-| **3.61.0** (in progress) | Hostname class (loopback/private/public), DNS label validate, relative URL join, URL normalize, IPv4 parse/format, port-to-service lookup, connection label, 8 modules |
 | **3.62.0** (in progress) | Semver formatter, changelog entry composer, credits line, About-box version banner, build-info fields, feature-flag registry, session snapshot export/import, 8 modules |
+| **3.61.0** (in progress) | Hostname class (loopback/private/public), DNS label validate, relative URL join, URL normalize, IPv4 parse/format, port-to-service lookup, connection label, 8 modules |
+| **3.60.0** (in progress) | Extension extractor, POSIX path normalize, path join, relative path, glob-lite, portable filename sanitizer, temp/backup name builders, 8 modules |
+| **3.59.0** (in progress) | Clamp, lerp, binary GCD, integer sqrt, hash-combine, CRC-16/X.25, Fletcher-32, small modular exp, 8 modules |
+| **3.58.0** (in progress) | CSV column extractor, INI unquote, TOML dotted key, YAML flat map, JSON string unescape, semver compare, arg-choice matcher, host:port splitter, 8 modules |
+| **3.57.0** (in progress) | Log sampler, logfmt fields, hex dump v4, error context chain, trace spans, Prometheus metric line, log level parser, panic printer, 8 modules |
+| **3.56.0** (in progress) | Checkbox-group, integer slider, color bar, chip bar, notification stack, sidebar hint fade, quick-pick, tab hover preview, 8 modules |
+| **3.55.0** (in progress) | Bit set, small string map, uint32 ring buffer, ordered set, sliding-window median, named counter registry, top-N floats, longest-run tracker, 8 modules |
+| **3.54.0** (in progress) | Constant-time zeroize, password reset FSM, session PIN with lockout, TLS cipher scorer, secret span redactor, credential lease, HMAC key derive, signed-token verify, 8 modules |
+| **3.53.0** (in progress) | Retry table, full cron matcher, job signature, phase re-entrance guard, fixed-window rate limit, quiet-period alert dedup, task pause/resume, progress formatter, 8 modules |
+| **3.52.0** (in progress) | SGR/CPR builders, dirty-row coalescer, scrollbar geometry, bracketed-paste terminator, focus event decoder, OSC title parser, pane label, 8 modules |
+| **3.51.0** (in progress) | Session ranking, label dedup, alias cycle detection, flag-set parser, KV merge, default-int clamp, profile-name sanitizer, snippet key hash, 8 modules |
+| **3.50.0** (in progress) | Hostname validator, port clamp parser, IPv6 zone-id, CIDR contains, TLS ClientHello SNI, URL scheme, query param, SOCKS5 auth pick, 8 modules |
+| **3.49.0** (in progress) | Ascii85, wrapped base64, run-length hex, UTF-8 clip / UTF-16 length, form-urlencode, CSI encoder, OSC builder, 8 modules |
+| **3.48.0** (in progress) | ISO 8601 date, month/weekday lookup, duration buckets, interval overlap, cron slot match, session uptime, jittered backoff, 8 modules |
+| **3.47.0** (in progress) | UTF-8 ellipsize, word-wrap, pad/title/short-number/quote helpers, hash-line separator, cell alignment, 8 modules |
 | **3.27.0** (in progress) | Histogram percentiles, rate counters, gauges, stopwatch laps, logfmt, ring log, alert dedup, health checks, moving median, text indent/truncate, URL build, host:port (IPv6), HTTP method classification, bell control, title stack, OSC 52 clipboard, PIN generator, token bucket, session quality scoring, 35 modules |
 | **3.26.0** (in progress) | Workflow DAG cycle detection, cron next-fire, task timing, per-step retry, YAML scalar parse, config-change watch, setting diff v2, env merge, command palette v2 (fuzzy), MRU quick-switch, condition chains, string builder, streaming CSV reader, session notes, 15 modules |
 | **3.25.0** (in progress) | SHA-256 block transform, HMAC padding, iterated KDF, constant-time compare, nonce replay tracking, password strength v2, secret masking, secret store, credential cache, cert validity window, TLS cipher rating, permission bits, sandbox capability policy, 14 modules |
@@ -188,7 +188,7 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**1120+ modules | 1590+ commits | 120,000+ lines of C99**
+**1420+ modules | 1750+ commits | 130,000+ lines of C99**
 
 Built with care. No bloat. No compromise.
 
