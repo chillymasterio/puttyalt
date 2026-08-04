@@ -1819,3 +1819,13 @@ Every feature is measured by: *Does this save the user time or reduce friction?*
 - [x] **ipv4tostr** — Format a 32-bit IPv4 address as dotted quad
 - [x] **portservice** — Look up a well-known service name for a port
 - [x] **connlabel** — Build a display label for a connection endpoint
+
+## v3.62.0 (In Progress) — Release prep & polish
+- [x] **versionfmt** — Format a semantic version with optional build tag
+- [x] **changelogentry** — Compose a changelog bullet from parts
+- [x] **creditsline** — Format a copyright/credits line
+- [x] **aboutversion** — Render the version/build banner for About box
+- [x] **buildinfo** — Assemble compiler/build info fields
+- [x] **featureflag2** — Feature flag registry with default and override
+- [x] **sessexport3** — Serialize a session snapshot to a fixed layout
+- [x] **sessimport2** — Load a session snapshot with schema validation
